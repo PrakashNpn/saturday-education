@@ -1,0 +1,23 @@
+@import "tailwindcss";
+
+@theme {
+  --color-brand-purple: #590D82;
+  --color-brand-purple-light: #7B1FA2;
+  --color-brand-purple-dark: #3D0A5A;
+  --color-brand-purple-50: #F5E6FF;
+  --color-brand-purple-100: #E8CCFF;
+  --color-accent-gold: #F59E0B;
+  --color-neutral-50: #FAFAFA;
+  --color-neutral-900: #18181B;
+
+  --font-sans: "Noto Sans", system-ui, sans-serif;
+  --font-thai: "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
+  --font-myanmar: "Noto Sans Myanmar", "Noto Sans", system-ui, sans-serif;
+
+  --radius-sm: 0.375rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 0.75rem;
+  --radius-xl: 1rem;
+  --radius-2xl: 1.5rem;
+  --radius-full: 9999px;
+}

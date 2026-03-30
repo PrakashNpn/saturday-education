@@ -1,0 +1,141 @@
+// prisma/schema.prisma
+
+generator client {
+  provider = "prisma-client"
+  output   = "../generated"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model University {
+  id          String    @id @default(cuid())
+  slug        String    @unique
+  name        String
+  nameLocal   String?
+  country     String
+  city        String
+  logoUrl     String?
+  coverUrl    String?
+  ranking     Int?
+  description String?
+  website     String?
+  isActive    Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+  programs    Program[]
+
+  @@index([country])
+  @@index([slug])
+  @@index([isActive])
+}
+
+enum ProgramLevel {
+  BACHELOR
+  MASTER
+  PHD
+  DIPLOMA
+  CERTIFICATE
+  LANGUAGE
+}
+
+model Program {
+  id             String       @id @default(cuid())
+  slug           String       @unique
+  name           String
+  level          ProgramLevel
+  field          String
+  durationMonths Int
+  tuitionUSD     Float
+  language       String       @default("English")
+  description    String?
+  requirements   String?
+  isActive       Boolean      @default(true)
+  universityId   String
+  university     University   @relation(fields: [universityId], references: [id])
+
+  @@index([universityId])
+  @@index([level])
+  @@index([field])
+}
+
+enum ConsultationStatus {
+  PENDING
+  CONTACTED
+  IN_PROGRESS
+  COMPLETED
+  CANCELLED
+}
+
+model Consultation {
+  id               String             @id @default(cuid())
+  name             String
+  email            String
+  phone            String?
+  nationality      String?
+  interestedIn     String?
+  message          String?
+  preferredLocale  String             @default("en")
+  status           ConsultationStatus @default(PENDING)
+  source           String?
+  createdAt        DateTime           @default(now())
+  updatedAt        DateTime           @updatedAt
+
+  @@index([status])
+  @@index([email])
+  @@index([createdAt])
+}
+
+model ChatConversation {
+  id            String   @id @default(cuid())
+  sessionId     String   @unique
+  locale        String   @default("en")
+  messageCount  Int      @default(0)
+  ledToConsult  Boolean  @default(false)
+  createdAt     DateTime @default(now())
+  updatedAt     DateTime @updatedAt
+
+  @@index([sessionId])
+  @@index([createdAt])
+}
+
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String    @unique
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Account {
+  userId            String
+  type              String
+  provider          String
+  providerAccountId String
+  refresh_token     String?
+  access_token      String?
+  expires_at        Int?
+  token_type        String?
+  scope             String?
+  id_token          String?
+  session_state     String?
+  user              User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@id([provider, providerAccountId])
+  @@index([userId])
+}
+
+model Session {
+  sessionToken String   @id
+  userId       String
+  expires      DateTime
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+
+  @@index([userId])
+}

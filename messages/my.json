@@ -1,0 +1,16 @@
+{
+  "Landing": {
+    "universityFinder": {
+      "badge": "AI Powered Global Search",
+      "heading": "Quick University Finder",
+      "subtitle": "Find your ideal destination in 3 simple steps.",
+      "studyLevelLabel": "1. Choose Study Level",
+      "studyLevelValue": "Undergraduate",
+      "countryLabel": "2. Target Country",
+      "countryValue": "United Kingdom",
+      "courseLabel": "3. Desired Course",
+      "courseValue": "Computer Science",
+      "searchButton": "Find Universities"
+    }
+  }
+}
