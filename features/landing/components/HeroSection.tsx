@@ -78,7 +78,7 @@ export default function HeroSection() {
   return (
     <section
       aria-label="Hero"
-      className="relative bg-gradient-to-b from-brand-purple-50/50 to-white md:min-h-[min(calc(100dvh-72px),900px)]"
+      className="relative bg-gradient-to-b from-brand-purple-50/50 to-neutral-100 md:min-h-[min(calc(100dvh-72px),900px)]"
     >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-0 md:flex md:flex-col md:justify-between md:h-[min(calc(100dvh-72px),900px)]">
 

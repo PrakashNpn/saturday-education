@@ -17,15 +17,15 @@ const STUDY_LEVEL_OPTIONS = [
 ]
 
 const COUNTRY_OPTIONS = [
-  { value: 'uk',          label: 'United Kingdom' },
-  { value: 'au',          label: 'Australia' },
-  { value: 'us',          label: 'United States' },
-  { value: 'ca',          label: 'Canada' },
-  { value: 'nz',          label: 'New Zealand' },
-  { value: 'ch',          label: 'Switzerland' },
-  { value: 'ie',          label: 'Ireland' },
-  { value: 'sg',          label: 'Singapore' },
-  { value: 'th',          label: 'Thailand' },
+  { value: 'uk',  label: 'United Kingdom' },
+  { value: 'au',  label: 'Australia' },
+  { value: 'us',  label: 'United States' },
+  { value: 'ca',  label: 'Canada' },
+  { value: 'nz',  label: 'New Zealand' },
+  { value: 'ch',  label: 'Switzerland' },
+  { value: 'ie',  label: 'Ireland' },
+  { value: 'sg',  label: 'Singapore' },
+  { value: 'th',  label: 'Thailand' },
 ]
 
 const COURSE_OPTIONS = [
@@ -77,37 +77,37 @@ function FilterDropdown({
   return (
     <div
       ref={wrapperRef}
-      className={`relative flex-1 min-w-0 ${
-        hasDivider ? 'border-b border-gray-200 md:border-b-0 md:border-r' : ''
+      className={`relative flex-1 min-w-0 px-6 pt-4 pb-4 ${
+        hasDivider ? 'border-b border-gray-200 lg:border-b-0 lg:border-r' : ''
       }`}
     >
-      {/* Trigger */}
+      {/* Static label — NOT inside the button */}
+      <p
+        className="text-brand-purple uppercase font-semibold tracking-[0.12em] leading-none mb-2"
+        style={{ fontSize: 'clamp(0.575rem, 0.45rem + 0.2vw, 0.675rem)' }}
+      >
+        {label}
+      </p>
+
+      {/* Dropdown trigger — only the value row is interactive */}
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
-        className="w-full h-full px-6 py-5 flex flex-col gap-1 text-left cursor-pointer hover:bg-gray-50 transition-colors duration-150"
+        className="w-full flex items-center justify-between gap-3 cursor-pointer group"
       >
         <span
-          className="text-brand-purple uppercase font-semibold leading-none tracking-[0.12em]"
-          style={{ fontSize: 'clamp(0.575rem, 0.45rem + 0.25vw, 0.7rem)' }}
+          className="text-gray-800 font-medium whitespace-nowrap group-hover:text-brand-purple transition-colors duration-150"
+          style={{ fontSize: 'clamp(0.9375rem, 0.7rem + 0.5vw, 1.125rem)' }}
         >
-          {label}
+          {selectedLabel}
         </span>
-        <div className="flex items-center justify-between gap-3">
-          <span
-            className="text-gray-800 font-medium whitespace-nowrap"
-            style={{ fontSize: 'clamp(0.9375rem, 0.7rem + 0.6vw, 1.125rem)' }}
-          >
-            {selectedLabel}
-          </span>
-          <motion.span
-            animate={{ rotate: isOpen ? 180 : 0 }}
-            transition={{ duration: 0.2 }}
-            className="shrink-0"
-          >
-            <ChevronDown size={16} className="text-gray-400" />
-          </motion.span>
-        </div>
+        <motion.span
+          animate={{ rotate: isOpen ? 180 : 0 }}
+          transition={{ duration: 0.2 }}
+          className="shrink-0"
+        >
+          <ChevronDown size={16} className="text-gray-400 group-hover:text-brand-purple transition-colors duration-150" />
+        </motion.span>
       </button>
 
       {/* Dropdown panel */}
@@ -119,7 +119,7 @@ function FilterDropdown({
             exit={prefersReducedMotion ? {} : { opacity: 0, scaleY: 0.95, y: -4 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
             style={{ transformOrigin: 'top' }}
-            className="absolute top-full left-0 mt-1 min-w-[200px] w-full bg-white border border-gray-100 rounded-xl shadow-lg z-50 py-1 overflow-hidden"
+            className="absolute top-full left-0 mt-1 min-w-[200px] w-full bg-white border border-gray-100 rounded-xl shadow-lg z-50 py-1"
           >
             {options.map((opt) => {
               const isSelected = opt.value === selected
@@ -165,9 +165,11 @@ export default function UniversityFinderSection() {
   const [course, setCourse]         = useState('cs')
 
   return (
-    <section className="bg-[#f0faf5] py-14 sm:py-16 lg:py-20 px-4 sm:px-6 lg:px-8">
+    // Section: NO horizontal padding — matches hero section pattern
+    <section className="bg-neutral-100 py-14 sm:py-16 lg:py-20">
       <motion.div
         ref={ref}
+        // Horizontal padding lives here — same as hero's inner max-w-7xl container
         initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={
@@ -175,20 +177,20 @@ export default function UniversityFinderSection() {
             ? { duration: 0 }
             : { duration: 0.55, ease: [0.25, 0.1, 0.25, 1] as const }
         }
-        className="max-w-7xl mx-auto"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        {/* Container card */}
-        <div className="relative bg-white rounded-3xl shadow-lg px-8 sm:px-12 lg:px-14 pt-10 pb-10 sm:pt-12 sm:pb-12">
+        {/* Container card — fills the padded container, same edges as hero content */}
+        <div className="relative bg-white rounded-3xl shadow-lg px-8 sm:px-10 lg:px-12 pt-10 pb-10 sm:pt-12 sm:pb-12">
 
           {/* Gradient top-edge line */}
-          <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r from-[#590D82] to-transparent" />
+          {/* <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r from-[#590D82] to-transparent" /> */}
 
           {/* Badge */}
           <div className="flex items-center gap-2 mb-3">
             <Sparkles size={18} className="text-brand-purple" />
             <span
               className="text-brand-purple uppercase font-semibold tracking-[0.15em]"
-              style={{ fontSize: 'clamp(0.6rem, 0.5rem + 0.25vw, 0.75rem)' }}
+              style={{ fontSize: 'clamp(0.6rem, 0.5rem + 0.2vw, 0.7rem)' }}
             >
               {t('badge')}
             </span>
@@ -209,7 +211,8 @@ export default function UniversityFinderSection() {
 
           {/* Search bar */}
           <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
-            <div className="flex flex-col md:flex-row">
+            {/* lg:flex-row — tablet stacks vertically, desktop goes horizontal */}
+            <div className="flex flex-col lg:flex-row">
 
               <FilterDropdown
                 label={t('studyLevelLabel')}
@@ -237,10 +240,10 @@ export default function UniversityFinderSection() {
               />
 
               {/* Find Universities button */}
-              <div className="px-4 py-3 md:py-0 md:px-4 flex items-stretch">
+              <div className="px-4 py-4 lg:py-0 lg:px-4 flex items-stretch">
                 <button
                   type="button"
-                  className="w-full md:w-auto flex items-center justify-center gap-2.5 bg-brand-purple hover:bg-brand-purple-dark text-white font-semibold rounded-xl px-8 py-5 md:my-3 transition-colors duration-200 whitespace-nowrap cursor-pointer text-base sm:text-lg"
+                  className="w-full lg:w-auto flex items-center justify-center gap-2.5 bg-brand-purple hover:bg-brand-purple-dark text-white font-semibold rounded-xl px-8 py-4 lg:my-3 transition-colors duration-200 whitespace-nowrap cursor-pointer text-base sm:text-lg"
                 >
                   <Search size={18} />
                   {t('searchButton')}

@@ -1,5 +1,208 @@
 {
   "Landing": {
+    "comparisonTool": {
+      "heading": "Comparison Tool",
+      "subtitle": "Instantly compare costs, rankings, and popular courses side-by-side using real-time global data.",
+      "compareUni1": "Compare University 1",
+      "compareUni2": "Compare University 2",
+      "selectCourse": "Select Course",
+      "estimatedTuition": "Estimated Tuition",
+      "livingCosts": "Living Costs",
+      "perYear": "/year",
+      "visaProcessing": "Visa Processing",
+      "workRights": "Work Rights",
+      "scholarships": "Scholarships",
+      "globalRanking": "Global Ranking",
+      "acceptanceRate": "Acceptance Rate",
+      "popularCourses": "Popular Courses",
+      "ctaText": "Need detailed breakdown for your specific profile?",
+      "ctaButton": "Get Full Comparison Report",
+      "searchPlaceholder": "Search universities...",
+      "vs": "VS"
+    },
+    "globalLeaders": {
+      "heading": "Global Leaders in Education",
+      "subtitle": "Explore world-class education systems and vibrant cultures in the most prestigious study hubs.",
+      "viewAll": "View All Destinations"
+    },
+    "testimonials": {
+      "heading": "Voices of Success",
+      "reviews": {
+        "1": {
+          "quote": "A truly prestigious environment. The academic rigor prepared me for the highest levels of professional competition in the EU.",
+          "name": "Elena Moretti",
+          "program": "LLM Law, Oxford"
+        },
+        "2": {
+          "quote": "The personalized mentorship at Royal Scholar transformed my approach to research. I couldn't have secured my placement without their guidance.",
+          "name": "May Thazin",
+          "program": "MSc Data Science, UK"
+        },
+        "3": {
+          "quote": "The curriculum depth is unmatched. Being part of the Global Alumni network has opened doors in industries I never thought possible.",
+          "name": "Liam O'Connor",
+          "program": "MBA International, Harvard"
+        },
+        "4": {
+          "quote": "Saturday Education made my dream of studying in Australia a reality. From application to arrival, every step was handled with care.",
+          "name": "Aung Kyaw",
+          "program": "BEng Engineering, Melbourne"
+        },
+        "5": {
+          "quote": "I received a 50% scholarship thanks to their guidance. The counselors truly understood my profile and matched me perfectly.",
+          "name": "Priya Sharma",
+          "program": "MSc Finance, LSE"
+        },
+        "6": {
+          "quote": "The visa process felt effortless with their support. I was nervous about interviews but the mock sessions gave me real confidence.",
+          "name": "Thandar Win",
+          "program": "BSc Computer Science, Canada"
+        },
+        "7": {
+          "quote": "The team helped me navigate the complex UK visa process with ease. Their attention to detail and constant support made all the difference.",
+          "name": "Zaw Min Oo",
+          "program": "MSc Civil Engineering, UCL"
+        },
+        "8": {
+          "quote": "From choosing the right university to settling in a new country, Saturday Education was with me at every step. Truly a life-changing experience.",
+          "name": "Suki Tanaka",
+          "program": "BA International Relations, ANU"
+        },
+        "9": {
+          "quote": "Their scholarship guidance saved me thousands of dollars. The counselors genuinely care about finding the best financial options for students.",
+          "name": "Nay Chi Aung",
+          "program": "BBA Business, Singapore"
+        }
+      }
+    },
+    "additionalServices": {
+      "heading": "Additional Services",
+      "subtitle": "Beyond admissions, we provide comprehensive support for every step of your international journey.",
+      "testPrep": {
+        "title": "Test Preparation",
+        "description": "IELTS, TOEFL, GRE, GMAT coaching with experienced trainers."
+      },
+      "scholarship": {
+        "title": "Scholarship Help",
+        "description": "Identify and apply for financial aid and prestigious scholarships."
+      },
+      "arrival": {
+        "title": "Arrival Support",
+        "description": "Discounted flight bookings and housing assistance for students."
+      },
+      "loans": {
+        "title": "Education Loans",
+        "description": "Connect with trusted financial institutions for student loan options."
+      },
+      "whyChoose": {
+        "heading": "Why Choose Saturday Education?",
+        "benefits": {
+          "counselors": {
+            "title": "Expert Counselors",
+            "description": "Our counselors have 10+ years of experience in international education."
+          },
+          "partnerships": {
+            "title": "University Partnerships",
+            "description": "Direct relationships with 500+ universities worldwide."
+          },
+          "postAdmission": {
+            "title": "Post-Admission Support",
+            "description": "Assistance continues even after university admission."
+          },
+          "transparent": {
+            "title": "Transparent Process",
+            "description": "No hidden fees or charges, clear communication at all stages."
+          },
+          "results": {
+            "title": "Proven Results",
+            "description": "98% visa success rate and high student satisfaction."
+          }
+        },
+        "cta": "Book a Free Consultation"
+      }
+    },
+    "services": {
+      "headingPrefix": "Our",
+      "headingHighlight": "Services",
+      "headingSuffix": "& Application Process",
+      "subtitle": "From initial consultation to arrival at your university, our comprehensive services ensure a smooth and successful study abroad journey.",
+      "step1Title": "Profile Evaluation",
+      "step1Desc": "Our experts analyze your academic background, test scores, and career goals to provide a personalized roadmap.",
+      "step1Item1": "Academic assessment",
+      "step1Item2": "Career goal alignment",
+      "step1Item3": "Standardized test strategies",
+      "step2Title": "University & Course Selection",
+      "step2Desc": "We help you find the perfect university and program based on your profile, preferences, and budget.",
+      "step2Item1": "Curated university shortlisting",
+      "step2Item2": "Program comparison",
+      "step2Item3": "Scholarship opportunities",
+      "step3Title": "Application & Documentation",
+      "step3Desc": "End-to-end application assistance including SOP/LOR guidance, application filling, and document preparation.",
+      "step3Item1": "SOP & Essay development",
+      "step3Item2": "Recommendation letter guidance",
+      "step3Item3": "Application submission",
+      "step4Title": "Visa & Pre-Departure",
+      "step4Desc": "Expert visa guidance, interview preparation, and pre-departure orientation to ensure a smooth transition.",
+      "step4Item1": "Visa application assistance",
+      "step4Item2": "Mock interview sessions",
+      "step4Item3": "Accommodation & travel guidance"
+    },
+    "countryGuide": {
+      "heading": "Not Sure Which Country is Right for You?",
+      "description": "Take our personalized assessment to find your perfect study destination based on your preferences, budget, and career goals.",
+      "ctaButton": "Take Country Finder Quiz",
+      "factorsHeading": "Top Factors to Consider When Choosing a Country",
+      "factor1": "Quality of Education & University Rankings",
+      "factor2": "Tuition Fees & Cost of Living",
+      "factor3": "Post-Study Work Opportunities",
+      "factor4": "Cultural Fit & Language Requirements",
+      "factor5": "Student Visa Processes & Requirements"
+    },
+    "consultation": {
+      "heading": "Book Free Consultation",
+      "form": {
+        "fullName": { "label": "Full Name", "placeholder": "John Doe" },
+        "email": { "label": "Email Address", "placeholder": "john@example.com" },
+        "phone": { "label": "Phone Number", "placeholder": "+1 (555) 000-0000" },
+        "country": {
+          "label": "Target Country",
+          "options": {
+            "uk": "UK", "usa": "USA", "australia": "Australia", "canada": "Canada",
+            "newZealand": "New Zealand", "singapore": "Singapore", "switzerland": "Switzerland",
+            "ireland": "Ireland", "thailand": "Thailand", "other": "Other"
+          }
+        },
+        "consultationType": {
+          "label": "Consultation Type",
+          "options": { "online": "Online", "inPerson": "In-Person", "phoneCall": "Phone Call" }
+        },
+        "inquiry": { "label": "Additional Questions or Inquiry", "placeholder": "How can we help you?" },
+        "submit": "Book My Consultation"
+      },
+      "directContact": {
+        "label": "Or Connect Directly Via:",
+        "whatsapp": "WhatsApp",
+        "messenger": "Messenger"
+      },
+      "rightPanel": {
+        "heading": "Let's Make Your Study Abroad Dream Come True",
+        "badge": "Global Opportunities",
+        "subtitle": "Global Education, Within Reach",
+        "subtext": "Over 500+ Partner Universities worldwide"
+      }
+    },
+    "statsCta": {
+      "stats": {
+        "students": { "label": "Students Guided" },
+        "visa": { "label": "Visa Success Rate" },
+        "scholarships": { "label": "Scholarships Secured" },
+        "universities": { "label": "Partner Universities" }
+      },
+      "cta": {
+        "heading": "Ready to write your own Success Story?",
+        "button": "Get Started Today"
+      }
+    },
     "universityFinder": {
       "badge": "AI Powered Global Search",
       "heading": "Quick University Finder",
@@ -45,7 +248,44 @@
     "success": "We'll contact you within 24 hours!"
   },
   "footer": {
-    "tagline": "Global Education, Within Reach",
-    "copyright": "© 2026 Saturday Education. All rights reserved."
+    "tagline": "Your trusted partner for international education. Guiding Myanmar students to achieve their dreams of studying abroad since 2020.",
+    "studyAbroad": {
+      "heading": "Study Abroad",
+      "uk": "Study in UK",
+      "usa": "Study in USA",
+      "canada": "Study in Canada",
+      "australia": "Study in Australia",
+      "singapore": "Study in Singapore",
+      "thailand": "Study in Thailand",
+      "ireland": "Study in Ireland",
+      "newZealand": "Study in New Zealand"
+    },
+    "services": {
+      "heading": "Our Services",
+      "counseling": "Education Counseling",
+      "application": "Application Process",
+      "visa": "Visa Guidance",
+      "scholarships": "Scholarship Guidance",
+      "predeparture": "Predeparture Guidance",
+      "arrival": "Arrival & Settlement"
+    },
+    "company": {
+      "heading": "Company",
+      "about": "About Us",
+      "blog": "News & Blog",
+      "testimonials": "Testimonials",
+      "contact": "Contact Us",
+      "officeTour": "Office Tour",
+      "privacy": "Privacy Policy",
+      "terms": "Terms & Conditions"
+    },
+    "contactUs": {
+      "heading": "Contact Us",
+      "address": "Soi Bearing 18, Samrong Nuea Subdistrict, Mueang Samut Prakan District, Samut Prakan 10270",
+      "phone": "+95 912345678",
+      "email": "saturdayeducation@gmail.com",
+      "bookConsultation": "Book Consultation"
+    },
+    "copyright": "© {year} Saturday Education. All Rights Reserved."
   }
 }

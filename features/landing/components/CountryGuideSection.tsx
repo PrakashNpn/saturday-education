@@ -1,40 +1,91 @@
-const TIPS = [
-  "Consider your career goals and which countries have strong industries",
-  "Research visa requirements and post-study work rights",
-  "Compare tuition fees and cost of living",
-  "Look into scholarship opportunities for your nationality",
-  "Check language requirements and English proficiency tests accepted",
-]
+'use client'
+
+import { useRef, useState, useEffect } from 'react'
+import { motion, useInView } from 'framer-motion'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
+
+const FACTOR_KEYS = ['factor1', 'factor2', 'factor3', 'factor4', 'factor5'] as const
 
 export default function CountryGuideSection() {
+  const t = useTranslations('Landing.countryGuide')
+  const ref = useRef<HTMLDivElement>(null)
+  const isInView = useInView(ref, { once: true, margin: '-80px' })
+
+  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
+  useEffect(() => {
+    setPrefersReducedMotion(
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    )
+  }, [])
+
   return (
-    <section className="py-16 px-4 bg-neutral-50">
-      <div className="max-w-6xl mx-auto">
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-12 items-center">
+    <section className="bg-neutral-100">
+      <motion.div
+        ref={ref}
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24"
+        initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 32 }}
+        animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 32 }}
+        transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
+      >
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-16 items-center">
+          {/* LEFT — CTA Content */}
           <div>
-            <h2 className="text-3xl md:text-4xl font-bold text-neutral-900 mb-4">
-              Not Sure Which Country is Right for You?
+            <h2
+              className="font-extrabold text-brand-purple leading-tight"
+              style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
+            >
+              {t('heading')}
             </h2>
-            <p className="text-neutral-600 mb-8">Our expert advisors help you navigate your options. Here are key factors to consider:</p>
-            <ol className="space-y-4">
-              {TIPS.map((tip, i) => (
-                <li key={i} className="flex gap-4">
-                  <span className="flex-shrink-0 w-8 h-8 bg-[#590D82] text-white rounded-full flex items-center justify-center text-sm font-bold">{i + 1}</span>
-                  <p className="text-neutral-700 pt-1">{tip}</p>
-                </li>
+
+            <p className="mt-4 sm:mt-6 text-base sm:text-lg text-gray-500 max-w-lg">
+              {t('description')}
+            </p>
+
+            <Link
+              href="/country-finder"
+              className="inline-block mt-8 sm:mt-10 bg-brand-purple hover:bg-brand-purple-dark text-white font-semibold rounded-full px-8 py-4 text-base sm:text-lg transition-colors duration-200"
+            >
+              {t('ctaButton')}
+            </Link>
+          </div>
+
+          {/* RIGHT — Factors Card */}
+          <motion.div
+            className="bg-white rounded-2xl shadow-lg p-6 sm:p-8"
+            initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
+            animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
+            transition={{ duration: prefersReducedMotion ? 0 : 0.6, delay: 0.2, ease: 'easeOut' }}
+          >
+            <h3 className="text-lg sm:text-xl font-bold text-brand-purple mb-6">
+              {t('factorsHeading')}
+            </h3>
+
+            <ul>
+              {FACTOR_KEYS.map((key, index) => (
+                <motion.li
+                  key={key}
+                  className="flex items-center gap-4 py-3 border-b border-gray-100 last:border-b-0"
+                  initial={{ opacity: 0, x: prefersReducedMotion ? 0 : 16 }}
+                  animate={isInView ? { opacity: 1, x: 0 } : { opacity: 0, x: prefersReducedMotion ? 0 : 16 }}
+                  transition={{
+                    duration: prefersReducedMotion ? 0 : 0.4,
+                    delay: 0.3 + index * 0.1,
+                    ease: 'easeOut',
+                  }}
+                >
+                  <div className="w-10 h-10 rounded-full bg-purple-100 text-brand-purple font-bold text-sm flex items-center justify-center shrink-0">
+                    {index + 1}
+                  </div>
+                  <span className="text-sm sm:text-base font-medium text-gray-800">
+                    {t(key)}
+                  </span>
+                </motion.li>
               ))}
-            </ol>
-          </div>
-          <div className="bg-[#590D82] rounded-2xl p-8 text-white text-center">
-            <div className="text-6xl mb-6">🌍</div>
-            <h3 className="text-2xl font-bold mb-4">Get Personalized Guidance</h3>
-            <p className="text-purple-200 mb-6">Talk to our expert advisors who have helped thousands of students find their perfect destination.</p>
-            <a href="#consultation" className="inline-block px-8 py-3 bg-[#F59E0B] text-white font-semibold rounded-full hover:bg-amber-600 transition-colors">
-              Book Free Consultation
-            </a>
-          </div>
+            </ul>
+          </motion.div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

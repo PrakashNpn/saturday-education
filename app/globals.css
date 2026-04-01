@@ -1,5 +1,14 @@
 @import "tailwindcss";
 
+/* Hide scrollbar for carousels */
+.scrollbar-hide::-webkit-scrollbar {
+  display: none;
+}
+.scrollbar-hide {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
 @theme {
   --color-brand-purple: #590D82;
   --color-brand-purple-light: #7B1FA2;
