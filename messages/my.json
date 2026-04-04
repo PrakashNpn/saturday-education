@@ -18,7 +18,14 @@
       "ctaText": "Need detailed breakdown for your specific profile?",
       "ctaButton": "Get Full Comparison Report",
       "searchPlaceholder": "Search universities...",
-      "vs": "VS"
+      "vs": "VS",
+      "aiSummary": {
+        "text": "Oxford offers lower tuition (£25-35K vs A$38-48K) and significantly faster visa processing (3-4 weeks vs 4-8 weeks). However, Melbourne provides more than double the work hours during study (48 vs 20 hrs/week) and a more generous scholarship structure with fee waivers up to 25%. For students prioritizing post-study work opportunities and work-life balance, Melbourne has a clear edge. For academic prestige and European career access, Oxford is the stronger choice.",
+        "insight1": "Oxford: Lower tuition costs",
+        "insight2": "Melbourne: 2.4× more work hours",
+        "insight3": "Oxford: Faster visa processing",
+        "note": "Switch universities above to get a personalized AI comparison."
+      }
     },
     "globalLeaders": {
       "heading": "Global Leaders in Education",
@@ -256,5 +263,66 @@
       "bookConsultation": "Book Consultation"
     },
     "copyright": "© {year} Saturday Education. All Rights Reserved."
+  },
+  "metadata": {
+    "home": {
+      "title": "Saturday Education — Your Global Education Journey Starts Here",
+      "description": "We've helped 10,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
+    },
+    "universities": {
+      "title": "University Finder — Compare Top Universities Worldwide | Saturday Education",
+      "description": "Search and compare universities across the UK, USA, Australia, Canada, and more. Find the perfect program for your study abroad journey."
+    },
+    "destinations": {
+      "title": "Study Destinations — Explore Top Countries for Education | Saturday Education",
+      "description": "Discover the best countries for international students. Compare education systems, costs, visa processes, and career opportunities."
+    },
+    "blog": {
+      "title": "Study Abroad Blog — Tips, Guides & News | Saturday Education",
+      "description": "Expert advice on studying abroad, scholarship tips, visa guides, university comparisons, and student success stories."
+    }
+  },
+  "chatWidget": {
+    "title": "Study Abroad Advisor",
+    "status": "Online",
+    "welcomeMessage": "Hi there! 👋 I'm your Study Abroad Advisor. I can help you find the right university, compare destinations, and guide you through the application process. How can I help you today?",
+    "inputPlaceholder": "Type your message...",
+    "suggestions": {
+      "findUni": "Find universities in UK",
+      "compare": "Compare study destinations",
+      "scholarships": "Scholarship opportunities"
+    }
+  },
+  "hero": {
+    "badge": "Empowering Asian Students Globally",
+    "titleLine1": "Your Global Education",
+    "titleLine2": "Journey Begins with",
+    "titleHighlight": "Saturday Education",
+    "description": "We've helped 10,000+ students secure admissions in top universities worldwide. Professional guidance to make your study abroad dreams come true.",
+    "exploreUniversities": "Explore Universities",
+    "bookConsultation": "Book Consultation",
+    "heroImageAlt": "Education counselor meeting with a student",
+    "stats": {
+      "studentsCount": "10,000+",
+      "studentsLabel": "Students Guided",
+      "visaCount": "98%",
+      "visaLabel": "Visa Success Rate",
+      "scholarshipsCount": "$12M",
+      "scholarshipsLabel": "Scholarships Secured",
+      "partnersCount": "500+",
+      "partnersLabel": "Partner Universities"
+    }
+  },
+  "consultation": {
+    "title": "Book a Free Consultation",
+    "success": "We'll contact you within 24 hours!"
+  },
+  "nav": {
+    "universityFinder": "University Finder",
+    "studyDestination": "Study Destination",
+    "blogs": "Blogs",
+    "aboutUs": "About Us",
+    "bookConsultation": "Book Free Consultation",
+    "language": "Myanmar"
   }
 }

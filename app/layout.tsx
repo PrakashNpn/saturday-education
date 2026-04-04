@@ -4,8 +4,11 @@ import type { Metadata } from 'next'
 import './globals.css'
 
 export const metadata: Metadata = {
-  title: 'Saturday Education',
-  description: 'Your Global Education Journey Begins with Saturday Education',
+  title: {
+    default: 'Saturday Education — Study Abroad Consulting',
+    template: '%s | Saturday Education',
+  },
+  description: 'Your trusted partner for international education.',
 }
 
 export default function RootLayout({

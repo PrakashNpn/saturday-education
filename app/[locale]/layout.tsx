@@ -3,7 +3,7 @@ import { getMessages } from 'next-intl/server'
 import { Noto_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from 'next/font/google'
 import Navbar from "@/shared/components/layout/Navbar"
 import Footer from "@/shared/components/layout/Footer"
-import { ChatWidget } from "@/features/ai-advisor/components/ChatWidget"
+import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 const notoSansThai = Noto_Sans_Thai({ subsets: ['thai'], variable: '--font-thai', display: 'swap' })

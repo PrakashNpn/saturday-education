@@ -8,25 +8,37 @@ import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
 // ── Data ──────────────────────────────────────────────────────────────────────
 
 const TESTIMONIAL_META = [
-  { id: '1', avatarColor: '#E8A87C' },
-  { id: '2', avatarColor: '#D4B896' },
-  { id: '3', avatarColor: '#DEB8A0' },
-  { id: '4', avatarColor: '#C4A882' },
-  { id: '5', avatarColor: '#E0C4A8' },
-  { id: '6', avatarColor: '#D1A68C' },
-  { id: '7', avatarColor: '#C9A07A' },
-  { id: '8', avatarColor: '#D6B494' },
-  { id: '9', avatarColor: '#E2BFA6' },
+  { id: '1' },
+  { id: '2' },
+  { id: '3' },
+  { id: '4' },
+  { id: '5' },
+  { id: '6' },
+  { id: '7' },
+  { id: '8' },
+  { id: '9' },
 ] as const
+
+const avatarColors = [
+  'bg-orange-400 text-white',
+  'bg-amber-200 text-amber-800',
+  'bg-rose-300 text-white',
+  'bg-teal-400 text-white',
+  'bg-violet-300 text-white',
+  'bg-orange-300 text-white',
+  'bg-amber-300 text-amber-800',
+  'bg-rose-400 text-white',
+  'bg-teal-300 text-white',
+]
 
 // ── Card ──────────────────────────────────────────────────────────────────────
 
 function TestimonialCard({
   id,
-  avatarColor,
+  index,
 }: {
   id: string
-  avatarColor: string
+  index: number
 }) {
   const t = useTranslations('Landing.testimonials')
   const name = t(`reviews.${id}.name` as Parameters<typeof t>[0])
@@ -43,35 +55,43 @@ function TestimonialCard({
     <div
       className="
         flex-shrink-0 snap-start
-        bg-white rounded-2xl p-5 md:p-6 shadow-sm border border-gray-100
-        flex flex-col justify-between min-h-[300px]
-        w-[72vw] sm:w-[calc(42%-10px)] lg:w-[calc(24%-10px)]
-        hover:scale-[1.03] hover:shadow-xl transition-all duration-300 ease-out
+        bg-white rounded-2xl border border-gray-100
+        shadow-sm hover:shadow-md transition-shadow duration-300
+        flex flex-col min-h-[340px] md:min-h-[380px]
+        p-6 md:p-8
+        w-[85%] sm:w-[47%] lg:w-[32%]
       "
     >
       {/* Stars */}
-      <div>
-        <div className="flex gap-1">
-          {Array.from({ length: 5 }).map((_, i) => (
-            <Star key={i} size={16} fill="currentColor" className="text-yellow-400" />
-          ))}
-        </div>
-        <p className="text-gray-700 text-sm leading-relaxed mt-4">
-          &ldquo;{quote}&rdquo;
-        </p>
+      <div className="flex gap-1 mb-4">
+        {Array.from({ length: 5 }).map((_, i) => (
+          <Star key={i} size={18} fill="currentColor" className="text-yellow-400" />
+        ))}
       </div>
 
-      {/* Author */}
-      <div className="flex items-center gap-3 mt-auto pt-6 border-t border-gray-50">
+      {/* Quote */}
+      <p
+        className="text-gray-900 leading-[1.7]"
+        style={{ fontSize: 'clamp(1.05rem, 0.95rem + 0.5vw, 1.2rem)' }}
+      >
+        &ldquo;{quote}&rdquo;
+      </p>
+
+      {/* Author — always at bottom */}
+      <div className="flex items-center gap-3 mt-auto pt-6">
         <div
-          className="w-10 h-10 rounded-full flex items-center justify-center text-white text-xs font-bold shrink-0"
-          style={{ backgroundColor: avatarColor }}
+          className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-semibold shrink-0 ${avatarColors[index % avatarColors.length]}`}
         >
           {initials}
         </div>
         <div>
-          <p className="font-bold text-brand-purple text-sm">{name}</p>
-          <p className="text-gray-500 text-xs">{program}</p>
+          <p
+            className="font-semibold text-brand-purple"
+            style={{ fontSize: 'clamp(0.95rem, 0.85rem + 0.3vw, 1.05rem)' }}
+          >
+            {name}
+          </p>
+          <p className="text-gray-500 text-sm">{program}</p>
         </div>
       </div>
     </div>
@@ -105,7 +125,7 @@ export default function TestimonialsSection() {
       if (!container) return
       const cardWidth =
         (container.firstElementChild as HTMLElement)?.offsetWidth ?? 300
-      container.scrollBy({ left: cardWidth + 20, behavior: 'smooth' })
+      container.scrollBy({ left: cardWidth + 24, behavior: 'smooth' })
     }, 4000)
 
     return () => clearInterval(interval)
@@ -116,7 +136,7 @@ export default function TestimonialsSection() {
     if (!container) return
     const cardWidth =
       (container.firstElementChild as HTMLElement)?.offsetWidth ?? 300
-    const amount = direction === 'left' ? -(cardWidth + 20) : cardWidth + 20
+    const amount = direction === 'left' ? -(cardWidth + 24) : cardWidth + 24
     container.scrollBy({ left: amount, behavior: 'smooth' })
   }, [])
 
@@ -139,11 +159,11 @@ export default function TestimonialsSection() {
         >
           <h2
             className="font-extrabold text-brand-purple"
-            style={{ fontSize: 'clamp(2rem, 1.4rem + 3vw, 3.25rem)' }}
+            style={{ fontSize: 'clamp(2rem, 1.4rem + 3vw, 3rem)' }}
           >
             {t('heading')}
           </h2>
-          <div className="w-16 h-1 bg-[#2D2B55] mx-auto mt-4 rounded-full" />
+          <div className="w-16 h-1 bg-[#2D2B55] mx-auto mt-4 mb-12 rounded-full" />
         </motion.div>
 
         {/* Carousel */}
@@ -153,15 +173,18 @@ export default function TestimonialsSection() {
           <button
             onClick={() => scroll('left')}
             aria-label="Previous testimonials"
-            className="hidden md:flex absolute -left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition-colors"
+            className="hidden md:flex absolute -left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-brand-purple hover:text-gray-900 hover:shadow-lg hover:border-gray-300 transition-all duration-200"
           >
-            <ChevronLeft size={20} className="text-gray-600" />
+            <ChevronLeft size={20} />
           </button>
 
           {/* Scrollable track */}
           <div
             ref={scrollRef}
-            className="flex gap-4 md:gap-5 overflow-x-auto snap-x snap-mandatory scrollbar-hide px-6 md:px-8 py-3"
+            role="region"
+            aria-label="Customer testimonials"
+            aria-live="polite"
+            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-3"
             onMouseEnter={handleInteractionStart}
             onMouseLeave={handleInteractionEnd}
             onTouchStart={handleInteractionStart}
@@ -173,7 +196,7 @@ export default function TestimonialsSection() {
               <TestimonialCard
                 key={`${item.id}-${index}`}
                 id={item.id}
-                avatarColor={item.avatarColor}
+                index={index % TESTIMONIAL_META.length}
               />
             ))}
           </div>
@@ -182,9 +205,9 @@ export default function TestimonialsSection() {
           <button
             onClick={() => scroll('right')}
             aria-label="Next testimonials"
-            className="hidden md:flex absolute -right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-10 w-11 h-11 rounded-full bg-white shadow-lg items-center justify-center hover:bg-gray-50 transition-colors"
+            className="hidden md:flex absolute -right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-brand-purple hover:text-gray-900 hover:shadow-lg hover:border-gray-300 transition-all duration-200"
           >
-            <ChevronRight size={20} className="text-gray-600" />
+            <ChevronRight size={20} />
           </button>
 
         </div>

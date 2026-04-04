@@ -35,7 +35,7 @@ export default function ServicesSection() {
     <section className="bg-neutral-100">
       <div
         ref={ref}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 sm:py-20 lg:py-24"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-12"
       >
         {/* Header */}
         <motion.div

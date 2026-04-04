@@ -44,7 +44,7 @@ const COUNTRIES = [
     slug: 'switzerland',
     name: 'Switzerland',
     tagline: 'Global Hub for Hospitality',
-    image: '/images/landing/countries/switzerland.jpg',
+    image: '/images/landing/countries/switzerland.webp',
   },
 ]
 

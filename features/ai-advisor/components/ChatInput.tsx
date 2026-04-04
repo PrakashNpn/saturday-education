@@ -28,6 +28,7 @@ export default function ChatInput({ onSend }: ChatInputProps) {
       <button
         type="submit"
         disabled={!value.trim()}
+        aria-label="Send message"
         className="w-9 h-9 bg-[#590D82] text-white rounded-full flex items-center justify-center hover:bg-[#3D0A5A] disabled:opacity-50 disabled:cursor-not-allowed transition-colors"
       >
         →

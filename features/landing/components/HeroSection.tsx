@@ -80,10 +80,10 @@ export default function HeroSection() {
       aria-label="Hero"
       className="relative bg-gradient-to-b from-brand-purple-50/50 to-neutral-100 md:min-h-[min(calc(100dvh-72px),900px)]"
     >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-10 md:py-0 md:flex md:flex-col md:justify-between md:h-[min(calc(100dvh-72px),900px)]">
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 md:pt-0 md:pb-12 md:flex md:flex-col md:justify-between md:h-[min(calc(100dvh-72px),900px)]">
 
         {/* ── Part 1: Content — sits near the top ── */}
-        <div className="md:pt-3 lg:pt-4">
+        <div className="md:pt-10 lg:pt-4">
           <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] lg:grid-cols-[1.15fr_1fr] gap-6 items-center lg:items-start w-full">
 
             {/* ── Left: Text Content ─────────────────────────────── */}
@@ -200,9 +200,9 @@ export default function HeroSection() {
                     ? { duration: 0 }
                     : { duration: 0.5, delay: 0.8 + index * 0.15, ease: [0.25, 0.1, 0.25, 1] as const }
                 }
-                className="bg-white rounded-xl border border-gray-100 shadow-sm px-4 py-4 flex flex-col items-center text-center"
+                className="bg-white rounded-xl border border-gray-100 shadow-sm px-4 py-4 lg:py-5 flex flex-col items-center text-center"
               >
-                <Icon size={20} className="text-brand-purple" />
+                <Icon size={24} className="text-brand-purple" />
                 <p
                   className="font-extrabold text-brand-purple mt-1.5 leading-none"
                   style={{ fontSize: 'clamp(1.25rem, 0.5rem + 2.2vw, 2.25rem)' }}

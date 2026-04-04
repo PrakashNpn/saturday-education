@@ -1,9 +1,9 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import React, { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
-import { Search, ChevronDown, Sparkles, Check } from 'lucide-react'
+import { Search, ChevronDown, Sparkles, Check, GraduationCap, MapPin, BookOpen } from 'lucide-react'
 
 // ── Dropdown data ─────────────────────────────────────────────────────────────
 
@@ -44,23 +44,36 @@ const COURSE_OPTIONS = [
 
 function FilterDropdown({
   label,
+  icon: Icon,
   options,
   selected,
   onSelect,
   hasDivider,
   prefersReducedMotion,
+  searchable = false,
 }: {
   label: string
+  icon: React.ElementType
   options: { value: string; label: string }[]
   selected: string
   onSelect: (value: string) => void
   hasDivider: boolean
   prefersReducedMotion: boolean
+  searchable?: boolean
 }) {
   const [isOpen, setIsOpen] = useState(false)
+  const [query, setQuery] = useState('')
   const wrapperRef = useRef<HTMLDivElement>(null)
 
-  const selectedLabel = options.find((o) => o.value === selected)?.label ?? selected
+  const selectedLabel = selected ? (options.find((o) => o.value === selected)?.label ?? selected) : null
+  const filtered = searchable
+    ? options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
+    : options
+
+  // Reset search when closed
+  useEffect(() => {
+    if (!isOpen) setQuery('')
+  }, [isOpen])
 
   // Click-outside to close
   useEffect(() => {
@@ -77,30 +90,32 @@ function FilterDropdown({
   return (
     <div
       ref={wrapperRef}
-      className={`relative flex-1 min-w-0 px-6 pt-4 pb-4 ${
+      className={`relative flex-1 min-w-0 px-4 py-3 flex items-center ${
         hasDivider ? 'border-b border-gray-200 lg:border-b-0 lg:border-r' : ''
       }`}
     >
-      {/* Static label — NOT inside the button */}
-      <p
-        className="text-brand-purple uppercase font-semibold tracking-[0.12em] leading-none mb-2"
-        style={{ fontSize: 'clamp(0.575rem, 0.45rem + 0.2vw, 0.675rem)' }}
-      >
-        {label}
-      </p>
-
-      {/* Dropdown trigger — only the value row is interactive */}
+      {/* Single-line trigger */}
       <button
         type="button"
         onClick={() => setIsOpen((v) => !v)}
+        aria-label={label}
         className="w-full flex items-center justify-between gap-3 cursor-pointer group"
       >
-        <span
-          className="text-gray-800 font-medium whitespace-nowrap group-hover:text-brand-purple transition-colors duration-150"
-          style={{ fontSize: 'clamp(0.9375rem, 0.7rem + 0.5vw, 1.125rem)' }}
-        >
-          {selectedLabel}
-        </span>
+        <div className="flex items-center gap-2.5 min-w-0">
+          <span className="flex items-center justify-center w-8 h-8 bg-brand-purple rounded-lg  shrink-0 group-hover:bg-brand-purple transition-colors duration-150">
+            <Icon size={20} className="text-white" />
+          </span>
+          <span
+            className={`font-medium whitespace-nowrap transition-colors duration-150 ${
+              selectedLabel
+                ? 'text-brand-purple group-hover:text-brand-purple-dark'
+                : 'text-gray-400'
+            }`}
+            style={{ fontSize: selectedLabel ? 'clamp(0.9375rem, 0.7rem + 0.5vw, 1rem)' : 'clamp(0.75rem, 0.65rem + 0.25vw, 0.75rem)' }}
+          >
+            {selectedLabel ?? label}
+          </span>
+        </div>
         <motion.span
           animate={{ rotate: isOpen ? 180 : 0 }}
           transition={{ duration: 0.2 }}
@@ -119,27 +134,51 @@ function FilterDropdown({
             exit={prefersReducedMotion ? {} : { opacity: 0, scaleY: 0.95, y: -4 }}
             transition={{ duration: 0.15, ease: 'easeOut' }}
             style={{ transformOrigin: 'top' }}
-            className="absolute top-full left-0 mt-1 min-w-[200px] w-full bg-white border border-gray-100 rounded-xl shadow-lg z-50 py-1"
+            className="absolute top-full left-0 mt-2 min-w-[220px] w-full bg-white border border-gray-100 rounded-xl shadow-lg z-50"
           >
-            {options.map((opt) => {
-              const isSelected = opt.value === selected
-              return (
-                <button
-                  key={opt.value}
-                  type="button"
-                  onClick={() => { onSelect(opt.value); setIsOpen(false) }}
-                  className={`w-full flex items-center justify-between px-4 py-2.5 text-left cursor-pointer transition-colors duration-100 ${
-                    isSelected
-                      ? 'bg-purple-50 text-brand-purple font-medium'
-                      : 'text-gray-700 hover:bg-purple-50'
-                  }`}
-                  style={{ fontSize: 'clamp(0.8125rem, 0.75rem + 0.2vw, 0.9375rem)' }}
-                >
-                  <span>{opt.label}</span>
-                  {isSelected && <Check size={14} className="text-brand-purple shrink-0" />}
-                </button>
-              )
-            })}
+            {/* Search input — country and course only */}
+            {searchable && (
+              <div className="px-2.5 pt-2.5 pb-2 border-b border-gray-100">
+                <div className="relative">
+                  <Search size={12} className="absolute left-2.5 top-1/2 -translate-y-1/2 text-gray-400 pointer-events-none" />
+                  <input
+                    autoFocus
+                    type="text"
+                    value={query}
+                    onChange={(e) => setQuery(e.target.value)}
+                    placeholder="Search..."
+                    className="w-full pl-7 pr-2.5 py-1.5 text-xs border border-gray-200 rounded-md outline-none focus:border-brand-purple transition-colors duration-150"
+                  />
+                </div>
+              </div>
+            )}
+
+            {/* Options list */}
+            <div className="overflow-y-auto py-1 max-h-52">
+              {filtered.length === 0 ? (
+                <p className="px-4 py-3 text-sm text-gray-400">No results</p>
+              ) : (
+                filtered.map((opt) => {
+                  const isSelected = opt.value === selected
+                  return (
+                    <button
+                      key={opt.value}
+                      type="button"
+                      onClick={() => { onSelect(opt.value); setIsOpen(false) }}
+                      className={`w-full flex items-center justify-between px-4 py-2.5 text-left cursor-pointer transition-colors duration-100 ${
+                        isSelected
+                          ? 'bg-purple-50 text-brand-purple font-medium'
+                          : 'text-gray-700 hover:bg-purple-50'
+                      }`}
+                      style={{ fontSize: 'clamp(0.8125rem, 0.75rem + 0.2vw, 0.9375rem)' }}
+                    >
+                      <span>{opt.label}</span>
+                      {isSelected && <Check size={14} className="text-brand-purple shrink-0" />}
+                    </button>
+                  )
+                })
+              )}
+            </div>
           </motion.div>
         )}
       </AnimatePresence>
@@ -160,16 +199,14 @@ export default function UniversityFinderSection() {
     setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
   }, [])
 
-  const [studyLevel, setStudyLevel] = useState('undergraduate')
-  const [country, setCountry]       = useState('uk')
-  const [course, setCourse]         = useState('cs')
+  const [studyLevel, setStudyLevel] = useState('')
+  const [country, setCountry]       = useState('')
+  const [course, setCourse]         = useState('')
 
   return (
-    // Section: NO horizontal padding — matches hero section pattern
-    <section className="bg-neutral-100 py-14 sm:py-16 lg:py-20">
+    <section className="bg-neutral-100 py-10 md:py-14">
       <motion.div
         ref={ref}
-        // Horizontal padding lives here — same as hero's inner max-w-7xl container
         initial={prefersReducedMotion ? {} : { opacity: 0, y: 24 }}
         animate={isInView ? { opacity: 1, y: 0 } : {}}
         transition={
@@ -179,11 +216,8 @@ export default function UniversityFinderSection() {
         }
         className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8"
       >
-        {/* Container card — fills the padded container, same edges as hero content */}
-        <div className="relative bg-white rounded-3xl shadow-lg px-8 sm:px-10 lg:px-12 pt-10 pb-10 sm:pt-12 sm:pb-12">
-
-          {/* Gradient top-edge line */}
-          {/* <div className="absolute top-0 left-0 right-0 h-1 rounded-t-3xl bg-gradient-to-r from-[#590D82] to-transparent" /> */}
+        {/* Container card */}
+        <div className="relative bg-gradient-to-b from-brand-purple-100/50 to-neutral-100 rounded-3xl shadow-lg px-8 sm:px-10 lg:px-12 pt-10 pb-10 sm:pt-12 sm:pb-12">
 
           {/* Badge */}
           <div className="flex items-center gap-2 mb-3">
@@ -210,40 +244,49 @@ export default function UniversityFinderSection() {
           </p>
 
           {/* Search bar */}
-          <div className="bg-white rounded-2xl border border-gray-200 shadow-sm">
-            {/* lg:flex-row — tablet stacks vertically, desktop goes horizontal */}
+          <div className="bg-neutral-100 rounded-2xl border border-gray-200 shadow-sm">
             <div className="flex flex-col lg:flex-row">
 
+              {/* Study Level — simple dropdown, no search */}
               <FilterDropdown
                 label={t('studyLevelLabel')}
+                icon={GraduationCap}
                 options={STUDY_LEVEL_OPTIONS}
                 selected={studyLevel}
                 onSelect={setStudyLevel}
                 hasDivider={true}
                 prefersReducedMotion={prefersReducedMotion}
               />
+
+              {/* Target Country — searchable */}
               <FilterDropdown
                 label={t('countryLabel')}
+                icon={MapPin}
                 options={COUNTRY_OPTIONS}
                 selected={country}
                 onSelect={setCountry}
                 hasDivider={true}
                 prefersReducedMotion={prefersReducedMotion}
+                searchable
               />
+
+              {/* Desired Course — searchable */}
               <FilterDropdown
                 label={t('courseLabel')}
+                icon={BookOpen}
                 options={COURSE_OPTIONS}
                 selected={course}
                 onSelect={setCourse}
                 hasDivider={false}
                 prefersReducedMotion={prefersReducedMotion}
+                searchable
               />
 
               {/* Find Universities button */}
-              <div className="px-4 py-4 lg:py-0 lg:px-4 flex items-stretch">
+              <div className="px-3 py-3 lg:py-0 lg:px-3 flex items-stretch">
                 <button
                   type="button"
-                  className="w-full lg:w-auto flex items-center justify-center gap-2.5 bg-brand-purple hover:bg-brand-purple-dark text-white font-semibold rounded-xl px-8 py-4 lg:my-3 transition-colors duration-200 whitespace-nowrap cursor-pointer text-base sm:text-lg"
+                  className="w-full lg:w-auto flex items-center justify-center gap-2 bg-brand-purple hover:bg-brand-purple-dark text-white font-semibold rounded-xl px-6 py-3 lg:my-1.5 transition-colors duration-200 whitespace-nowrap cursor-pointer text-sm"
                 >
                   <Search size={18} />
                   {t('searchButton')}

@@ -1,4 +1,32 @@
+import type { Metadata } from 'next'
+import { getTranslations } from 'next-intl/server'
 import HeroSection from "@/features/landing/components/HeroSection"
+
+type Props = { params: Promise<{ locale: string }> }
+
+export async function generateMetadata({ params }: Props): Promise<Metadata> {
+  const { locale } = await params
+  const t = await getTranslations({ locale, namespace: 'metadata' })
+  return {
+    title: t('home.title'),
+    description: t('home.description'),
+    openGraph: {
+      title: t('home.title'),
+      description: t('home.description'),
+      type: 'website',
+      locale,
+      siteName: 'Saturday Education',
+    },
+    twitter: {
+      card: 'summary_large_image',
+      title: t('home.title'),
+      description: t('home.description'),
+    },
+    alternates: {
+      languages: { en: '/', th: '/th', my: '/my' },
+    },
+  }
+}
 import UniversityFinderSection from "@/features/landing/components/UniversityFinderSection"
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
 import GlobalLeadersSection from "@/features/landing/components/GlobalLeadersSection"

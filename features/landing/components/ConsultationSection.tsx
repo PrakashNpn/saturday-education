@@ -234,7 +234,7 @@ export default function ConsultationSection() {
               >
                 <div className="relative rounded-xl overflow-hidden aspect-square">
                   <Image
-                    src="/images/landing/global-edu-hero.png"
+                    src="/images/landing/global-edu-hero.webp"
                     alt="Global education destinations"
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"

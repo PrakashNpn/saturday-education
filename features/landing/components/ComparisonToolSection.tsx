@@ -5,7 +5,7 @@ import { useTranslations } from 'next-intl'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import {
   Search, ChevronDown, GraduationCap,
-  Clock, Briefcase, Award, Trophy, TrendingUp, Download,
+  Clock, Briefcase, Award, Trophy, TrendingUp, Sparkles,
 } from 'lucide-react'
 
 // ── Types ─────────────────────────────────────────────────────────────────────
@@ -208,8 +208,8 @@ function UniversitySearchInput({
 
   return (
     <div ref={wrapperRef} className="relative">
-      <div className="flex items-center gap-2 bg-gray-800 rounded-full px-4 py-2.5">
-        <Search size={14} className="text-gray-400 shrink-0" />
+      <div className="flex items-center gap-2 bg-neutral-100 border border-gray-200 rounded-full px-4 py-2.5">
+        <Search size={14} className="text-brand-purple shrink-0" />
         <input
           type="text"
           value={displayValue}
@@ -219,7 +219,7 @@ function UniversitySearchInput({
           }}
           onFocus={() => setActiveDropdown(dropdownKey)}
           placeholder={placeholder}
-          className="bg-transparent text-white text-sm font-medium outline-none w-full min-w-0 placeholder-gray-500"
+          className="bg-transparent text-brand-purple text-sm font-medium outline-none w-full min-w-0 placeholder-gray-400"
         />
       </div>
 
@@ -294,10 +294,10 @@ function CourseDropdown({
       <button
         type="button"
         onClick={() => setActiveDropdown(isOpen ? null : dropdownKey)}
-        className="w-full flex items-center gap-2 bg-gray-100 border border-gray-200 rounded-full px-4 py-2.5 cursor-pointer hover:bg-gray-50 transition-colors duration-150"
+        className="w-full flex items-center gap-2 bg-neutral-100 border border-gray-200 rounded-full px-4 py-2.5 cursor-pointer transition-colors duration-150"
       >
-        <GraduationCap size={14} className="text-gray-500 shrink-0" />
-        <span className="text-sm font-medium text-gray-800 flex-1 text-left truncate">
+        <GraduationCap size={14} className="text-brand-purple shrink-0" />
+        <span className="text-sm font-medium text-brand-purple flex-1 text-left truncate">
           {courses[selectedIdx]?.label ?? courses[0].label}
         </span>
         <motion.span
@@ -305,7 +305,7 @@ function CourseDropdown({
           transition={{ duration: 0.2 }}
           className="shrink-0"
         >
-          <ChevronDown size={14} className="text-gray-400" />
+          <ChevronDown size={14} className="text-brand-purple" />
         </motion.span>
       </button>
 
@@ -359,11 +359,11 @@ function CostRow({
   return (
     <div className="flex flex-col gap-2">
       <div className="flex items-end justify-between gap-2 flex-wrap">
-        <span className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wider text-gray-500">
+        <span className="text-[0.65rem] sm:text-xs font-semibold uppercase tracking-wider text-brand-purple">
           {label}
         </span>
         <span className="whitespace-nowrap">
-          <span className="text-base sm:text-lg font-bold text-brand-purple">
+          <span className="text-sm sm:text-sm font-medium text-brand-purple">
             {currency}{min.toLocaleString()} – {currency}{max.toLocaleString()}
           </span>
           <span className="text-xs sm:text-sm text-gray-400"> /year</span>
@@ -374,7 +374,7 @@ function CostRow({
         <div className="w-full bg-gray-200 rounded-full h-2" />
         {/* Highlighted range segment */}
         <motion.div
-          className="absolute top-0 h-2 rounded-full bg-brand-purple"
+          className="absolute top-0 h-2 rounded-full bg-brand-purple shadow-sm"
           style={{ left: `${leftPercent}%` }}
           initial={{ width: '0%' }}
           animate={isInView ? { width: `${widthPercent}%` } : { width: '0%' }}
@@ -382,7 +382,7 @@ function CostRow({
         />
         {/* Left endpoint dot */}
         <motion.div
-          className="absolute w-2.5 h-2.5 rounded-full bg-brand-purple border-2 border-white shadow-sm"
+          className="absolute w-2 h-2 rounded-full bg-white border-2 border-white shadow-sm"
           style={{ left: `${leftPercent}%`, top: '50%', transform: 'translate(-50%, -50%)' }}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -390,7 +390,7 @@ function CostRow({
         />
         {/* Right endpoint dot */}
         <motion.div
-          className="absolute w-2.5 h-2.5 rounded-full bg-brand-purple border-2 border-white shadow-sm"
+          className="absolute w-2 h-2 rounded-full bg-white border-2 border-white shadow-sm"
           style={{ left: `${leftPercent + widthPercent}%`, top: '50%', transform: 'translate(-50%, -50%)' }}
           initial={{ opacity: 0 }}
           animate={isInView ? { opacity: 1 } : { opacity: 0 }}
@@ -415,8 +415,8 @@ function InfoRow({
   return (
     <div className="border border-gray-200 rounded-xl px-4 py-3 flex items-center justify-between gap-4">
       <div className="flex items-center gap-2 shrink-0">
-        <Icon size={15} className="text-brand-purple" />
-        <span className="text-xs sm:text-sm font-medium uppercase tracking-wider text-gray-500">
+        <Icon size={18} strokeWidth={3} className="text-brand-purple" />
+        <span className="text-xs sm:text-sm font-semibold uppercase tracking-wider text-brand-purple">
           {label}
         </span>
       </div>
@@ -442,21 +442,21 @@ function StatCards({
 }) {
   return (
     <div className="grid grid-cols-2 gap-3">
-      <div className="bg-purple-50 rounded-xl p-4">
+      <div className="bg-neutral-100 rounded-xl p-4">
         <p className="text-[0.6rem] sm:text-[0.65rem] text-brand-purple uppercase tracking-wider font-semibold mb-2">
           {rankingLabel}
         </p>
         <div className="flex items-center gap-2">
-          <Trophy size={18} className="text-brand-purple" />
+          <Trophy size={18} strokeWidth={3} className="text-brand-purple" />
           <span className="text-xl sm:text-2xl font-bold text-gray-800">#{globalRanking}</span>
         </div>
       </div>
-      <div className="bg-purple-50 rounded-xl p-4">
+      <div className="bg-neutral-100 rounded-xl p-4">
         <p className="text-[0.6rem] sm:text-[0.65rem] text-brand-purple uppercase tracking-wider font-semibold mb-2">
           {acceptanceLabel}
         </p>
         <div className="flex items-center gap-2">
-          <TrendingUp size={18} className={acceptanceRate >= 50 ? 'text-green-600' : 'text-red-500'} />
+          <TrendingUp size={18} strokeWidth={3} className="text-brand-purple" />
           <span className={`text-xl sm:text-2xl font-bold ${acceptanceRate >= 50 ? 'text-green-600' : 'text-red-500'}`}>
             {acceptanceRate}%
           </span>
@@ -688,18 +688,36 @@ export default function ComparisonToolSection() {
 
           </div>
 
-          {/* Bottom CTA */}
-          <div className="border-t border-gray-200 mt-8 pt-6 flex flex-col sm:flex-row items-center justify-between gap-4">
-            <p className="text-gray-600 text-sm sm:text-base text-center sm:text-left">
-              {t('ctaText')}
-            </p>
-            <button
-              type="button"
-              className="flex items-center gap-2 bg-brand-purple hover:bg-brand-purple-dark text-white rounded-full px-6 py-3 font-semibold text-sm sm:text-base transition-colors duration-200 whitespace-nowrap cursor-pointer shrink-0"
-            >
-              <Download size={16} />
-              {t('ctaButton')}
-            </button>
+          {/* AI Comparison Summary */}
+          <div className="mt-6 border-t border-gray-100 pt-6">
+            <div className="bg-gradient-to-b from-brand-purple-100/50 to-neutral-50 rounded-xl p-5 border border-[#590D82]/10 shadow-sm">
+            <div className="flex items-center gap-2 mb-3">
+              <div className="flex items-center gap-1.5 bg-gradient-to-r from-[#590D82] to-[#7B2AB5] text-white text-xs font-semibold px-3 py-1 rounded-full">
+                <Sparkles size={12} />
+                <span>AI Analysis Summary</span>
+              </div>
+            </div>
+              <p className="text-gray-700 text-sm leading-relaxed">
+                {t('aiSummary.text')}
+              </p>
+              <div className="flex flex-wrap gap-2 mt-4">
+                <span className="inline-flex items-center gap-1 bg-gradient-to-b from-brand-purple-50/100 to-neutral-100 text-[#590D82] text-xs font-medium px-3 py-1.5 rounded-full border border-[#590D82]/15">
+                  <TrendingUp size={12} />
+
+                  {t('aiSummary.insight1')}
+                </span>
+                <span className="inline-flex items-center gap-1 bg-gradient-to-b from-brand-purple-50/100 to-neutral-100 text-[#590D82] text-xs font-medium px-3 py-1.5 rounded-full border border-[#590D82]/15">
+                  <Briefcase size={12} />
+
+                  {t('aiSummary.insight2')}
+                </span>
+                <span className="inline-flex items-center gap-1 bg-gradient-to-b from-brand-purple-50/100 to-neutral-100 text-[#590D82] text-xs font-medium px-3 py-1.5 rounded-full border border-[#590D82]/15">
+                  <GraduationCap size={12} />
+
+                  {t('aiSummary.insight3')}
+                </span>
+              </div>
+            </div>
           </div>
 
         </div>
