@@ -9,83 +9,315 @@ datasource db {
   provider = "postgresql"
 }
 
-model University {
-  id          String    @id @default(cuid())
-  slug        String    @unique
-  name        String
-  nameLocal   String?
-  country     String
-  city        String
-  logoUrl     String?
-  coverUrl    String?
-  ranking     Int?
-  description String?
-  website     String?
-  isActive    Boolean   @default(true)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  programs    Program[]
+// ─────────────────────────────────────────────────────────────────────────────
+// Enums
+// ─────────────────────────────────────────────────────────────────────────────
 
-  @@index([country])
-  @@index([slug])
-  @@index([isActive])
-}
-
-enum ProgramLevel {
+enum DegreeType {
   BACHELOR
   MASTER
   PHD
   DIPLOMA
   CERTIFICATE
-  LANGUAGE
-}
-
-model Program {
-  id             String       @id @default(cuid())
-  slug           String       @unique
-  name           String
-  level          ProgramLevel
-  field          String
-  durationMonths Int
-  tuitionUSD     Float
-  language       String       @default("English")
-  description    String?
-  requirements   String?
-  isActive       Boolean      @default(true)
-  universityId   String
-  university     University   @relation(fields: [universityId], references: [id])
-
-  @@index([universityId])
-  @@index([level])
-  @@index([field])
+  FOUNDATION
 }
 
 enum ConsultationStatus {
-  PENDING
+  NEW
   CONTACTED
   IN_PROGRESS
-  COMPLETED
-  CANCELLED
+  CONVERTED
+  CLOSED
 }
+
+enum Region {
+  EUROPE
+  AMERICAS
+  OCEANIA
+  ASIA
+  AFRICA
+}
+
+enum ScholarshipType {
+  FULL_FUNDING
+  PARTIAL
+  MERIT_BASED
+}
+
+enum ConsultationType {
+  ONLINE
+  IN_PERSON
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Country — powers Study Destinations listing/detail + comparison tool
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Country {
+  id                    String   @id @default(cuid())
+  name                  String   @unique
+  slug                  String   @unique
+  region                Region
+  cardImageUrl          String?  @map("card_image_url")
+  heroImageUrl          String?  @map("hero_image_url")
+  shortDescription      String?  @map("short_description")
+  tagline               String?
+  overview              String?  @db.Text
+
+  // Key Stats
+  institutionCount      String?  @map("institution_count")
+  tuitionFeeRange       String?  @map("tuition_fee_range")
+  postStudyWorkVisa     String?  @map("post_study_work_visa")
+  studentSatisfaction   Float?   @map("student_satisfaction")
+  internationalStudents Float?   @map("international_students")
+  graduateEmployability Float?   @map("graduate_employability")
+
+  // Immigration & Costs
+  visaProcessingTime    String?  @map("visa_processing_time")
+  workRights            String?  @map("work_rights")
+  costOfLivingMinUSD    Int?     @map("cost_of_living_min_usd")
+  costOfLivingMaxUSD    Int?     @map("cost_of_living_max_usd")
+  currencyCode          String?  @map("currency_code")
+
+  // Academic specialties as simple string array
+  academicSpecialties   String[] @map("academic_specialties")
+
+  isFeatured            Boolean  @default(false) @map("is_featured")
+  isPublished           Boolean  @default(true)  @map("is_published")
+
+  universities          University[]
+  advantages            CountryAdvantage[]
+  processSteps          CountryProcessStep[]
+  faqs                  CountryFAQ[]
+  scholarships          Scholarship[]
+
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt      @map("updated_at")
+
+  @@index([region])
+  @@index([isFeatured])
+  @@index([slug])
+  @@map("countries")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CountryAdvantage — "Why Study Here" cards on destination detail page
+// ─────────────────────────────────────────────────────────────────────────────
+
+model CountryAdvantage {
+  id          String  @id @default(cuid())
+  title       String
+  description String? @db.Text
+  imageUrl    String? @map("image_url")
+  order       Int     @default(0)
+
+  countryId   String  @map("country_id")
+  country     Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
+
+  @@index([countryId])
+  @@map("country_advantages")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CountryProcessStep — "Journey Ahead" steps on destination detail page
+// ─────────────────────────────────────────────────────────────────────────────
+
+model CountryProcessStep {
+  id          String  @id @default(cuid())
+  stepNumber  Int     @map("step_number")
+  title       String
+  description String? @db.Text
+
+  countryId   String  @map("country_id")
+  country     Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
+
+  @@unique([countryId, stepNumber])
+  @@index([countryId])
+  @@map("country_process_steps")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// CountryFAQ — "Common Questions" on destination detail page
+// ─────────────────────────────────────────────────────────────────────────────
+
+model CountryFAQ {
+  id        String  @id @default(cuid())
+  question  String
+  answer    String  @db.Text
+  order     Int     @default(0)
+
+  countryId String  @map("country_id")
+  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+
+  createdAt DateTime @default(now()) @map("created_at")
+  updatedAt DateTime @updatedAt      @map("updated_at")
+
+  @@index([countryId])
+  @@map("country_faqs")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// University — central model for finder, detail, comparison tool
+// ─────────────────────────────────────────────────────────────────────────────
+
+model University {
+  id                    String   @id @default(cuid())
+  name                  String
+  slug                  String   @unique
+  logoUrl               String?  @map("logo_url")
+  coverImageUrl         String?  @map("cover_image_url")
+  shortDescription      String?  @map("short_description")
+  overview              String?  @db.Text
+  city                  String?
+  foundedYear           Int?     @map("founded_year")
+
+  // Key Metrics
+  ranking               Int?
+  totalStudents         Int?     @map("total_students")
+  numberOfCampuses      Int?     @map("number_of_campuses")
+  acceptanceRate        Float?   @map("acceptance_rate")
+  graduateEmployability Float?   @map("graduate_employability")
+  internationalStudents Float?   @map("international_students")
+  intakeMonths          String?  @map("intake_months")
+
+  // Tuition & Costs
+  tuitionFeeMin         Int?     @map("tuition_fee_min")
+  tuitionFeeMax         Int?     @map("tuition_fee_max")
+  tuitionCurrency       String?  @map("tuition_currency")
+
+  // Study Options
+  hasOnCampus           Boolean  @default(true)  @map("has_on_campus")
+  hasOnline             Boolean  @default(false) @map("has_online")
+  hasHybrid             Boolean  @default(false) @map("has_hybrid")
+
+  isFeatured            Boolean  @default(false) @map("is_featured")
+  isPublished           Boolean  @default(true)  @map("is_published")
+
+  countryId             String   @map("country_id")
+  country               Country  @relation(fields: [countryId], references: [id])
+  programs              Program[]
+  scholarships          Scholarship[]
+  admissionSteps        AdmissionStep[]
+
+  createdAt             DateTime @default(now()) @map("created_at")
+  updatedAt             DateTime @updatedAt      @map("updated_at")
+
+  @@index([countryId])
+  @@index([ranking])
+  @@index([slug])
+  @@index([isFeatured])
+  @@index([tuitionFeeMin, tuitionFeeMax])
+  @@map("universities")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Program — degree/course offered by a university
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Program {
+  id                String     @id @default(cuid())
+  name              String
+  slug              String
+  degreeLevel       DegreeType @map("degree_level")
+  field             String
+  applicationFee    String?    @map("application_fee")
+  tuitionFeePerYear String?    @map("tuition_fee_per_year")
+  durationYears     Float?     @map("duration_years")
+  description       String?
+
+  universityId      String     @map("university_id")
+  university        University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt         DateTime   @default(now()) @map("created_at")
+  updatedAt         DateTime   @updatedAt      @map("updated_at")
+
+  @@unique([universityId, slug])
+  @@index([universityId])
+  @@index([degreeLevel])
+  @@index([field])
+  @@map("programs")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Scholarship — unified: links to either Country OR University, never both
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Scholarship {
+  id           String          @id @default(cuid())
+  name         String
+  type         ScholarshipType
+  description  String?         @db.Text
+  value        String?
+  learnMoreUrl String?         @map("learn_more_url")
+
+  countryId    String?         @map("country_id")
+  country      Country?        @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  universityId String?         @map("university_id")
+  university   University?     @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime        @default(now()) @map("created_at")
+  updatedAt    DateTime        @updatedAt      @map("updated_at")
+
+  @@index([countryId])
+  @@index([universityId])
+  @@index([type])
+  @@map("scholarships")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// AdmissionStep — university-specific application steps
+// ─────────────────────────────────────────────────────────────────────────────
+
+model AdmissionStep {
+  id           String     @id @default(cuid())
+  stepNumber   Int        @map("step_number")
+  title        String
+  description  String?    @db.Text
+
+  universityId String     @map("university_id")
+  university   University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+
+  createdAt    DateTime   @default(now()) @map("created_at")
+  updatedAt    DateTime   @updatedAt      @map("updated_at")
+
+  @@unique([universityId, stepNumber])
+  @@index([universityId])
+  @@map("admission_steps")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Consultation — booking form submissions
+// ─────────────────────────────────────────────────────────────────────────────
 
 model Consultation {
-  id               String             @id @default(cuid())
-  name             String
+  id               String              @id @default(cuid())
+  fullName         String              @map("full_name")
   email            String
   phone            String?
-  nationality      String?
-  interestedIn     String?
-  message          String?
-  preferredLocale  String             @default("en")
-  status           ConsultationStatus @default(PENDING)
-  source           String?
-  createdAt        DateTime           @default(now())
-  updatedAt        DateTime           @updatedAt
+  targetCountry    String?             @map("target_country")
+  consultationType ConsultationType?   @map("consultation_type")
+  message          String?             @db.Text
+  source           String?             @default("website")
+  status           ConsultationStatus  @default(NEW)
+
+  createdAt        DateTime            @default(now()) @map("created_at")
+  updatedAt        DateTime            @updatedAt      @map("updated_at")
 
   @@index([status])
-  @@index([email])
   @@index([createdAt])
+  @@index([email])
+  @@map("consultations")
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ChatConversation — UNTOUCHED
+// ─────────────────────────────────────────────────────────────────────────────
 
 model ChatConversation {
   id            String   @id @default(cuid())
@@ -99,6 +331,10 @@ model ChatConversation {
   @@index([sessionId])
   @@index([createdAt])
 }
+
+// ─────────────────────────────────────────────────────────────────────────────
+// User / Account / Session — Auth.js v5 — UNTOUCHED
+// ─────────────────────────────────────────────────────────────────────────────
 
 model User {
   id            String    @id @default(cuid())

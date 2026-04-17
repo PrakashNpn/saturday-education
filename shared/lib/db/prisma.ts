@@ -1,24 +1,18 @@
-// Prisma client — generated via: npx prisma generate
+// Prisma client — Prisma v7 with @prisma/adapter-pg
 // Run: npx prisma generate before using DB features
-// Phase 1: DB not required — this file is imported lazily by server-side code only
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
-let prismaInstance: any = null
+import { Pool } from 'pg'
+import { PrismaPg } from '@prisma/adapter-pg'
+import { PrismaClient } from '../../../generated/client'
 
-export function getPrisma() {
-  if (prismaInstance) return prismaInstance
-  // Dynamic import to avoid build errors when generated client doesn't exist yet
-  // eslint-disable-next-line @typescript-eslint/no-require-imports
-  const { PrismaClient } = require('../../../generated')
-  const globalForPrisma = globalThis as unknown as { prisma: typeof prismaInstance }
-  prismaInstance = globalForPrisma.prisma ?? new PrismaClient({
-    log: process.env.NODE_ENV === 'development' ? ['query', 'error', 'warn'] : ['error'],
-  })
-  if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prismaInstance
-  return prismaInstance
+const globalForPrisma = globalThis as unknown as { prisma: PrismaClient }
+
+function createPrismaClient() {
+  const pool = new Pool({ connectionString: process.env.DATABASE_URL! })
+  const adapter = new PrismaPg(pool)
+  return new PrismaClient({ adapter })
 }
 
-// Named export for direct use when DB is available
-export const prisma = new Proxy({} as ReturnType<typeof getPrisma>, {
-  get: (_target, prop) => getPrisma()[prop],
-})
+export const prisma = globalForPrisma.prisma ?? createPrismaClient()
+
+if (process.env.NODE_ENV !== 'production') globalForPrisma.prisma = prisma
