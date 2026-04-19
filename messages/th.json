@@ -168,22 +168,45 @@
     "consultation": {
       "heading": "Book Free Consultation",
       "form": {
-        "fullName": { "label": "Full Name", "placeholder": "John Doe" },
-        "email": { "label": "Email Address", "placeholder": "john@example.com" },
-        "phone": { "label": "Phone Number", "placeholder": "+1 (555) 000-0000" },
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "John Doe"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "john@example.com"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "+1 (555) 000-0000"
+        },
         "country": {
           "label": "Target Country",
           "options": {
-            "uk": "UK", "usa": "USA", "australia": "Australia", "canada": "Canada",
-            "newZealand": "New Zealand", "singapore": "Singapore", "switzerland": "Switzerland",
-            "ireland": "Ireland", "thailand": "Thailand", "other": "Other"
+            "uk": "UK",
+            "usa": "USA",
+            "australia": "Australia",
+            "canada": "Canada",
+            "newZealand": "New Zealand",
+            "singapore": "Singapore",
+            "switzerland": "Switzerland",
+            "ireland": "Ireland",
+            "thailand": "Thailand",
+            "other": "Other"
           }
         },
         "consultationType": {
           "label": "Consultation Type",
-          "options": { "online": "Online", "inPerson": "In-Person", "phoneCall": "Phone Call" }
+          "options": {
+            "online": "Online",
+            "inPerson": "In-Person",
+            "phoneCall": "Phone Call"
+          }
         },
-        "inquiry": { "label": "Additional Questions or Inquiry", "placeholder": "How can we help you?" },
+        "inquiry": {
+          "label": "Additional Questions or Inquiry",
+          "placeholder": "How can we help you?"
+        },
         "submit": "Book My Consultation"
       },
       "directContact": {
@@ -200,10 +223,18 @@
     },
     "statsCta": {
       "stats": {
-        "students": { "label": "Students Guided" },
-        "visa": { "label": "Visa Success Rate" },
-        "scholarships": { "label": "Scholarships Secured" },
-        "universities": { "label": "Partner Universities" }
+        "students": {
+          "label": "Students Guided"
+        },
+        "visa": {
+          "label": "Visa Success Rate"
+        },
+        "scholarships": {
+          "label": "Scholarships Secured"
+        },
+        "universities": {
+          "label": "Partner Universities"
+        }
       },
       "cta": {
         "heading": "Ready to write your own Success Story?",
@@ -324,5 +355,75 @@
     "aboutUs": "About Us",
     "bookConsultation": "Book Free Consultation",
     "language": "Thai"
+  },
+  "destinations": {
+    "heroLabel": "ค้นหาจุดหมายปลายทางของคุณ",
+    "heroTitle": "สำรวจจุดหมายปลายทางการศึกษาในอนาคตของคุณ",
+    "heroSubtitle": "นำทางภูมิทัศน์วิชาการระดับโลกด้วยข้อมูลเชิงลึกและคู่มือจุดหมายปลายทาง",
+    "searchPlaceholder": "ค้นหาภูมิภาคหรือประเทศ...",
+    "searchButton": "ค้นหา",
+    "popularRegions": "ภูมิภาคยอดนิยม",
+    "regionAll": "ทั้งหมด",
+    "regionEurope": "ยุโรป",
+    "regionAsia": "เอเชีย",
+    "regionAmericas": "อเมริกา",
+    "regionOceania": "โอเชียเนีย",
+    "regionAfrica": "แอฟริกา",
+    "showingCount": "แสดง {count} จุดหมายปลายทาง",
+    "sortBy": "เรียงตาม",
+    "sortHighestRanking": "อันดับสูงสุด",
+    "sortAZ": "ก-ฮ",
+    "sortZA": "ฮ-ก",
+    "viewDetails": "ดูรายละเอียด",
+    "loadMore": "โหลดเพิ่มเติม",
+    "whyStudyAbroadLabel": "การเปลี่ยนแปลง",
+    "whyStudyAbroadTitle": "ทำไมต้องเรียนต่อต่างประเทศ?",
+    "whyStudyAbroadSubtitle": "การลงทุนในการศึกษาระดับนานาชาติมากกว่าแค่ปริญญา คือการเดินทางแห่งการเปลี่ยนแปลงที่กำหนดมุมมองของคุณใหม่",
+    "globalExposure": "ประสบการณ์ระดับโลก",
+    "globalExposureDesc": "ดื่มด่ำกับวัฒนธรรมใหม่ เชี่ยวชาญภาษาใหม่ และสร้างเครือข่ายระดับโลก",
+    "careerEdge": "ความได้เปรียบในอาชีพ",
+    "careerEdgeDesc": "ประสบการณ์ระดับนานาชาติคือคุณสมบัติ #1 ที่นายจ้างชั้นนำมองหา",
+    "personalGrowth": "การเติบโตส่วนตัว",
+    "personalGrowthDesc": "พัฒนาความเป็นอิสระ การปรับตัว และทักษะการแก้ปัญหา",
+    "lifetimeMemories": "ความทรงจำตลอดชีวิต",
+    "lifetimeMemoriesDesc": "สร้างมิตรภาพตลอดชีวิตกับเพื่อนจากทั่วโลกขณะสำรวจสถานที่สำคัญ",
+    "ctaTitle": "พร้อมที่จะเริ่มต้นการเดินทางของคุณแล้วหรือยัง?",
+    "ctaSubtitle": "ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมนำทางคุณในทุกขั้นตอน",
+    "ctaButton": "จองการปรึกษาฟรี",
+    "studyAbroad": "เรียนต่อต่างประเทศ",
+    "destinationGuide": "คู่มือจุดหมายปลายทาง",
+    "overview": "ภาพรวม",
+    "whyStudyHere": "ทำไมต้องเรียนที่นี่",
+    "exploreUniversities": "สำรวจมหาวิทยาลัย",
+    "popularFields": "สาขายอดนิยม",
+    "scholarships": "ทุนการศึกษา",
+    "process": "ขั้นตอน",
+    "faqsLabel": "คำถามที่พบบ่อย",
+    "theAdvantage": "ข้อดีของ{country}",
+    "partnerUniversities": "มหาวิทยาลัยพาร์ทเนอร์ของเรา",
+    "academicSpecialties": "สาขาวิชาการ",
+    "fundingTitle": "แหล่งทุนการศึกษา",
+    "learnMore": "เรียนรู้เพิ่มเติม",
+    "fullFunding": "ทุนเต็มจำนวน",
+    "partialFunding": "ทุนบางส่วน",
+    "meritFunding": "ทุนเกียรติยศ",
+    "journeyTitle": "เส้นทางสู่ความสำเร็จ",
+    "commonQuestions": "คำถามที่พบบ่อย",
+    "explore": "สำรวจ",
+    "step": "ขั้นตอนที่ {number}",
+    "institutions": "สถาบัน",
+    "tuitionFees": "ค่าเล่าเรียน",
+    "workRightsLabel": "สิทธิ์การทำงาน",
+    "studentLife": "ชีวิตนักศึกษา",
+    "diversity": "ความหลากหลาย",
+    "employability": "การจ้างงาน",
+    "worldClassUniversities": "มหาวิทยาลัยระดับโลก",
+    "averagePerAnnum": "เฉลี่ยต่อปี",
+    "postStudyWorkVisa": "วีซ่าทำงานหลังเรียน",
+    "satisfactionRate": "อัตราความพึงพอใจ",
+    "internationalStudents": "นักศึกษานานาชาติ",
+    "graduateSuccessRate": "อัตราความสำเร็จของบัณฑิต",
+    "readyToStudy": "พร้อมที่จะเรียนใน {country} แล้วหรือยัง?",
+    "ctaDetailSubtitle": "ที่ปรึกษาผู้เชี่ยวชาญของเราพร้อมนำทางคุณในทุกขั้นตอนของกระบวนการสมัคร"
   }
 }

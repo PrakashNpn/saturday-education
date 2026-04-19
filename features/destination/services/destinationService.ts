@@ -1,18 +1,60 @@
-import type { Destination } from "../types/destination.types"
+import { prisma } from '@/shared/lib/db/prisma'
+import type { CountryCardData, CountryDetailData } from '../types'
 
-export const STATIC_DESTINATIONS: Destination[] = [
-  { id: "1", slug: "united-kingdom", country: "United Kingdom", universityCount: 130 },
-  { id: "2", slug: "australia", country: "Australia", universityCount: 43 },
-  { id: "3", slug: "usa", country: "USA", universityCount: 200 },
-  { id: "4", slug: "canada", country: "Canada", universityCount: 96 },
-  { id: "5", slug: "new-zealand", country: "New Zealand", universityCount: 8 },
-  { id: "6", slug: "switzerland", country: "Switzerland", universityCount: 12 },
-]
-
-export async function getDestinations(): Promise<Destination[]> {
-  return STATIC_DESTINATIONS
+export async function getAllCountries(): Promise<CountryCardData[]> {
+  const rows = await prisma.country.findMany({
+    where: { isPublished: true },
+    orderBy: [{ isFeatured: 'desc' }, { name: 'asc' }],
+    select: {
+      id: true,
+      name: true,
+      slug: true,
+      region: true,
+      cardImageUrl: true,
+      tagline: true,
+      shortDescription: true,
+      institutionCount: true,
+      isFeatured: true,
+      isPublished: true,
+      _count: { select: { universities: true } },
+    },
+  })
+  return rows as unknown as CountryCardData[]
 }
 
-export async function getDestinationBySlug(slug: string): Promise<Destination | undefined> {
-  return STATIC_DESTINATIONS.find((d) => d.slug === slug)
+export async function getCountryBySlug(slug: string): Promise<CountryDetailData | null> {
+  const row = await prisma.country.findUnique({
+    where: { slug },
+    include: {
+      advantages: { orderBy: { order: 'asc' } },
+      processSteps: { orderBy: { stepNumber: 'asc' } },
+      faqs: { orderBy: { order: 'asc' } },
+      scholarships: true,
+      universities: {
+        select: {
+          id: true,
+          slug: true,
+          name: true,
+          city: true,
+          ranking: true,
+          tuitionFeeMin: true,
+          tuitionFeeMax: true,
+          tuitionCurrency: true,
+          coverImageUrl: true,
+          logoUrl: true,
+          isFeatured: true,
+          shortDescription: true,
+        },
+        orderBy: { ranking: 'asc' },
+      },
+    },
+  })
+  return row as unknown as CountryDetailData | null
+}
+
+export async function getAllCountrySlugs() {
+  return prisma.country.findMany({
+    where: { isPublished: true },
+    select: { slug: true },
+  })
 }

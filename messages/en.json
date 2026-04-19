@@ -168,22 +168,45 @@
     "consultation": {
       "heading": "Book Free Consultation",
       "form": {
-        "fullName": { "label": "Full Name", "placeholder": "John Doe" },
-        "email": { "label": "Email Address", "placeholder": "john@example.com" },
-        "phone": { "label": "Phone Number", "placeholder": "+1 (555) 000-0000" },
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "John Doe"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "john@example.com"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "+1 (555) 000-0000"
+        },
         "country": {
           "label": "Target Country",
           "options": {
-            "uk": "UK", "usa": "USA", "australia": "Australia", "canada": "Canada",
-            "newZealand": "New Zealand", "singapore": "Singapore", "switzerland": "Switzerland",
-            "ireland": "Ireland", "thailand": "Thailand", "other": "Other"
+            "uk": "UK",
+            "usa": "USA",
+            "australia": "Australia",
+            "canada": "Canada",
+            "newZealand": "New Zealand",
+            "singapore": "Singapore",
+            "switzerland": "Switzerland",
+            "ireland": "Ireland",
+            "thailand": "Thailand",
+            "other": "Other"
           }
         },
         "consultationType": {
           "label": "Consultation Type",
-          "options": { "online": "Online", "inPerson": "In-Person", "phoneCall": "Phone Call" }
+          "options": {
+            "online": "Online",
+            "inPerson": "In-Person",
+            "phoneCall": "Phone Call"
+          }
         },
-        "inquiry": { "label": "Additional Questions or Inquiry", "placeholder": "How can we help you?" },
+        "inquiry": {
+          "label": "Additional Questions or Inquiry",
+          "placeholder": "How can we help you?"
+        },
         "submit": "Book My Consultation"
       },
       "directContact": {
@@ -200,10 +223,18 @@
     },
     "statsCta": {
       "stats": {
-        "students": { "label": "Students Guided" },
-        "visa": { "label": "Visa Success Rate" },
-        "scholarships": { "label": "Scholarships Secured" },
-        "universities": { "label": "Partner Universities" }
+        "students": {
+          "label": "Students Guided"
+        },
+        "visa": {
+          "label": "Visa Success Rate"
+        },
+        "scholarships": {
+          "label": "Scholarships Secured"
+        },
+        "universities": {
+          "label": "Partner Universities"
+        }
       },
       "cta": {
         "heading": "Ready to write your own Success Story?",
@@ -324,5 +355,75 @@
       "compare": "Compare study destinations",
       "scholarships": "Scholarship opportunities"
     }
+  },
+  "destinations": {
+    "heroLabel": "FIND YOUR DESTINATION",
+    "heroTitle": "Explore Your Future Study Destinations",
+    "heroSubtitle": "Navigate the global academic landscape with data-driven insights and curated destination guides.",
+    "searchPlaceholder": "Search region or country...",
+    "searchButton": "Search",
+    "popularRegions": "Popular Regions",
+    "regionAll": "All",
+    "regionEurope": "Europe",
+    "regionAsia": "Asia",
+    "regionAmericas": "Americas",
+    "regionOceania": "Oceania",
+    "regionAfrica": "Africa",
+    "showingCount": "Showing {count} destinations",
+    "sortBy": "Sort by",
+    "sortHighestRanking": "Highest Ranking",
+    "sortAZ": "A-Z",
+    "sortZA": "Z-A",
+    "viewDetails": "View Details",
+    "loadMore": "Load More Destinations",
+    "whyStudyAbroadLabel": "TRANSFORMATION",
+    "whyStudyAbroadTitle": "Why study abroad?",
+    "whyStudyAbroadSubtitle": "Investing in an international education is more than just a degree; it’s a transformative journey that redefines your perspective.",
+    "globalExposure": "Global Exposure",
+    "globalExposureDesc": "Immerse yourself in new cultures, master new languages, and build a global network that spans continents.",
+    "careerEdge": "Career Edge",
+    "careerEdgeDesc": "International experience is the #1 trait top-tier employers look for in future leadership candidates.",
+    "personalGrowth": "Personal Growth",
+    "personalGrowthDesc": "Develop independence, adaptability, and problem-solving skills that only come from living abroad.",
+    "lifetimeMemories": "A Lifetime of Memories",
+    "lifetimeMemoriesDesc": "Forge lifelong friendships with peers from around the globe while exploring iconic landmarks.",
+    "ctaTitle": "Ready to start your journey?",
+    "ctaSubtitle": "Our expert consultants are here to guide you through every step of the application process.",
+    "ctaButton": "Book Free Consultation",
+    "studyAbroad": "STUDY ABROAD",
+    "destinationGuide": "Destination Guide",
+    "overview": "Overview",
+    "whyStudyHere": "Why Study Here",
+    "exploreUniversities": "Explore Universities",
+    "popularFields": "Popular Fields",
+    "scholarships": "Scholarships",
+    "process": "Process",
+    "faqsLabel": "FAQs",
+    "theAdvantage": "The {country} Advantage",
+    "partnerUniversities": "Our Partner Universities",
+    "academicSpecialties": "Academic Specialties",
+    "fundingTitle": "Funding Your Future",
+    "learnMore": "Learn More",
+    "fullFunding": "FULL FUNDING",
+    "partialFunding": "PARTIAL FUNDING",
+    "meritFunding": "MERIT BASED",
+    "journeyTitle": "The Journey Ahead",
+    "commonQuestions": "Common Questions",
+    "explore": "Explore",
+    "step": "Step {number}",
+    "institutions": "INSTITUTIONS",
+    "tuitionFees": "TUITION FEES",
+    "workRightsLabel": "WORK RIGHTS",
+    "studentLife": "STUDENT LIFE",
+    "diversity": "DIVERSITY",
+    "employability": "EMPLOYABILITY",
+    "worldClassUniversities": "World-class universities",
+    "averagePerAnnum": "Average per annum",
+    "postStudyWorkVisa": "Post-Study Work Visa",
+    "satisfactionRate": "Satisfaction rate",
+    "internationalStudents": "International students",
+    "graduateSuccessRate": "Graduate success rate",
+    "readyToStudy": "Ready to Study in {country}?",
+    "ctaDetailSubtitle": "Our expert consultants are here to guide you through every step of the application process."
   }
 }

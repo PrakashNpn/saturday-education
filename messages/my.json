@@ -168,22 +168,45 @@
     "consultation": {
       "heading": "Book Free Consultation",
       "form": {
-        "fullName": { "label": "Full Name", "placeholder": "John Doe" },
-        "email": { "label": "Email Address", "placeholder": "john@example.com" },
-        "phone": { "label": "Phone Number", "placeholder": "+1 (555) 000-0000" },
+        "fullName": {
+          "label": "Full Name",
+          "placeholder": "John Doe"
+        },
+        "email": {
+          "label": "Email Address",
+          "placeholder": "john@example.com"
+        },
+        "phone": {
+          "label": "Phone Number",
+          "placeholder": "+1 (555) 000-0000"
+        },
         "country": {
           "label": "Target Country",
           "options": {
-            "uk": "UK", "usa": "USA", "australia": "Australia", "canada": "Canada",
-            "newZealand": "New Zealand", "singapore": "Singapore", "switzerland": "Switzerland",
-            "ireland": "Ireland", "thailand": "Thailand", "other": "Other"
+            "uk": "UK",
+            "usa": "USA",
+            "australia": "Australia",
+            "canada": "Canada",
+            "newZealand": "New Zealand",
+            "singapore": "Singapore",
+            "switzerland": "Switzerland",
+            "ireland": "Ireland",
+            "thailand": "Thailand",
+            "other": "Other"
           }
         },
         "consultationType": {
           "label": "Consultation Type",
-          "options": { "online": "Online", "inPerson": "In-Person", "phoneCall": "Phone Call" }
+          "options": {
+            "online": "Online",
+            "inPerson": "In-Person",
+            "phoneCall": "Phone Call"
+          }
         },
-        "inquiry": { "label": "Additional Questions or Inquiry", "placeholder": "How can we help you?" },
+        "inquiry": {
+          "label": "Additional Questions or Inquiry",
+          "placeholder": "How can we help you?"
+        },
         "submit": "Book My Consultation"
       },
       "directContact": {
@@ -200,10 +223,18 @@
     },
     "statsCta": {
       "stats": {
-        "students": { "label": "Students Guided" },
-        "visa": { "label": "Visa Success Rate" },
-        "scholarships": { "label": "Scholarships Secured" },
-        "universities": { "label": "Partner Universities" }
+        "students": {
+          "label": "Students Guided"
+        },
+        "visa": {
+          "label": "Visa Success Rate"
+        },
+        "scholarships": {
+          "label": "Scholarships Secured"
+        },
+        "universities": {
+          "label": "Partner Universities"
+        }
       },
       "cta": {
         "heading": "Ready to write your own Success Story?",
@@ -324,5 +355,75 @@
     "aboutUs": "About Us",
     "bookConsultation": "Book Free Consultation",
     "language": "Myanmar"
+  },
+  "destinations": {
+    "heroLabel": "သင်၏ ဦးတည်ရာကို ရှာဖွေပါ",
+    "heroTitle": "သင်၏ နောင်တမ်တ ပညာသင်ကြားမည့် နေရာများကို ရှာဖွေပါ",
+    "heroSubtitle": "ဒေတာကိုအခြေခံသော ထိုးထွင်းသိမြင်မှုနှင့် စီစဉ်ထားသော လမ်းညွှန်ချက်များဖြင့် ကမ္ဘာ့ပညာရေး နယ်ပယ်ကို လမ်းညွှန်ပါ",
+    "searchPlaceholder": "ဒေသ သို့မဟုတ် နိုင်ငံကို ရှာဖွေပါ...",
+    "searchButton": "ရှာဖွေ",
+    "popularRegions": "နာမည်ကြီးသော ဒေသများ",
+    "regionAll": "အားလုံး",
+    "regionEurope": "ဥရောပ",
+    "regionAsia": "အာရှ",
+    "regionAmericas": "အမေရိကာ",
+    "regionOceania": "အိုရှယ်နီယာ",
+    "regionAfrica": "အာဖရိကာ",
+    "showingCount": "{count} ဦးတည်ရာများ ပြသနေသည်",
+    "sortBy": "စီပေးမည်",
+    "sortHighestRanking": "အမြင့်ဆုံး အဆင့်",
+    "sortAZ": "A-Z",
+    "sortZA": "Z-A",
+    "viewDetails": "အသေးစိတ် ကြည့်ပါ",
+    "loadMore": "နောက်ထပ် ဦးတည်ရာများ ဖွင့်ပါ",
+    "whyStudyAbroadLabel": "ပြောင်းလဲမှု",
+    "whyStudyAbroadTitle": "နိုင်ငံခြားတွင် ဘာကြောင့် ပညာသင်ကြားရမလဲ?",
+    "whyStudyAbroadSubtitle": "နိုင်ငံတကာပညာရေးတွင် ရင်းနှီးမြှုပ်နှံခြင်းသည် ဘွဲ့တစ်ခုထက် ပိုသည်။ သင်၏ မြင်ကွင်းကို ပြန်လည်သတ်မှတ်သည့် ပြောင်းလဲမှုခရီးတစ်ခုဖြစ်သည်",
+    "globalExposure": "ကမ္ဘာ့ အတွေ့အကြုံ",
+    "globalExposureDesc": "ယဉ်ကျေးမှုအသစ်များတွင် မွှေနှောပြီး ဘာသာစကားအသစ်များ တတ်မြောက်ကာ ကမ္ဘာ့ကွန်ရက်တည်ဆောက်ပါ",
+    "careerEdge": "အသက်မွေးဝမ်းကျောင်း အားသာချက်",
+    "careerEdgeDesc": "နိုင်ငံတကာ အတွေ့အကြုံသည် ထိပ်တန်းစာရေးသူများ ရှာဖွေသည့် #1 အရည်အချင်းဖြစ်သည်",
+    "personalGrowth": "ကိုယ်ပိုင် တိုးတက်မှု",
+    "personalGrowthDesc": "နိုင်ငံခြားတွင် နေထိုင်ခြင်းမှသာ ရနိုင်သော လွတ်လပ်မှု၊ လိုက်လျောညီထွေမှုနှင့် ပြဿနာဖြေရှင်းနိုင်မှု စွမ်းရည်များ တိုးတက်ပါ",
+    "lifetimeMemories": "တသက်တာ အမှတ်တရများ",
+    "lifetimeMemoriesDesc": "ကမ္ဘာ့ ထင်ရှားသော နေရာများကို ရှာဖွေစူးစမ်းရင်း ကမ္ဘာတဝှမ်းမှ မိတ်ဆွေများနှင့် တသက်တာ သူငယ်ချင်းဆက်ဆံရေး တည်ဆောက်ပါ",
+    "ctaTitle": "သင်၏ ခရီးကို စတင်ရန် အဆင်သင့်ဖြစ်ပြီလား?",
+    "ctaSubtitle": "ကျွန်ုပ်တို့၏ ကျွမ်းကျင်သော အတိုင်ပင်ခံများသည် လျှောက်လွှာ လုပ်ငန်းစဉ်တစ်ခုချင်းစီတွင် သင့်ကို လမ်းညွှန်ရန် အသင့်ရှိနေသည်",
+    "ctaButton": "အခမဲ့ တိုင်ပင်ဆွေးနွေးမှု ကြိုတင်မှာပါ",
+    "studyAbroad": "နိုင်ငံခြားတွင် ပညာသင်ကြားပါ",
+    "destinationGuide": "ဦးတည်ရာ လမ်းညွှန်",
+    "overview": "အနှစ်ချုပ်",
+    "whyStudyHere": "ဘာကြောင့် ဒီနေရာတွင် သင်ကြားရမလဲ",
+    "exploreUniversities": "တက္ကသိုလ်များ ရှာဖွေပါ",
+    "popularFields": "နာမည်ကြီးသော နယ်ပယ်များ",
+    "scholarships": "သင်တန်းကြေးချေးငွေ",
+    "process": "လုပ်ငန်းစဉ်",
+    "faqsLabel": "မကြာခဏ မေးလေ့ရှိသော မေးခွန်းများ",
+    "theAdvantage": "{country} ၏ အားသာချက်",
+    "partnerUniversities": "ကျွန်ုပ်တို့၏ မိတ်ဖက် တက္ကသိုလ်များ",
+    "academicSpecialties": "ပညာရပ် အထူးပြုများ",
+    "fundingTitle": "သင်၏ အနာဂတ်အတွက် ရန်ပုံငွေ",
+    "learnMore": "ပိုမိုလေ့လာပါ",
+    "fullFunding": "အပြည့်အဝ ထောက်ပံ့ကြေး",
+    "partialFunding": "တစ်စိတ်တစ်ပိုင်း ထောက်ပံ့ကြေး",
+    "meritFunding": "အသိပညာအပေါ် အခြေခံသော ထောက်ပံ့ကြေး",
+    "journeyTitle": "ရှေ့ရောက်မည့် ခရီး",
+    "commonQuestions": "မကြာခဏ မေးလေ့ရှိသော မေးခွန်းများ",
+    "explore": "ရှာဖွေပါ",
+    "step": "အဆင့် {number}",
+    "institutions": "ပညာရေး အဖွဲ့အစည်းများ",
+    "tuitionFees": "သင်တန်းကြေး",
+    "workRightsLabel": "အလုပ်လုပ်ပိုင်ခွင့်",
+    "studentLife": "ကျောင်းသားဘဝ",
+    "diversity": "မတူကွဲပြားမှု",
+    "employability": "အလုပ်အကိုင် ရရှိနိုင်မှု",
+    "worldClassUniversities": "ကမ္ဘာ့အဆင့် တက္ကသိုလ်များ",
+    "averagePerAnnum": "တစ်နှစ်ပျမ်းမျှ",
+    "postStudyWorkVisa": "ပညာသင်ပြီး နောက် အလုပ်လုပ်ဗီဇာ",
+    "satisfactionRate": "ကျေနပ်မှု နှုန်း",
+    "internationalStudents": "နိုင်ငံတကာ ကျောင်းသားများ",
+    "graduateSuccessRate": "ဘွဲ့ရပြီး အောင်မြင်မှု နှုန်း",
+    "readyToStudy": "{country} တွင် ပညာသင်ကြားရန် အဆင်သင့်ဖြစ်ပြီလား?",
+    "ctaDetailSubtitle": "ကျွန်ုပ်တို့၏ ကျွမ်းကျင်သော အတိုင်ပင်ခံများသည် လျှောက်လွှာ လုပ်ငန်းစဉ်တစ်ခုချင်းစီတွင် သင့်ကို လမ်းညွှန်ရန် အသင့်ရှိနေသည်"
   }
 }
