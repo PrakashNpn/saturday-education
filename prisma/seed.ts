@@ -32,6 +32,8 @@ const UNITED_KINGDOM = {
   tuitionFeeRange: '$25,000 – $45,000',
   postStudyWorkVisa: 'Graduate Route – 2 years (3 years for PhD)',
   internationalStudents: 680000,
+  studentSatisfaction: 85,
+  graduateEmployability: 88,
   visaProcessingTime: '3 weeks',
   workRights: '20 hrs/week during term, full-time during holidays. Graduate Route: 2 years post-study (3 years for PhD).',
   costOfLivingMinUSD: 12000,

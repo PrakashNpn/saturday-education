@@ -37,14 +37,17 @@ export async function DestinationDetailPage({ slug }: Props) {
         name={country.name}
         tagline={country.tagline}
         heroImageUrl={country.heroImageUrl}
+        region={country.region}
         studyAbroadLabel={t('studyAbroad')}
       />
 
+      <div className="bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
         <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12 pt-12 pb-20">
           <DetailSidebar
             sections={sections}
             guideName={t('destinationGuide')}
+            ctaEyebrow={t('sidebarEyebrow')}
             ctaTitle={t('readyToStudy', { country: country.name })}
             ctaLabel={t('ctaButton')}
           />
@@ -65,7 +68,9 @@ export async function DestinationDetailPage({ slug }: Props) {
             <section id="universities">
               <PartnerUniversities
                 universities={country.universities}
+                eyebrow={t('exploreUniversities')}
                 title={t('partnerUniversities')}
+                subtitle={t('universitiesSubtitle')}
                 exploreLabel={t('explore')}
               />
             </section>
@@ -85,12 +90,15 @@ export async function DestinationDetailPage({ slug }: Props) {
             <section id="faqs">
               <CountryFAQs
                 faqs={country.faqs}
+                eyebrow={t('faqsLabel')}
                 title={t('commonQuestions')}
+                subtitle={t('faqsSubtitle')}
               />
             </section>
 
           </div>
         </div>
+      </div>
       </div>
     </>
   )
