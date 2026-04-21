@@ -18,6 +18,7 @@ enum DegreeType {
   MASTER
   PHD
   DIPLOMA
+  ASSOCIATE
   CERTIFICATE
   FOUNDATION
 }

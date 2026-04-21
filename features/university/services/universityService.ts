@@ -1,14 +1,72 @@
-import type { University } from "../types/university.types"
+import { prisma } from '@/shared/lib/db/prisma'
+import { ALL_DEGREE_LEVELS } from '../utils/universityUtils'
+import type { UniversityFinderData, UniversityListItem } from '../types/university.types'
 
-export const STATIC_UNIVERSITIES: University[] = [
-  { id: "1", slug: "university-of-oxford", name: "University of Oxford", country: "United Kingdom", city: "Oxford", ranking: 1 },
-  { id: "2", slug: "university-of-melbourne", name: "University of Melbourne", country: "Australia", city: "Melbourne", ranking: 14 },
-  { id: "3", slug: "mit", name: "MIT", country: "USA", city: "Cambridge", ranking: 2 },
-  { id: "4", slug: "university-of-toronto", name: "University of Toronto", country: "Canada", city: "Toronto", ranking: 21 },
-  { id: "5", slug: "auckland-university", name: "University of Auckland", country: "New Zealand", city: "Auckland", ranking: 87 },
-  { id: "6", slug: "eth-zurich", name: "ETH Zurich", country: "Switzerland", city: "Zurich", ranking: 9 },
-]
+export async function getAllUniversitiesWithFilters(): Promise<UniversityFinderData> {
+  const [rawUniversities, countries, programFields] = await Promise.all([
+    prisma.university.findMany({
+      include: {
+        country: { select: { name: true, slug: true } },
+        programs: { select: { field: true, degreeLevel: true, name: true } },
+        _count: { select: { programs: true } },
+      },
+      orderBy: { ranking: 'asc' },
+    }),
+    prisma.country.findMany({
+      select: { id: true, name: true, slug: true },
+      orderBy: { name: 'asc' },
+    }),
+    prisma.program.findMany({
+      select: { field: true },
+      distinct: ['field'],
+      orderBy: { field: 'asc' },
+    }),
+  ])
 
-export async function getUniversities(): Promise<University[]> {
-  return STATIC_UNIVERSITIES
+  return {
+    universities: rawUniversities as unknown as UniversityListItem[],
+    countries,
+    programFields: programFields.map((p) => p.field).filter(Boolean),
+    degreeLevels: ALL_DEGREE_LEVELS,
+  }
+}
+
+export async function getUniversityBySlug(slug: string) {
+  return prisma.university.findUnique({
+    where: { slug },
+    include: {
+      country: true,
+      programs: { orderBy: { name: 'asc' } },
+      admissionSteps: { orderBy: { stepNumber: 'asc' } },
+      scholarships: true,
+    },
+  })
+}
+
+export async function getAllUniversitySlugs() {
+  return prisma.university.findMany({ select: { slug: true } })
+}
+
+export async function getSimilarUniversities(universityId: string, countryId: string, limit = 4) {
+  return prisma.university.findMany({
+    where: { countryId, id: { not: universityId } },
+    select: {
+      id: true,
+      slug: true,
+      name: true,
+      city: true,
+      ranking: true,
+      acceptanceRate: true,
+      tuitionFeeMin: true,
+      tuitionFeeMax: true,
+      tuitionCurrency: true,
+      intakeMonths: true,
+      coverImageUrl: true,
+      logoUrl: true,
+      country: { select: { name: true, slug: true } },
+      _count: { select: { programs: true } },
+    },
+    orderBy: { ranking: 'asc' },
+    take: limit,
+  })
 }

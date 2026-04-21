@@ -70,9 +70,9 @@ export function DetailSidebar({ sections, guideName, ctaTitle, ctaLabel }: Props
 
         {/* Compact CTA card */}
         <div className="rounded-2xl bg-gradient-to-b from-brand-purple to-purple-900 p-5 text-center">
-          <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center mx-auto mb-3">
+          {/* <div className="w-8 h-8 rounded-full bg-white/15 flex items-center justify-center mx-auto mb-3">
             <span className="text-white text-base">✦</span>
-          </div>
+          </div> */}
           <p className="text-white font-semibold text-sm leading-snug mb-4">{ctaTitle}</p>
           <Link
             href="/#consultation"

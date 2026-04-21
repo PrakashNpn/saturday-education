@@ -67,9 +67,12 @@ const OXFORD = {
   name: 'University of Oxford',
   city: 'Oxford',
   foundedYear: 1096,
-  ranking: 1,
+  ranking: 3,
   acceptanceRate: 17.5,
   internationalStudents: 45,
+  totalStudents: 26000,
+  numberOfCampuses: 2,
+  graduateEmployability: 91,
   intakeMonths: 'October',
   tuitionFeeMin: 32000,
   tuitionFeeMax: 52000,
@@ -101,9 +104,12 @@ const CAMBRIDGE = {
   name: 'University of Cambridge',
   city: 'Cambridge',
   foundedYear: 1209,
-  ranking: 2,
+  ranking: 5,
   acceptanceRate: 21,
   internationalStudents: 40,
+  totalStudents: 24000,
+  numberOfCampuses: 1,
+  graduateEmployability: 93,
   intakeMonths: 'October',
   tuitionFeeMin: 30000,
   tuitionFeeMax: 48000,
@@ -134,9 +140,12 @@ const IMPERIAL = {
   name: 'Imperial College London',
   city: 'London',
   foundedYear: 1907,
-  ranking: 6,
+  ranking: 2,
   acceptanceRate: 14.3,
   internationalStudents: 59,
+  totalStudents: 22000,
+  numberOfCampuses: 1,
+  graduateEmployability: 92,
   intakeMonths: 'October',
   tuitionFeeMin: 38000,
   tuitionFeeMax: 55000,
@@ -212,9 +221,12 @@ const HARVARD = {
   name: 'Harvard University',
   city: 'Cambridge, MA',
   foundedYear: 1636,
-  ranking: 3,
+  ranking: 4,
   acceptanceRate: 3.4,
   internationalStudents: 25,
+  totalStudents: 36000,
+  numberOfCampuses: 2,
+  graduateEmployability: 96,
   intakeMonths: 'September',
   tuitionFeeMin: 57000,
   tuitionFeeMax: 60000,
@@ -249,6 +261,9 @@ const MIT = {
   ranking: 1,
   acceptanceRate: 4.1,
   internationalStudents: 37,
+  totalStudents: 11500,
+  numberOfCampuses: 1,
+  graduateEmployability: 95,
   intakeMonths: 'September',
   tuitionFeeMin: 60000,
   tuitionFeeMax: 60000,
@@ -279,9 +294,12 @@ const STANFORD = {
   name: 'Stanford University',
   city: 'Stanford, CA',
   foundedYear: 1885,
-  ranking: 3,
+  ranking: 6,
   acceptanceRate: 3.7,
   internationalStudents: 30,
+  totalStudents: 17000,
+  numberOfCampuses: 1,
+  graduateEmployability: 94,
   intakeMonths: 'September',
   tuitionFeeMin: 62000,
   tuitionFeeMax: 62000,
@@ -357,9 +375,12 @@ const MELBOURNE = {
   name: 'University of Melbourne',
   city: 'Melbourne, VIC',
   foundedYear: 1853,
-  ranking: 14,
+  ranking: 13,
   acceptanceRate: 70,
   internationalStudents: 46,
+  totalStudents: 53000,
+  numberOfCampuses: 7,
+  graduateEmployability: 87,
   intakeMonths: 'February, July',
   tuitionFeeMin: 45000,
   tuitionFeeMax: 50000,
@@ -393,6 +414,9 @@ const ANU = {
   ranking: 30,
   acceptanceRate: 35,
   internationalStudents: 39,
+  totalStudents: 22000,
+  numberOfCampuses: 1,
+  graduateEmployability: 85,
   intakeMonths: 'February, July',
   tuitionFeeMin: 44000,
   tuitionFeeMax: 47000,
@@ -425,6 +449,9 @@ const SYDNEY = {
   ranking: 18,
   acceptanceRate: 30,
   internationalStudents: 44,
+  totalStudents: 73000,
+  numberOfCampuses: 2,
+  graduateEmployability: 88,
   intakeMonths: 'February, July',
   tuitionFeeMin: 46000,
   tuitionFeeMax: 52000,
@@ -449,6 +476,27 @@ const SYDNEY = {
     { name: 'Sydney Scholars Award', type: ScholarshipType.MERIT_BASED, value: 'AUD $6,000 one-time award', description: 'Awarded to international students who demonstrate outstanding academic achievement. Applied directly to tuition fees.', learnMoreUrl: null },
   ],
 }
+
+// ─── STUB COUNTRIES (no universities yet) ────────────────────────────────────
+
+const STUB_COUNTRIES = [
+  { slug: 'thailand',      name: 'Thailand',                  region: Region.ASIA     },
+  { slug: 'singapore',     name: 'Singapore',                 region: Region.ASIA     },
+  { slug: 'malaysia',      name: 'Malaysia',                  region: Region.ASIA     },
+  { slug: 'uae',           name: 'United Arab Emirates',      region: Region.ASIA     },
+  { slug: 'grenada',       name: 'Grenada',                   region: Region.AMERICAS },
+  { slug: 'vietnam',       name: 'Vietnam',                   region: Region.ASIA     },
+  { slug: 'cambodia',      name: 'Cambodia',                  region: Region.ASIA     },
+  { slug: 'china',         name: 'China',                     region: Region.ASIA     },
+  { slug: 'canada',        name: 'Canada',                    region: Region.AMERICAS },
+  { slug: 'spain',         name: 'Spain',                     region: Region.EUROPE   },
+  { slug: 'germany',       name: 'Germany',                   region: Region.EUROPE   },
+  { slug: 'ireland',       name: 'Ireland',                   region: Region.EUROPE   },
+  { slug: 'netherlands',   name: 'Netherlands',               region: Region.EUROPE   },
+  { slug: 'new-zealand',   name: 'New Zealand',               region: Region.OCEANIA  },
+  { slug: 'switzerland',   name: 'Switzerland',               region: Region.EUROPE   },
+  { slug: 'hungary',       name: 'Hungary',                   region: Region.EUROPE   },
+]
 
 // ─── SEED HELPERS ─────────────────────────────────────────────────────────────
 
@@ -483,6 +531,14 @@ async function seedCountry(data: any): Promise<string> {
   }
 
   return id
+}
+
+async function seedCountryStub(data: { slug: string; name: string; region: Region }): Promise<void> {
+  await prisma.country.upsert({
+    where: { slug: data.slug },
+    update: data,
+    create: data,
+  })
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -538,7 +594,11 @@ async function main() {
   await seedUniversity(SYDNEY, ausId)
   console.log('  ✓ Australia + 3 universities')
 
-  console.log('\n✅ Seeded 3 countries, 9 universities, 35 programs, 15 scholarships')
+  // Stub countries — no universities yet, appear in finder filter
+  for (const c of STUB_COUNTRIES) await seedCountryStub(c)
+  console.log(`  ✓ ${STUB_COUNTRIES.length} stub countries (filter-only)`)
+
+  console.log('\n✅ Seeded 3 countries, 9 universities, 35 programs, 15 scholarships + 16 stub countries')
 }
 
 main()

@@ -6,9 +6,10 @@ interface FallbackImageProps {
   alt: string
   className?: string
   fallbackClassName?: string
+  fallbackBg?: string
 }
 
-export function FallbackImage({ src, alt, className, fallbackClassName }: FallbackImageProps) {
+export function FallbackImage({ src, alt, className, fallbackClassName, fallbackBg }: FallbackImageProps) {
   const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>(
     !src || src.trim() === '' ? 'error' : 'loading',
   )
@@ -24,14 +25,10 @@ export function FallbackImage({ src, alt, className, fallbackClassName }: Fallba
   if (status === 'error') {
     return (
       <div
-        className={`bg-gradient-to-br from-purple-100 to-purple-200 flex items-center justify-center ${fallbackClassName ?? className ?? ''}`}
+        className={`${fallbackBg ?? 'bg-gradient-to-br from-brand-purple to-purple-900'} flex items-center justify-center ${fallbackClassName ?? className ?? ''}`}
         role="img"
         aria-label={alt}
-      >
-        <span className="text-brand-purple/40 text-5xl font-bold select-none">
-          {alt.charAt(0).toUpperCase()}
-        </span>
-      </div>
+      />
     )
   }
 

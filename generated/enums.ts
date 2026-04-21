@@ -14,6 +14,7 @@ export const DegreeType = {
   MASTER: 'MASTER',
   PHD: 'PHD',
   DIPLOMA: 'DIPLOMA',
+  ASSOCIATE: 'ASSOCIATE',
   CERTIFICATE: 'CERTIFICATE',
   FOUNDATION: 'FOUNDATION'
 } as const
