@@ -17,6 +17,14 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
   const [search, setSearch] = useState('')
   const [region, setRegion] = useState('All')
 
+  const regionCounts = useMemo(() => {
+    const counts: Record<string, number> = { _total: countries.length }
+    countries.forEach((c) => {
+      counts[c.region] = (counts[c.region] ?? 0) + 1
+    })
+    return counts
+  }, [countries])
+
   const filtered = useMemo(() => {
     const q = search.toLowerCase().trim()
     return countries.filter((c) => {
@@ -44,11 +52,13 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
         }}
       />
 
+      <div className="bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-16 pb-12">
         <div className="mb-8">
           <RegionFilter
             selected={region}
             onChange={setRegion}
+            counts={regionCounts}
             translations={{
               popularRegions: t.popularRegions,
               regionAll: t.regionAll,
@@ -73,6 +83,7 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
             viewDetails: t.viewDetails,
           }}
         />
+      </div>
       </div>
 
       <WhyStudyAbroad

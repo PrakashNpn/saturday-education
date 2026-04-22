@@ -15,27 +15,47 @@ interface Props {
 
 export function DestinationsHero({ searchValue, onSearchChange, translations: t }: Props) {
   return (
-    <div className="relative bg-gradient-to-b from-brand-purple via-purple-900 to-purple-950 pt-16 pb-10 text-center overflow-visible">
-      {/* Subtle radial glow */}
+    <div className="relative bg-gradient-to-b from-brand-purple via-purple-800 to-purple-900 pt-16 pb-8 md:pb-14 px-4 text-center overflow-visible">
+
+      {/* Dot grid texture */}
+      <div
+        className="absolute inset-0 pointer-events-none"
+        style={{
+          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
+          backgroundSize: '28px 28px',
+        }}
+      />
+
+      {/* Centered radial glow */}
       <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[800px] h-[400px] bg-white/5 rounded-full blur-3xl" />
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-white/5 rounded-full blur-3xl" />
       </div>
 
-      <div className="relative z-10 max-w-3xl mx-auto px-4">
-        <p className="text-white/70 text-xs font-semibold tracking-[0.25em] uppercase mb-5">
+      {/* Decorative rings — clipped to prevent horizontal scroll */}
+      <div className="absolute inset-0 overflow-hidden pointer-events-none">
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-80 h-80 rounded-full border border-white/10" />
+        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-52 h-52 rounded-full border border-white/10" />
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-80 h-80 rounded-full border border-white/10" />
+        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-52 h-52 rounded-full border border-white/10" />
+      </div>
+
+      {/* Content */}
+      <div className="relative z-10 max-w-3xl mx-auto mb-6 md:mb-10">
+        <div className="flex items-center justify-center gap-2 w-fit mx-auto bg-white/20 backdrop-blur-sm text-white text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
+          <Globe className="w-3.5 h-3.5" />
           {t.heroLabel}
-        </p>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-5 leading-tight">
+        </div>
+        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
           {t.heroTitle}
         </h1>
-        <p className="text-white/70 text-base md:text-lg mb-12 max-w-xl mx-auto leading-relaxed">
+        <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto">
           {t.heroSubtitle}
         </p>
       </div>
 
-      {/* Search bar — sits at the bottom edge of the hero, half overlapping the body */}
-      <div className="absolute bottom-0 translate-y-1/2 left-0 right-0 z-20 px-4">
-        <div className="flex items-center bg-white rounded-full shadow-xl max-w-5xl mx-auto px-4 py-3 gap-2">
+      {/* Search bar — inline on mobile, overlaps on desktop */}
+      <div className="relative z-20 px-0 md:absolute md:bottom-0 md:translate-y-1/2 md:left-0 md:right-0 md:px-4">
+        <div className="flex items-center bg-white rounded-2xl shadow-xl max-w-5xl mx-auto p-4 md:p-5 gap-3">
           <Globe className="w-5 h-5 text-gray-400 flex-shrink-0" />
           <input
             type="text"

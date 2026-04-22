@@ -64,11 +64,12 @@ export function DestinationGrid({ countries, translations: t }: Props) {
 
       {/* Card grid */}
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-        {visible.map((country) => (
+        {visible.map((country, i) => (
           <DestinationCard
             key={country.id}
             country={country}
             viewDetailsLabel={t.viewDetails}
+            index={i}
           />
         ))}
       </div>

@@ -1,50 +1,62 @@
+import { ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { FallbackImage } from '@/shared/components/common'
-import { REGION_BADGE_COLORS, REGION_DISPLAY } from '../utils/constants'
+import { REGION_DISPLAY } from '../utils/constants'
 import type { CountryCardData } from '../types'
+
+const COVER_GRADIENTS = [
+  'bg-gradient-to-br from-brand-purple to-purple-900',
+  'bg-gradient-to-br from-purple-900 to-brand-purple-dark',
+  'bg-gradient-to-tl from-brand-purple to-violet-900',
+  'bg-gradient-to-br from-indigo-900 to-brand-purple',
+]
 
 interface Props {
   country: CountryCardData
   viewDetailsLabel: string
+  index?: number
 }
 
-export function DestinationCard({ country, viewDetailsLabel }: Props) {
-  const badgeClass = REGION_BADGE_COLORS[country.region] ?? 'bg-gray-600 text-white'
+export function DestinationCard({ country, viewDetailsLabel, index = 0 }: Props) {
   const regionLabel = REGION_DISPLAY[country.region] ?? country.region
 
   return (
-    <div className="bg-white rounded-xl shadow-sm overflow-hidden hover:shadow-md transition-shadow">
-      {/* Cover image */}
-      <div className="relative aspect-[16/10] overflow-hidden bg-purple-50">
-        <FallbackImage
-          src={country.cardImageUrl}
-          alt={country.name}
-          className="w-full h-full object-cover"
-        />
-        {/* Region badge */}
-        <span
-          className={`absolute top-3 left-3 text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded-full uppercase ${badgeClass}`}
-        >
-          {regionLabel}
+    <Link
+      href={`/destinations/${country.slug}`}
+      className="group relative block rounded-2xl overflow-hidden h-64 md:h-72 hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
+    >
+      {/* Background */}
+      <FallbackImage
+        src={country.cardImageUrl}
+        alt={country.name}
+        className="absolute inset-0 w-full h-full object-cover"
+        fallbackClassName="absolute inset-0 w-full h-full"
+        fallbackBg={COVER_GRADIENTS[index % COVER_GRADIENTS.length]}
+      />
+
+      {/* Bottom-weighted dark overlay for text legibility */}
+      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-black/10" />
+
+      {/* Subtle hover brightening */}
+      <div className="absolute inset-0 bg-white/0 group-hover:bg-white/5 transition-colors duration-300" />
+
+      {/* Region badge — top left */}
+      <span className="absolute top-3 left-3 bg-white/20 backdrop-blur-sm text-white text-[10px] font-semibold tracking-wider px-2.5 py-1 rounded-full uppercase">
+        {regionLabel}
+      </span>
+
+      {/* Content — bottom anchored */}
+      <div className="absolute bottom-0 left-0 right-0 p-5">
+        <h3 className="font-bold text-xl text-white leading-tight mb-1">{country.name}</h3>
+        {country.institutionCount ? (
+          <p className="text-white/70 text-xs font-medium mb-3">{country.institutionCount} institutions</p>
+        ) : country.shortDescription ? (
+          <p className="text-white/70 text-xs mb-3 line-clamp-1">{country.shortDescription}</p>
+        ) : null}
+        <span className="inline-flex items-center gap-1.5 bg-white/20 backdrop-blur-sm text-white text-xs font-semibold px-3 py-1.5 rounded-full group-hover:bg-white group-hover:text-brand-purple transition-all duration-200">
+          {viewDetailsLabel} <ArrowRight className="w-3 h-3" />
         </span>
       </div>
-
-      {/* Body */}
-      <div className="p-5">
-        <h3 className="font-bold text-lg text-brand-purple">{country.name}</h3>
-        <p className="text-sm text-gray-500 mt-1 line-clamp-2">
-          {/* {country.tagline ?? country.shortDescription ?? ''} */}
-          {country.shortDescription}
-        </p>
-        <div className="mt-4">
-          <Link
-            href={`/destinations/${country.slug}`}
-            className="inline-flex items-center gap-1 border border-gray-300 rounded-full px-5 py-2 text-sm font-medium text-gray-700 hover:border-brand-purple hover:text-brand-purple transition-colors"
-          >
-            {viewDetailsLabel} →
-          </Link>
-        </div>
-      </div>
-    </div>
+    </Link>
   )
 }
