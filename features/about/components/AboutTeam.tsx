@@ -1,8 +1,11 @@
+import Image from 'next/image'
+
 interface TeamMember {
   name: string
   role: string
   bio: string
   initials: string
+  imagePath?: string
 }
 
 interface Props {
@@ -43,7 +46,7 @@ export function AboutTeam({ translations: t }: Props) {
       <div className="max-w-7xl mx-auto px-4 md:px-8">
 
         {/* Header */}
-        <div className="text-center mb-12">
+        <div className="text-center mb-14">
           <div className="inline-flex items-center bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
             {t.teamLabel}
           </div>
@@ -60,17 +63,48 @@ export function AboutTeam({ translations: t }: Props) {
           {members.map((member, i) => (
             <div
               key={i}
-              className="bg-white border border-gray-100 rounded-2xl p-8 text-center hover:shadow-md transition-shadow"
+              className="bg-white rounded-2xl overflow-hidden shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300"
             >
-              {/* Avatar */}
-              <div className="w-20 h-20 rounded-full bg-gradient-to-b from-brand-purple to-purple-900 flex items-center justify-center mx-auto mb-5 shadow-md">
-                <span className="text-white font-bold text-xl tracking-wide">{member.initials}</span>
+              {/* Photo area */}
+              <div className="relative h-[300px] overflow-hidden bg-gradient-to-b from-brand-purple-light via-brand-purple to-brand-purple-dark">
+                {member.imagePath ? (
+                  <Image
+                    src={member.imagePath}
+                    alt={member.name}
+                    fill
+                    className="object-cover object-top"
+                  />
+                ) : (
+                  <>
+                    {/* Dot grid texture */}
+                    <div
+                      className="absolute inset-0 opacity-[0.07]"
+                      style={{
+                        backgroundImage: 'radial-gradient(circle, white 1px, transparent 1px)',
+                        backgroundSize: '18px 18px',
+                      }}
+                    />
+                    {/* Decorative circles */}
+                    <div className="absolute -bottom-20 -right-20 w-56 h-56 rounded-full bg-white/5" />
+                    <div className="absolute -top-12 -left-12 w-36 h-36 rounded-full bg-white/5" />
+                    {/* Initials placeholder */}
+                    <div className="absolute inset-0 flex items-center justify-center">
+                      <div className="w-28 h-28 rounded-full bg-white/10 border border-white/20 flex items-center justify-center">
+                        <span className="text-white/60 text-4xl font-bold tracking-wide">{member.initials}</span>
+                      </div>
+                    </div>
+                  </>
+                )}
+                {/* Brand accent bar at top */}
+                <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-purple-400 via-brand-purple-light to-brand-purple-dark" />
               </div>
 
-              <h3 className="font-bold text-lg text-gray-900 mb-1">{member.name}</h3>
-              <p className="text-brand-purple text-sm font-semibold mb-3">{member.role}</p>
-              <div className="w-10 h-0.5 bg-gray-200 mx-auto mb-4" />
-              <p className="text-gray-500 text-sm leading-relaxed">{member.bio}</p>
+              {/* Content */}
+              <div className="p-6 md:p-7">
+                <h3 className="font-bold text-lg text-gray-900 mb-1">{member.name}</h3>
+                <p className="text-brand-purple text-sm font-semibold mb-4">{member.role}</p>
+                <p className="text-gray-500 text-sm leading-relaxed">{member.bio}</p>
+              </div>
             </div>
           ))}
         </div>
