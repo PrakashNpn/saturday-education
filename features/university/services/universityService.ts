@@ -43,6 +43,31 @@ export async function getUniversityBySlug(slug: string) {
   })
 }
 
+export async function getFinderDropdownOptions() {
+  const [countries, programFields, degreeLevels] = await Promise.all([
+    prisma.country.findMany({
+      where: { universities: { some: {} } },
+      select: { id: true, name: true, slug: true },
+      orderBy: { name: 'asc' },
+    }),
+    prisma.program.findMany({
+      select: { field: true },
+      distinct: ['field'],
+      orderBy: { field: 'asc' },
+    }),
+    prisma.program.findMany({
+      select: { degreeLevel: true },
+      distinct: ['degreeLevel'],
+    }),
+  ])
+
+  return {
+    countries,
+    programFields: programFields.map((p) => p.field).filter(Boolean),
+    degreeLevels: degreeLevels.map((d) => d.degreeLevel),
+  }
+}
+
 export async function getAllUniversitySlugs() {
   return prisma.university.findMany({ select: { slug: true } })
 }

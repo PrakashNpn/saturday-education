@@ -207,7 +207,22 @@
           "label": "Additional Questions or Inquiry",
           "placeholder": "How can we help you?"
         },
-        "submit": "Book My Consultation"
+        "submit": "Book My Consultation",
+        "submitting": "တင်သွင်းနေသည်...",
+        "submitSuccess": "ကျေးဇူးတင်ပါသည်! ၂၄ နာရီအတွင်း ဆက်သွယ်ပါမည်",
+        "submitError": "တစ်ခုခုမှားယွင်းသွားသည်။ ထပ်မံကြိုးစားပါ"
+      },
+      "success": {
+        "title": "တောင်းဆိုမှု လက်ခံရရှိပြီ!",
+        "subtitle": "ကျေးဇူးတင်ပါသည် {name}။ {email} သို့ ၂၄ နာရီအတွင်း ဆက်သွယ်၍ အခမဲ့တိုင်ပင်ချိန်းဆိုပေးပါမည်",
+        "step1Title": "အကြံပေးစစ်ဆေးခြင်း",
+        "step1Desc": "သင်၏ပန်းတိုင်နှင့် ရွေးချယ်သောနိုင်ငံအတွက် အသင့်တော်ဆုံး ကျွမ်းကျင်သူနှင့် ချိတ်ဆက်ပေးမည်",
+        "step2Title": "တိုင်ပင်ညှိနှိုင်းမှု",
+        "step2Desc": "မိနစ် ၃၀၊ သင်၏အချိန်နှင့် အညီ၊ တာဝန်မရှိ",
+        "step3Title": "ကိုယ်ပိုင်အစီအစဉ်",
+        "step3Desc": "သင်၏ပန်းတိုင်၊ အချိန်ဇယားနှင့် ဘတ်ဂျက်ကို အခြေခံ၍ ထူးခြားသောအစီအစဉ်",
+        "browseUniversities": "တက္ကသိုလ်များကြည့်ရန်",
+        "backToTop": "အပေါ်သို့ပြန်သွားရန်"
       },
       "directContact": {
         "label": "Or Connect Directly Via:",

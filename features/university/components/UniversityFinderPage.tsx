@@ -2,7 +2,13 @@ import { getTranslations } from 'next-intl/server'
 import { getAllUniversitiesWithFilters } from '../services/universityService'
 import { UniversityFinderClient } from './UniversityFinderClient'
 
-export async function UniversityFinderPage() {
+interface InitialFilters {
+  degree?: string
+  country?: string
+  course?: string
+}
+
+export async function UniversityFinderPage({ initialFilters }: { initialFilters?: InitialFilters } = {}) {
   const [data, t] = await Promise.all([
     getAllUniversitiesWithFilters(),
     getTranslations('universities'),
@@ -74,5 +80,5 @@ export async function UniversityFinderPage() {
     degreeFoundation: t('degreeFoundation'),
   }
 
-  return <UniversityFinderClient data={data} translations={translations} />
+  return <UniversityFinderClient data={data} translations={translations} initialFilters={initialFilters} />
 }

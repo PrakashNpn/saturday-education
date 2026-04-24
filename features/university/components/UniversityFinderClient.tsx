@@ -76,13 +76,24 @@ type Translations = {
   degreeFoundation: string
 }
 
+interface InitialFilters {
+  degree?: string
+  country?: string
+  course?: string
+}
+
 interface Props {
   data: UniversityFinderData
   translations: Translations
+  initialFilters?: InitialFilters
 }
 
-export function UniversityFinderClient({ data, translations: t }: Props) {
-  const filters = useUniversityFilters(data.universities)
+export function UniversityFinderClient({ data, translations: t, initialFilters }: Props) {
+  const filters = useUniversityFilters(data.universities, {
+    countries: initialFilters?.country ? [initialFilters.country] : [],
+    degrees: initialFilters?.degree ? [initialFilters.degree] : [],
+    courses: initialFilters?.course ? [initialFilters.course] : [],
+  })
   const [showMobileFilters, setShowMobileFilters] = useState(false)
 
   // Hero dropdowns: single-select synced with sidebar arrays

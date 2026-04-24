@@ -1,6 +1,7 @@
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages } from 'next-intl/server'
 import { Noto_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from 'next/font/google'
+import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/shared/components/layout/Navbar"
 import Footer from "@/shared/components/layout/Footer"
 import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
@@ -27,6 +28,7 @@ export default async function LocaleLayout({
     >
       <body className="antialiased">
         <NextIntlClientProvider messages={messages}>
+          <NextTopLoader color="linear-gradient(to right, #3D0A5A, #590D82, #7B1FA2)" height={3} showSpinner={false} shadow="none" />
           <Navbar />
           {children}
           <Footer />

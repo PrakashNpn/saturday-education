@@ -207,7 +207,22 @@
           "label": "Additional Questions or Inquiry",
           "placeholder": "How can we help you?"
         },
-        "submit": "Book My Consultation"
+        "submit": "Book My Consultation",
+        "submitting": "กำลังส่ง...",
+        "submitSuccess": "ขอบคุณ! เราจะติดต่อกลับภายใน 24 ชั่วโมง",
+        "submitError": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"
+      },
+      "success": {
+        "title": "ได้รับคำขอของคุณแล้ว!",
+        "subtitle": "ขอบคุณ {name} เราจะติดต่อกลับไปที่ {email} ภายใน 24 ชั่วโมงเพื่อนัดหมายการปรึกษาฟรี",
+        "step1Title": "ทีมที่ปรึกษาตรวจสอบ",
+        "step1Desc": "เราจับคู่คุณกับผู้เชี่ยวชาญที่เหมาะสมกับเป้าหมายและประเทศที่คุณสนใจ",
+        "step2Title": "การโทรปรึกษา",
+        "step2Desc": "30 นาที ตามเวลาที่สะดวกของคุณ ไม่มีข้อผูกมัด",
+        "step3Title": "แผนการที่ปรับเฉพาะสำหรับคุณ",
+        "step3Desc": "แผนที่ออกแบบมาสำหรับเป้าหมาย ระยะเวลา และงบประมาณของคุณโดยเฉพาะ",
+        "browseUniversities": "ดูมหาวิทยาลัย",
+        "backToTop": "กลับด้านบน"
       },
       "directContact": {
         "label": "Or Connect Directly Via:",

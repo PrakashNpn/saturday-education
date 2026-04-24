@@ -207,7 +207,22 @@
           "label": "Additional Questions or Inquiry",
           "placeholder": "How can we help you?"
         },
-        "submit": "Book My Consultation"
+        "submit": "Book My Consultation",
+        "submitting": "Submitting...",
+        "submitSuccess": "Thank you! We'll contact you within 24 hours.",
+        "submitError": "Something went wrong. Please try again."
+      },
+      "success": {
+        "title": "Request Received!",
+        "subtitle": "Thank you, {name}. We'll reach out to {email} within 24 hours to schedule your free consultation.",
+        "step1Title": "Advisor Review",
+        "step1Desc": "We match you with the right specialist for your goals and target country.",
+        "step2Title": "Consultation Call",
+        "step2Desc": "30 minutes, on your schedule, no obligations.",
+        "step3Title": "Personalised Roadmap",
+        "step3Desc": "A tailored plan built around your goals, timeline, and budget.",
+        "browseUniversities": "Browse Universities",
+        "backToTop": "Back to Top"
       },
       "directContact": {
         "label": "Or Connect Directly Via:",

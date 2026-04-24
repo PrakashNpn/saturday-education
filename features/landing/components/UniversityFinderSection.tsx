@@ -4,41 +4,31 @@ import React, { useEffect, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { motion, useInView, AnimatePresence } from 'framer-motion'
 import { Search, ChevronDown, Sparkles, Check, GraduationCap, MapPin, BookOpen } from 'lucide-react'
+import { useRouter } from '@/i18n/navigation'
 
-// ── Dropdown data ─────────────────────────────────────────────────────────────
+// ── Degree label map ──────────────────────────────────────────────────────────
 
-const STUDY_LEVEL_OPTIONS = [
-  { value: 'undergraduate',  label: 'Undergraduate' },
-  { value: 'postgraduate',   label: "Postgraduate (Master's)" },
-  { value: 'phd',            label: 'PhD / Doctorate' },
-  { value: 'foundation',     label: 'Foundation / Pathway' },
-  { value: 'diploma',        label: 'Diploma' },
-  { value: 'certificate',    label: 'Certificate' },
-]
+const DEGREE_LABELS: Record<string, string> = {
+  BACHELOR: "Bachelor's",
+  MASTER: "Master's",
+  PHD: 'PhD',
+  DIPLOMA: 'Diploma',
+  ASSOCIATE: 'Associate',
+  CERTIFICATE: 'Certificate',
+  FOUNDATION: 'Foundation / Pathway',
+}
 
-const COUNTRY_OPTIONS = [
-  { value: 'uk',  label: 'United Kingdom' },
-  { value: 'au',  label: 'Australia' },
-  { value: 'us',  label: 'United States' },
-  { value: 'ca',  label: 'Canada' },
-  { value: 'nz',  label: 'New Zealand' },
-  { value: 'ch',  label: 'Switzerland' },
-  { value: 'ie',  label: 'Ireland' },
-  { value: 'sg',  label: 'Singapore' },
-  { value: 'th',  label: 'Thailand' },
-]
+// ── Props ─────────────────────────────────────────────────────────────────────
 
-const COURSE_OPTIONS = [
-  { value: 'cs',          label: 'Computer Science' },
-  { value: 'business',    label: 'Business & Management' },
-  { value: 'engineering', label: 'Engineering' },
-  { value: 'medicine',    label: 'Medicine & Health' },
-  { value: 'law',         label: 'Law' },
-  { value: 'data',        label: 'Data Science & AI' },
-  { value: 'arts',        label: 'Arts & Design' },
-  { value: 'economics',   label: 'Economics & Finance' },
-  { value: 'environment', label: 'Environmental Science' },
-]
+interface FinderDropdownOptions {
+  countries: { id: string; name: string; slug: string }[]
+  programFields: string[]
+  degreeLevels: string[]
+}
+
+interface Props {
+  dropdownOptions: FinderDropdownOptions
+}
 
 // ── FilterDropdown sub-component ──────────────────────────────────────────────
 
@@ -188,8 +178,9 @@ function FilterDropdown({
 
 // ── Main component ────────────────────────────────────────────────────────────
 
-export default function UniversityFinderSection() {
+export default function UniversityFinderSection({ dropdownOptions }: Props) {
   const t = useTranslations('Landing.universityFinder')
+  const router = useRouter()
 
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
@@ -202,6 +193,30 @@ export default function UniversityFinderSection() {
   const [studyLevel, setStudyLevel] = useState('')
   const [country, setCountry]       = useState('')
   const [course, setCourse]         = useState('')
+
+  const studyLevelOptions = dropdownOptions.degreeLevels.map((d) => ({
+    value: d,
+    label: DEGREE_LABELS[d] ?? d,
+  }))
+
+  const countryOptions = dropdownOptions.countries.map((c) => ({
+    value: c.name,
+    label: c.name,
+  }))
+
+  const courseOptions = dropdownOptions.programFields.map((f) => ({
+    value: f,
+    label: f,
+  }))
+
+  function handleSearch() {
+    const params = new URLSearchParams()
+    if (studyLevel) params.set('degree', studyLevel)
+    if (country) params.set('country', country)
+    if (course) params.set('course', course)
+    const query = params.toString()
+    router.push(`/universities${query ? `?${query}` : ''}`)
+  }
 
   return (
     <section className="bg-neutral-100 py-10 md:py-14">
@@ -251,7 +266,7 @@ export default function UniversityFinderSection() {
               <FilterDropdown
                 label={t('studyLevelLabel')}
                 icon={GraduationCap}
-                options={STUDY_LEVEL_OPTIONS}
+                options={studyLevelOptions}
                 selected={studyLevel}
                 onSelect={setStudyLevel}
                 hasDivider={true}
@@ -262,7 +277,7 @@ export default function UniversityFinderSection() {
               <FilterDropdown
                 label={t('countryLabel')}
                 icon={MapPin}
-                options={COUNTRY_OPTIONS}
+                options={countryOptions}
                 selected={country}
                 onSelect={setCountry}
                 hasDivider={true}
@@ -274,7 +289,7 @@ export default function UniversityFinderSection() {
               <FilterDropdown
                 label={t('courseLabel')}
                 icon={BookOpen}
-                options={COURSE_OPTIONS}
+                options={courseOptions}
                 selected={course}
                 onSelect={setCourse}
                 hasDivider={false}
@@ -286,6 +301,7 @@ export default function UniversityFinderSection() {
               <div className="px-3 py-3 lg:py-0 lg:px-3 flex items-stretch">
                 <button
                   type="button"
+                  onClick={handleSearch}
                   className="w-full lg:w-auto flex items-center justify-center gap-2 bg-brand-purple hover:bg-brand-purple-dark text-white font-semibold rounded-xl px-6 py-3 lg:my-1.5 transition-colors duration-200 whitespace-nowrap cursor-pointer text-sm"
                 >
                   <Search size={18} />

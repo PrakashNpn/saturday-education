@@ -6,10 +6,16 @@ import { ITEMS_PER_PAGE, type SortValue } from '../utils/universityUtils'
 const TUITION_SLIDER_MIN = 0
 const TUITION_SLIDER_MAX = 100000
 
-export function useUniversityFilters(universities: UniversityListItem[]) {
-  const [countries, setCountries] = useState<string[]>([])
-  const [degrees, setDegrees] = useState<string[]>([])
-  const [courses, setCourses] = useState<string[]>([])
+interface InitialFilters {
+  countries?: string[]
+  degrees?: string[]
+  courses?: string[]
+}
+
+export function useUniversityFilters(universities: UniversityListItem[], initial?: InitialFilters) {
+  const [countries, setCountries] = useState<string[]>(initial?.countries ?? [])
+  const [degrees, setDegrees] = useState<string[]>(initial?.degrees ?? [])
+  const [courses, setCourses] = useState<string[]>(initial?.courses ?? [])
   const [tuitionMin, setTuitionMin] = useState(TUITION_SLIDER_MIN)
   const [tuitionMax, setTuitionMax] = useState(TUITION_SLIDER_MAX)
   const [rankingMax, setRankingMax] = useState<number | null>(null)
