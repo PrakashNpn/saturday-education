@@ -209,7 +209,6 @@
         },
         "submit": "Book My Consultation",
         "submitting": "Submitting...",
-        "submitSuccess": "Thank you! We'll contact you within 24 hours.",
         "submitError": "Something went wrong. Please try again."
       },
       "success": {
@@ -418,12 +417,7 @@
     "partnerUniversities": "Our Partner Universities",
     "academicSpecialties": "Academic Specialties",
     "specialtiesSubtitle": "Explore the most in-demand fields of study at universities in this destination.",
-    "fundingTitle": "Funding Your Future",
-    "fundingSubtitle": "Scholarships and funding opportunities available for international students.",
     "learnMore": "Learn More",
-    "fullFunding": "FULL FUNDING",
-    "partialFunding": "PARTIAL FUNDING",
-    "meritFunding": "MERIT BASED",
     "journeyTitle": "The Journey Ahead",
     "journeySubtitle": "A clear step-by-step path from research to arrival at your new university.",
     "commonQuestions": "Common Questions",

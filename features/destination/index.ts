@@ -17,5 +17,4 @@ export type {
   CountryAdvantageData,
   CountryProcessStepData,
   CountryFAQData,
-  ScholarshipData,
 } from './types'

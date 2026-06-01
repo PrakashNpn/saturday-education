@@ -6,6 +6,8 @@ config({ path: resolve(process.cwd(), '.env.local') })
 import { Pool } from 'pg'
 import { PrismaPg } from '@prisma/adapter-pg'
 import { PrismaClient, DegreeType, ScholarshipType, Region } from '../generated/client'
+import { GERMANY, GERMANY_UNIVERSITIES } from './seeds/germany'
+import { IRELAND, IRELAND_UNIVERSITIES } from './seeds/ireland'
 
 const pool = new Pool({
   connectionString: process.env.DIRECT_URL ?? process.env.DATABASE_URL!,
@@ -57,10 +59,6 @@ const UNITED_KINGDOM = {
     { question: 'Can I work while studying in the UK?', answer: 'Yes. Student visa holders can work up to 20 hours per week during term and full-time during official holidays.', order: 2 },
     { question: 'Do I need to show financial proof for a UK student visa?', answer: "You must show funds to cover the first year's tuition plus living costs (£1,334/month in London, £1,023/month elsewhere) for up to 9 months.", order: 3 },
     { question: 'Can I bring my family on a Student visa?', answer: 'Dependants are only allowed for postgraduate research programs (9+ months) or government-sponsored courses.', order: 4 },
-  ],
-  scholarships: [
-    { name: 'Chevening Scholarship', type: ScholarshipType.FULL_FUNDING, value: 'Full tuition + monthly stipend + flights', description: 'UK government flagship scholarship for mid-career professionals with 2+ years work experience, pursuing a one-year master\'s. Deadline: November annually.', learnMoreUrl: 'https://www.chevening.org' },
-    { name: 'Commonwealth Scholarship', type: ScholarshipType.FULL_FUNDING, value: 'Full tuition + stipend + flights', description: 'For citizens of Commonwealth countries pursuing a master\'s or PhD with a strong academic record. Deadline: October annually.', learnMoreUrl: 'https://cscuk.fcdo.gov.uk' },
   ],
 }
 
@@ -212,10 +210,6 @@ const UNITED_STATES = {
     { question: 'How expensive is it to study in the US?', answer: 'Tuition ranges from $35,000 to $65,000/year at private universities, though many offer generous need-based aid. Living costs vary from $12,000 (smaller cities) to $22,000+ (New York, San Francisco).', order: 3 },
     { question: 'Can I work off-campus during my F-1 visa?', answer: 'Off-campus work during the academic year is generally not permitted unless authorized through CPT or economic hardship. On-campus jobs up to 20 hours/week are allowed.', order: 4 },
   ],
-  scholarships: [
-    { name: 'Fulbright Foreign Student Program', type: ScholarshipType.FULL_FUNDING, value: 'Full tuition + living stipend + travel', description: 'US government flagship scholarship for international students pursuing graduate-level study. Deadline varies by country.', learnMoreUrl: 'https://foreign.fulbrightonline.org' },
-    { name: 'Hubert H. Humphrey Fellowship', type: ScholarshipType.MERIT_BASED, value: 'Tuition + stipend + travel (non-degree program)', description: 'For mid-career professionals from developing countries. Non-degree academic year at a US university with professional affiliations.', learnMoreUrl: 'https://www.humphreyfellowship.org' },
-  ],
 }
 
 const HARVARD = {
@@ -366,10 +360,6 @@ const AUSTRALIA = {
     { question: 'Can studying in Australia lead to permanent residency?', answer: 'Yes. Completing a degree in Australia earns you points on the skilled migration points test. The Temporary Graduate visa (subclass 485) lets you work and gain experience, and applying for a skilled visa (189/190) is a well-established PR pathway.', order: 3 },
     { question: 'How many hours can I work while studying?', answer: 'You can work 48 hours per fortnight during your enrolled study period. During official vacation periods, there is no cap on working hours.', order: 4 },
   ],
-  scholarships: [
-    { name: 'Australia Awards Scholarship', type: ScholarshipType.FULL_FUNDING, value: 'Full tuition + living allowance + health cover + travel', description: 'Australian government scholarship for citizens of developing countries, including Myanmar and Thailand. For undergraduate and postgraduate study.', learnMoreUrl: 'https://www.australiaawards.gov.au' },
-    { name: 'Destination Australia Program', type: ScholarshipType.PARTIAL, value: 'AUD $15,000/year', description: "For international students studying at regional campuses across Australia. Supports relocation and study in Australia's regional communities.", learnMoreUrl: null },
-  ],
 }
 
 const MELBOURNE = {
@@ -492,8 +482,7 @@ const STUB_COUNTRIES = [
   { slug: 'china',         name: 'China',                     region: Region.ASIA     },
   { slug: 'canada',        name: 'Canada',                    region: Region.AMERICAS },
   { slug: 'spain',         name: 'Spain',                     region: Region.EUROPE   },
-  { slug: 'germany',       name: 'Germany',                   region: Region.EUROPE   },
-  { slug: 'ireland',       name: 'Ireland',                   region: Region.EUROPE   },
+
   { slug: 'netherlands',   name: 'Netherlands',               region: Region.EUROPE   },
   { slug: 'new-zealand',   name: 'New Zealand',               region: Region.OCEANIA  },
   { slug: 'switzerland',   name: 'Switzerland',               region: Region.EUROPE   },
@@ -504,7 +493,7 @@ const STUB_COUNTRIES = [
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function seedCountry(data: any): Promise<string> {
-  const { advantages, processSteps, faqs, scholarships, ...countryFields } = data
+  const { advantages, processSteps, faqs, ...countryFields } = data
 
   const country = await prisma.country.upsert({
     where: { slug: countryFields.slug },
@@ -525,12 +514,6 @@ async function seedCountry(data: any): Promise<string> {
   await prisma.countryFAQ.deleteMany({ where: { countryId: id } })
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.countryFAQ.createMany({ data: faqs.map((f: any) => ({ ...f, countryId: id })) })
-
-  await prisma.scholarship.deleteMany({ where: { countryId: id } })
-  if (scholarships.length > 0) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    await prisma.scholarship.createMany({ data: scholarships.map((s: any) => ({ ...s, countryId: id })) })
-  }
 
   return id
 }
@@ -596,11 +579,21 @@ async function main() {
   await seedUniversity(SYDNEY, ausId)
   console.log('  ✓ Australia + 3 universities')
 
+  // Germany
+  const deId = await seedCountry(GERMANY)
+  for (const uni of GERMANY_UNIVERSITIES) await seedUniversity(uni, deId)
+  console.log(`  ✓ Germany + ${GERMANY_UNIVERSITIES.length} universities`)
+
+  // Ireland
+  const ieId = await seedCountry(IRELAND)
+  for (const uni of IRELAND_UNIVERSITIES) await seedUniversity(uni, ieId)
+  console.log(`  ✓ Ireland + ${IRELAND_UNIVERSITIES.length} universities`)
+
   // Stub countries — no universities yet, appear in finder filter
   for (const c of STUB_COUNTRIES) await seedCountryStub(c)
   console.log(`  ✓ ${STUB_COUNTRIES.length} stub countries (filter-only)`)
 
-  console.log('\n✅ Seeded 3 countries, 9 universities, 35 programs, 15 scholarships + 16 stub countries')
+  console.log('\n✅ Seeded 5 countries + 16 stub countries')
 }
 
 main()

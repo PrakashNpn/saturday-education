@@ -7,7 +7,6 @@ import { CountryOverview } from './CountryOverview'
 import { CountryAdvantages } from './CountryAdvantages'
 import { PartnerUniversities } from './PartnerUniversities'
 import { AcademicSpecialties } from './AcademicSpecialties'
-import { CountryScholarships } from './CountryScholarships'
 import { StudentJourney } from './StudentJourney'
 import { CountryFAQs } from './CountryFAQs'
 
@@ -26,7 +25,6 @@ export async function DestinationDetailPage({ slug }: Props) {
     { id: 'advantages', label: t('whyStudyHere') },
     { id: 'universities', label: t('exploreUniversities') },
     { id: 'specialties', label: t('popularFields') },
-    { id: 'scholarships', label: t('scholarships') },
     { id: 'journey', label: t('process') },
     { id: 'faqs', label: t('faqsLabel') },
   ]
@@ -77,10 +75,6 @@ export async function DestinationDetailPage({ slug }: Props) {
 
             <section id="specialties">
               <AcademicSpecialties specialties={country.academicSpecialties} />
-            </section>
-
-            <section id="scholarships">
-              <CountryScholarships scholarships={country.scholarships} />
             </section>
 
             <section id="journey">

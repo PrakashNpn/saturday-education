@@ -87,15 +87,6 @@ export type CountryFAQData = {
   order: number
 }
 
-export type ScholarshipData = {
-  id: string
-  name: string
-  type: string
-  description: string | null
-  value: string | null
-  learnMoreUrl: string | null
-}
-
 export type CountryDetailData = {
   id: string
   name: string
@@ -118,6 +109,5 @@ export type CountryDetailData = {
   advantages: CountryAdvantageData[]
   processSteps: CountryProcessStepData[]
   faqs: CountryFAQData[]
-  scholarships: ScholarshipData[]
   universities: UniversityCardData[]
 }

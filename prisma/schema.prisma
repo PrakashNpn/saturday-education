@@ -90,7 +90,6 @@ model Country {
   advantages            CountryAdvantage[]
   processSteps          CountryProcessStep[]
   faqs                  CountryFAQ[]
-  scholarships          Scholarship[]
 
   createdAt             DateTime @default(now()) @map("created_at")
   updatedAt             DateTime @updatedAt      @map("updated_at")
@@ -246,7 +245,7 @@ model Program {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
-// Scholarship — unified: links to either Country OR University, never both
+// Scholarship — university-level only (country-level scholarships removed)
 // ─────────────────────────────────────────────────────────────────────────────
 
 model Scholarship {
@@ -257,15 +256,12 @@ model Scholarship {
   value        String?
   learnMoreUrl String?         @map("learn_more_url")
 
-  countryId    String?         @map("country_id")
-  country      Country?        @relation(fields: [countryId], references: [id], onDelete: Cascade)
   universityId String?         @map("university_id")
   university   University?     @relation(fields: [universityId], references: [id], onDelete: Cascade)
 
   createdAt    DateTime        @default(now()) @map("created_at")
   updatedAt    DateTime        @updatedAt      @map("updated_at")
 
-  @@index([countryId])
   @@index([universityId])
   @@index([type])
   @@map("scholarships")

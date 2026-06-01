@@ -31,7 +31,6 @@ export type ScholarshipMinAggregateOutputType = {
   description: string | null
   value: string | null
   learnMoreUrl: string | null
-  countryId: string | null
   universityId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -44,7 +43,6 @@ export type ScholarshipMaxAggregateOutputType = {
   description: string | null
   value: string | null
   learnMoreUrl: string | null
-  countryId: string | null
   universityId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -57,7 +55,6 @@ export type ScholarshipCountAggregateOutputType = {
   description: number
   value: number
   learnMoreUrl: number
-  countryId: number
   universityId: number
   createdAt: number
   updatedAt: number
@@ -72,7 +69,6 @@ export type ScholarshipMinAggregateInputType = {
   description?: true
   value?: true
   learnMoreUrl?: true
-  countryId?: true
   universityId?: true
   createdAt?: true
   updatedAt?: true
@@ -85,7 +81,6 @@ export type ScholarshipMaxAggregateInputType = {
   description?: true
   value?: true
   learnMoreUrl?: true
-  countryId?: true
   universityId?: true
   createdAt?: true
   updatedAt?: true
@@ -98,7 +93,6 @@ export type ScholarshipCountAggregateInputType = {
   description?: true
   value?: true
   learnMoreUrl?: true
-  countryId?: true
   universityId?: true
   createdAt?: true
   updatedAt?: true
@@ -184,7 +178,6 @@ export type ScholarshipGroupByOutputType = {
   description: string | null
   value: string | null
   learnMoreUrl: string | null
-  countryId: string | null
   universityId: string | null
   createdAt: Date
   updatedAt: Date
@@ -218,11 +211,9 @@ export type ScholarshipWhereInput = {
   description?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   value?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   learnMoreUrl?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  countryId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
-  country?: Prisma.XOR<Prisma.CountryNullableScalarRelationFilter, Prisma.CountryWhereInput> | null
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
 }
 
@@ -233,11 +224,9 @@ export type ScholarshipOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   value?: Prisma.SortOrderInput | Prisma.SortOrder
   learnMoreUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  countryId?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-  country?: Prisma.CountryOrderByWithRelationInput
   university?: Prisma.UniversityOrderByWithRelationInput
 }
 
@@ -251,11 +240,9 @@ export type ScholarshipWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   value?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   learnMoreUrl?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  countryId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
   createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
-  country?: Prisma.XOR<Prisma.CountryNullableScalarRelationFilter, Prisma.CountryWhereInput> | null
   university?: Prisma.XOR<Prisma.UniversityNullableScalarRelationFilter, Prisma.UniversityWhereInput> | null
 }, "id">
 
@@ -266,7 +253,6 @@ export type ScholarshipOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   value?: Prisma.SortOrderInput | Prisma.SortOrder
   learnMoreUrl?: Prisma.SortOrderInput | Prisma.SortOrder
-  countryId?: Prisma.SortOrderInput | Prisma.SortOrder
   universityId?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -285,7 +271,6 @@ export type ScholarshipScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   value?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   learnMoreUrl?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
-  countryId?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   universityId?: Prisma.StringNullableWithAggregatesFilter<"Scholarship"> | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Scholarship"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Scholarship"> | Date | string
@@ -300,7 +285,6 @@ export type ScholarshipCreateInput = {
   learnMoreUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  country?: Prisma.CountryCreateNestedOneWithoutScholarshipsInput
   university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
 }
 
@@ -311,7 +295,6 @@ export type ScholarshipUncheckedCreateInput = {
   description?: string | null
   value?: string | null
   learnMoreUrl?: string | null
-  countryId?: string | null
   universityId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -326,7 +309,6 @@ export type ScholarshipUpdateInput = {
   learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  country?: Prisma.CountryUpdateOneWithoutScholarshipsNestedInput
   university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
 }
 
@@ -337,7 +319,6 @@ export type ScholarshipUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -350,7 +331,6 @@ export type ScholarshipCreateManyInput = {
   description?: string | null
   value?: string | null
   learnMoreUrl?: string | null
-  countryId?: string | null
   universityId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -374,7 +354,6 @@ export type ScholarshipUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -397,7 +376,6 @@ export type ScholarshipCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   value?: Prisma.SortOrder
   learnMoreUrl?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -410,7 +388,6 @@ export type ScholarshipMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   value?: Prisma.SortOrder
   learnMoreUrl?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -423,52 +400,9 @@ export type ScholarshipMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   value?: Prisma.SortOrder
   learnMoreUrl?: Prisma.SortOrder
-  countryId?: Prisma.SortOrder
   universityId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
-}
-
-export type ScholarshipCreateNestedManyWithoutCountryInput = {
-  create?: Prisma.XOR<Prisma.ScholarshipCreateWithoutCountryInput, Prisma.ScholarshipUncheckedCreateWithoutCountryInput> | Prisma.ScholarshipCreateWithoutCountryInput[] | Prisma.ScholarshipUncheckedCreateWithoutCountryInput[]
-  connectOrCreate?: Prisma.ScholarshipCreateOrConnectWithoutCountryInput | Prisma.ScholarshipCreateOrConnectWithoutCountryInput[]
-  createMany?: Prisma.ScholarshipCreateManyCountryInputEnvelope
-  connect?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-}
-
-export type ScholarshipUncheckedCreateNestedManyWithoutCountryInput = {
-  create?: Prisma.XOR<Prisma.ScholarshipCreateWithoutCountryInput, Prisma.ScholarshipUncheckedCreateWithoutCountryInput> | Prisma.ScholarshipCreateWithoutCountryInput[] | Prisma.ScholarshipUncheckedCreateWithoutCountryInput[]
-  connectOrCreate?: Prisma.ScholarshipCreateOrConnectWithoutCountryInput | Prisma.ScholarshipCreateOrConnectWithoutCountryInput[]
-  createMany?: Prisma.ScholarshipCreateManyCountryInputEnvelope
-  connect?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-}
-
-export type ScholarshipUpdateManyWithoutCountryNestedInput = {
-  create?: Prisma.XOR<Prisma.ScholarshipCreateWithoutCountryInput, Prisma.ScholarshipUncheckedCreateWithoutCountryInput> | Prisma.ScholarshipCreateWithoutCountryInput[] | Prisma.ScholarshipUncheckedCreateWithoutCountryInput[]
-  connectOrCreate?: Prisma.ScholarshipCreateOrConnectWithoutCountryInput | Prisma.ScholarshipCreateOrConnectWithoutCountryInput[]
-  upsert?: Prisma.ScholarshipUpsertWithWhereUniqueWithoutCountryInput | Prisma.ScholarshipUpsertWithWhereUniqueWithoutCountryInput[]
-  createMany?: Prisma.ScholarshipCreateManyCountryInputEnvelope
-  set?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  disconnect?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  delete?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  connect?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  update?: Prisma.ScholarshipUpdateWithWhereUniqueWithoutCountryInput | Prisma.ScholarshipUpdateWithWhereUniqueWithoutCountryInput[]
-  updateMany?: Prisma.ScholarshipUpdateManyWithWhereWithoutCountryInput | Prisma.ScholarshipUpdateManyWithWhereWithoutCountryInput[]
-  deleteMany?: Prisma.ScholarshipScalarWhereInput | Prisma.ScholarshipScalarWhereInput[]
-}
-
-export type ScholarshipUncheckedUpdateManyWithoutCountryNestedInput = {
-  create?: Prisma.XOR<Prisma.ScholarshipCreateWithoutCountryInput, Prisma.ScholarshipUncheckedCreateWithoutCountryInput> | Prisma.ScholarshipCreateWithoutCountryInput[] | Prisma.ScholarshipUncheckedCreateWithoutCountryInput[]
-  connectOrCreate?: Prisma.ScholarshipCreateOrConnectWithoutCountryInput | Prisma.ScholarshipCreateOrConnectWithoutCountryInput[]
-  upsert?: Prisma.ScholarshipUpsertWithWhereUniqueWithoutCountryInput | Prisma.ScholarshipUpsertWithWhereUniqueWithoutCountryInput[]
-  createMany?: Prisma.ScholarshipCreateManyCountryInputEnvelope
-  set?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  disconnect?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  delete?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  connect?: Prisma.ScholarshipWhereUniqueInput | Prisma.ScholarshipWhereUniqueInput[]
-  update?: Prisma.ScholarshipUpdateWithWhereUniqueWithoutCountryInput | Prisma.ScholarshipUpdateWithWhereUniqueWithoutCountryInput[]
-  updateMany?: Prisma.ScholarshipUpdateManyWithWhereWithoutCountryInput | Prisma.ScholarshipUpdateManyWithWhereWithoutCountryInput[]
-  deleteMany?: Prisma.ScholarshipScalarWhereInput | Prisma.ScholarshipScalarWhereInput[]
 }
 
 export type ScholarshipCreateNestedManyWithoutUniversityInput = {
@@ -517,72 +451,6 @@ export type EnumScholarshipTypeFieldUpdateOperationsInput = {
   set?: $Enums.ScholarshipType
 }
 
-export type ScholarshipCreateWithoutCountryInput = {
-  id?: string
-  name: string
-  type: $Enums.ScholarshipType
-  description?: string | null
-  value?: string | null
-  learnMoreUrl?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  university?: Prisma.UniversityCreateNestedOneWithoutScholarshipsInput
-}
-
-export type ScholarshipUncheckedCreateWithoutCountryInput = {
-  id?: string
-  name: string
-  type: $Enums.ScholarshipType
-  description?: string | null
-  value?: string | null
-  learnMoreUrl?: string | null
-  universityId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ScholarshipCreateOrConnectWithoutCountryInput = {
-  where: Prisma.ScholarshipWhereUniqueInput
-  create: Prisma.XOR<Prisma.ScholarshipCreateWithoutCountryInput, Prisma.ScholarshipUncheckedCreateWithoutCountryInput>
-}
-
-export type ScholarshipCreateManyCountryInputEnvelope = {
-  data: Prisma.ScholarshipCreateManyCountryInput | Prisma.ScholarshipCreateManyCountryInput[]
-  skipDuplicates?: boolean
-}
-
-export type ScholarshipUpsertWithWhereUniqueWithoutCountryInput = {
-  where: Prisma.ScholarshipWhereUniqueInput
-  update: Prisma.XOR<Prisma.ScholarshipUpdateWithoutCountryInput, Prisma.ScholarshipUncheckedUpdateWithoutCountryInput>
-  create: Prisma.XOR<Prisma.ScholarshipCreateWithoutCountryInput, Prisma.ScholarshipUncheckedCreateWithoutCountryInput>
-}
-
-export type ScholarshipUpdateWithWhereUniqueWithoutCountryInput = {
-  where: Prisma.ScholarshipWhereUniqueInput
-  data: Prisma.XOR<Prisma.ScholarshipUpdateWithoutCountryInput, Prisma.ScholarshipUncheckedUpdateWithoutCountryInput>
-}
-
-export type ScholarshipUpdateManyWithWhereWithoutCountryInput = {
-  where: Prisma.ScholarshipScalarWhereInput
-  data: Prisma.XOR<Prisma.ScholarshipUpdateManyMutationInput, Prisma.ScholarshipUncheckedUpdateManyWithoutCountryInput>
-}
-
-export type ScholarshipScalarWhereInput = {
-  AND?: Prisma.ScholarshipScalarWhereInput | Prisma.ScholarshipScalarWhereInput[]
-  OR?: Prisma.ScholarshipScalarWhereInput[]
-  NOT?: Prisma.ScholarshipScalarWhereInput | Prisma.ScholarshipScalarWhereInput[]
-  id?: Prisma.StringFilter<"Scholarship"> | string
-  name?: Prisma.StringFilter<"Scholarship"> | string
-  type?: Prisma.EnumScholarshipTypeFilter<"Scholarship"> | $Enums.ScholarshipType
-  description?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  value?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  learnMoreUrl?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  countryId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
-  createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
-  updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
-}
-
 export type ScholarshipCreateWithoutUniversityInput = {
   id?: string
   name: string
@@ -592,7 +460,6 @@ export type ScholarshipCreateWithoutUniversityInput = {
   learnMoreUrl?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
-  country?: Prisma.CountryCreateNestedOneWithoutScholarshipsInput
 }
 
 export type ScholarshipUncheckedCreateWithoutUniversityInput = {
@@ -602,7 +469,6 @@ export type ScholarshipUncheckedCreateWithoutUniversityInput = {
   description?: string | null
   value?: string | null
   learnMoreUrl?: string | null
-  countryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -633,52 +499,19 @@ export type ScholarshipUpdateManyWithWhereWithoutUniversityInput = {
   data: Prisma.XOR<Prisma.ScholarshipUpdateManyMutationInput, Prisma.ScholarshipUncheckedUpdateManyWithoutUniversityInput>
 }
 
-export type ScholarshipCreateManyCountryInput = {
-  id?: string
-  name: string
-  type: $Enums.ScholarshipType
-  description?: string | null
-  value?: string | null
-  learnMoreUrl?: string | null
-  universityId?: string | null
-  createdAt?: Date | string
-  updatedAt?: Date | string
-}
-
-export type ScholarshipUpdateWithoutCountryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumScholarshipTypeFieldUpdateOperationsInput | $Enums.ScholarshipType
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  university?: Prisma.UniversityUpdateOneWithoutScholarshipsNestedInput
-}
-
-export type ScholarshipUncheckedUpdateWithoutCountryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumScholarshipTypeFieldUpdateOperationsInput | $Enums.ScholarshipType
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-}
-
-export type ScholarshipUncheckedUpdateManyWithoutCountryInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  type?: Prisma.EnumScholarshipTypeFieldUpdateOperationsInput | $Enums.ScholarshipType
-  description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  universityId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
+export type ScholarshipScalarWhereInput = {
+  AND?: Prisma.ScholarshipScalarWhereInput | Prisma.ScholarshipScalarWhereInput[]
+  OR?: Prisma.ScholarshipScalarWhereInput[]
+  NOT?: Prisma.ScholarshipScalarWhereInput | Prisma.ScholarshipScalarWhereInput[]
+  id?: Prisma.StringFilter<"Scholarship"> | string
+  name?: Prisma.StringFilter<"Scholarship"> | string
+  type?: Prisma.EnumScholarshipTypeFilter<"Scholarship"> | $Enums.ScholarshipType
+  description?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  value?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  learnMoreUrl?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  universityId?: Prisma.StringNullableFilter<"Scholarship"> | string | null
+  createdAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
+  updatedAt?: Prisma.DateTimeFilter<"Scholarship"> | Date | string
 }
 
 export type ScholarshipCreateManyUniversityInput = {
@@ -688,7 +521,6 @@ export type ScholarshipCreateManyUniversityInput = {
   description?: string | null
   value?: string | null
   learnMoreUrl?: string | null
-  countryId?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -702,7 +534,6 @@ export type ScholarshipUpdateWithoutUniversityInput = {
   learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  country?: Prisma.CountryUpdateOneWithoutScholarshipsNestedInput
 }
 
 export type ScholarshipUncheckedUpdateWithoutUniversityInput = {
@@ -712,7 +543,6 @@ export type ScholarshipUncheckedUpdateWithoutUniversityInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -724,7 +554,6 @@ export type ScholarshipUncheckedUpdateManyWithoutUniversityInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   value?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   learnMoreUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  countryId?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -738,11 +567,9 @@ export type ScholarshipSelect<ExtArgs extends runtime.Types.Extensions.InternalA
   description?: boolean
   value?: boolean
   learnMoreUrl?: boolean
-  countryId?: boolean
   universityId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  country?: boolean | Prisma.Scholarship$countryArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }, ExtArgs["result"]["scholarship"]>
 
@@ -753,11 +580,9 @@ export type ScholarshipSelectCreateManyAndReturn<ExtArgs extends runtime.Types.E
   description?: boolean
   value?: boolean
   learnMoreUrl?: boolean
-  countryId?: boolean
   universityId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  country?: boolean | Prisma.Scholarship$countryArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }, ExtArgs["result"]["scholarship"]>
 
@@ -768,11 +593,9 @@ export type ScholarshipSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.E
   description?: boolean
   value?: boolean
   learnMoreUrl?: boolean
-  countryId?: boolean
   universityId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
-  country?: boolean | Prisma.Scholarship$countryArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }, ExtArgs["result"]["scholarship"]>
 
@@ -783,30 +606,25 @@ export type ScholarshipSelectScalar = {
   description?: boolean
   value?: boolean
   learnMoreUrl?: boolean
-  countryId?: boolean
   universityId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ScholarshipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "description" | "value" | "learnMoreUrl" | "countryId" | "universityId" | "createdAt" | "updatedAt", ExtArgs["result"]["scholarship"]>
+export type ScholarshipOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "type" | "description" | "value" | "learnMoreUrl" | "universityId" | "createdAt" | "updatedAt", ExtArgs["result"]["scholarship"]>
 export type ScholarshipInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  country?: boolean | Prisma.Scholarship$countryArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }
 export type ScholarshipIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  country?: boolean | Prisma.Scholarship$countryArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }
 export type ScholarshipIncludeUpdateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  country?: boolean | Prisma.Scholarship$countryArgs<ExtArgs>
   university?: boolean | Prisma.Scholarship$universityArgs<ExtArgs>
 }
 
 export type $ScholarshipPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Scholarship"
   objects: {
-    country: Prisma.$CountryPayload<ExtArgs> | null
     university: Prisma.$UniversityPayload<ExtArgs> | null
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
@@ -816,7 +634,6 @@ export type $ScholarshipPayload<ExtArgs extends runtime.Types.Extensions.Interna
     description: string | null
     value: string | null
     learnMoreUrl: string | null
-    countryId: string | null
     universityId: string | null
     createdAt: Date
     updatedAt: Date
@@ -1214,7 +1031,6 @@ readonly fields: ScholarshipFieldRefs;
  */
 export interface Prisma__ScholarshipClient<T, Null = never, ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs, GlobalOmitOptions = {}> extends Prisma.PrismaPromise<T> {
   readonly [Symbol.toStringTag]: "PrismaPromise"
-  country<T extends Prisma.Scholarship$countryArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Scholarship$countryArgs<ExtArgs>>): Prisma.Prisma__CountryClient<runtime.Types.Result.GetResult<Prisma.$CountryPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   university<T extends Prisma.Scholarship$universityArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Scholarship$universityArgs<ExtArgs>>): Prisma.Prisma__UniversityClient<runtime.Types.Result.GetResult<Prisma.$UniversityPayload<ExtArgs>, T, "findUniqueOrThrow", GlobalOmitOptions> | null, null, ExtArgs, GlobalOmitOptions>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
@@ -1251,7 +1067,6 @@ export interface ScholarshipFieldRefs {
   readonly description: Prisma.FieldRef<"Scholarship", 'String'>
   readonly value: Prisma.FieldRef<"Scholarship", 'String'>
   readonly learnMoreUrl: Prisma.FieldRef<"Scholarship", 'String'>
-  readonly countryId: Prisma.FieldRef<"Scholarship", 'String'>
   readonly universityId: Prisma.FieldRef<"Scholarship", 'String'>
   readonly createdAt: Prisma.FieldRef<"Scholarship", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Scholarship", 'DateTime'>
@@ -1653,25 +1468,6 @@ export type ScholarshipDeleteManyArgs<ExtArgs extends runtime.Types.Extensions.I
    * Limit how many Scholarships to delete.
    */
   limit?: number
-}
-
-/**
- * Scholarship.country
- */
-export type Scholarship$countryArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Country
-   */
-  select?: Prisma.CountrySelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Country
-   */
-  omit?: Prisma.CountryOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.CountryInclude<ExtArgs> | null
-  where?: Prisma.CountryWhereInput
 }
 
 /**

@@ -29,7 +29,6 @@ export async function getCountryBySlug(slug: string): Promise<CountryDetailData 
       advantages: { orderBy: { order: 'asc' } },
       processSteps: { orderBy: { stepNumber: 'asc' } },
       faqs: { orderBy: { order: 'asc' } },
-      scholarships: true,
       universities: {
         select: {
           id: true,

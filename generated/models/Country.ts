@@ -392,7 +392,6 @@ export type CountryWhereInput = {
   advantages?: Prisma.CountryAdvantageListRelationFilter
   processSteps?: Prisma.CountryProcessStepListRelationFilter
   faqs?: Prisma.CountryFAQListRelationFilter
-  scholarships?: Prisma.ScholarshipListRelationFilter
 }
 
 export type CountryOrderByWithRelationInput = {
@@ -425,7 +424,6 @@ export type CountryOrderByWithRelationInput = {
   advantages?: Prisma.CountryAdvantageOrderByRelationAggregateInput
   processSteps?: Prisma.CountryProcessStepOrderByRelationAggregateInput
   faqs?: Prisma.CountryFAQOrderByRelationAggregateInput
-  scholarships?: Prisma.ScholarshipOrderByRelationAggregateInput
 }
 
 export type CountryWhereUniqueInput = Prisma.AtLeast<{
@@ -461,7 +459,6 @@ export type CountryWhereUniqueInput = Prisma.AtLeast<{
   advantages?: Prisma.CountryAdvantageListRelationFilter
   processSteps?: Prisma.CountryProcessStepListRelationFilter
   faqs?: Prisma.CountryFAQListRelationFilter
-  scholarships?: Prisma.ScholarshipListRelationFilter
 }, "id" | "name" | "slug">
 
 export type CountryOrderByWithAggregationInput = {
@@ -558,7 +555,6 @@ export type CountryCreateInput = {
   advantages?: Prisma.CountryAdvantageCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCountryInput
 }
 
 export type CountryUncheckedCreateInput = {
@@ -591,7 +587,6 @@ export type CountryUncheckedCreateInput = {
   advantages?: Prisma.CountryAdvantageUncheckedCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQUncheckedCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCountryInput
 }
 
 export type CountryUpdateInput = {
@@ -624,7 +619,6 @@ export type CountryUpdateInput = {
   advantages?: Prisma.CountryAdvantageUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryUncheckedUpdateInput = {
@@ -657,7 +651,6 @@ export type CountryUncheckedUpdateInput = {
   advantages?: Prisma.CountryAdvantageUncheckedUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUncheckedUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryCreateManyInput = {
@@ -855,11 +848,6 @@ export type CountryScalarRelationFilter = {
   isNot?: Prisma.CountryWhereInput
 }
 
-export type CountryNullableScalarRelationFilter = {
-  is?: Prisma.CountryWhereInput | null
-  isNot?: Prisma.CountryWhereInput | null
-}
-
 export type CountryCreateacademicSpecialtiesInput = {
   set: string[]
 }
@@ -961,22 +949,6 @@ export type CountryUpdateOneRequiredWithoutUniversitiesNestedInput = {
   update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutUniversitiesInput, Prisma.CountryUpdateWithoutUniversitiesInput>, Prisma.CountryUncheckedUpdateWithoutUniversitiesInput>
 }
 
-export type CountryCreateNestedOneWithoutScholarshipsInput = {
-  create?: Prisma.XOR<Prisma.CountryCreateWithoutScholarshipsInput, Prisma.CountryUncheckedCreateWithoutScholarshipsInput>
-  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutScholarshipsInput
-  connect?: Prisma.CountryWhereUniqueInput
-}
-
-export type CountryUpdateOneWithoutScholarshipsNestedInput = {
-  create?: Prisma.XOR<Prisma.CountryCreateWithoutScholarshipsInput, Prisma.CountryUncheckedCreateWithoutScholarshipsInput>
-  connectOrCreate?: Prisma.CountryCreateOrConnectWithoutScholarshipsInput
-  upsert?: Prisma.CountryUpsertWithoutScholarshipsInput
-  disconnect?: Prisma.CountryWhereInput | boolean
-  delete?: Prisma.CountryWhereInput | boolean
-  connect?: Prisma.CountryWhereUniqueInput
-  update?: Prisma.XOR<Prisma.XOR<Prisma.CountryUpdateToOneWithWhereWithoutScholarshipsInput, Prisma.CountryUpdateWithoutScholarshipsInput>, Prisma.CountryUncheckedUpdateWithoutScholarshipsInput>
-}
-
 export type CountryCreateWithoutAdvantagesInput = {
   id?: string
   name: string
@@ -1006,7 +978,6 @@ export type CountryCreateWithoutAdvantagesInput = {
   universities?: Prisma.UniversityCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCountryInput
 }
 
 export type CountryUncheckedCreateWithoutAdvantagesInput = {
@@ -1038,7 +1009,6 @@ export type CountryUncheckedCreateWithoutAdvantagesInput = {
   universities?: Prisma.UniversityUncheckedCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQUncheckedCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCountryInput
 }
 
 export type CountryCreateOrConnectWithoutAdvantagesInput = {
@@ -1086,7 +1056,6 @@ export type CountryUpdateWithoutAdvantagesInput = {
   universities?: Prisma.UniversityUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryUncheckedUpdateWithoutAdvantagesInput = {
@@ -1118,7 +1087,6 @@ export type CountryUncheckedUpdateWithoutAdvantagesInput = {
   universities?: Prisma.UniversityUncheckedUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUncheckedUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryCreateWithoutProcessStepsInput = {
@@ -1150,7 +1118,6 @@ export type CountryCreateWithoutProcessStepsInput = {
   universities?: Prisma.UniversityCreateNestedManyWithoutCountryInput
   advantages?: Prisma.CountryAdvantageCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCountryInput
 }
 
 export type CountryUncheckedCreateWithoutProcessStepsInput = {
@@ -1182,7 +1149,6 @@ export type CountryUncheckedCreateWithoutProcessStepsInput = {
   universities?: Prisma.UniversityUncheckedCreateNestedManyWithoutCountryInput
   advantages?: Prisma.CountryAdvantageUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQUncheckedCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCountryInput
 }
 
 export type CountryCreateOrConnectWithoutProcessStepsInput = {
@@ -1230,7 +1196,6 @@ export type CountryUpdateWithoutProcessStepsInput = {
   universities?: Prisma.UniversityUpdateManyWithoutCountryNestedInput
   advantages?: Prisma.CountryAdvantageUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryUncheckedUpdateWithoutProcessStepsInput = {
@@ -1262,7 +1227,6 @@ export type CountryUncheckedUpdateWithoutProcessStepsInput = {
   universities?: Prisma.UniversityUncheckedUpdateManyWithoutCountryNestedInput
   advantages?: Prisma.CountryAdvantageUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUncheckedUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryCreateWithoutFaqsInput = {
@@ -1294,7 +1258,6 @@ export type CountryCreateWithoutFaqsInput = {
   universities?: Prisma.UniversityCreateNestedManyWithoutCountryInput
   advantages?: Prisma.CountryAdvantageCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCountryInput
 }
 
 export type CountryUncheckedCreateWithoutFaqsInput = {
@@ -1326,7 +1289,6 @@ export type CountryUncheckedCreateWithoutFaqsInput = {
   universities?: Prisma.UniversityUncheckedCreateNestedManyWithoutCountryInput
   advantages?: Prisma.CountryAdvantageUncheckedCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepUncheckedCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCountryInput
 }
 
 export type CountryCreateOrConnectWithoutFaqsInput = {
@@ -1374,7 +1336,6 @@ export type CountryUpdateWithoutFaqsInput = {
   universities?: Prisma.UniversityUpdateManyWithoutCountryNestedInput
   advantages?: Prisma.CountryAdvantageUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryUncheckedUpdateWithoutFaqsInput = {
@@ -1406,7 +1367,6 @@ export type CountryUncheckedUpdateWithoutFaqsInput = {
   universities?: Prisma.UniversityUncheckedUpdateManyWithoutCountryNestedInput
   advantages?: Prisma.CountryAdvantageUncheckedUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUncheckedUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryCreateWithoutUniversitiesInput = {
@@ -1438,7 +1398,6 @@ export type CountryCreateWithoutUniversitiesInput = {
   advantages?: Prisma.CountryAdvantageCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipCreateNestedManyWithoutCountryInput
 }
 
 export type CountryUncheckedCreateWithoutUniversitiesInput = {
@@ -1470,7 +1429,6 @@ export type CountryUncheckedCreateWithoutUniversitiesInput = {
   advantages?: Prisma.CountryAdvantageUncheckedCreateNestedManyWithoutCountryInput
   processSteps?: Prisma.CountryProcessStepUncheckedCreateNestedManyWithoutCountryInput
   faqs?: Prisma.CountryFAQUncheckedCreateNestedManyWithoutCountryInput
-  scholarships?: Prisma.ScholarshipUncheckedCreateNestedManyWithoutCountryInput
 }
 
 export type CountryCreateOrConnectWithoutUniversitiesInput = {
@@ -1518,7 +1476,6 @@ export type CountryUpdateWithoutUniversitiesInput = {
   advantages?: Prisma.CountryAdvantageUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUpdateManyWithoutCountryNestedInput
 }
 
 export type CountryUncheckedUpdateWithoutUniversitiesInput = {
@@ -1550,151 +1507,6 @@ export type CountryUncheckedUpdateWithoutUniversitiesInput = {
   advantages?: Prisma.CountryAdvantageUncheckedUpdateManyWithoutCountryNestedInput
   processSteps?: Prisma.CountryProcessStepUncheckedUpdateManyWithoutCountryNestedInput
   faqs?: Prisma.CountryFAQUncheckedUpdateManyWithoutCountryNestedInput
-  scholarships?: Prisma.ScholarshipUncheckedUpdateManyWithoutCountryNestedInput
-}
-
-export type CountryCreateWithoutScholarshipsInput = {
-  id?: string
-  name: string
-  slug: string
-  region: $Enums.Region
-  cardImageUrl?: string | null
-  heroImageUrl?: string | null
-  shortDescription?: string | null
-  tagline?: string | null
-  overview?: string | null
-  institutionCount?: string | null
-  tuitionFeeRange?: string | null
-  postStudyWorkVisa?: string | null
-  studentSatisfaction?: number | null
-  internationalStudents?: number | null
-  graduateEmployability?: number | null
-  visaProcessingTime?: string | null
-  workRights?: string | null
-  costOfLivingMinUSD?: number | null
-  costOfLivingMaxUSD?: number | null
-  currencyCode?: string | null
-  academicSpecialties?: Prisma.CountryCreateacademicSpecialtiesInput | string[]
-  isFeatured?: boolean
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  universities?: Prisma.UniversityCreateNestedManyWithoutCountryInput
-  advantages?: Prisma.CountryAdvantageCreateNestedManyWithoutCountryInput
-  processSteps?: Prisma.CountryProcessStepCreateNestedManyWithoutCountryInput
-  faqs?: Prisma.CountryFAQCreateNestedManyWithoutCountryInput
-}
-
-export type CountryUncheckedCreateWithoutScholarshipsInput = {
-  id?: string
-  name: string
-  slug: string
-  region: $Enums.Region
-  cardImageUrl?: string | null
-  heroImageUrl?: string | null
-  shortDescription?: string | null
-  tagline?: string | null
-  overview?: string | null
-  institutionCount?: string | null
-  tuitionFeeRange?: string | null
-  postStudyWorkVisa?: string | null
-  studentSatisfaction?: number | null
-  internationalStudents?: number | null
-  graduateEmployability?: number | null
-  visaProcessingTime?: string | null
-  workRights?: string | null
-  costOfLivingMinUSD?: number | null
-  costOfLivingMaxUSD?: number | null
-  currencyCode?: string | null
-  academicSpecialties?: Prisma.CountryCreateacademicSpecialtiesInput | string[]
-  isFeatured?: boolean
-  isPublished?: boolean
-  createdAt?: Date | string
-  updatedAt?: Date | string
-  universities?: Prisma.UniversityUncheckedCreateNestedManyWithoutCountryInput
-  advantages?: Prisma.CountryAdvantageUncheckedCreateNestedManyWithoutCountryInput
-  processSteps?: Prisma.CountryProcessStepUncheckedCreateNestedManyWithoutCountryInput
-  faqs?: Prisma.CountryFAQUncheckedCreateNestedManyWithoutCountryInput
-}
-
-export type CountryCreateOrConnectWithoutScholarshipsInput = {
-  where: Prisma.CountryWhereUniqueInput
-  create: Prisma.XOR<Prisma.CountryCreateWithoutScholarshipsInput, Prisma.CountryUncheckedCreateWithoutScholarshipsInput>
-}
-
-export type CountryUpsertWithoutScholarshipsInput = {
-  update: Prisma.XOR<Prisma.CountryUpdateWithoutScholarshipsInput, Prisma.CountryUncheckedUpdateWithoutScholarshipsInput>
-  create: Prisma.XOR<Prisma.CountryCreateWithoutScholarshipsInput, Prisma.CountryUncheckedCreateWithoutScholarshipsInput>
-  where?: Prisma.CountryWhereInput
-}
-
-export type CountryUpdateToOneWithWhereWithoutScholarshipsInput = {
-  where?: Prisma.CountryWhereInput
-  data: Prisma.XOR<Prisma.CountryUpdateWithoutScholarshipsInput, Prisma.CountryUncheckedUpdateWithoutScholarshipsInput>
-}
-
-export type CountryUpdateWithoutScholarshipsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  region?: Prisma.EnumRegionFieldUpdateOperationsInput | $Enums.Region
-  cardImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  studentSatisfaction?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  internationalStudents?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  graduateEmployability?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  visaProcessingTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  workRights?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  costOfLivingMinUSD?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  costOfLivingMaxUSD?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  currencyCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  academicSpecialties?: Prisma.CountryUpdateacademicSpecialtiesInput | string[]
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  universities?: Prisma.UniversityUpdateManyWithoutCountryNestedInput
-  advantages?: Prisma.CountryAdvantageUpdateManyWithoutCountryNestedInput
-  processSteps?: Prisma.CountryProcessStepUpdateManyWithoutCountryNestedInput
-  faqs?: Prisma.CountryFAQUpdateManyWithoutCountryNestedInput
-}
-
-export type CountryUncheckedUpdateWithoutScholarshipsInput = {
-  id?: Prisma.StringFieldUpdateOperationsInput | string
-  name?: Prisma.StringFieldUpdateOperationsInput | string
-  slug?: Prisma.StringFieldUpdateOperationsInput | string
-  region?: Prisma.EnumRegionFieldUpdateOperationsInput | $Enums.Region
-  cardImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  studentSatisfaction?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  internationalStudents?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  graduateEmployability?: Prisma.NullableFloatFieldUpdateOperationsInput | number | null
-  visaProcessingTime?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  workRights?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  costOfLivingMinUSD?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  costOfLivingMaxUSD?: Prisma.NullableIntFieldUpdateOperationsInput | number | null
-  currencyCode?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
-  academicSpecialties?: Prisma.CountryUpdateacademicSpecialtiesInput | string[]
-  isFeatured?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  isPublished?: Prisma.BoolFieldUpdateOperationsInput | boolean
-  createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
-  universities?: Prisma.UniversityUncheckedUpdateManyWithoutCountryNestedInput
-  advantages?: Prisma.CountryAdvantageUncheckedUpdateManyWithoutCountryNestedInput
-  processSteps?: Prisma.CountryProcessStepUncheckedUpdateManyWithoutCountryNestedInput
-  faqs?: Prisma.CountryFAQUncheckedUpdateManyWithoutCountryNestedInput
 }
 
 
@@ -1707,7 +1519,6 @@ export type CountryCountOutputType = {
   advantages: number
   processSteps: number
   faqs: number
-  scholarships: number
 }
 
 export type CountryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
@@ -1715,7 +1526,6 @@ export type CountryCountOutputTypeSelect<ExtArgs extends runtime.Types.Extension
   advantages?: boolean | CountryCountOutputTypeCountAdvantagesArgs
   processSteps?: boolean | CountryCountOutputTypeCountProcessStepsArgs
   faqs?: boolean | CountryCountOutputTypeCountFaqsArgs
-  scholarships?: boolean | CountryCountOutputTypeCountScholarshipsArgs
 }
 
 /**
@@ -1756,13 +1566,6 @@ export type CountryCountOutputTypeCountFaqsArgs<ExtArgs extends runtime.Types.Ex
   where?: Prisma.CountryFAQWhereInput
 }
 
-/**
- * CountryCountOutputType without action
- */
-export type CountryCountOutputTypeCountScholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  where?: Prisma.ScholarshipWhereInput
-}
-
 
 export type CountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{
   id?: boolean
@@ -1794,7 +1597,6 @@ export type CountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   advantages?: boolean | Prisma.Country$advantagesArgs<ExtArgs>
   processSteps?: boolean | Prisma.Country$processStepsArgs<ExtArgs>
   faqs?: boolean | Prisma.Country$faqsArgs<ExtArgs>
-  scholarships?: boolean | Prisma.Country$scholarshipsArgs<ExtArgs>
   _count?: boolean | Prisma.CountryCountOutputTypeDefaultArgs<ExtArgs>
 }, ExtArgs["result"]["country"]>
 
@@ -1888,7 +1690,6 @@ export type CountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs
   advantages?: boolean | Prisma.Country$advantagesArgs<ExtArgs>
   processSteps?: boolean | Prisma.Country$processStepsArgs<ExtArgs>
   faqs?: boolean | Prisma.Country$faqsArgs<ExtArgs>
-  scholarships?: boolean | Prisma.Country$scholarshipsArgs<ExtArgs>
   _count?: boolean | Prisma.CountryCountOutputTypeDefaultArgs<ExtArgs>
 }
 export type CountryIncludeCreateManyAndReturn<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {}
@@ -1901,7 +1702,6 @@ export type $CountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     advantages: Prisma.$CountryAdvantagePayload<ExtArgs>[]
     processSteps: Prisma.$CountryProcessStepPayload<ExtArgs>[]
     faqs: Prisma.$CountryFAQPayload<ExtArgs>[]
-    scholarships: Prisma.$ScholarshipPayload<ExtArgs>[]
   }
   scalars: runtime.Types.Extensions.GetPayloadResult<{
     id: string
@@ -2327,7 +2127,6 @@ export interface Prisma__CountryClient<T, Null = never, ExtArgs extends runtime.
   advantages<T extends Prisma.Country$advantagesArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$advantagesArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CountryAdvantagePayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   processSteps<T extends Prisma.Country$processStepsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$processStepsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CountryProcessStepPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   faqs<T extends Prisma.Country$faqsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$faqsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$CountryFAQPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
-  scholarships<T extends Prisma.Country$scholarshipsArgs<ExtArgs> = {}>(args?: Prisma.Subset<T, Prisma.Country$scholarshipsArgs<ExtArgs>>): Prisma.PrismaPromise<runtime.Types.Result.GetResult<Prisma.$ScholarshipPayload<ExtArgs>, T, "findMany", GlobalOmitOptions> | Null>
   /**
    * Attaches callbacks for the resolution and/or rejection of the Promise.
    * @param onfulfilled The callback to execute when the Promise is resolved.
@@ -2868,30 +2667,6 @@ export type Country$faqsArgs<ExtArgs extends runtime.Types.Extensions.InternalAr
   take?: number
   skip?: number
   distinct?: Prisma.CountryFAQScalarFieldEnum | Prisma.CountryFAQScalarFieldEnum[]
-}
-
-/**
- * Country.scholarships
- */
-export type Country$scholarshipsArgs<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
-  /**
-   * Select specific fields to fetch from the Scholarship
-   */
-  select?: Prisma.ScholarshipSelect<ExtArgs> | null
-  /**
-   * Omit specific fields from the Scholarship
-   */
-  omit?: Prisma.ScholarshipOmit<ExtArgs> | null
-  /**
-   * Choose, which related nodes to fetch as well
-   */
-  include?: Prisma.ScholarshipInclude<ExtArgs> | null
-  where?: Prisma.ScholarshipWhereInput
-  orderBy?: Prisma.ScholarshipOrderByWithRelationInput | Prisma.ScholarshipOrderByWithRelationInput[]
-  cursor?: Prisma.ScholarshipWhereUniqueInput
-  take?: number
-  skip?: number
-  distinct?: Prisma.ScholarshipScalarFieldEnum | Prisma.ScholarshipScalarFieldEnum[]
 }
 
 /**
