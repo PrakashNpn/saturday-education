@@ -9,6 +9,10 @@ import { PrismaClient, Region } from '../generated/client'
 import { UNITED_KINGDOM, UK_UNIVERSITIES } from './seeds/uk'
 import { AUSTRALIA, AUSTRALIA_UNIVERSITIES } from './seeds/australia'
 import { UAE, UAE_UNIVERSITIES } from './seeds/uae'
+import { NEW_ZEALAND, NZ_UNIVERSITIES } from './seeds/new-zealand'
+import { SPAIN, SPAIN_UNIVERSITIES } from './seeds/spain'
+import { GRENADA, GRENADA_UNIVERSITIES } from './seeds/grenada'
+import { CANADA, CANADA_UNIVERSITIES } from './seeds/canada'
 import { GERMANY, GERMANY_UNIVERSITIES } from './seeds/germany'
 import { IRELAND, IRELAND_UNIVERSITIES } from './seeds/ireland'
 import { MALAYSIA, MALAYSIA_UNIVERSITIES } from './seeds/malaysia'
@@ -68,14 +72,11 @@ const UNITED_STATES = {
 // ─── STUB COUNTRIES (no universities yet) ────────────────────────────────────
 
 const STUB_COUNTRIES = [
-  { slug: 'grenada',       name: 'Grenada',                   region: Region.AMERICAS },
   { slug: 'vietnam',       name: 'Vietnam',                   region: Region.ASIA     },
   { slug: 'cambodia',      name: 'Cambodia',                  region: Region.ASIA     },
   { slug: 'china',         name: 'China',                     region: Region.ASIA     },
-  { slug: 'canada',        name: 'Canada',                    region: Region.AMERICAS },
-  { slug: 'spain',         name: 'Spain',                     region: Region.EUROPE   },
 
-  { slug: 'new-zealand',   name: 'New Zealand',               region: Region.OCEANIA  },
+
   { slug: 'hungary',       name: 'Hungary',                   region: Region.EUROPE   },
 ]
 
@@ -203,11 +204,31 @@ async function main() {
   for (const uni of UAE_UNIVERSITIES) await seedUniversity(uni, aeId)
   console.log(`  ✓ UAE + ${UAE_UNIVERSITIES.length} universities`)
 
+  // New Zealand
+  const nzId = await seedCountry(NEW_ZEALAND)
+  for (const uni of NZ_UNIVERSITIES) await seedUniversity(uni, nzId)
+  console.log(`  ✓ New Zealand + ${NZ_UNIVERSITIES.length} universities`)
+
+  // Spain
+  const esId = await seedCountry(SPAIN)
+  for (const uni of SPAIN_UNIVERSITIES) await seedUniversity(uni, esId)
+  console.log(`  ✓ Spain + ${SPAIN_UNIVERSITIES.length} universities`)
+
+  // Grenada
+  const gdId = await seedCountry(GRENADA)
+  for (const uni of GRENADA_UNIVERSITIES) await seedUniversity(uni, gdId)
+  console.log(`  ✓ Grenada + ${GRENADA_UNIVERSITIES.length} universities`)
+
+  // Canada
+  const caId = await seedCountry(CANADA)
+  for (const uni of CANADA_UNIVERSITIES) await seedUniversity(uni, caId)
+  console.log(`  ✓ Canada + ${CANADA_UNIVERSITIES.length} universities`)
+
   // Stub countries — no universities yet, appear in finder filter
   for (const c of STUB_COUNTRIES) await seedCountryStub(c)
   console.log(`  ✓ ${STUB_COUNTRIES.length} stub countries (filter-only)`)
 
-  console.log('\n✅ Seeded 11 countries + 8 stub countries')
+  console.log('\n✅ Seeded 15 countries + 4 stub countries')
 }
 
 main()

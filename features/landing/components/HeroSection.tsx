@@ -174,7 +174,7 @@ export default function HeroSection() {
                 }}
               >
                 <Image
-                  src="/images/hero/hero-image.png"
+                  src="/images/hero/updated-hero.png"
                   alt={t('heroImageAlt')}
                   width={500}
                   height={400}

@@ -127,7 +127,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
   slug: 'university-of-auckland',
   name: 'University of Auckland',
   city: 'Auckland',
-  country: 'New Zealand' as const,
   shortDescription: 'New Zealand\'s highest-ranked university and a member of the prestigious Universitas 21 network, recognised globally for research excellence and a comprehensive range of disciplines.',
   logoUrl: null,
   coverImageUrl: null,
@@ -148,7 +147,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 37,000/year',
       description: 'A highly regarded business degree with specialisations in accounting, finance, marketing, management, and information systems. Graduates are sought after by leading New Zealand and multinational employers.',
-      isPopular: true,
     },
     {
       slug: 'uoa-bachelor-of-engineering-honours',
@@ -158,7 +156,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 42,000/year',
       description: 'An accredited engineering degree offering specialisations including civil, mechanical, electrical, software, and chemical engineering. Strong industry links ensure excellent graduate employment outcomes.',
-      isPopular: true,
     },
     {
       slug: 'uoa-bachelor-of-science',
@@ -168,7 +165,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 39,000/year',
       description: 'A flexible science degree with majors spanning biology, chemistry, computer science, mathematics, physics, psychology, and environmental science, backed by world-class laboratory facilities.',
-      isPopular: false,
     },
     {
       slug: 'uoa-bachelor-of-laws',
@@ -178,7 +174,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'New Zealand\'s leading law school offering a rigorous legal education with specialisations in commercial law, international law, and public law, with strong pathways to legal practice.',
-      isPopular: false,
     },
     {
       slug: 'uoa-bachelor-of-arts',
@@ -188,7 +183,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 33,000/year',
       description: 'A broad humanities degree covering subjects including anthropology, communications, English, history, linguistics, political science, and sociology, developing critical thinking and communication skills.',
-      isPopular: false,
     },
     {
       slug: 'uoa-master-of-business-administration',
@@ -198,7 +192,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 48,000/year',
       description: 'A prestigious MBA programme at the Graduate School of Management, combining strategic management, leadership, and innovation, with access to New Zealand\'s top business network.',
-      isPopular: true,
     },
     {
       slug: 'uoa-master-of-engineering',
@@ -208,7 +201,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 43,000/year',
       description: 'An advanced engineering programme equipping graduates with specialist technical and management skills for senior roles in engineering and technology across New Zealand and globally.',
-      isPopular: false,
     },
     {
       slug: 'uoa-master-of-science',
@@ -218,17 +210,15 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'A research-focused master\'s programme across a wide range of scientific disciplines including environmental science, marine biology, computational sciences, and data analytics.',
-      isPopular: false,
     },
     {
       slug: 'uoa-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 9,000/year',
       description: 'A world-class doctoral research programme across all faculties. International PhD students pay the same fees as domestic students, and competitive scholarships are available to fund full study.',
-      isPopular: false,
     },
     {
       slug: 'uoa-bachelor-of-health-sciences',
@@ -238,7 +228,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'A gateway degree for careers in health professions, covering health systems, public health, and biomedical science, with pathways to professional health programmes in medicine and pharmacy.',
-      isPopular: false,
     },
     {
       slug: 'uoa-bachelor-of-computer-science',
@@ -248,7 +237,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 41,000/year',
       description: 'A rigorous computer science programme covering algorithms, software engineering, artificial intelligence, cybersecurity, and data science, preparing graduates for New Zealand and global tech roles.',
-      isPopular: true,
     },
     {
       slug: 'uoa-master-of-information-technology',
@@ -258,7 +246,6 @@ export const UNIVERSITY_OF_AUCKLAND = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 43,000/year',
       description: 'A professionally oriented IT master\'s programme covering software development, cybersecurity, data analytics, and IT project management, aligned with industry needs in New Zealand\'s fast-growing tech sector.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -298,7 +285,7 @@ export const UNIVERSITY_OF_AUCKLAND = {
     {
       name: 'University of Auckland Doctoral Scholarship',
       value: 'NZD 33,726',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Full doctoral scholarship covering tuition fees and providing an annual living stipend for up to three years. Open to all international PhD applicants who have received an Offer of Place.',
     },
     {
@@ -316,7 +303,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
   slug: 'auckland-university-of-technology',
   name: 'Auckland University of Technology (AUT)',
   city: 'Auckland',
-  country: 'New Zealand' as const,
   shortDescription: 'New Zealand\'s most innovative university with a QS 5-Star rating across teaching, employability, and research, offering practical, career-focused programmes across its vibrant Auckland campuses.',
   logoUrl: null,
   coverImageUrl: null,
@@ -337,7 +323,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 34,000/year',
       description: 'A career-oriented business degree with majors in accounting, finance, management, marketing, and international business, featuring industry projects and strong employer connections.',
-      isPopular: true,
     },
     {
       slug: 'aut-bachelor-of-engineering-technology',
@@ -347,7 +332,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'A hands-on engineering technology degree with specialisations in civil, electrical, mechanical, and software engineering, combining practical industry projects with technical fundamentals.',
-      isPopular: false,
     },
     {
       slug: 'aut-bachelor-of-computer-and-information-sciences',
@@ -357,7 +341,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 37,000/year',
       description: 'A comprehensive IT degree covering software development, cybersecurity, data science, and artificial intelligence, with real-world project experience and a strong industry network in Auckland\'s tech sector.',
-      isPopular: true,
     },
     {
       slug: 'aut-bachelor-of-health-science',
@@ -367,7 +350,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 36,000/year',
       description: 'A modern health science degree offering majors in health services management, health promotion, paramedicine, and oral health, equipping graduates for New Zealand\'s growing health sector.',
-      isPopular: false,
     },
     {
       slug: 'aut-bachelor-of-communication-studies',
@@ -377,7 +359,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 30,000/year',
       description: 'Covers journalism, public relations, media arts, and digital communication. Students work with industry partners and AUT\'s professional media production facilities from day one.',
-      isPopular: false,
     },
     {
       slug: 'aut-bachelor-of-arts',
@@ -387,7 +368,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 29,000/year',
       description: 'A flexible arts degree with majors including anthropology, English, history, languages, politics, and social sciences, developing research, analytical, and communication competencies.',
-      isPopular: false,
     },
     {
       slug: 'aut-master-of-business-administration',
@@ -397,7 +377,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 43,000/year',
       description: 'AUT\'s industry-connected MBA develops strategic and leadership capabilities through live business challenges, executive mentorship, and a strong Auckland business network.',
-      isPopular: true,
     },
     {
       slug: 'aut-master-of-computer-science',
@@ -407,7 +386,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'An advanced programme in computing covering machine learning, software engineering, data analytics, and research methodologies, designed for graduates seeking specialised tech careers or doctoral study.',
-      isPopular: false,
     },
     {
       slug: 'aut-bachelor-of-hospitality-management',
@@ -417,7 +395,6 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 34,000/year',
       description: 'A globally recognised hospitality degree delivered at AUT\'s South campus with a commercial kitchen and teaching hotel. Includes industry placements and study trips to international hospitality operations.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -457,7 +434,7 @@ export const AUCKLAND_UNIVERSITY_OF_TECHNOLOGY = {
     {
       name: 'AUT Doctoral Scholarship',
       value: 'NZD 33,726',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Full doctoral scholarship providing an annual stipend plus tuition fees for up to three years, open to all eligible international applicants commencing a PhD at AUT.',
     },
   ],
@@ -469,7 +446,6 @@ export const MASSEY_UNIVERSITY = {
   slug: 'massey-university',
   name: 'Massey University',
   city: 'Palmerston North',
-  country: 'New Zealand' as const,
   shortDescription: 'New Zealand\'s largest university by enrolment and a world leader in veterinary science, agriculture, and distance education, with campuses in Palmerston North, Auckland, and Wellington.',
   logoUrl: null,
   coverImageUrl: null,
@@ -490,7 +466,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 5,
       tuitionFeePerYear: 'NZD 42,000/year',
       description: 'Ranked among the top 30 veterinary schools in the world and first in Australasia, Massey\'s veterinary programme delivers unparalleled clinical training across companion animal, production animal, and wildlife disciplines.',
-      isPopular: true,
     },
     {
       slug: 'massey-bachelor-of-agri-science',
@@ -500,7 +475,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 33,000/year',
       description: 'A globally respected agricultural science degree delivered at Massey\'s Manawatu campus, home to state-of-the-art farms and food science laboratories, covering agribusiness, crop science, and soil science.',
-      isPopular: true,
     },
     {
       slug: 'massey-bachelor-of-business',
@@ -510,7 +484,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 28,000/year',
       description: 'A comprehensive business degree with majors in accounting, finance, human resource management, marketing, and international business, available on-campus and through Massey\'s world-renowned distance learning platform.',
-      isPopular: true,
     },
     {
       slug: 'massey-bachelor-of-engineering',
@@ -520,7 +493,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 36,000/year',
       description: 'An IPENZ-accredited engineering degree with specialisations in mechatronics, electrical, civil, chemical, and mechanical engineering, combining theory with applied project experience.',
-      isPopular: false,
     },
     {
       slug: 'massey-bachelor-of-aviation',
@@ -530,7 +502,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 45,000/year',
       description: 'One of the Pacific\'s leading aviation programmes, combining airline transport pilot licence (ATPL) academic training with practical flight instruction, preparing graduates for commercial flying careers.',
-      isPopular: false,
     },
     {
       slug: 'massey-bachelor-of-design',
@@ -540,7 +511,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'A creative and practice-based design degree with specialisations in industrial design, spatial design, visual communication, and textiles, offered at Massey\'s Wellington campus.',
-      isPopular: false,
     },
     {
       slug: 'massey-master-of-business-administration',
@@ -550,7 +520,6 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 35,000/year',
       description: 'A highly flexible MBA designed for working professionals, available on-campus, online, or through blended delivery. Develops strategic leadership, entrepreneurship, and global business management competencies.',
-      isPopular: true,
     },
     {
       slug: 'massey-master-of-development-studies',
@@ -560,17 +529,15 @@ export const MASSEY_UNIVERSITY = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 30,000/year',
       description: 'Ranked in the global top 30 for development studies (QS 2025), this programme examines international development, poverty reduction, and policy in Pacific and Asian contexts.',
-      isPopular: false,
     },
     {
       slug: 'massey-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 8,000/year',
       description: 'Massey University doctoral programmes span veterinary, agricultural, food, design, social sciences, and business research. International students pay the same fee as domestic students for PhD study.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -605,7 +572,7 @@ export const MASSEY_UNIVERSITY = {
     {
       name: 'Massey Doctoral Scholarship',
       value: 'NZD 30,000',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Provides annual financial support for doctoral research students, covering living costs and study expenses. Competitive and available to domestic and international applicants across all research disciplines.',
     },
   ],
@@ -617,7 +584,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
   slug: 'university-of-canterbury',
   name: 'University of Canterbury',
   city: 'Christchurch',
-  country: 'New Zealand' as const,
   shortDescription: 'Ranked #261 globally (QS 2026), the University of Canterbury is renowned for engineering, science, and technology, with Christchurch\'s award-winning campus and the lowest cost of living of any New Zealand university city.',
   logoUrl: null,
   coverImageUrl: null,
@@ -638,7 +604,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'Canterbury\'s engineering faculty is among the most respected in the Asia-Pacific, offering specialisations in civil, mechanical, electrical, chemical and biological, and software engineering, with superb research facilities.',
-      isPopular: true,
     },
     {
       slug: 'uc-bachelor-of-science',
@@ -648,7 +613,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'A comprehensive science degree with over 20 subject areas including astrophysics, environmental science, geology, molecular biology, and computer science, supported by world-class research labs.',
-      isPopular: true,
     },
     {
       slug: 'uc-bachelor-of-commerce',
@@ -658,7 +622,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 30,000/year',
       description: 'A business degree with majors in accounting, economics, finance, marketing, management, and entrepreneurship, ranked 2nd in New Zealand for employer reputation (QS 2025).',
-      isPopular: false,
     },
     {
       slug: 'uc-bachelor-of-arts',
@@ -668,7 +631,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 28,000/year',
       description: 'A flexible humanities degree covering subjects including history, philosophy, psychology, sociology, political science, and languages, with strong interdisciplinary combination options.',
-      isPopular: false,
     },
     {
       slug: 'uc-bachelor-of-laws',
@@ -678,7 +640,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 33,000/year',
       description: 'Canterbury\'s law school offers a rigorous legal education with specialisms in commercial law, environmental law, and human rights, with strong mooting and clinical experience opportunities.',
-      isPopular: false,
     },
     {
       slug: 'uc-master-of-engineering',
@@ -688,7 +649,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'A research and coursework-based master\'s programme in engineering, allowing specialisation in structural, environmental, geotechnical, and systems engineering in collaboration with Canterbury\'s renowned engineering research centres.',
-      isPopular: false,
     },
     {
       slug: 'uc-master-of-business-administration',
@@ -698,17 +658,15 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'UC\'s MBA develops strategic leadership and management skills, drawing on Christchurch\'s innovative rebuild environment and Canterbury\'s connections with New Zealand\'s agricultural, engineering, and technology industries.',
-      isPopular: true,
     },
     {
       slug: 'uc-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 8,500/year',
       description: 'World-class doctoral research in engineering, science, business, and humanities. Canterbury is particularly strong in earthquake engineering, environmental science, and physics research.',
-      isPopular: false,
     },
     {
       slug: 'uc-bachelor-of-product-design',
@@ -718,7 +676,6 @@ export const UNIVERSITY_OF_CANTERBURY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'An industry-focused design degree integrating engineering, technology, and aesthetics to develop graduates who can conceptualise, prototype, and bring innovative products to market.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -753,7 +710,7 @@ export const UNIVERSITY_OF_CANTERBURY = {
     {
       name: 'UC Doctoral Scholarship',
       value: 'NZD 27,500',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Annual stipend for doctoral research students at UC, with tuition fees waived for international PhD students who receive this award.',
     },
   ],
@@ -765,7 +722,6 @@ export const UNIVERSITY_OF_OTAGO = {
   slug: 'university-of-otago',
   name: 'University of Otago',
   city: 'Dunedin',
-  country: 'New Zealand' as const,
   shortDescription: 'New Zealand\'s first university, ranked #214 globally (QS 2025), and the country\'s only institution offering full medical, dental, and pharmacy education across four faculties.',
   logoUrl: null,
   coverImageUrl: null,
@@ -786,7 +742,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 6,
       tuitionFeePerYear: 'NZD 46,000/year',
       description: 'One of New Zealand\'s only two medical schools, Otago\'s MBChB programme offers world-class clinical training across Dunedin, Wellington, and Christchurch hospitals, producing highly sought-after medical graduates.',
-      isPopular: true,
     },
     {
       slug: 'otago-bachelor-of-dental-surgery',
@@ -796,7 +751,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 5,
       tuitionFeePerYear: 'NZD 44,000/year',
       description: 'The only dental school in New Zealand, Otago\'s dental programme offers world-class preclinical and clinical training in the Faculty of Dentistry, producing graduates recognised throughout the Asia-Pacific.',
-      isPopular: false,
     },
     {
       slug: 'otago-bachelor-of-pharmacy',
@@ -806,7 +760,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'New Zealand\'s leading pharmacy school, producing highly employable graduates trained in clinical pharmacy, pharmacology, and patient care, with practical placements at hospitals and community pharmacies.',
-      isPopular: false,
     },
     {
       slug: 'otago-bachelor-of-science',
@@ -816,7 +769,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 36,000/year',
       description: 'A strong research-focused science degree with majors across biochemistry, genetics, marine science, neuroscience, zoology, and environmental science, supported by Otago\'s outstanding research facilities.',
-      isPopular: true,
     },
     {
       slug: 'otago-bachelor-of-commerce',
@@ -826,7 +778,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 32,500/year',
       description: 'Delivered by the Otago Business School, this degree offers majors in accounting, economics, finance, marketing, and tourism management with strong professional accounting accreditation pathways.',
-      isPopular: false,
     },
     {
       slug: 'otago-bachelor-of-arts',
@@ -836,7 +787,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 32,500/year',
       description: 'A broad humanities and social sciences degree with majors in psychology, politics, sociology, history, languages, and film studies, developed in one of New Zealand\'s most vibrant student cities.',
-      isPopular: false,
     },
     {
       slug: 'otago-master-of-public-health',
@@ -846,7 +796,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'Internationally recognised at Otago\'s Wellington School of Medicine, this programme develops public health leadership, epidemiology, and health policy skills for careers in global health organisations.',
-      isPopular: false,
     },
     {
       slug: 'otago-master-of-business-administration',
@@ -856,7 +805,6 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 45,000/year',
       description: 'The Otago MBA is designed for experienced professionals seeking advanced management skills, with specialisations in agribusiness, tourism, and healthcare management reflecting Otago\'s industry strengths.',
-      isPopular: true,
     },
     {
       slug: 'otago-master-of-science',
@@ -866,17 +814,15 @@ export const UNIVERSITY_OF_OTAGO = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'A research-focused master\'s programme across a wide range of sciences. Otago\'s Dunedin campus offers exceptional laboratory environments and supervision in marine, biochemical, and neurosciences.',
-      isPopular: false,
     },
     {
       slug: 'otago-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 8,500/year',
       description: 'Doctoral research at Otago is world-class, with particular strengths in health sciences, biomedical research, and marine and Antarctic science. International PhD fees are equivalent to domestic rates.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -911,7 +857,7 @@ export const UNIVERSITY_OF_OTAGO = {
     {
       name: 'University of Otago Postgraduate Publishing Bursary',
       value: 'NZD 5,000',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Supports postgraduate research students publishing work in peer-reviewed journals, assisting with publication and open-access fees.',
     },
   ],
@@ -923,7 +869,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
   slug: 'victoria-university-wellington',
   name: 'Victoria University of Wellington (Te Herenga Waka)',
   city: 'Wellington',
-  country: 'New Zealand' as const,
   shortDescription: 'Ranked #240 globally (QS 2026), Victoria University of Wellington is New Zealand\'s capital city university, globally recognised for law, humanities, public policy, architecture, and science, and home to New Zealand\'s Parliament.',
   logoUrl: null,
   coverImageUrl: null,
@@ -944,7 +889,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'Victoria Law School is New Zealand\'s leading law faculty, located steps from Parliament. Offers specialisations in corporate law, public law, international law, and human rights with outstanding mooting traditions.',
-      isPopular: true,
     },
     {
       slug: 'vuw-bachelor-of-commerce-administration',
@@ -954,7 +898,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'Wellington\'s leading business degree with majors in accounting, economics, finance, management, marketing, and information systems, with direct access to New Zealand\'s government and private sector employers.',
-      isPopular: true,
     },
     {
       slug: 'vuw-bachelor-of-engineering',
@@ -964,7 +907,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'A rigorous engineering degree with specialisations including software engineering, network engineering, and electronic and computer systems, with strong industry partnerships in Wellington\'s technology sector.',
-      isPopular: false,
     },
     {
       slug: 'vuw-bachelor-of-science',
@@ -974,7 +916,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 33,000/year',
       description: 'A research-driven science degree covering biochemistry, chemistry, ecology, geology, mathematics, psychology, and statistics, with access to Wellington\'s world-class marine and geophysical research institutions.',
-      isPopular: false,
     },
     {
       slug: 'vuw-bachelor-of-architecture',
@@ -984,7 +925,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 37,000/year',
       description: 'A foundation architecture degree at one of the Pacific\'s most innovative architecture schools, preparing students for the professional architecture pathway, with studios overlooking Wellington\'s iconic waterfront.',
-      isPopular: false,
     },
     {
       slug: 'vuw-bachelor-of-arts',
@@ -994,7 +934,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 29,000/year',
       description: 'A wide-ranging humanities degree with strong programmes in politics, international relations, media studies, cultural studies, and philosophy, benefiting from Wellington\'s position as New Zealand\'s capital.',
-      isPopular: false,
     },
     {
       slug: 'vuw-master-of-public-policy',
@@ -1004,7 +943,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'New Zealand\'s most prestigious public policy programme, offered in the heart of Wellington\'s government precinct. Draws on leading policy practitioners and provides direct pathways to New Zealand\'s public service.',
-      isPopular: true,
     },
     {
       slug: 'vuw-master-of-information-management',
@@ -1014,7 +952,6 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'An advanced programme in information management, data governance, and knowledge management, designed for professionals seeking to lead digital transformation in government or private sector organisations.',
-      isPopular: false,
     },
     {
       slug: 'vuw-llm',
@@ -1024,17 +961,15 @@ export const VICTORIA_UNIVERSITY_WELLINGTON = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 42,000/year',
       description: 'An advanced law degree at Victoria Law School covering international trade law, intellectual property, public law, and human rights, attracting students from across the Pacific and Asia.',
-      isPopular: false,
     },
     {
       slug: 'vuw-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 9,000/year',
       description: 'Doctoral research at Victoria spans law, humanities, social sciences, engineering, and science. Victoria ranks in the top 1% globally for 14 academic subjects in QS subject rankings.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1081,7 +1016,6 @@ export const UNIVERSITY_OF_WAIKATO = {
   slug: 'university-of-waikato',
   name: 'University of Waikato',
   city: 'Hamilton',
-  country: 'New Zealand' as const,
   shortDescription: 'Ranked #281 globally (QS 2026), the University of Waikato offers a student-focused environment in Hamilton and Tauranga, with world-class programmes in law, management, science, and Māori and Indigenous studies.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1102,7 +1036,6 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 27,000/year',
       description: 'A highly regarded business degree with flexible specialisations in accounting, finance, marketing, operations management, and international business. Waikato Management School is AACSB accredited.',
-      isPopular: true,
     },
     {
       slug: 'waikato-bachelor-of-laws',
@@ -1112,7 +1045,6 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 29,000/year',
       description: 'Waikato Law School offers a distinctive law programme with strong emphasis on Treaty of Waitangi, Māori customary law, environmental law, and commercial law, preparing graduates for diverse legal careers.',
-      isPopular: false,
     },
     {
       slug: 'waikato-bachelor-of-science',
@@ -1122,7 +1054,6 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 28,000/year',
       description: 'A broad science degree with majors in biological sciences, chemistry, computer science, earth sciences, environmental science, and physics, delivered with a strong focus on applied and industry-relevant research.',
-      isPopular: false,
     },
     {
       slug: 'waikato-bachelor-of-arts',
@@ -1132,7 +1063,6 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 26,000/year',
       description: 'A broad-based humanities degree with majors including psychology, media and communication, political science, history, and sociology, with unique programmes in Māori and Pacific studies.',
-      isPopular: false,
     },
     {
       slug: 'waikato-bachelor-of-engineering',
@@ -1142,7 +1072,6 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'A hands-on engineering degree with specialisations in electronic and computer engineering and software engineering, with strong connections to Waikato\'s growing technology and agricultural technology sectors.',
-      isPopular: false,
     },
     {
       slug: 'waikato-master-of-business-administration',
@@ -1152,7 +1081,6 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 35,000/year',
       description: 'Waikato\'s AACSB-accredited MBA focuses on transformational leadership, sustainable business, and innovation in New Zealand and Asia-Pacific markets.',
-      isPopular: true,
     },
     {
       slug: 'waikato-master-of-management-studies',
@@ -1162,17 +1090,15 @@ export const UNIVERSITY_OF_WAIKATO = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'A one-year professional management programme designed for graduates seeking advanced management skills and direct entry into senior business roles in New Zealand and the Asia-Pacific.',
-      isPopular: false,
     },
     {
       slug: 'waikato-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 8,000/year',
       description: 'Doctoral research across business, law, science, and humanities. Waikato\'s research environment is particularly strong in agri-food innovation, environmental science, and Māori development.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1207,7 +1133,7 @@ export const UNIVERSITY_OF_WAIKATO = {
     {
       name: 'Waikato Research Masters Scholarship',
       value: 'NZD 10,000',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Supports high-achieving students undertaking a research master\'s programme at the University of Waikato, covering partial tuition fees across the duration of the degree.',
     },
   ],
@@ -1219,7 +1145,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
   slug: 'auckland-institute-of-studies',
   name: 'Auckland Institute of Studies (AIS)',
   city: 'Auckland',
-  country: 'New Zealand' as const,
   shortDescription: 'One of New Zealand\'s leading independent degree-granting private institutions, founded in 1990, offering business, IT, and English language programmes in a multicultural environment in Auckland.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1240,7 +1165,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 21,584/year',
       description: 'A practical management degree with specialisations in hospitality management, tourism management, and business management, designed to bridge academic knowledge with real-world industry application.',
-      isPopular: true,
     },
     {
       slug: 'ais-bachelor-of-information-technology',
@@ -1250,7 +1174,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 21,584/year',
       description: 'A professionally oriented IT degree covering networking, software development, cybersecurity, and database management, with strong industry links to Auckland\'s technology sector.',
-      isPopular: false,
     },
     {
       slug: 'ais-graduate-diploma-business',
@@ -1260,7 +1183,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 18,680/year',
       description: 'A one-year postgraduate diploma providing a fast-track pathway into New Zealand\'s business environment, covering management principles, finance, and marketing with practical application.',
-      isPopular: false,
     },
     {
       slug: 'ais-postgraduate-diploma-applied-management',
@@ -1270,7 +1192,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 21,000/year',
       description: 'An advanced one-year programme developing strategic business and management competencies for professionals seeking to advance in New Zealand\'s corporate, hospitality, or tourism sectors.',
-      isPopular: false,
     },
     {
       slug: 'ais-master-applied-management',
@@ -1280,7 +1201,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 38,940/year',
       description: 'AIS\'s flagship postgraduate management programme combining research methods, strategic management, and applied project work tailored to New Zealand\'s hospitality, tourism, and business industries.',
-      isPopular: true,
     },
     {
       slug: 'ais-diploma-hospitality-management',
@@ -1290,7 +1210,6 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 17,920/year',
       description: 'A practical hospitality management diploma covering food and beverage service, accommodation operations, event management, and customer experience, with industry placement opportunities in Auckland.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1325,7 +1244,7 @@ export const AUCKLAND_INSTITUTE_OF_STUDIES = {
     {
       name: 'AIS Community Leadership Award',
       value: 'NZD 2,000',
-      type: ScholarshipType.INSTITUTIONAL,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Recognises international students who demonstrate leadership, community involvement, and commitment to cross-cultural exchange during their studies at AIS.',
     },
   ],
@@ -1337,7 +1256,6 @@ export const NMIT = {
   slug: 'nelson-marlborough-institute-of-technology',
   name: 'Nelson Marlborough Institute of Technology (NMIT)',
   city: 'Nelson',
-  country: 'New Zealand' as const,
   shortDescription: 'New Zealand\'s top-rated polytechnic (NZQA Category One), established in 1904, with specialist programmes in aquaculture, viticulture, winemaking, aviation engineering, and maritime studies at the top of the South Island.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1358,7 +1276,6 @@ export const NMIT = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 25,000/year',
       description: 'A practical business degree tailored to New Zealand\'s industry needs, covering management, entrepreneurship, and marketing with strong connections to Nelson and Marlborough\'s regional economy.',
-      isPopular: true,
     },
     {
       slug: 'nmit-bachelor-viticulture-wine',
@@ -1368,7 +1285,6 @@ export const NMIT = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 27,000/year',
       description: 'Located in the heart of Marlborough wine country, this unique programme covers viticulture, oenology, and wine business, with hands-on training in New Zealand\'s world-famous Sauvignon Blanc region.',
-      isPopular: true,
     },
     {
       slug: 'nmit-diploma-aquaculture',
@@ -1378,7 +1294,6 @@ export const NMIT = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 20,000/year',
       description: 'A specialised diploma in aquaculture covering shellfish and finfish farming, water quality, marine ecology, and aquaculture business, delivered at NMIT\'s marine facilities near the Marlborough Sounds.',
-      isPopular: false,
     },
     {
       slug: 'nmit-diploma-aviation-engineering',
@@ -1388,7 +1303,6 @@ export const NMIT = {
       durationYears: 2,
       tuitionFeePerYear: 'NZD 28,000/year',
       description: 'A unique aviation engineering programme at NMIT\'s Woodbourne campus adjacent to Marlborough Airport, covering aircraft maintenance, avionics, and aviation regulation aligned with New Zealand CAA standards.',
-      isPopular: false,
     },
     {
       slug: 'nmit-diploma-business',
@@ -1398,7 +1312,6 @@ export const NMIT = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 18,000/year',
       description: 'A foundational business diploma providing practical skills in management, accounting, and marketing, suitable as a pathway into degree study or for professionals seeking business credentials.',
-      isPopular: false,
     },
     {
       slug: 'nmit-certificate-information-technology',
@@ -1408,7 +1321,6 @@ export const NMIT = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 18,000/year',
       description: 'A practical IT certificate covering networking, software applications, and digital support skills, providing a foundation for further IT study or entry-level technology roles in New Zealand.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1443,7 +1355,7 @@ export const NMIT = {
     {
       name: 'NMIT Regional Industry Scholarship',
       value: 'NZD 3,000',
-      type: ScholarshipType.INSTITUTIONAL,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Supports international students entering NMIT\'s specialist viticulture, aquaculture, or aviation engineering programmes, reflecting NMIT\'s strong regional industry partnerships.',
     },
   ],
@@ -1455,7 +1367,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
   slug: 'icl-graduate-business-school',
   name: 'ICL Graduate Business School',
   city: 'Auckland',
-  country: 'New Zealand' as const,
   shortDescription: 'A specialist private graduate business school in central Auckland, established in 2002, offering NZQA-accredited MBA, MPA, and business informatics programmes with a strong focus on practical postgraduate business education.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1476,7 +1387,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 35,000/year',
       description: 'ICL\'s flagship MBA programme develops strategic management, leadership, and entrepreneurship skills for professionals seeking senior roles in New Zealand\'s diverse business environment.',
-      isPopular: true,
     },
     {
       slug: 'icl-master-of-professional-accounting',
@@ -1486,7 +1396,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 37,500/year',
       description: 'A professional accounting master\'s programme designed to meet CPA Australia and CAANZ pathway requirements, covering advanced financial reporting, audit, taxation, and business law.',
-      isPopular: true,
       },
     {
       slug: 'icl-master-business-informatics',
@@ -1496,7 +1405,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 35,000/year',
       description: 'A unique programme combining business strategy and information technology, covering data analytics, digital transformation, enterprise systems, and IT project management for New Zealand\'s digital economy.',
-      isPopular: false,
     },
     {
       slug: 'icl-graduate-diploma-business',
@@ -1506,7 +1414,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 22,320/year',
       description: 'A one-year postgraduate business qualification providing a foundation in management, marketing, and finance, suitable as a bridging qualification or standalone professional credential.',
-      isPopular: false,
     },
     {
       slug: 'icl-postgraduate-diploma-business-informatics',
@@ -1516,7 +1423,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 24,000/year',
       description: 'An advanced diploma equipping professionals with skills in information systems management, business analytics, and IT governance, bridging business and technology leadership.',
-      isPopular: false,
     },
     {
       slug: 'icl-bachelor-of-business',
@@ -1526,7 +1432,6 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 26,000/year',
       description: 'A comprehensive undergraduate business degree with majors in management, marketing, and accounting. ICL\'s small class sizes ensure personalised teaching and direct access to faculty.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1561,7 +1466,7 @@ export const ICL_GRADUATE_BUSINESS_SCHOOL = {
     {
       name: 'ICL Early Acceptance Award',
       value: 'NZD 2,000',
-      type: ScholarshipType.INSTITUTIONAL,
+      type: ScholarshipType.MERIT_BASED,
       description: 'A fee reduction for international students who accept their offer and pay their deposit within 30 days of receiving their Offer of Place from ICL.',
     },
   ],
@@ -1573,7 +1478,6 @@ export const YOBEE_COLLEGE = {
   slug: 'yoobee-college',
   name: 'Yobee College',
   city: 'Auckland',
-  country: 'New Zealand' as const,
   shortDescription: 'New Zealand\'s largest specialist creative and technology institution, formed in 2019, offering industry-focused programmes in animation, game design, film, web development, software engineering, and UX design.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1594,7 +1498,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 27,000/year',
       description: 'A comprehensive animation degree covering 2D and 3D animation, character design, visual development, and storytelling, preparing graduates for careers in New Zealand\'s thriving film and animation industry.',
-      isPopular: true,
     },
     {
       slug: 'yoobee-bachelor-of-digital-innovation',
@@ -1604,7 +1507,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 26,000/year',
       description: 'An interdisciplinary degree combining UX design, web development, digital strategy, and product design, equipping graduates to drive digital innovation in New Zealand\'s growing technology sector.',
-      isPopular: true,
     },
     {
       slug: 'yoobee-bachelor-software-engineering',
@@ -1614,7 +1516,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 27,000/year',
       description: 'A practical software engineering degree covering full-stack development, agile methodologies, mobile app development, and cloud computing, with live industry projects throughout the programme.',
-      isPopular: false,
     },
     {
       slug: 'yoobee-diploma-game-design',
@@ -1624,7 +1525,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 24,000/year',
       description: 'An intensive game design diploma covering game mechanics, level design, narrative design, and Unity/Unreal Engine development, with a portfolio of completed game projects for industry entry.',
-      isPopular: false,
     },
     {
       slug: 'yoobee-diploma-web-ux-design',
@@ -1634,7 +1534,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 23,000/year',
       description: 'A diploma developing skills in user interface design, UX research, front-end development, and design systems, preparing graduates for New Zealand\'s booming digital and tech design market.',
-      isPopular: false,
     },
     {
       slug: 'yoobee-diploma-filmmaking',
@@ -1644,7 +1543,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 22,000/year',
       description: 'A hands-on filmmaking diploma covering cinematography, directing, editing, and production management, with production experience using professional film equipment in New Zealand\'s globally recognised screen industry.',
-      isPopular: false,
     },
     {
       slug: 'yoobee-master-software-engineering',
@@ -1654,7 +1552,6 @@ export const YOBEE_COLLEGE = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 36,000/year',
       description: 'An advanced software engineering master\'s programme for technology professionals, covering machine learning, cloud architecture, DevOps, and advanced software systems for leadership roles in New Zealand\'s tech industry.',
-      isPopular: true,
     },
   ],
   admissionSteps: [
@@ -1701,7 +1598,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
   slug: 'unitec-institute-of-technology',
   name: 'Unitec Institute of Technology',
   city: 'Auckland',
-  country: 'New Zealand' as const,
   shortDescription: 'Auckland\'s largest institute of technology, founded in 1976, offering over 150 career-focused programmes across business, construction, engineering, health, social practice, and creative industries on its Mt Albert campus.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1722,7 +1618,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 29,000/year',
       description: 'New Zealand\'s leading construction management degree, equipping graduates with skills in project management, construction law, cost estimation, and sustainable construction to meet demand in Auckland\'s booming construction sector.',
-      isPopular: true,
     },
     {
       slug: 'unitec-bachelor-engineering-technology',
@@ -1732,7 +1627,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 30,000/year',
       description: 'A practical civil engineering technology degree accredited by Engineering New Zealand, covering structural design, infrastructure, surveying, and project management with strong industry placements.',
-      isPopular: false,
     },
     {
       slug: 'unitec-bachelor-applied-management',
@@ -1742,7 +1636,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 26,000/year',
       description: 'A practical business management degree with specialisations in accounting, human resource management, and marketing, designed to equip graduates for management roles in New Zealand\'s diverse economy.',
-      isPopular: true,
     },
     {
       slug: 'unitec-bachelor-nursing',
@@ -1752,7 +1645,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 30,000/year',
       description: 'A nationally recognised nursing degree providing comprehensive clinical and theoretical training, preparing graduates for registration with the Nursing Council of New Zealand and careers in Auckland\'s health sector.',
-      isPopular: false,
     },
     {
       slug: 'unitec-bachelor-information-technology',
@@ -1762,7 +1654,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 28,000/year',
       description: 'A career-focused IT degree covering software development, networking, cybersecurity, and IT project management with strong industry connections in Auckland\'s growing technology sector.',
-      isPopular: false,
     },
     {
       slug: 'unitec-master-construction-project-management',
@@ -1772,7 +1663,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'An advanced programme developing expertise in complex construction project delivery, risk management, and sustainable construction leadership for senior roles in New Zealand\'s construction industry.',
-      isPopular: true,
     },
     {
       slug: 'unitec-graduate-diploma-building-surveying',
@@ -1782,7 +1672,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 24,000/year',
       description: 'A specialist postgraduate diploma in building surveying covering building pathology, construction law, and project monitoring, highly relevant to New Zealand\'s large-scale urban development programme.',
-      isPopular: false,
     },
     {
       slug: 'unitec-bachelor-creative-technologies',
@@ -1792,7 +1681,6 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 27,000/year',
       description: 'An innovative degree integrating design, digital media, and creative technology, preparing graduates for careers in animation, screen production, spatial design, and digital content creation.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1827,7 +1715,7 @@ export const UNITEC_INSTITUTE_OF_TECHNOLOGY = {
     {
       name: 'Unitec Construction Industry Award',
       value: 'NZD 3,000',
-      type: ScholarshipType.INSTITUTIONAL,
+      type: ScholarshipType.MERIT_BASED,
       description: 'A scholarship for international students entering Unitec\'s construction, engineering technology, or project management programmes, supported by Unitec\'s strong construction industry partnerships.',
     },
   ],
@@ -1839,7 +1727,6 @@ export const LINCOLN_UNIVERSITY = {
   slug: 'lincoln-university-new-zealand',
   name: 'Lincoln University',
   city: 'Christchurch',
-  country: 'New Zealand' as const,
   shortDescription: 'Ranked #371 globally (QS 2025), Lincoln University is New Zealand\'s specialist land-based university, globally recognised for agriculture, environmental management, commerce, and wine science, located on a 58-hectare campus near Christchurch.',
   logoUrl: null,
   coverImageUrl: null,
@@ -1860,7 +1747,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 33,000/year',
       description: 'One of the Asia-Pacific\'s leading agricultural science degrees, covering crop production, soil science, animal science, and agri-business on Lincoln\'s working farm campus near Christchurch.',
-      isPopular: true,
     },
     {
       slug: 'lincoln-bachelor-of-commerce-agri',
@@ -1870,7 +1756,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 30,000/year',
       description: 'A business degree uniquely focused on agribusiness management, rural finance, agricultural marketing, and farm enterprise management, meeting the needs of New Zealand\'s primary export industries.',
-      isPopular: true,
     },
     {
       slug: 'lincoln-bachelor-environment-society',
@@ -1880,7 +1765,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 3,
       tuitionFeePerYear: 'NZD 29,000/year',
       description: 'An interdisciplinary degree examining environmental policy, conservation, sustainability, and human-environment relationships, with field study opportunities in New Zealand\'s diverse landscapes.',
-      isPopular: false,
     },
     {
       slug: 'lincoln-bachelor-viticulture-oenology',
@@ -1890,7 +1774,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'An internationally respected wine science degree covering vineyard management, wine chemistry, sensory evaluation, and wine business, combining classroom learning with hands-on vineyard and winery experience.',
-      isPopular: false,
     },
     {
       slug: 'lincoln-bachelor-landscape-architecture',
@@ -1900,7 +1783,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 4,
       tuitionFeePerYear: 'NZD 32,000/year',
       description: 'A professional landscape architecture degree accredited by the New Zealand Institute of Landscape Architects, covering design, ecology, planning, and digital design tools for outdoor environments.',
-      isPopular: false,
     },
     {
       slug: 'lincoln-master-agribusiness',
@@ -1910,7 +1792,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 40,000/year',
       description: 'Lincoln\'s flagship graduate programme for agribusiness professionals, combining strategic management, rural finance, and global agri-food value chain analysis. Highly valued by New Zealand\'s primary sector employers.',
-      isPopular: true,
     },
     {
       slug: 'lincoln-master-applied-science',
@@ -1920,7 +1801,6 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 1.5,
       tuitionFeePerYear: 'NZD 38,000/year',
       description: 'A research-based master\'s programme across agriculture, ecology, environmental science, and soil science, with access to Lincoln\'s world-class research farms and environmental monitoring facilities.',
-      isPopular: false,
     },
     {
       slug: 'lincoln-master-environmental-management',
@@ -1930,17 +1810,15 @@ export const LINCOLN_UNIVERSITY = {
       durationYears: 1,
       tuitionFeePerYear: 'NZD 36,000/year',
       description: 'A professional master\'s programme developing expertise in environmental policy, resource management, and sustainability leadership for careers in government, consultancy, and environmental NGOs.',
-      isPopular: false,
     },
     {
       slug: 'lincoln-phd',
       name: 'Doctor of Philosophy (PhD)',
       field: 'Research',
-      degreeLevel: DegreeType.DOCTORAL,
+      degreeLevel: DegreeType.PHD,
       durationYears: 3,
       tuitionFeePerYear: 'NZD 8,500/year',
       description: 'Doctoral research at Lincoln is internationally recognised in agricultural science, environmental management, soil science, and food innovation. Competitive scholarships are available for international students.',
-      isPopular: false,
     },
   ],
   admissionSteps: [
@@ -1981,7 +1859,7 @@ export const LINCOLN_UNIVERSITY = {
     {
       name: 'Lincoln Doctoral Research Scholarship',
       value: 'NZD 27,500',
-      type: ScholarshipType.RESEARCH,
+      type: ScholarshipType.MERIT_BASED,
       description: 'Annual stipend for doctoral students undertaking research at Lincoln University, available to domestic and international applicants across agricultural, environmental, and land-based research fields.',
     },
   ],
