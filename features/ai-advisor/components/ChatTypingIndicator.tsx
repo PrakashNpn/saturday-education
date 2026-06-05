@@ -1,10 +1,29 @@
+import Image from 'next/image'
+
 export default function ChatTypingIndicator() {
   return (
-    <div className="flex justify-start">
-      <div className="bg-white border border-neutral-100 rounded-2xl rounded-bl-sm px-4 py-3 shadow-sm">
-        <div className="flex gap-1 items-center">
+    <div className="flex items-start gap-2.5">
+      {/* Bot avatar — matches ChatMessage */}
+      <div className="shrink-0 w-7 h-7 rounded-full bg-white flex items-center justify-center shadow-[0_2px_10px_rgba(89,13,130,0.2)] mt-0.5 overflow-hidden">
+        <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" width={28} height={28} className="object-contain" />
+      </div>
+
+      {/* Glass bubble */}
+      <div
+        className="
+          px-4 py-3.5 rounded-2xl rounded-tl-sm
+          bg-white/70 backdrop-blur-sm
+          border border-purple-100/80
+          shadow-[0_2px_16px_rgba(89,13,130,0.07),inset_0_1px_0_rgba(255,255,255,0.8)]
+        "
+      >
+        <div className="flex gap-1.5 items-center">
           {[0, 1, 2].map((i) => (
-            <span key={i} className="w-2 h-2 bg-[#590D82] rounded-full animate-bounce" style={{ animationDelay: `${i * 0.15}s` }} />
+            <span
+              key={i}
+              className="w-1.5 h-1.5 rounded-full bg-gradient-to-br from-[#590D82] to-[#8B2FC9] animate-bounce"
+              style={{ animationDelay: `${i * 0.15}s` }}
+            />
           ))}
         </div>
       </div>

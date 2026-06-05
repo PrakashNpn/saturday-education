@@ -365,7 +365,7 @@
     "welcomeMessage": "Hi there! 👋 I'm your Study Abroad Advisor. I can help you find the right university, compare destinations, and guide you through the application process. How can I help you today?",
     "inputPlaceholder": "Type your message...",
     "suggestions": {
-      "findUni": "Find universities in UK",
+      "findUni": "Find universities",
       "compare": "Compare study destinations",
       "scholarships": "Scholarship opportunities"
     }
