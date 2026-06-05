@@ -126,7 +126,7 @@ export const TIO = {
   ranking: null,
   totalStudents: 2000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'Tio Business School is a Dutch NVAO-accredited private university of applied sciences offering English-taught bachelor and MBA programmes across six city campuses in the Netherlands. Known for small classes of ~10 students, an accelerated 3-year bachelor track, and over 15 consecutive years ranked #1 in the Dutch Higher Education Guide for hospitality and tourism, Tio is ideal for internationally ambitious students seeking a practice-first business education.',
   tuitionFeeMin: 23950,
@@ -476,7 +476,7 @@ export const WITTENBORG = {
   ranking: null,
   totalStudents: 1200,
   internationalStudents: 0.95,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     'Wittenborg University of Applied Sciences is the most international business school in the Netherlands, with students from over 100 nationalities studying entirely in English across campuses in Apeldoorn and Amsterdam. NVAO and FIBAA double-accredited, Wittenborg offers bachelor\'s, master\'s, and MBA programmes in Business Administration, Hospitality Management, and emerging technology fields, with six intake dates per year and degrees jointly awarded with the University of Brighton (UK) for select programmes.',
   tuitionFeeMin: 11800,

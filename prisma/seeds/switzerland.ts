@@ -128,7 +128,7 @@ export const BHMS = {
   ranking: null,
   totalStudents: 800,
   internationalStudents: 0.92,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     "BHMS is a leading Swiss hospitality and business school in the heart of Lucerne, offering dual degrees awarded jointly with Robert Gordon University (UK). With over 90% international students from 80+ nationalities, it provides an all-inclusive campus experience covering tuition, accommodation, and meals. Graduates benefit from three mandatory paid internships and strong placement partnerships with top hotel brands worldwide.",
   tuitionFeeMin: 29100,
@@ -276,7 +276,7 @@ export const CESAR_RITZ_COLLEGES = {
   ranking: null,
   totalStudents: 600,
   internationalStudents: 0.90,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     'Founded in 1982, César Ritz Colleges Switzerland is one of the oldest and most prestigious hospitality schools in Switzerland, federally accredited as a University of Applied Sciences. Ranked #5 globally by QS in 2025 for Hospitality, it awards a four-year BSc jointly with Washington State University (USA) and a Master of Science jointly with the University of Derby (UK). Its Brig Alpine campus combines Swiss-style hands-on training with American academic rigour.',
   tuitionFeeMin: 22000,
@@ -334,7 +334,7 @@ export const CULINARY_ARTS_ACADEMY_SWITZERLAND = {
   ranking: null,
   totalStudents: 350,
   internationalStudents: 0.88,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     "Culinary Arts Academy Switzerland (CAAS) is the only culinary school ranked in the global QS top 10 for Hospitality (#8 in 2025), situated on the shores of Lake Geneva in Le Bouveret. As part of Swiss Education Group, CAAS offers world-class culinary bachelor and master degrees in partnership with the University of Derby (UK), with specialisation pathways in Culinary Arts, Pastry & Chocolate, and Vegetarian Cuisine. Students complete paid international internship semesters within some of the world's most prestigious culinary establishments.",
   tuitionFeeMin: 25000,
@@ -402,7 +402,7 @@ export const SHMS = {
   ranking: null,
   totalStudents: 1700,
   internationalStudents: 0.80,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     "Swiss Hotel Management School (SHMS) operates from two iconic Swiss palace hotel campuses — the Belle Époque Caux Palace above Montreux and the historic Mont-Blanc Palace in Leysin — making it one of the most atmospheric hospitality schools in the world. Ranked #4 globally by QS in 2025, SHMS offers bachelor and master degrees fully accredited by the University of Derby (UK), with all programmes structured around a 'Learning by Doing' philosophy and mandatory paid worldwide internships. Students from 80+ countries benefit from an immersive live-and-work campus environment.",
   tuitionFeeMin: 29400,
@@ -500,7 +500,7 @@ export const HIM = {
   ranking: null,
   totalStudents: 1300,
   internationalStudents: 0.90,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     "Hotel Institute Montreux (HIM), now branded as HIM Business School, is one of Switzerland's longest-established hospitality schools, founded in 1984 and situated on the shores of Lake Geneva. Part of Swiss Education Group, HIM offers a three-year Bachelor of Business Administration (BBA) dual-awarded with Northwood University (USA), integrating hospitality management with core business disciplines. Ranked #7 globally by QS in 2025, HIM attracts students from 50+ nationalities and boasts a 97% graduate employment rate.",
   tuitionFeeMin: 41400,
@@ -541,7 +541,7 @@ export const HTMI = {
   ranking: null,
   totalStudents: 420,
   internationalStudents: 0.92,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     "HTMi Switzerland is a boutique private hotel and tourism management institute located in the UNESCO Entlebuch Biosphere Reserve near Lucerne, with approximately 420 students from 35+ nationalities. Ranked #17 globally by QS in 2025, its BSc degrees are validated and awarded by Ulster University (UK) and MSc degrees by Edinburgh Napier University (UK). All programmes include paid Swiss internship semesters offering salaries of CHF 2,100–2,400/month.",
   tuitionFeeMin: 20500,

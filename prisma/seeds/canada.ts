@@ -12,7 +12,7 @@ export const NORTHERN_COLLEGE = {
   ranking: null,
   totalStudents: 3500,
   internationalStudents: 0.12,
-  acceptanceRate: 0.85,
+  acceptanceRate: 85,
   shortDescription:
     'Northern College is a public college in northeastern Ontario offering career-focused diploma and certificate programs in mining technology, business, health sciences, and skilled trades. Known for small class sizes and strong industry connections, it provides international students with hands-on learning in one of Canada\'s most resource-rich regions.',
   tuitionFeeMin: 14000,
@@ -118,7 +118,7 @@ export const SENECA_COLLEGE = {
   ranking: null,
   totalStudents: 40000,
   internationalStudents: 0.38,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Seneca Polytechnic (formerly Seneca College) is one of Canada\'s largest polytechnics, offering over 300 career-focused programs across business, technology, creative arts, health, and engineering. With multiple campuses across the Greater Toronto Area and strong industry partnerships, Seneca is among the most internationally recognized colleges in Canada.',
   tuitionFeeMin: 15000,
@@ -241,7 +241,7 @@ export const COLUMBIA_COLLEGE = {
   ranking: null,
   totalStudents: 2500,
   internationalStudents: 0.70,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'Columbia College in Vancouver is a private liberal arts college offering university transfer programs and academic pathway courses recognized by UBC, SFU, and other leading Canadian universities. With a strong focus on academic preparation and student support, it is a preferred pathway for international students targeting top BC universities.',
   tuitionFeeMin: 16000,
@@ -347,7 +347,7 @@ export const CENTENNIAL_COLLEGE = {
   ranking: null,
   totalStudents: 29000,
   internationalStudents: 0.42,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     'Centennial College is Ontario\'s first publicly funded college, recognized for its diverse student body and strong emphasis on equity and inclusion. Located across multiple Toronto campuses, it offers over 290 programs spanning business, engineering technology, health, media arts, and aviation, serving one of the largest international student populations of any Canadian college.',
   tuitionFeeMin: 14500,
@@ -470,7 +470,7 @@ export const BRAEMAR_COLLEGE = {
   ranking: null,
   totalStudents: 400,
   internationalStudents: 0.55,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Braemar College is a boutique private prep school in Vancouver offering Grade 11–12 academic upgrading and university pathway programs for international students. With small class sizes and a personalized approach, Braemar helps students achieve the grades required for admission to Canada\'s top universities.',
   tuitionFeeMin: 18000,
@@ -566,7 +566,7 @@ export const KINGSWAY_ACADEMY = {
   ranking: null,
   totalStudents: 300,
   internationalStudents: 0.65,
-  acceptanceRate: 0.85,
+  acceptanceRate: 85,
   shortDescription:
     'Kingsway Academy is a private secondary school and academic pathway institution in Vancouver, BC, offering Grade 10–12 programs and university preparation pathways for international students. The academy\'s small class environment and dedicated ESL support make it popular among students from Asia seeking entry to Canadian universities.',
   tuitionFeeMin: 16000,
@@ -662,7 +662,7 @@ export const DOUGLAS_COLLEGE = {
   ranking: null,
   totalStudents: 15000,
   internationalStudents: 0.30,
-  acceptanceRate: 0.82,
+  acceptanceRate: 82,
   shortDescription:
     'Douglas College is a publicly funded college in Metro Vancouver offering university transfer programs, bachelor\'s degrees, and career diplomas in business, health sciences, technology, and the humanities. Its New Westminster and Coquitlam campuses sit on the SkyTrain network, making it easily accessible from across Greater Vancouver.',
   tuitionFeeMin: 14000,
@@ -768,7 +768,7 @@ export const CRANDALL_UNIVERSITY = {
   ranking: null,
   totalStudents: 1000,
   internationalStudents: 0.10,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Crandall University is a small Christian liberal arts university in Moncton, New Brunswick, offering bachelor\'s and master\'s programs in business, education, theology, and humanities. With low student-to-faculty ratios and a strong community ethos, Crandall provides a personalized university experience in bilingual Atlantic Canada.',
   tuitionFeeMin: 14500,
@@ -874,7 +874,7 @@ export const UNIVERSITY_OF_REGINA = {
   ranking: null,
   totalStudents: 16000,
   internationalStudents: 0.18,
-  acceptanceRate: 0.73,
+  acceptanceRate: 73,
   shortDescription:
     'The University of Regina is a comprehensive public university on Treaty 4 territory in Saskatchewan, offering over 100 undergraduate and graduate programs in arts, business, engineering, sciences, social work, and education. Known for strong research output, co-operative education programs, and a welcoming international student community.',
   tuitionFeeMin: 18000,
@@ -987,7 +987,7 @@ export const ROYAL_ROADS_UNIVERSITY = {
   ranking: null,
   totalStudents: 4500,
   internationalStudents: 0.25,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     'Royal Roads University is a public university in Victoria, BC, specializing in applied and professional graduate programs in business, leadership, environmental studies, and conflict resolution. Set on a stunning heritage estate on the Pacific coast, Royal Roads is known for its blend of on-campus residencies and online delivery.',
   tuitionFeeMin: 20000,
@@ -1093,7 +1093,7 @@ export const SHERIDAN_COLLEGE = {
   ranking: null,
   totalStudents: 28000,
   internationalStudents: 0.35,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Sheridan College is one of Canada\'s top polytechnics, internationally renowned for animation, design, game development, and business programs. With campuses in Brampton, Oakville, and Mississauga, Sheridan has produced graduates who lead at Pixar, Ubisoft, Google, and other top employers globally.',
   tuitionFeeMin: 16000,
@@ -1216,7 +1216,7 @@ export const UNIVERSITY_OF_WINDSOR = {
   ranking: null,
   totalStudents: 15000,
   internationalStudents: 0.22,
-  acceptanceRate: 0.68,
+  acceptanceRate: 68,
   shortDescription:
     'The University of Windsor is a public comprehensive university located on the Canada–US border, renowned for its law school, engineering programs, and business faculty. Windsor\'s proximity to Detroit and its strong automotive and manufacturing research partnerships make it a strategic destination for international students seeking North American career pathways.',
   tuitionFeeMin: 22000,
@@ -1329,7 +1329,7 @@ export const LETHBRIDGE_COLLEGE = {
   ranking: null,
   totalStudents: 5000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Lethbridge College is a public college in southern Alberta offering diploma, certificate, and applied degree programs in business, health sciences, technology, and trades. Its modern campus and small class sizes offer a high-quality, affordable education in one of Alberta\'s sunniest and most affordable cities.',
   tuitionFeeMin: 14000,
@@ -1435,7 +1435,7 @@ export const BOW_VALLEY_COLLEGE = {
   ranking: null,
   totalStudents: 14000,
   internationalStudents: 0.25,
-  acceptanceRate: 0.82,
+  acceptanceRate: 82,
   shortDescription:
     'Bow Valley College is a publicly funded college in downtown Calgary offering career-oriented programs in business, health care, technology, and community studies. Centrally located near Calgary\'s financial core, it provides affordable programs with strong employment outcomes and close ties to Alberta\'s energy and services sectors.',
   tuitionFeeMin: 14500,
@@ -1541,7 +1541,7 @@ export const ACADIA_UNIVERSITY = {
   ranking: null,
   totalStudents: 4200,
   internationalStudents: 0.18,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     'Acadia University is a historic liberal arts and sciences university in the Annapolis Valley of Nova Scotia, consistently ranked among Canada\'s top undergraduate universities. Known for its beautiful campus, small class sizes, and pioneering use of laptop technology in education (the "Acadia Advantage"), it offers exceptional undergraduate programs in arts, sciences, business, and computer science.',
   tuitionFeeMin: 18000,
@@ -1654,7 +1654,7 @@ export const LOYALIST_COLLEGE = {
   ranking: null,
   totalStudents: 6500,
   internationalStudents: 0.20,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Loyalist College is a public college in Belleville, Ontario, offering diploma, certificate, and degree programs in business, technology, media, community services, and health. With an emphasis on experiential learning and strong employer partnerships in the Bay of Quinte region, Loyalist provides practical, career-ready education.',
   tuitionFeeMin: 14000,
@@ -1760,7 +1760,7 @@ export const ALEXANDER_COLLEGE = {
   ranking: null,
   totalStudents: 1800,
   internationalStudents: 0.75,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     'Alexander College is a private post-secondary institution in Vancouver and Burnaby offering associate of arts and science degrees with course credits fully transferable to UBC, SFU, BCIT, and other BC universities. Focused on international students, Alexander provides a supportive environment to complete two years of university-equivalent study at an accessible cost.',
   tuitionFeeMin: 17000,
@@ -1856,7 +1856,7 @@ export const ALEXANDER_ACADEMY = {
   ranking: null,
   totalStudents: 500,
   internationalStudents: 0.80,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Alexander Academy is a private secondary school in downtown Vancouver specializing in BC Dogwood diploma completion and university preparation pathways for international students. Offering Grades 10–12 curricula and strong ESL support, the Academy helps students meet the entry requirements for BC and Canadian universities.',
   tuitionFeeMin: 17000,
@@ -1952,7 +1952,7 @@ export const INTERNATIONAL_COLLEGE_OF_MANITOBA = {
   ranking: null,
   totalStudents: 2000,
   internationalStudents: 0.95,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     'The International College of Manitoba (ICM) is a pathway institution on the University of Manitoba campus offering Year 1 and transitional programs that guarantee qualified graduates direct entry into second year at the University of Manitoba. ICM serves as the primary international pathway to Canada\'s 13th-largest research university.',
   tuitionFeeMin: 16000,
@@ -2065,7 +2065,7 @@ export const VANCOUVER_ISLAND_UNIVERSITY = {
   ranking: null,
   totalStudents: 13000,
   internationalStudents: 0.20,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'Vancouver Island University (VIU) is a publicly funded teaching university in Nanaimo, BC, offering bachelor\'s, master\'s, diploma, and certificate programs in business, education, sciences, fine arts, and trades. Set on Vancouver Island with access to coastal and forest environments, VIU is popular with students seeking an active outdoor lifestyle alongside a quality Canadian education.',
   tuitionFeeMin: 16500,
@@ -2171,7 +2171,7 @@ export const LAMBTON_COLLEGE = {
   ranking: null,
   totalStudents: 7000,
   internationalStudents: 0.28,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     'Lambton College is a public college in Sarnia, Ontario offering diploma, certificate, and applied degree programs in business, engineering technology, health sciences, and environmental studies. Known for its applied research partnerships with the petrochemical industry and its growing international student community, Lambton provides practical, industry-linked education.',
   tuitionFeeMin: 14500,
@@ -2277,7 +2277,7 @@ export const THOMPSON_RIVERS_UNIVERSITY = {
   ranking: null,
   totalStudents: 26000,
   internationalStudents: 0.22,
-  acceptanceRate: 0.74,
+  acceptanceRate: 74,
   shortDescription:
     'Thompson Rivers University (TRU) is a public university in Kamloops, BC offering undergraduate and graduate programs in business, arts, sciences, law, education, and trades. Known for its open and distance learning programs, strong co-op placements, and affordable fees, TRU is a popular destination for international students seeking a genuine university credential in Western Canada.',
   tuitionFeeMin: 18000,
@@ -2400,7 +2400,7 @@ export const CAPE_BRETON_UNIVERSITY = {
   ranking: null,
   totalStudents: 6500,
   internationalStudents: 0.30,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     'Cape Breton University (CBU) is a public university in Sydney, Nova Scotia, offering undergraduate and graduate programs in business, engineering, community studies, arts, and sciences. CBU is one of Canada\'s fastest-growing universities for international students, driven by competitive tuition fees, post-graduation work opportunities, and Nova Scotia\'s Atlantic Immigration Program.',
   tuitionFeeMin: 18000,
@@ -2513,7 +2513,7 @@ export const FANSHAWE_COLLEGE = {
   ranking: null,
   totalStudents: 43000,
   internationalStudents: 0.40,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Fanshawe College is one of Ontario\'s largest colleges, offering over 300 programs in business, technology, health sciences, media, construction, and trades across campuses in London and surrounding communities. With one of Canada\'s largest international student populations, Fanshawe provides a multicultural campus environment and strong industry connections in southwestern Ontario.',
   tuitionFeeMin: 14500,

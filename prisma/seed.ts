@@ -86,9 +86,12 @@ const STUB_COUNTRIES = [
 async function seedCountry(data: any): Promise<string> {
   const { advantages, processSteps, faqs, ...countryFields } = data
 
+  // Exclude image fields from update so manually uploaded images are never overwritten
+  const { cardImageUrl, heroImageUrl, ...countryUpdateFields } = countryFields
+
   const country = await prisma.country.upsert({
     where: { slug: countryFields.slug },
-    update: countryFields,
+    update: countryUpdateFields,
     create: countryFields,
     select: { id: true },
   })
@@ -121,9 +124,12 @@ async function seedCountryStub(data: { slug: string; name: string; region: Regio
 async function seedUniversity(data: any, countryId: string): Promise<void> {
   const { programs, admissionSteps, scholarships, ...uniFields } = data
 
+  // Exclude image fields from update so manually uploaded images are never overwritten
+  const { logoUrl, coverImageUrl, ...uniUpdateFields } = uniFields
+
   const uni = await prisma.university.upsert({
     where: { slug: uniFields.slug },
-    update: { ...uniFields, countryId },
+    update: { ...uniUpdateFields, countryId },
     create: { ...uniFields, countryId },
     select: { id: true },
   })

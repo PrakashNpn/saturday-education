@@ -13,7 +13,7 @@ export const DIABLO_VALLEY_COLLEGE = {
   ranking: null,
   totalStudents: 22000,
   internationalStudents: 0.05,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     'Diablo Valley College is one of the largest and most respected community colleges in California, offering robust transfer pathways to UC and CSU campuses. With over 100 associate degree programs, strong STEM offerings, and a dedicated International Student Programs office, DVC is an ideal launchpad for international students targeting California\'s top universities.',
   tuitionFeeMin: 9000,
@@ -116,7 +116,7 @@ export const CONTRA_COSTA_COLLEGE = {
   ranking: null,
   totalStudents: 8000,
   internationalStudents: 0.04,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Contra Costa College is a community college in the San Francisco East Bay serving a diverse student population with affordable transfer and career education. Part of the Contra Costa Community College District, CCC offers strong pathways to UC and CSU campuses, with personalized support for international students navigating California\\'s higher education system.`,
   tuitionFeeMin: 8500,
@@ -191,7 +191,7 @@ export const LOS_MEDANOS_COLLEGE = {
   ranking: null,
   totalStudents: 8500,
   internationalStudents: 0.03,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Los Medanos College is a Contra Costa Community College District institution offering affordable academic and career-technical programs in the East Bay. LMC provides dedicated international student support, strong transfer pathways to California\\'s university system, and specialized programs in human services and industrial technology.`,
   tuitionFeeMin: 8500,
@@ -266,7 +266,7 @@ export const DE_ANZA_COLLEGE = {
   ranking: null,
   totalStudents: 22000,
   internationalStudents: 0.12,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `De Anza College in Silicon Valley\\'s Cupertino is consistently ranked among the top transfer community colleges in the United States, sending more students to UC Berkeley and UCLA than almost any other community college. With a large international student community, cutting-edge STEM facilities, and strong Silicon Valley industry connections, De Anza is a premier entry point for international students targeting elite US universities.`,
   tuitionFeeMin: 10000,
@@ -379,7 +379,7 @@ export const FOOTHILL_COLLEGE = {
   ranking: null,
   totalStudents: 17000,
   internationalStudents: 0.10,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     'Foothill College sits in the heart of Silicon Valley and is renowned for its health sciences, biotechnology, and technology programs. Sister college to De Anza, Foothill attracts a large international student community and offers strong transfer pathways to top California universities alongside career-focused health and STEM degrees.',
   tuitionFeeMin: 10000,
@@ -482,7 +482,7 @@ export const ORANGE_COAST_COLLEGE = {
   ranking: null,
   totalStudents: 24000,
   internationalStudents: 0.07,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Orange Coast College in Costa Mesa is one of Southern California\\'s largest and most acclaimed community colleges, known for its award-winning business, aviation, and marine sciences programs. OCC\\'s proximity to major Orange County and Los Angeles employers, combined with strong UC/CSU transfer pathways and an active international student community, makes it a top choice for students from Asia.`,
   tuitionFeeMin: 9500,
@@ -585,7 +585,7 @@ export const GREEN_RIVER_COLLEGE = {
   ranking: null,
   totalStudents: 8500,
   internationalStudents: 0.16,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     'Green River College in Auburn, Washington is recognized nationally for its exceptional international student programs and clear transfer pathway to the University of Washington. With one of the highest international student enrollment rates of any Washington community college, Green River offers dedicated ESL support, robust STEM and business transfer programs, and a welcoming campus environment for students from Asia.',
   tuitionFeeMin: 9500,
@@ -678,7 +678,7 @@ export const OHLONE_COLLEGE = {
   ranking: null,
   totalStudents: 10500,
   internationalStudents: 0.08,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Ohlone College in Fremont serves Silicon Valley\\'s diverse East Bay population with highly regarded programs in health sciences, American Sign Language and Deaf Studies, and technology. Conveniently located near major tech employers and the BART system, Ohlone offers strong transfer pathways to UC and CSU alongside specialized career programs valued in the Bay Area job market.`,
   tuitionFeeMin: 9000,
@@ -763,7 +763,7 @@ export const TACOMA_COMMUNITY_COLLEGE = {
   ranking: null,
   totalStudents: 9000,
   internationalStudents: 0.07,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Tacoma Community College offers affordable, high-quality education just 30 miles south of Seattle with a direct transfer pathway to the University of Washington Tacoma. TCC\\'s welcoming campus, strong ESL and academic support programs, and Washington Direct Transfer Agreement make it an accessible gateway to Washington State\\'s prestigious four-year universities.`,
   tuitionFeeMin: 9000,
@@ -838,7 +838,7 @@ export const SANTA_MONICA_COLLEGE = {
   ranking: null,
   totalStudents: 30000,
   internationalStudents: 0.15,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Santa Monica College is the top community college transfer feeder to UCLA and consistently one of the most popular choices for international students in the United States. Located minutes from the Pacific Ocean in vibrant Santa Monica, SMC boasts one of the nation\\'s largest international student populations, exceptional arts and media programs, and near-guaranteed UCLA transfer pathways for qualified students.`,
   tuitionFeeMin: 10000,
@@ -951,7 +951,7 @@ export const WHATCOM_COMMUNITY_COLLEGE = {
   ranking: null,
   totalStudents: 5000,
   internationalStudents: 0.09,
-  acceptanceRate: 1.0,
+  acceptanceRate: 100,
   shortDescription:
     `Whatcom Community College in Bellingham, Washington offers a scenic campus near the Canadian border with a formal transfer pathway to Western Washington University. Known for personalized instruction and a friendly international community, WCC provides an excellent low-cost foundation for students planning to transfer into WWU\\'s strong business, education, and science programs.`,
   tuitionFeeMin: 9000,
@@ -1026,7 +1026,7 @@ export const QUEENS_COLLEGE_CUNY = {
   ranking: null,
   totalStudents: 19000,
   internationalStudents: 0.10,
-  acceptanceRate: 0.51,
+  acceptanceRate: 51,
   shortDescription:
     `Queens College is one of the flagship colleges of the City University of New York system, situated in Flushing — one of the most culturally diverse communities in the world. Offering rigorous four-year bachelor\\'s and graduate programs at remarkably affordable public university tuition, QC is an excellent choice for international students from Asia seeking a New York education in a multicultural environment.`,
   tuitionFeeMin: 18000,
@@ -1139,7 +1139,7 @@ export const AVILA_UNIVERSITY = {
   ranking: null,
   totalStudents: 1800,
   internationalStudents: 0.08,
-  acceptanceRate: 0.60,
+  acceptanceRate: 60,
   shortDescription:
     `Avila University is a small, values-driven Catholic liberal arts university in Kansas City offering personalized education with small class sizes and strong faculty mentorship. International students benefit from dedicated advising, close-knit campus community, and practical programs in business, nursing, and education that connect to Kansas City\\'s growing professional sector.`,
   tuitionFeeMin: 30000,
@@ -1232,7 +1232,7 @@ export const HERZING_UNIVERSITY = {
   ranking: null,
   totalStudents: 6500,
   internationalStudents: 0.06,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Herzing University is a career-focused private institution with campuses in Wisconsin, Minnesota, Alabama, and other states, specializing in healthcare, business, and technology programs designed for rapid career entry. With flexible scheduling, accelerated pathways, and strong employer partnerships in the healthcare sector, Herzing is a practical choice for international students seeking professional credentials in high-demand US fields.',
   tuitionFeeMin: 13000,
@@ -1325,7 +1325,7 @@ export const UNIVERSITY_OF_LYNCHBURG = {
   ranking: null,
   totalStudents: 2800,
   internationalStudents: 0.05,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     `The University of Lynchburg is a private liberal arts institution nestled in Virginia\\'s Blue Ridge Mountains, offering a personalized undergraduate and graduate education in a close-knit campus setting. With distinctive programs in health sciences, business, and education and a strong commitment to student success, Lynchburg provides international students with individual attention and real-world experiential learning.`,
   tuitionFeeMin: 38000,
@@ -1428,7 +1428,7 @@ export const WEBSTER_UNIVERSITY = {
   ranking: null,
   totalStudents: 9500,
   internationalStudents: 0.14,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     'Webster University is a globally connected private institution with campuses across the United States, Europe, Asia, and Africa, offering international students a genuinely global education experience. Known for its strong programs in business, communication, fine arts, and international relations, Webster combines professional curricula with a welcoming multicultural community on its historic Webster Groves, Missouri home campus.',
   tuitionFeeMin: 28000,
@@ -1541,7 +1541,7 @@ export const UNIVERSITY_OF_BRIDGEPORT = {
   ranking: null,
   totalStudents: 5000,
   internationalStudents: 0.22,
-  acceptanceRate: 0.68,
+  acceptanceRate: 68,
   shortDescription:
     'The University of Bridgeport is a STEM-focused private university in Connecticut offering strong engineering, computer science, and business programs to a highly international student population. With one of the highest international student enrollment ratios in New England, UB provides a global campus environment, OPT and STEM extension eligibility, and programs accredited by ABET and AACSB.',
   tuitionFeeMin: 32000,
@@ -1661,7 +1661,7 @@ export const WASHINGTON_STATE_UNIVERSITY = {
   ranking: 601,
   totalStudents: 32000,
   internationalStudents: 0.10,
-  acceptanceRate: 0.77,
+  acceptanceRate: 77,
   shortDescription:
     `Washington State University is Washington State\\'s land-grant flagship research university, ranked in the QS World University Rankings and known for excellence in agriculture, veterinary medicine, engineering, and business. WSU\\'s Pullman campus offers a classic American university experience with Division I athletics, a vibrant campus life, and cutting-edge research facilities, while its global campus and online programs provide flexible access for international students.`,
   tuitionFeeMin: 27000,
@@ -1801,7 +1801,7 @@ export const WILLIAM_JESSUP_UNIVERSITY = {
   ranking: null,
   totalStudents: 1800,
   internationalStudents: 0.04,
-  acceptanceRate: 0.62,
+  acceptanceRate: 62,
   shortDescription:
     'William Jessup University is a small, WASC-accredited Christian liberal arts university in Rocklin, California — part of the greater Sacramento region. Offering a values-centered education in a supportive faith-based environment, WJU provides personalized mentorship and strong programs in business, education, ministry, and psychology for students seeking integrative liberal arts training in Northern California.',
   tuitionFeeMin: 34000,
@@ -1894,7 +1894,7 @@ export const STONY_BROOK_UNIVERSITY = {
   ranking: 368,
   totalStudents: 26700,
   internationalStudents: 0.20,
-  acceptanceRate: 0.48,
+  acceptanceRate: 48,
   shortDescription:
     'Stony Brook University is a flagship SUNY research university ranked in the QS World University Rankings top 400 and a member of the prestigious Association of American Universities. Renowned for its medical school, STEM programs, and research enterprise exceeding $250 million annually, SBU attracts one of the largest international student populations in New York State and offers strong STEM OPT extension eligibility across dozens of graduate programs.',
   tuitionFeeMin: 29000,
@@ -2034,7 +2034,7 @@ export const RENSSELAER_POLYTECHNIC_INSTITUTE = {
   ranking: 414,
   totalStudents: 7900,
   internationalStudents: 0.22,
-  acceptanceRate: 0.53,
+  acceptanceRate: 53,
   shortDescription:
     `Rensselaer Polytechnic Institute is America\\'s oldest private technological research university, consistently ranked among the world\\'s top engineering and science institutions in the QS World University Rankings. RPI\\'s rigorous programs in engineering, computer science, architecture, and management — combined with its $3 billion endowment and research enterprise, IBM and GE partnerships, and entrepreneurial culture in the heart of New York\\'s Capital Region — make it a premier destination for internationally ambitious STEM students.`,
   tuitionFeeMin: 59000,

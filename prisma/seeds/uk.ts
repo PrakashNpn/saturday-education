@@ -126,7 +126,7 @@ export const UWE_BRISTOL = {
   ranking: null,
   totalStudents: 30000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.74,
+  acceptanceRate: 74,
   shortDescription:
     "A leading post-92 university in the South West offering career-focused degrees in business, engineering, health sciences, and creative arts.",
   tuitionFeeMin: 9250,
@@ -225,7 +225,7 @@ export const UNIVERSITY_OF_PORTSMOUTH = {
   ranking: null,
   totalStudents: 25000,
   internationalStudents: 0.2,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     "A dynamic post-92 coastal university renowned for criminology, data science, business, and biomedical sciences with strong industry links.",
   tuitionFeeMin: 9250,
@@ -324,7 +324,7 @@ export const UNIVERSITY_OF_SHEFFIELD = {
   ranking: 105,
   totalStudents: 29000,
   internationalStudents: 0.31,
-  acceptanceRate: 0.55,
+  acceptanceRate: 55,
   shortDescription:
     "A prestigious Russell Group university consistently ranked in the global top 110, known for world-class engineering, medicine, and management.",
   tuitionFeeMin: 22500,
@@ -423,7 +423,7 @@ export const UNIVERSITY_OF_CHESTER = {
   ranking: null,
   totalStudents: 20000,
   internationalStudents: 0.12,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     "One of England's oldest universities, offering career-focused degrees in business, nursing, education, and theology in a vibrant cathedral city.",
   tuitionFeeMin: 9250,
@@ -512,7 +512,7 @@ export const DE_MONTFORT_UNIVERSITY = {
   ranking: null,
   totalStudents: 21000,
   internationalStudents: 0.29,
-  acceptanceRate: 0.73,
+  acceptanceRate: 73,
   shortDescription:
     "A vibrant post-92 university in the East Midlands renowned for fashion design, law, business, and computing with a strong industry network.",
   tuitionFeeMin: 9250,
@@ -611,7 +611,7 @@ export const EDINBURGH_NAPIER_UNIVERSITY = {
   ranking: null,
   totalStudents: 20000,
   internationalStudents: 0.28,
-  acceptanceRate: 0.7,
+  acceptanceRate: 70,
   shortDescription:
     "A modern Scottish university in the heart of Edinburgh offering career-focused degrees in business, computing, engineering, and tourism.",
   tuitionFeeMin: 9250,
@@ -710,7 +710,7 @@ export const LEEDS_BECKETT_UNIVERSITY = {
   ranking: null,
   totalStudents: 24000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.76,
+  acceptanceRate: 76,
   shortDescription:
     "A forward-looking post-92 university in Leeds offering practical degrees in business, sport science, health, and film production.",
   tuitionFeeMin: 9250,
@@ -799,7 +799,7 @@ export const BUCKINGHAMSHIRE_NEW_UNIVERSITY = {
   ranking: null,
   totalStudents: 12000,
   internationalStudents: 0.17,
-  acceptanceRate: 0.8,
+  acceptanceRate: 80,
   shortDescription:
     "A specialist university in High Wycombe offering professionally grounded degrees in nursing, business, creative arts, and aviation.",
   tuitionFeeMin: 9250,
@@ -888,7 +888,7 @@ export const UNIVERSITY_FOR_THE_CREATIVE_ARTS = {
   ranking: null,
   totalStudents: 6500,
   internationalStudents: 0.31,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     "A specialist creative arts university across multiple campuses in Surrey and Kent, offering world-class courses in fine art, fashion, graphic design, and film.",
   tuitionFeeMin: 9250,
@@ -987,7 +987,7 @@ export const UNIVERSITY_OF_EAST_LONDON = {
   ranking: null,
   totalStudents: 18000,
   internationalStudents: 0.28,
-  acceptanceRate: 0.77,
+  acceptanceRate: 77,
   shortDescription:
     "A diverse and inclusive London university in Stratford offering degrees in business, psychology, health sciences, and engineering with a focus on social impact.",
   tuitionFeeMin: 9250,
@@ -1076,7 +1076,7 @@ export const UNIVERSITY_OF_HERTFORDSHIRE = {
   ranking: null,
   totalStudents: 26000,
   internationalStudents: 0.23,
-  acceptanceRate: 0.71,
+  acceptanceRate: 71,
   shortDescription:
     "A business-focused university near London known for aerospace engineering, computing, nursing, and business, with one of the UK's best student campuses.",
   tuitionFeeMin: 9250,
@@ -1175,7 +1175,7 @@ export const UNIVERSITY_OF_LAW = {
   ranking: null,
   totalStudents: 14000,
   internationalStudents: 0.29,
-  acceptanceRate: 0.68,
+  acceptanceRate: 68,
   shortDescription:
     "The UK's largest specialist law school, offering LLB, LLM, SQE, and GDL programmes with outstanding bar and solicitor pass rates.",
   tuitionFeeMin: 9250,
@@ -1264,7 +1264,7 @@ export const MIDDLESEX_UNIVERSITY = {
   ranking: null,
   totalStudents: 20000,
   internationalStudents: 0.35,
-  acceptanceRate: 0.74,
+  acceptanceRate: 74,
   shortDescription:
     "A diverse and globally connected London university in Hendon, renowned for business, law, health sciences, and art and design with campuses in four continents.",
   tuitionFeeMin: 9250,
@@ -1363,7 +1363,7 @@ export const UNIVERSITY_OF_BRADFORD = {
   ranking: null,
   totalStudents: 13000,
   internationalStudents: 0.27,
-  acceptanceRate: 0.7,
+  acceptanceRate: 70,
   shortDescription:
     "A values-driven Yorkshire university with exceptional pharmacy, engineering, and social sciences programmes and a strong research culture.",
   tuitionFeeMin: 9250,
@@ -1452,7 +1452,7 @@ export const BIRMINGHAM_CITY_UNIVERSITY = {
   ranking: null,
   totalStudents: 24000,
   internationalStudents: 0.21,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     "A vibrant post-92 university in the UK's second largest city offering degrees in business, health, art and design, computing, and law.",
   tuitionFeeMin: 9250,
@@ -1551,7 +1551,7 @@ export const UNIVERSITY_OF_WOLVERHAMPTON = {
   ranking: null,
   totalStudents: 20000,
   internationalStudents: 0.17,
-  acceptanceRate: 0.78,
+  acceptanceRate: 78,
   shortDescription:
     "A community-focused West Midlands university offering practical degrees in business, engineering, computing, and health sciences.",
   tuitionFeeMin: 9250,
@@ -1640,7 +1640,7 @@ export const UNIVERSITY_OF_NORTHAMPTON = {
   ranking: null,
   totalStudents: 13000,
   internationalStudents: 0.23,
-  acceptanceRate: 0.79,
+  acceptanceRate: 79,
   shortDescription:
     "A modern campus university in the East Midlands committed to changemaking education across business, education, health, and social sciences.",
   tuitionFeeMin: 9250,
@@ -1729,7 +1729,7 @@ export const OXFORD_BROOKES_UNIVERSITY = {
   ranking: 374,
   totalStudents: 18000,
   internationalStudents: 0.25,
-  acceptanceRate: 0.66,
+  acceptanceRate: 66,
   shortDescription:
     "A globally ranked post-92 university in the city of Oxford, known for hospitality, business, architecture, and health sciences.",
   tuitionFeeMin: 9250,
@@ -1828,7 +1828,7 @@ export const UNIVERSITY_ACADEMY_92 = {
   ranking: null,
   totalStudents: 2000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.82,
+  acceptanceRate: 82,
   shortDescription:
     "A bold new university co-founded by Class of 92 Manchester United legends, offering business, sport, digital, and data degrees with a performance mindset.",
   tuitionFeeMin: 9250,
@@ -1910,7 +1910,7 @@ export const UNIVERSITY_OF_ESSEX = {
   ranking: 472,
   totalStudents: 16000,
   internationalStudents: 0.41,
-  acceptanceRate: 0.62,
+  acceptanceRate: 62,
   shortDescription:
     "A QS-ranked research university famous for politics, economics, computer science, and law with a vibrant international campus community.",
   tuitionFeeMin: 20700,
@@ -2009,7 +2009,7 @@ export const NORTHUMBRIA_UNIVERSITY = {
   ranking: 550,
   totalStudents: 32000,
   internationalStudents: 0.28,
-  acceptanceRate: 0.69,
+  acceptanceRate: 69,
   shortDescription:
     "A large and globally connected Newcastle university ranked in the QS top 600, known for design, sport science, business, and law.",
   tuitionFeeMin: 9250,
@@ -2108,7 +2108,7 @@ export const YORK_ST_JOHN_UNIVERSITY = {
   ranking: null,
   totalStudents: 8000,
   internationalStudents: 0.19,
-  acceptanceRate: 0.81,
+  acceptanceRate: 81,
   shortDescription:
     "A collegiate and community-focused university in historic York offering degrees in business, health, sport, creative arts, and education.",
   tuitionFeeMin: 9250,
@@ -2200,7 +2200,7 @@ export const TEESSIDE_UNIVERSITY = {
   ranking: null,
   totalStudents: 17000,
   internationalStudents: 0.21,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     "An enterprising North East university known for industry-connected computing, engineering, nursing, business, and creative arts degrees.",
   tuitionFeeMin: 9250,
@@ -2299,7 +2299,7 @@ export const UNIVERSITY_OF_HULL = {
   ranking: null,
   totalStudents: 14000,
   internationalStudents: 0.21,
-  acceptanceRate: 0.73,
+  acceptanceRate: 73,
   shortDescription:
     "A civic and globally connected Yorkshire university offering strong degrees in business, law, engineering, sciences, and politics.",
   tuitionFeeMin: 9250,
@@ -2398,7 +2398,7 @@ export const UNIVERSITY_OF_SUNDERLAND = {
   ranking: null,
   totalStudents: 17000,
   internationalStudents: 0.26,
-  acceptanceRate: 0.76,
+  acceptanceRate: 76,
   shortDescription:
     "A career-focused North East university offering professionally grounded degrees in business, engineering, health sciences, and computing.",
   tuitionFeeMin: 9250,
@@ -2487,7 +2487,7 @@ export const UNIVERSITY_OF_READING = {
   ranking: 194,
   totalStudents: 20000,
   internationalStudents: 0.35,
-  acceptanceRate: 0.6,
+  acceptanceRate: 60,
   shortDescription:
     "A QS top-200 research university world-famous for meteorology, business, law, and pharmacy with a beautiful green campus near London.",
   tuitionFeeMin: 22000,
@@ -2586,7 +2586,7 @@ export const COVENTRY_UNIVERSITY = {
   ranking: 526,
   totalStudents: 30000,
   internationalStudents: 0.4,
-  acceptanceRate: 0.67,
+  acceptanceRate: 67,
   shortDescription:
     "A QS-ranked global university known for engineering, business, health, and design with campuses in the UK, Europe, Africa, and Asia.",
   tuitionFeeMin: 9250,
@@ -2685,7 +2685,7 @@ export const CANTERBURY_CHRIST_CHURCH_UNIVERSITY = {
   ranking: null,
   totalStudents: 18000,
   internationalStudents: 0.14,
-  acceptanceRate: 0.8,
+  acceptanceRate: 80,
   shortDescription:
     "A values-led university in the historic cathedral city of Canterbury specialising in education, health, social work, and business.",
   tuitionFeeMin: 9250,
@@ -2784,7 +2784,7 @@ export const BPP_UNIVERSITY = {
   ranking: null,
   totalStudents: 15000,
   internationalStudents: 0.25,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription: "BPP University is the UK's leading specialist professional education provider with 13 centres across England, offering highly focused law, business, accountancy and nursing programmes designed in partnership with employers and professional bodies. BPP was the first private institution granted degree-awarding powers in the UK, reflecting its rigorous academic standards and outstanding professional pass rates. International students benefit from flexible start dates, multiple campuses and BPP's direct pathways into regulated UK professions.",
   tuitionFeeMin: 11000,
   tuitionFeeMax: 22150,
@@ -2816,7 +2816,7 @@ export const SHEFFIELD_HALLAM_UNIVERSITY = {
   ranking: null,
   totalStudents: 31000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.73,
+  acceptanceRate: 73,
   shortDescription: "Sheffield Hallam University is one of the UK's largest universities with nationally recognised programmes in business, engineering, health, art and design, and computing. Situated alongside the University of Sheffield in one of England's most affordable major student cities, Sheffield Hallam is known for its industry-integrated teaching model and professional placement rates. International students from over 130 countries experience a welcoming, multicultural city with low living costs.",
   tuitionFeeMin: 15500,
   tuitionFeeMax: 21375,
@@ -2848,7 +2848,7 @@ export const LONDON_SOUTH_BANK_UNIVERSITY = {
   ranking: null,
   totalStudents: 17000,
   internationalStudents: 0.18,
-  acceptanceRate: 0.62,
+  acceptanceRate: 62,
   shortDescription: "London South Bank University (LSBU) is a post-92 institution in Southwark, central London, with a long tradition of applied education in engineering, health, business and creative arts. Students benefit from direct access to London's world-class industries, NHS hospitals, and one of the most diverse cities in the world. LSBU has one of the highest proportions of students from disadvantaged backgrounds in London, reflecting its deep commitment to access and social mobility.",
   tuitionFeeMin: 15000,
   tuitionFeeMax: 18500,
@@ -2880,7 +2880,7 @@ export const ARDEN_UNIVERSITY = {
   ranking: null,
   totalStudents: 25000,
   internationalStudents: 0.35,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription: "Arden University is the UK's leading online-first private university, offering flexible undergraduate and postgraduate programmes in business, psychology, law and computing that can be studied fully online or in blended mode from nine UK study centres and international partner campuses. Over 25,000 students from more than 100 countries currently study with Arden globally, attracted by multiple annual start dates, no fixed timetable, and competitive fees compared to traditional campus universities.",
   tuitionFeeMin: 7425,
   tuitionFeeMax: 15000,
@@ -2911,7 +2911,7 @@ export const CARDIFF_METROPOLITAN_UNIVERSITY = {
   ranking: null,
   totalStudents: 12000,
   internationalStudents: 0.15,
-  acceptanceRate: 0.64,
+  acceptanceRate: 64,
   shortDescription: "Cardiff Metropolitan University is a post-92 institution in Wales' vibrant capital city, offering respected programmes in business, sport science, health, design and education. Cardiff Met consistently performs strongly in student satisfaction surveys and is recognised for the quality of its applied research in food science, sport and education. International students study in one of the UK's most affordable capital cities, with a unique blend of Welsh heritage and cosmopolitan culture.",
   tuitionFeeMin: 13000,
   tuitionFeeMax: 15500,
@@ -2943,7 +2943,7 @@ export const KINGS_EDUCATION = {
   ranking: null,
   totalStudents: 3000,
   internationalStudents: 0.95,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription: "King's Education is a leading private pathway college with four UK campuses in Bournemouth, Brighton, London and Oxford, specialising in Foundation Year programmes, A-levels and pre-sessional English for international students seeking entry to UK universities. King's partners with top institutions including Arts University Bournemouth, University of Brighton and Oxford Brookes, offering conditional progression guarantees to partner universities upon successful completion. With over 60 years of experience, King's provides a safe, structured environment for international students preparing for British higher education.",
   tuitionFeeMin: 9500,
   tuitionFeeMax: 22650,
@@ -2974,7 +2974,7 @@ export const INTO_UNIVERSITY_PARTNERSHIPS = {
   ranking: null,
   totalStudents: 10000,
   internationalStudents: 0.98,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription: "INTO University Partnerships is one of the world's leading international pathway providers, operating embedded study centres at partner universities including Manchester, Newcastle, City London, UEA and Queen's Belfast. Foundation, International Year One and Pre-Master's programmes come with guaranteed conditional progression to the host university degree upon meeting grade requirements. INTO has helped over 100,000 international students progress to degree study at leading UK universities.",
   tuitionFeeMin: 12000,
   tuitionFeeMax: 22000,
@@ -3006,7 +3006,7 @@ export const CATS_GLOBAL_SCHOOLS = {
   ranking: null,
   totalStudents: 2000,
   internationalStudents: 0.95,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription: "CATS Global Schools operates prestigious independent colleges in Cambridge, Canterbury and London, offering A-levels, University Foundation Programmes and Pre-Master's courses specifically designed for ambitious international students. CATS Cambridge is particularly celebrated for its Oxbridge preparation tradition and exceptional A-level results, producing graduates who go on to the UK's most selective universities. The small, nurturing college environment with 24/7 pastoral care makes CATS an ideal choice for younger international students.",
   tuitionFeeMin: 14000,
   tuitionFeeMax: 33990,

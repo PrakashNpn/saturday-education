@@ -126,7 +126,7 @@ export const BOND_UNIVERSITY = {
   ranking: 587,
   totalStudents: 6200,
   internationalStudents: 0.37,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     'Bond University is Australia\'s only private, not-for-profit university, offering a unique trimester system that allows students to complete degrees up to one-third faster than at other universities. Located on the Gold Coast, it is renowned for its small class sizes, personalised learning environment, and strong programs in Law, Business, and Health Sciences. Bond consistently ranks among Australia\'s top universities for student experience and graduate outcomes.',
   tuitionFeeMin: 38000,
@@ -258,7 +258,7 @@ export const CURTIN_UNIVERSITY = {
   ranking: 174,
   totalStudents: 50200,
   internationalStudents: 0.23,
-  acceptanceRate: 0.55,
+  acceptanceRate: 55,
   shortDescription:
     'Curtin University is one of Australia\'s largest and most internationally recognised universities, ranked in the global top 200 by QS. Based in Perth with additional campuses in Malaysia, Singapore, Dubai, and Mauritius, Curtin is renowned for its applied research strengths in mining, engineering, business, and the health sciences. The university maintains deep industry partnerships and consistently produces career-ready graduates.',
   tuitionFeeMin: 32000,
@@ -399,7 +399,7 @@ export const EDITH_COWAN_UNIVERSITY = {
   ranking: 487,
   totalStudents: 31000,
   internationalStudents: 0.30,
-  acceptanceRate: 0.62,
+  acceptanceRate: 62,
   shortDescription:
     'Edith Cowan University is a teaching-focused public university based in Perth, Western Australia, with campuses in Joondalup, Mount Lawley, and Bunbury. ECU is particularly well regarded for its nursing, education, and business programs and is consistently rated highly for student support and graduate employment outcomes. The university offers a welcoming environment for international students, with strong academic pathway programs and dedicated support services.',
   tuitionFeeMin: 30000,
@@ -522,7 +522,7 @@ export const MONASH_UNIVERSITY = {
   ranking: 37,
   totalStudents: 78000,
   internationalStudents: 0.45,
-  acceptanceRate: 0.55,
+  acceptanceRate: 55,
   shortDescription:
     'Monash University is a member of Australia\'s prestigious Group of Eight and consistently ranked in the global top 50 by QS World University Rankings. One of Australia\'s largest universities, Monash attracts students from more than 150 countries and is internationally acclaimed for its research excellence in medicine, engineering, law, business, and science. With campuses across Australia and globally, Monash offers a truly world-class education deeply connected to industry and research.',
   tuitionFeeMin: 38000,
@@ -699,7 +699,7 @@ export const RMIT_UNIVERSITY = {
   ranking: 123,
   totalStudents: 91000,
   internationalStudents: 0.40,
-  acceptanceRate: 0.60,
+  acceptanceRate: 60,
   shortDescription:
     'RMIT University is a globally recognised applied sciences and technology university based in the heart of Melbourne, ranked in the QS global top 150. RMIT is internationally acclaimed for its design, engineering, IT, and business programs, all underpinned by strong industry partnerships and a hands-on learning philosophy. With campuses in Melbourne, Sydney, and Vietnam, and partnerships spanning the globe, RMIT graduates are highly sought after by employers worldwide.',
   tuitionFeeMin: 38000,
@@ -858,7 +858,7 @@ export const MURDOCH_UNIVERSITY = {
   ranking: 436,
   totalStudents: 23000,
   internationalStudents: 0.37,
-  acceptanceRate: 0.79,
+  acceptanceRate: 79,
   shortDescription:
     'Murdoch University is a mid-size public university in Perth, Western Australia, known for its veterinary science, law, business, and IT programs. With a strong focus on sustainability and social justice, Murdoch offers a supportive campus environment and excellent industry connections across agriculture, resource management, and professional services. The university also has campuses in Singapore and Dubai, making it a genuinely international institution.',
   tuitionFeeMin: 28000,
@@ -981,7 +981,7 @@ export const UNIVERSITY_OF_WOLLONGONG = {
   ranking: 167,
   totalStudents: 31300,
   internationalStudents: 0.21,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'The University of Wollongong is a dynamic research university ranked in the QS global top 200, located 80 km south of Sydney along the scenic New South Wales coast. UOW is particularly well regarded for its engineering, computer science, business, and nursing programs, and offers outstanding value for international students seeking a quality Australian degree without big-city costs. The university also has campuses in Dubai, Hong Kong, Malaysia, and beyond.',
   tuitionFeeMin: 28000,
@@ -1122,7 +1122,7 @@ export const UNSW_SYDNEY = {
   ranking: 20,
   totalStudents: 64000,
   internationalStudents: 0.39,
-  acceptanceRate: 0.35,
+  acceptanceRate: 35,
   shortDescription:
     'UNSW Sydney is one of Australia\'s most prestigious universities and a member of the Group of Eight, ranked in the QS global top 20. Recognised worldwide for engineering, computer science, law, medicine, and business, UNSW attracts more than 24,000 international students from 137 countries. Located in Sydney\'s vibrant eastern suburbs, UNSW combines world-class research facilities, strong industry linkages, and an active student life to deliver an outstanding educational experience.',
   tuitionFeeMin: 42000,
@@ -1308,7 +1308,7 @@ export const ACADEMY_OF_INFORMATION_TECHNOLOGY = {
   ranking: null,
   totalStudents: 2000,
   internationalStudents: 0.60,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'The Academy of Information Technology (AIT) is a specialist private higher education institution with campuses in Sydney and Melbourne, focused entirely on creative technology programs in game design, 3D animation, interactive media, film, and IT. AIT\'s small cohorts, industry-linked curriculum, and state-of-the-art studios make it highly attractive to international students pursuing careers in Australia\'s creative technology sector. Graduates work at leading studios and tech companies across the Asia-Pacific region.',
   tuitionFeeMin: 20000,
@@ -1413,7 +1413,7 @@ export const HOLMES_INSTITUTE = {
   ranking: null,
   totalStudents: 10000,
   internationalStudents: 0.80,
-  acceptanceRate: 0.85,
+  acceptanceRate: 85,
   shortDescription:
     'Holmes Institute is a long-established private higher education provider in Australia with campuses in Melbourne, Sydney, Brisbane, Gold Coast, and Cairns. Primarily serving international students, Holmes offers TEQSA-registered bachelor degrees, diplomas, and English language programs in business, accounting, information systems, and hospitality. The institute is known for its three-trimester intake model, flexible pathways, and strong support services tailored to students from Asia and beyond.',
   tuitionFeeMin: 19000,
@@ -1527,7 +1527,7 @@ export const CROWN_INSTITUTE_OF_HIGHER_EDUCATION = {
   ranking: null,
   totalStudents: 2500,
   internationalStudents: 0.70,
-  acceptanceRate: 0.85,
+  acceptanceRate: 85,
   shortDescription:
     'Crown Institute of Higher Education (CIHE) is a TEQSA-registered private higher education provider based in North Sydney, offering bachelor, master, and diploma programs in accounting, business, information technology, education, and community services. Accredited by Chartered Accountants ANZ and CPA Australia for its accounting programs, CIHE provides an affordable pathway for international students seeking professional qualifications in Australia\'s competitive business and IT sectors.',
   tuitionFeeMin: 18000,

@@ -131,7 +131,7 @@ export const ASSUMPTION_UNIVERSITY = {
   ranking: null, // QS contributor but not ranked in published 2024/2025 list
   totalStudents: 19870,
   internationalStudents: 0.20,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Assumption University (ABAC) is Thailand\'s leading Catholic private university offering all-English degree programmes across business, engineering, arts, and health sciences. With students from over 75 countries, it is one of the most internationally diverse campuses in Southeast Asia. Its two campuses in Bangkok provide strong industry linkages and a rich campus community.',
   tuitionFeeMin: 80000,
@@ -283,7 +283,7 @@ export const BANGKOK_UNIVERSITY = {
   ranking: null, // Not in QS World top list; ranked ~3062 globally per unirank
   totalStudents: 23000,
   internationalStudents: 0.10,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     'Bangkok University is one of Thailand\'s most recognised private universities, widely known for its creative and design-focused programmes through Bangkok University International (BUI). The university offers fully English-taught undergraduate and graduate degrees in business, communication arts, engineering, and technology. Its central Bangkok location and creative campus culture attract both Thai and international students.',
   tuitionFeeMin: 100000,
@@ -393,7 +393,7 @@ export const STAMFORD_INTERNATIONAL_UNIVERSITY = {
   ranking: null, // QS 5-Star rated but not globally ranked in published list
   totalStudents: 4500,
   internationalStudents: 0.40,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'Stamford International University is one of Thailand\'s most internationally oriented private universities, offering exclusively English-medium programmes across business, hospitality, technology, and communication arts. With campuses in Bangkok and Hua Hin, and over 40% international enrolment, Stamford is first accredited by IACBE in Thailand. Its small class sizes and industry-experienced faculty create a supportive environment for international students.',
   tuitionFeeMin: 150000,
@@ -501,7 +501,7 @@ export const RAFFLES_INTERNATIONAL_COLLEGE_THAILAND = {
   ranking: null,
   totalStudents: 1200,
   internationalStudents: 0.75,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Raffles International College Bangkok is part of the globally recognised Raffles Education Network, offering English-taught degrees in design, fashion, and business. With 75% international students and four intakes per year, it provides a flexible, industry-connected pathway for creative professionals. All programmes are officially accredited by Thailand\'s Ministry of Higher Education.',
   tuitionFeeMin: 300000,
@@ -630,7 +630,7 @@ export const DUSIT_THANI_COLLEGE = {
   ranking: null, // Ranked in QS subject rankings (Hospitality #101-150) but not world ranked
   totalStudents: 2500,
   internationalStudents: 0.20,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     'Dusit Thani College is Thailand\'s premier hospitality management institution, established by the iconic Dusit International hotel group. Offering world-class English-taught programmes certified by EHL Hospitality Business School (Switzerland) and Le Cordon Bleu, it provides graduates with globally recognised credentials. Its Bangkok location and direct hotel-industry connections make it a top choice for aspiring hospitality professionals.',
   tuitionFeeMin: 280000,
@@ -678,7 +678,7 @@ export const RANGSIT_UNIVERSITY = {
   ranking: null, // QS Asia ~851; not in QS World top list
   totalStudents: 8500,
   internationalStudents: 0.12,
-  acceptanceRate: 0.68,
+  acceptanceRate: 68,
   shortDescription:
     'Rangsit University is a comprehensive private university near Bangkok offering 23 English-medium international programmes through its Rangsit University International College (RIC). Covering business, design, technology, biomedical science, and communication arts, RIC provides exchange opportunities and joint degrees with partner universities worldwide. Its campus is 30 minutes from Bangkok in Pathum Thani.',
   tuitionFeeMin: 130000,
@@ -798,7 +798,7 @@ export const ASIA_PACIFIC_INTERNATIONAL_UNIVERSITY = {
   ranking: null,
   totalStudents: 2000,
   internationalStudents: 0.35,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'Asia-Pacific International University (APIU) is a Christian Seventh-day Adventist institution set on a scenic campus in Saraburi, offering all-English programmes in business, nursing, education, theology, and science. As a fully English-teaching university with a diverse international student body, APIU provides an affordable and values-based education in a safe, residential campus environment just 2 hours from Bangkok.',
   tuitionFeeMin: 80000,
@@ -882,7 +882,7 @@ export const AIHM_COLLEGE = {
   ranking: null,
   totalStudents: 800,
   internationalStudents: 0.60,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'AIHM College is a specialist hospitality management institution located within the Minor Hotel Group\'s riverside complex in Bangkok — offering students a live-learning environment in luxury hotels. Its 3.5-year BBA in Global Hospitality Management combines classroom education with paid work placements in 5-star properties across Thailand. AIHM attracts a highly international student body from across Asia and beyond.',
   tuitionFeeMin: 300000,
@@ -936,7 +936,7 @@ export const SIAM_UNIVERSITY = {
   ranking: 541, // QS World 2025: 541-560 band; using 541 as representative integer
   totalStudents: 17000,
   internationalStudents: 0.56,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Siam University is a leading private research university in Bangkok with one of the highest international student ratios in Thailand (over 56%). Its International College (ICO) and Global Academy offer fully English-taught programmes in business, IT, and civil engineering, while the broader university maintains QS World ranking recognition. Siam offers one of the most affordable and internationally welcoming environments for study-abroad students in Bangkok.',
   tuitionFeeMin: 80000,
@@ -1008,7 +1008,7 @@ export const HARBOUR_SPACE_UNIVERSITY = {
   ranking: null,
   totalStudents: 600,
   internationalStudents: 0.70,
-  acceptanceRate: 0.55,
+  acceptanceRate: 55,
   shortDescription:
     'Harbour.Space University Bangkok is a partnership between the Barcelona-based Harbour.Space institute and the University of the Thai Chamber of Commerce (UTCC), offering cutting-edge English-taught programmes in technology, design, and entrepreneurship. Degrees are structured around intensive 3-week modules led by world-class practitioners, and graduates receive a UTCC-accredited degree. The Bangkok campus attracts a highly international cohort from 40+ countries.',
   tuitionFeeMin: 550000,
@@ -1101,7 +1101,7 @@ export const UTCC = {
   ranking: null, // QS Asia ~701; not in QS World published list
   totalStudents: 20700,
   internationalStudents: 0.08,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'The University of the Thai Chamber of Commerce (UTCC) is Thailand\'s oldest non-government university, founded in 1940, with a strong reputation in business, economics, and trade. Its International College (iUTCC) and International School of Management (iSM) offer a range of fully English-taught programmes in business, marketing, accounting, and hospitality. The university also hosts the Harbour.Space Institute of Technology on campus for tech and design programmes.',
   tuitionFeeMin: 110000,
@@ -1185,7 +1185,7 @@ export const LE_CORDON_BLEU_DUSIT = {
   ranking: null,
   totalStudents: 500,
   internationalStudents: 0.50,
-  acceptanceRate: 0.80,
+  acceptanceRate: 80,
   shortDescription:
     'Le Cordon Bleu Dusit is Bangkok\'s premier culinary arts school, operated as a joint venture between the globally iconic Le Cordon Bleu (Paris) and Dusit International. Located in CentralWorld, it offers world-renowned French culinary diplomas alongside the world\'s only Professional Thai Cuisine Programme. Its internationally accredited diplomas are recognised by chefs and hospitality employers worldwide.',
   tuitionFeeMin: 450000,
@@ -1260,7 +1260,7 @@ export const ST_TERESA_INTERNATIONAL_UNIVERSITY = {
   ranking: null,
   totalStudents: 2500,
   internationalStudents: 0.25,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     'St. Teresa International University (formerly St. Teresa of Avila College) is a Catholic private university located 100 km from Bangkok in Nakhon Nayok, offering English-medium programmes in business, aviation, nursing, and education. It provides international dual-degree pathways with Troy University (USA) and Coventry University (UK), making it an affordable gateway to Western-recognised qualifications.',
   tuitionFeeMin: 60000,
@@ -1353,7 +1353,7 @@ export const REGENTS_INTERNATIONAL_SCHOOL_PATTAYA = {
   ranking: null,
   totalStudents: 1000,
   internationalStudents: 0.75,
-  acceptanceRate: 0.85,
+  acceptanceRate: 85,
   shortDescription:
     "Regent's International School Pattaya (part of Nord Anglia Education) is the only school on Thailand's Eastern Seaboard offering both A-Levels and the International Baccalaureate Diploma Programme (IBDP). With 1,000 students from 50+ nationalities and optional boarding from Year 3, it provides a premium pre-university English education preparing students for entry to top universities worldwide. Note: Regent's is a pre-university school (up to Year 13 / Grade 12) rather than a degree-awarding institution.",
   tuitionFeeMin: 436050,
@@ -1410,7 +1410,7 @@ export const PANYAPIWAT_INSTITUTE_OF_MANAGEMENT = {
   ranking: null,
   totalStudents: 6000,
   internationalStudents: 0.05,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Panyapiwat Institute of Management (PIM) is Thailand\'s pioneer in work-based education, founded with investment from CP All (Thailand\'s largest retail conglomerate). PIM offers English-medium international programmes combining academic study with paid work placements every semester in leading Thai and multinational companies. Its proximity to Bangkok and unique industry-integrated model make it ideal for students seeking practical business and retail management careers.',
   tuitionFeeMin: 100000,
@@ -1467,7 +1467,7 @@ export const WESTMINSTER_COLLEGE_BANGKOK = {
   ranking: null,
   totalStudents: 700,
   internationalStudents: 0.60,
-  acceptanceRate: 0.85,
+  acceptanceRate: 85,
   shortDescription:
     'Westminster College Bangkok is a private independent English-medium college offering internationally accredited pre-university and foundation programmes, including the UNSW College Foundation (guaranteed entry to UNSW Sydney), A-Levels, and BTEC qualifications. As an authorised University of London teaching centre, it bridges high school and prestigious overseas universities in the UK and Australia. Its Sukhumvit location makes it highly accessible for international students in Bangkok.',
   tuitionFeeMin: 200000,
@@ -1551,7 +1551,7 @@ export const SHINAWATRA_UNIVERSITY = {
   ranking: null, // QS Asia Top 250; not in QS World published list
   totalStudents: 5000,
   internationalStudents: 0.30,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     'Shinawatra University (SIU) is a fully international private university in Pathum Thani (with a city campus in Bangkok), where English is the primary medium of instruction for all programmes. Offering bachelor\'s, master\'s, and doctoral programmes in management, IT, and liberal arts, SIU maintains a QS 5-Star rating and attracts students from 30+ nationalities. Its international ethos, affordable tuition, and Bangkok proximity make it a compelling option.',
   tuitionFeeMin: 125000,

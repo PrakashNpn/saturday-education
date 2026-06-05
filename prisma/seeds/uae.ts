@@ -128,7 +128,7 @@ export const UOWD = {
   ranking: null,
   totalStudents: 3500,
   internationalStudents: 0.90,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     "The University of Wollongong in Dubai is one of the UAE's oldest and most established international universities, operating as a branch campus of the University of Wollongong (UOW) Australia since 1993. Licensed by KHDA and accredited by the CAA UAE, it offers Australian-accredited degrees in business, engineering, IT, and communication. Its Knowledge Park campus attracts a highly diverse international student body from over 100 countries.",
   tuitionFeeMin: 60000,
@@ -163,7 +163,7 @@ export const CURTIN_DUBAI = {
   ranking: null,
   totalStudents: 1200,
   internationalStudents: 0.88,
-  acceptanceRate: 0.65,
+  acceptanceRate: 65,
   shortDescription:
     "Curtin University Dubai is the UAE branch campus of Curtin University Perth, Australia, established in 2017 within Dubai International Academic City (DIAC). Licensed by KHDA, it delivers Australian-accredited degrees in engineering, business, IT, and science with a strong emphasis on industry-integrated learning. The campus provides a modern, multicultural environment and access to Curtin's global network of over 90,000 alumni.",
   tuitionFeeMin: 45000,
@@ -197,7 +197,7 @@ export const MDX_DUBAI = {
   ranking: null,
   totalStudents: 6300,
   internationalStudents: 0.92,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     "Middlesex University Dubai is the first overseas campus of Middlesex University London, established in 2005 at Dubai Knowledge Park, and is one of the largest international universities in the UAE with over 6,300 students from 127 nationalities. It offers more than 90 undergraduate and postgraduate programs across business, law, engineering, computer science, psychology, and creative arts, all validated by Middlesex University London. The campus was the first in the UAE to offer a face-to-face British qualifying LLB Law degree.",
   tuitionFeeMin: 49000,
@@ -233,7 +233,7 @@ export const HTMI_DUBAI = {
   ranking: null,
   totalStudents: 400,
   internationalStudents: 0.85,
-  acceptanceRate: 0.70,
+  acceptanceRate: 70,
   shortDescription:
     "HTMi Switzerland Dubai is the Middle East campus of the internationally acclaimed Hotel and Tourism Management Institute (HTMi) Switzerland, established in 2019 and based within the H Hotel on Sheikh Zayed Road. It offers diploma and bachelor-level programs in international hotel management and culinary arts, validated by Edinburgh Napier University (UK). Students benefit from a five-star hotel learning environment and HTMi's globally recognised Swiss hospitality education brand.",
   tuitionFeeMin: 48000,
@@ -266,7 +266,7 @@ export const GBS_DUBAI = {
   ranking: null,
   totalStudents: 1500,
   internationalStudents: 0.80,
-  acceptanceRate: 0.75,
+  acceptanceRate: 75,
   shortDescription:
     "Global Business Studies (GBS Dubai) is a KHDA-licensed private higher education institution based in Dubai Knowledge Park, part of the GEDU Global Education network which also operates campuses in the UK and Malta. Founded in 2006 with a student community of over 1,500 learners from more than 50 countries, GBS Dubai offers bachelor's degrees, HND programs, and professional diplomas in business, accounting, IT, and healthcare management at competitive fee levels.",
   tuitionFeeMin: 35000,
@@ -299,7 +299,7 @@ export const MURDOCH_DUBAI = {
   ranking: null,
   totalStudents: 2500,
   internationalStudents: 0.87,
-  acceptanceRate: 0.68,
+  acceptanceRate: 68,
   shortDescription:
     "Murdoch University Dubai is the UAE branch campus of Murdoch University Perth, Australia, established in 2008 and located in Dubai Knowledge Village. Licensed by KHDA, it offers Australian-accredited bachelor's and diploma programs in business, IT, media, communications, and psychology, including a pioneering double major option that allows students to combine two disciplines without extending study time or increasing fees. The campus provides direct articulation pathways to Murdoch University Australia.",
   tuitionFeeMin: 55000,
@@ -333,7 +333,7 @@ export const GBS_BANKING_DUBAI = {
   ranking: null,
   totalStudents: 800,
   internationalStudents: 0.82,
-  acceptanceRate: 0.72,
+  acceptanceRate: 72,
   shortDescription:
     "Global Banking School (GBS) Dubai is the UAE campus of Global Banking School UK, established in Dubai Knowledge Park in 2021. KHDA-licensed, it delivers undergraduate and vocational programs in banking, finance, accounting, business, and healthcare management in partnership with leading UK higher education providers. The campus attracts students from over 87 nationalities and offers flexible, career-focused qualifications for the UAE's thriving financial services and business sectors.",
   tuitionFeeMin: 40000,
@@ -366,7 +366,7 @@ export const DMU_DUBAI = {
   ranking: null,
   totalStudents: 1800,
   internationalStudents: 0.88,
-  acceptanceRate: 0.55,
+  acceptanceRate: 55,
   shortDescription:
     "De Montfort University Dubai is the UAE branch campus of De Montfort University (DMU) Leicester, UK, opened in 2021 and fully licensed by KHDA. It offers undergraduate, postgraduate, and foundation programs in business, law, engineering, computer science, interior design, and fashion design, all validated by DMU Leicester. The Dubai campus replicates DMU's UK curriculum and standards, providing students a British degree in the heart of a global business hub.",
   tuitionFeeMin: 61000,

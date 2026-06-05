@@ -146,7 +146,7 @@ export const ST_GEORGES_UNIVERSITY = {
   ranking: null,
   totalStudents: 5500,
   internationalStudents: 0.90,
-  acceptanceRate: 0.55,
+  acceptanceRate: 55,
   shortDescription:
     "St. George's University (SGU) in Grenada is one of the world's largest and most successful offshore medical schools, having trained more physicians currently licensed in the United States than any other institution. Offering MD, DVM, nursing, public health, and undergraduate science programs, SGU is the Caribbean's premier destination for aspiring physicians and veterinarians pursuing US and Canadian licensure.",
   tuitionFeeMin: 22000,

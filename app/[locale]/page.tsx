@@ -30,6 +30,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 import UniversityFinderSection from "@/features/landing/components/UniversityFinderSection"
 import { getFinderDropdownOptions } from '@/features/university'
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
+import { getComparisonUniversities } from '@/features/landing/services/comparison-service'
 import GlobalLeadersSection from "@/features/landing/components/GlobalLeadersSection"
 import CountryGuideSection from "@/features/landing/components/CountryGuideSection"
 import ServicesSection from "@/features/landing/components/ServicesSection"
@@ -40,13 +41,16 @@ import ConsultationSection from "@/features/landing/components/ConsultationSecti
 import { submitConsultation } from '@/features/consultation'
 
 export default async function HomePage() {
-  const finderOptions = await getFinderDropdownOptions()
+  const [finderOptions, comparisonUniversities] = await Promise.all([
+    getFinderDropdownOptions(),
+    getComparisonUniversities(),
+  ])
 
   return (
     <main>
       <HeroSection />
       <UniversityFinderSection dropdownOptions={finderOptions} />
-      <ComparisonToolSection />
+      <ComparisonToolSection universities={comparisonUniversities} />
       <GlobalLeadersSection />
       <CountryGuideSection />
       <ServicesSection />
