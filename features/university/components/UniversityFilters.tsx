@@ -1,6 +1,6 @@
 'use client'
-import { useState } from 'react'
-import { ChevronDown, Check } from 'lucide-react'
+import { useState, useMemo } from 'react'
+import { ChevronDown, Check, Search } from 'lucide-react'
 import { RANKING_FILTERS } from '../utils/universityUtils'
 import type { UniversityFinderData } from '../types/university.types'
 
@@ -188,12 +188,18 @@ export function UniversityFilters({
 }: Props) {
   const [open, setOpen] = useState({
     country: true,
-    degree: true,
-    courses: true,
-    tuition: true,
-    ranking: true,
-    studyType: true,
+    degree: false,
+    courses: false,
+    tuition: false,
+    ranking: false,
+    studyType: false,
   })
+
+  const [courseSearch, setCourseSearch] = useState('')
+  const filteredCourses = useMemo(
+    () => data.programFields.filter((f) => f.toLowerCase().includes(courseSearch.toLowerCase())),
+    [data.programFields, courseSearch],
+  )
 
   const toggle = (key: keyof typeof open) =>
     setOpen((prev) => ({ ...prev, [key]: !prev[key] }))
@@ -283,15 +289,38 @@ export function UniversityFilters({
             onToggle={() => toggle('courses')}
           />
           {open.courses && (
-            <div className="max-h-[200px] overflow-y-auto scrollbar-thin space-y-2.5 pr-1">
-              {data.programFields.map((f) => (
-                <CheckRow
-                  key={f}
-                  checked={selectedCourses.includes(f)}
-                  onChange={() => onToggleCourse(f)}
-                  label={f}
+            <div className="mt-2">
+              <div className="relative mb-2">
+                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3 h-3 text-gray-400 pointer-events-none" />
+                <input
+                  type="text"
+                  value={courseSearch}
+                  onChange={(e) => setCourseSearch(e.target.value)}
+                  placeholder="Search courses..."
+                  className="w-full pl-7 pr-3 py-1.5 text-xs border border-gray-200 rounded-lg bg-white outline-none focus:border-brand-purple transition-colors"
                 />
-              ))}
+              </div>
+              {filteredCourses.length === 0 ? (
+                <p className="text-[11px] text-gray-400 text-center py-3">No courses found</p>
+              ) : (
+                <>
+                  <div className="max-h-[200px] overflow-y-auto scrollbar-thin space-y-2.5 pr-1">
+                    {filteredCourses.slice(0, 50).map((f) => (
+                      <CheckRow
+                        key={f}
+                        checked={selectedCourses.includes(f)}
+                        onChange={() => onToggleCourse(f)}
+                        label={f}
+                      />
+                    ))}
+                  </div>
+                  {filteredCourses.length > 50 && (
+                    <p className="text-[11px] text-gray-400 text-center pt-2">
+                      Showing 50 of {filteredCourses.length} — type more to narrow down
+                    </p>
+                  )}
+                </>
+              )}
             </div>
           )}
         </div>

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useRef, useState, useEffect } from 'react'
 
 interface FallbackImageProps {
   src: string | null | undefined
@@ -10,19 +10,18 @@ interface FallbackImageProps {
 }
 
 export function FallbackImage({ src, alt, className, fallbackClassName, fallbackBg }: FallbackImageProps) {
-  const [status, setStatus] = useState<'loading' | 'loaded' | 'error'>(
-    !src || src.trim() === '' ? 'error' : 'loading',
-  )
+  const [failed, setFailed] = useState(!src || src.trim() === '')
+  const imgRef = useRef<HTMLImageElement>(null)
 
   useEffect(() => {
     if (!src || src.trim() === '') {
-      setStatus('error')
-    } else {
-      setStatus('loading')
+      setFailed(true)
+      return
     }
+    setFailed(false)
   }, [src])
 
-  if (status === 'error') {
+  if (failed) {
     return (
       <div
         className={`${fallbackBg ?? 'bg-gradient-to-br from-brand-purple to-purple-900'} flex items-center justify-center ${fallbackClassName ?? className ?? ''}`}
@@ -34,11 +33,11 @@ export function FallbackImage({ src, alt, className, fallbackClassName, fallback
 
   return (
     <img
+      ref={imgRef}
       src={src!}
       alt={alt}
-      className={`${className ?? ''} ${status === 'loading' ? 'opacity-0' : 'opacity-100'} transition-opacity duration-300`}
-      onLoad={() => setStatus('loaded')}
-      onError={() => setStatus('error')}
+      className={className ?? ''}
+      onError={() => setFailed(true)}
     />
   )
 }

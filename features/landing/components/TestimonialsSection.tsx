@@ -57,8 +57,8 @@ function TestimonialCard({
         flex-shrink-0 snap-start
         bg-white rounded-2xl border border-gray-100
         shadow-sm hover:shadow-md transition-shadow duration-300
-        flex flex-col min-h-[340px] md:min-h-[380px]
-        p-6 md:p-8
+        flex flex-col min-h-[280px] md:min-h-[300px]
+        p-5 md:p-6
         w-[85%] sm:w-[47%] lg:w-[32%]
       "
     >
@@ -71,8 +71,8 @@ function TestimonialCard({
 
       {/* Quote */}
       <p
-        className="text-gray-900 leading-[1.7]"
-        style={{ fontSize: 'clamp(1.05rem, 0.95rem + 0.5vw, 1.2rem)' }}
+        className="text-gray-600 leading-[1.75]"
+        style={{ fontSize: 'clamp(0.875rem, 0.8rem + 0.2vw, 0.975rem)' }}
       >
         &ldquo;{quote}&rdquo;
       </p>
@@ -87,7 +87,7 @@ function TestimonialCard({
         <div>
           <p
             className="font-semibold text-brand-purple"
-            style={{ fontSize: 'clamp(0.95rem, 0.85rem + 0.3vw, 1.05rem)' }}
+            style={{ fontSize: 'clamp(0.875rem, 0.8rem + 0.2vw, 0.95rem)' }}
           >
             {name}
           </p>
@@ -159,7 +159,7 @@ export default function TestimonialsSection() {
         >
           <h2
             className="font-extrabold text-brand-purple"
-            style={{ fontSize: 'clamp(2rem, 1.4rem + 3vw, 3rem)' }}
+            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
           >
             {t('heading')}
           </h2>

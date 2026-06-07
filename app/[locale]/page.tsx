@@ -36,7 +36,7 @@ import CountryGuideSection from "@/features/landing/components/CountryGuideSecti
 import ServicesSection from "@/features/landing/components/ServicesSection"
 import AdditionalServicesSection from "@/features/landing/components/AdditionalServicesSection"
 import TestimonialsSection from "@/features/landing/components/TestimonialsSection"
-import StatsCtaSection from "@/features/landing/components/StatsCtaSection"
+import CtaSection from "@/features/landing/components/CtaSection"
 import ConsultationSection from "@/features/landing/components/ConsultationSection"
 import { submitConsultation } from '@/features/consultation'
 
@@ -52,11 +52,11 @@ export default async function HomePage() {
       <UniversityFinderSection dropdownOptions={finderOptions} />
       <ComparisonToolSection universities={comparisonUniversities} />
       <GlobalLeadersSection />
-      <CountryGuideSection />
+      {/* <CountryGuideSection /> */}
       <ServicesSection />
       <AdditionalServicesSection />
       <TestimonialsSection />
-      <StatsCtaSection />
+      <CtaSection />
       <ConsultationSection onSubmit={submitConsultation} />
     </main>
   )

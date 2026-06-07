@@ -35,7 +35,7 @@ export default function ServicesSection() {
     <section className="bg-neutral-100">
       <div
         ref={ref}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12 sm:py-20 lg:py-12"
+        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 sm:py-20 lg:pt-28 lg:pb-12"
       >
         {/* Header */}
         <motion.div
@@ -45,11 +45,11 @@ export default function ServicesSection() {
           transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
         >
           <h2
-            className="font-extrabold text-gray-900 text-center leading-tight"
-            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 3rem)' }}
+            className="font-extrabold text-brand-purple text-center leading-tight"
+            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
           >
             {t('headingPrefix')}{' '}
-            <span className="text-brand-purple">{t('headingHighlight')}</span>{' '}
+            {t('headingHighlight')}{' '}
             {t('headingSuffix')}
           </h2>
           <p className="mt-4 text-base sm:text-lg text-gray-500 text-center max-w-3xl mx-auto">

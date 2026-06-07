@@ -36,7 +36,7 @@ export function PartnerUniversities({ universities, eyebrow, title, subtitle, ex
         <p className="text-gray-500 text-sm md:text-base">{subtitle}</p>
       </div>
 
-      <div className="relative">
+      <div className="relative overflow-x-clip">
         {/* Left arrow — overlaps left edge of track */}
         <button
           type="button"

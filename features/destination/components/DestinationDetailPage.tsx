@@ -41,7 +41,7 @@ export async function DestinationDetailPage({ slug }: Props) {
 
       <div className="bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12 pt-12 pb-20">
+        <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 pt-12 pb-20">
           <DetailSidebar
             sections={sections}
             guideName={t('destinationGuide')}
@@ -50,7 +50,7 @@ export async function DestinationDetailPage({ slug }: Props) {
             ctaLabel={t('ctaButton')}
           />
 
-          <div className="space-y-16 lg:space-y-20">
+          <div className="space-y-16 lg:space-y-20 min-w-0">
             <section id="overview">
               <CountryOverview country={country} />
             </section>

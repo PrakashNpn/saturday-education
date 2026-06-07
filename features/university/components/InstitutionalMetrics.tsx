@@ -1,5 +1,6 @@
 import { Trophy, Users, Banknote, Building2, BookOpen, Briefcase, Clock, Calendar } from 'lucide-react'
 import type { ComponentType } from 'react'
+import { getCurrencySymbol } from '../utils/universityUtils'
 
 type MetricLabels = {
   sectionLabel: string
@@ -39,9 +40,10 @@ type MetricItem = {
   Icon: ComponentType<{ className?: string }>
 }
 
-function formatTuition(min: number | null, max: number | null): string | null {
+function formatTuition(min: number | null, max: number | null, currency: string | null): string | null {
   if (min === null && max === null) return null
-  const fmt = (n: number) => `$${Math.round(n / 1000)}k`
+  const symbol = getCurrencySymbol(currency)
+  const fmt = (n: number) => `${symbol} ${Math.round(n / 1000)}k`
   if (min !== null && max !== null) {
     if (min === max) return `${fmt(min)}/yr`
     return `${fmt(min)} – ${fmt(max)}`
@@ -71,7 +73,7 @@ export function InstitutionalMetrics({ university, labels }: Props) {
   if (university.totalStudents !== null)
     metrics.push({ label: labels.totalStudents, value: `${university.totalStudents.toLocaleString()}+`, Icon: Users })
 
-  const tuition = formatTuition(university.tuitionFeeMin, university.tuitionFeeMax)
+  const tuition = formatTuition(university.tuitionFeeMin, university.tuitionFeeMax, university.tuitionCurrency)
   if (tuition) metrics.push({ label: labels.tuitionFees, value: tuition, Icon: Banknote })
 
   if (university.numberOfCampuses !== null)
@@ -96,20 +98,28 @@ export function InstitutionalMetrics({ university, labels }: Props) {
       <p className="text-[10px] uppercase tracking-widest text-gray-400 font-semibold mb-4">
         {labels.sectionLabel}
       </p>
-      <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+      <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
         {metrics.map(({ label, value, Icon }) => (
           <div
             key={label}
-            className="border border-gray-200 rounded-xl p-4 md:p-5 bg-white shadow-sm hover:shadow-md transition-shadow"
+            className="relative rounded-2xl p-[1px] bg-gradient-to-br from-purple-200/70 via-white/20 to-purple-300/50
+              shadow-[0_2px_16px_rgba(89,13,130,0.08)] hover:shadow-[0_8px_32px_rgba(89,13,130,0.16)]
+              hover:-translate-y-0.5 transition-all duration-300"
           >
-<p className="text-[10px] uppercase tracking-wider text-gray-400 font-semibold mb-2">
-              {label}
-            </p>
-            <div className="flex items-center gap-2">
-              <div className="w-7 h-7 rounded-lg bg-brand-purple-100 flex items-center justify-center flex-shrink-0">
-                <Icon className="w-3.5 h-3.5 text-brand-purple" />
+            <div className="relative rounded-[calc(1rem-1px)] bg-gradient-to-br from-purple-50/80 to-white px-4 py-4 h-full overflow-hidden">
+              {/* Shine line */}
+              <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
+
+              <p className="text-[9px] uppercase tracking-widest text-purple-400/80 font-semibold mb-2.5 whitespace-nowrap">
+                {label}
+              </p>
+              <div className="flex items-center gap-2.5">
+                <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#590D82] to-[#8B2FC9]
+                  flex items-center justify-center flex-shrink-0 shadow-[0_2px_8px_rgba(89,13,130,0.35)]">
+                  <Icon className="w-3.5 h-3.5 text-white" />
+                </div>
+                <p className="text-base md:text-lg font-bold text-brand-purple leading-none truncate">{value}</p>
               </div>
-              <p className="text-lg md:text-xl font-bold text-brand-purple leading-none">{value}</p>
             </div>
           </div>
         ))}

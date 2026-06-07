@@ -405,7 +405,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
               >
                 <div className="relative rounded-xl overflow-hidden aspect-square">
                   <Image
-                    src="/images/landing/global-edu-hero.webp"
+                    src="/images/landing/consultant-form-image.png"
                     alt="Global education destinations"
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"

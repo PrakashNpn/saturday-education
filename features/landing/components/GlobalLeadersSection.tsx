@@ -14,37 +14,37 @@ const COUNTRIES = [
     slug: 'united-kingdom',
     name: 'United Kingdom',
     tagline: 'Excellence in Heritage',
-    image: '/images/landing/countries/uk.jpg',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/united-kingdom/card.jpg',
   },
   {
     slug: 'australia',
     name: 'Australia',
     tagline: 'Innovation & Lifestyle',
-    image: '/images/landing/countries/australia.jpg',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/australia/card.jpg',
   },
   {
     slug: 'usa',
     name: 'USA',
     tagline: 'Land of Global Reach',
-    image: '/images/landing/countries/usa.webp',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/united-states/card.webp',
   },
   {
     slug: 'canada',
     name: 'Canada',
     tagline: 'Multicultural & Welcoming',
-    image: '/images/landing/countries/canada.jpg',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/canada/card.jpg',
   },
   {
     slug: 'new-zealand',
     name: 'New Zealand',
     tagline: 'Nature & Quality Research',
-    image: '/images/landing/countries/new-zeland.jpg', // filename has typo in original file
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/new-zealand/card.jpg', // filename has typo in original file
   },
   {
     slug: 'switzerland',
     name: 'Switzerland',
     tagline: 'Global Hub for Hospitality',
-    image: '/images/landing/countries/switzerland.webp',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/switzerland/card.webp',
   },
 ]
 
@@ -70,7 +70,7 @@ export default function GlobalLeadersSection() {
           <div>
             <h2
               className="font-extrabold text-brand-purple leading-tight"
-              style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 3rem)' }}
+              style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
             >
               {t('heading')}
             </h2>
@@ -110,6 +110,7 @@ export default function GlobalLeadersSection() {
                     src={country.image}
                     alt={`Study in ${country.name}`}
                     fill
+                    priority={index < 2}
                     className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
                     sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
                   />

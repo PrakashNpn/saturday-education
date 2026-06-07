@@ -97,8 +97,8 @@ export default function ChatWidget() {
                   <div className="absolute -top-6 -right-6 w-24 h-24 rounded-full bg-purple-400/20 blur-2xl pointer-events-none" />
 
                   <div className="relative flex items-center gap-3">
-                    <div className="w-9 h-9 rounded-full bg-white flex items-center justify-center shadow-[0_2px_12px_rgba(0,0,0,0.2)] overflow-hidden ring-2 ring-white/30">
-                      <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" width={36} height={36} className="object-contain" />
+                    <div className="relative w-9 h-9 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.2)] overflow-hidden ring-2 ring-white/30">
+                      <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" fill sizes="36px" className="object-contain p-1" />
                     </div>
                     <div>
                       <p className="text-white font-semibold text-sm">{t('title')}</p>
@@ -209,8 +209,8 @@ export default function ChatWidget() {
                 hover:from-white/65 hover:to-purple-50/40 active:scale-95 transition-all duration-200"
             >
               {/* Logo */}
-              <div className="w-10 h-10 rounded-full overflow-hidden shadow-[0_2px_8px_rgba(89,13,130,0.2)]">
-                <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" width={40} height={40} className="object-contain" />
+              <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-[0_2px_8px_rgba(89,13,130,0.2)]">
+                <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" fill sizes="40px" className="object-contain" />
               </div>
 
               {/* Text */}

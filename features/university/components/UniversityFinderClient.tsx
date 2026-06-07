@@ -1,5 +1,5 @@
 'use client'
-import { useState } from 'react'
+import { useState, useRef, useEffect } from 'react'
 import type { UniversityFinderData } from '../types/university.types'
 import { useUniversityFilters } from '../hooks/useUniversitySearch'
 import { SORT_OPTIONS, DEGREE_DISPLAY, type SortValue } from '../utils/universityUtils'
@@ -95,6 +95,16 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
     courses: initialFilters?.course ? [initialFilters.course] : [],
   })
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  const resultsRef = useRef<HTMLDivElement>(null)
+  const initialMount = useRef(true)
+
+  useEffect(() => {
+    if (initialMount.current) { initialMount.current = false; return }
+    const el = resultsRef.current
+    if (!el) return
+    const y = el.getBoundingClientRect().top + window.scrollY - 96
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
+  }, [filters.filtered, filters.page])
 
   // Hero dropdowns: single-select synced with sidebar arrays
   const heroCountry = filters.countries.length === 1 ? filters.countries[0] : ''
@@ -162,7 +172,7 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
       />
 
       {/* pt-16 md:pt-20 accounts for search bar translate-y-1/2 overlap */}
-      <div className="bg-neutral-50 min-h-screen">
+      <div className="bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8 pt-6 md:pt-20 pb-16">
         {/* Mobile filter toggle */}
         <div className="lg:hidden mb-4">
@@ -177,9 +187,9 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
           </button>
         </div>
 
-        <div className="lg:grid lg:grid-cols-[240px_1fr] lg:gap-8">
+        <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
           {/* Sidebar */}
-          <aside className={`${showMobileFilters ? 'block' : 'hidden'} lg:block mb-8 lg:mb-0 lg:sticky lg:top-24 lg:self-start`}>
+          <aside className={`${showMobileFilters ? 'block' : 'hidden'} lg:block mb-8 lg:mb-0 lg:self-start lg:sticky lg:top-24`}>
             <UniversityFilters
               data={data}
               selectedCountries={filters.countries}
@@ -221,9 +231,9 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
           </aside>
 
           {/* Main */}
-          <main>
+          <main className="min-w-0">
             {/* Results bar */}
-            <div className="flex items-center justify-between mb-6 gap-4 pb-4 border-b border-gray-200">
+            <div ref={resultsRef} className="flex items-center justify-between mb-6 gap-4 pb-4 border-b border-gray-200">
               <p className="text-sm text-gray-600 shrink-0">
                 {t.showingResults.replace('{count}', String(filters.filtered.length))}
               </p>
@@ -241,6 +251,7 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
             </div>
 
             <UniversityGrid
+              key={`${filters.page}-${filters.filtered.length}-${filters.sort}`}
               universities={filters.paginated}
               noResultsText={t.noResults}
               cardTranslations={{

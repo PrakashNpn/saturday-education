@@ -1,3 +1,5 @@
+'use client'
+import { motion } from 'framer-motion'
 import type { UniversityListItem } from '../types/university.types'
 import { UniversityCard } from './UniversityCard'
 
@@ -16,6 +18,15 @@ interface Props {
   }
 }
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, delay: i * 0.05, ease: [0.25, 0.1, 0.25, 1] as const },
+  }),
+}
+
 export function UniversityGrid({ universities, noResultsText, cardTranslations }: Props) {
   if (universities.length === 0) {
     return (
@@ -28,7 +39,15 @@ export function UniversityGrid({ universities, noResultsText, cardTranslations }
   return (
     <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
       {universities.map((u, i) => (
-        <UniversityCard key={u.id} university={u} translations={cardTranslations} index={i} />
+        <motion.div
+          key={u.id}
+          custom={i}
+          variants={cardVariants}
+          initial="hidden"
+          animate="show"
+        >
+          <UniversityCard university={u} translations={cardTranslations} index={i} />
+        </motion.div>
       ))}
     </div>
   )

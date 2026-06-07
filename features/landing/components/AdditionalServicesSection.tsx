@@ -42,8 +42,8 @@ export default function AdditionalServicesSection() {
           {/* <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-[#590D82] via-[#7B2AB5] to-[#590D82]" /> */}
 
           <h2
-            className="font-bold text-gray-900 leading-tight"
-            style={{ fontSize: 'clamp(1.75rem, 1.2rem + 2.5vw, 2.5rem)' }}
+            className="font-extrabold text-brand-purple leading-tight"
+            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
           >
             {t('heading')}
           </h2>

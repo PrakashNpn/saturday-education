@@ -1,4 +1,14 @@
-export const ITEMS_PER_PAGE = 6
+export const ITEMS_PER_PAGE = 20
+
+export function getCurrencySymbol(code: string | null | undefined): string {
+  const symbols: Record<string, string> = {
+    GBP: '£', EUR: '€', USD: '$',
+    CAD: 'C$', AUD: 'A$', NZD: 'NZ$',
+    SGD: 'S$', MYR: 'RM', THB: '฿',
+    AED: 'AED', CHF: 'CHF',
+  }
+  return symbols[code ?? 'USD'] ?? `${code} `
+}
 
 export const SORT_OPTIONS = [
   { value: 'ranking', labelKey: 'sortHighestRanking' },

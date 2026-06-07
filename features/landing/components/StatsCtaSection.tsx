@@ -120,7 +120,7 @@ export default function StatsCtaSection() {
         >
           <h2
             className="font-extrabold text-white max-w-2xl mx-auto leading-tight"
-            style={{ fontSize: 'clamp(1.1rem, 3.5vw, 2.25rem)' }}
+            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
           >
             {t('cta.heading')}
           </h2>

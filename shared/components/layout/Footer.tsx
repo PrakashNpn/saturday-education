@@ -64,15 +64,14 @@ export default function Footer() {
           {/* Column 1 — Brand */}
           <div className="md:col-span-2 lg:col-span-1 flex flex-col">
             {/* Logo row */}
-            <Link href="/" className="flex items-center gap-3">
+            <Link href="/" className="flex items-center">
               <Image
-                src="/images/logo/saturday-education.jpeg"
-                alt="Saturday Education logo"
-                width={44}
-                height={44}
-                className="rounded-full flex-shrink-0"
+                src="/images/logo/logo.png"
+                alt="Saturday Education"
+                width={166}
+                height={80}
+                className="h-16 w-auto"
               />
-              <span className="text-xl font-bold text-[#590D82]">Saturday Education</span>
             </Link>
 
             {/* Tagline */}

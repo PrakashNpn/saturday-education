@@ -69,10 +69,10 @@ export default function HeroSection() {
   })
 
   const statsData = [
-    { icon: GraduationCap,   target: 10000, prefix: '',  suffix: '+', label: t('stats.studentsLabel') },
-    { icon: ShieldCheck,     target: 98,    prefix: '',  suffix: '%', label: t('stats.visaLabel') },
-    { icon: BadgeDollarSign, target: 12,    prefix: '$', suffix: 'M', label: t('stats.scholarshipsLabel') },
-    { icon: Building2,       target: 500,   prefix: '',  suffix: '+', label: t('stats.partnersLabel') },
+    { icon: GraduationCap,   target: 1000, prefix: '',  suffix: '+', label: t('stats.studentsLabel') },
+    { icon: ShieldCheck,     target: 95,   prefix: '',  suffix: '%', label: t('stats.visaLabel') },
+    { icon: BadgeDollarSign, target: 3,    prefix: '$', suffix: 'M', label: t('stats.scholarshipsLabel') },
+    { icon: Building2,       target: 50,   prefix: '',  suffix: '+', label: t('stats.partnersLabel') },
   ]
 
   return (
@@ -188,8 +188,8 @@ export default function HeroSection() {
         </div>
 
         {/* ── Part 2: Stats bar — sits at the bottom of the viewport ── */}
-        <div className="mt-8 md:mt-0 md:pb-8 lg:pb-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+        <div className="mt-8 md:-mt-8 md:pb-8 lg:pb-10">
+          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
             {statsData.map(({ icon: Icon, target, prefix, suffix, label }, index) => (
               <motion.div
                 key={label}

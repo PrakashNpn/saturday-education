@@ -623,7 +623,7 @@ export default function ComparisonToolSection({
         <div className="text-center mb-10 sm:mb-12">
           <h2
             className="font-extrabold text-brand-purple leading-tight mb-3"
-            style={{ fontSize: 'clamp(2rem, 1.2rem + 3.5vw, 3.25rem)' }}
+            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
           >
             {t('heading')}
           </h2>

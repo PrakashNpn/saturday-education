@@ -38,6 +38,7 @@ export function RegionFilter({ selected, onChange, translations: t, counts }: Pr
           const labelKey = REGION_TAB_LABELS[region]
           const label = labels[labelKey] ?? region
           const count = region === 'All' ? counts._total : (counts[region] ?? 0)
+          if (region !== 'All' && count === 0) return null
           const isActive = selected === region
 
           return (

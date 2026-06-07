@@ -13,6 +13,7 @@ export async function getAllUniversitiesWithFilters(): Promise<UniversityFinderD
       orderBy: { ranking: 'asc' },
     }),
     prisma.country.findMany({
+      where: { universities: { some: {} } },
       select: { id: true, name: true, slug: true },
       orderBy: { name: 'asc' },
     }),

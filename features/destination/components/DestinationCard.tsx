@@ -48,8 +48,10 @@ export function DestinationCard({ country, viewDetailsLabel, index = 0 }: Props)
       {/* Content — bottom anchored */}
       <div className="absolute bottom-0 left-0 right-0 p-5">
         <h3 className="font-bold text-xl text-white leading-tight mb-1">{country.name}</h3>
-        {country.institutionCount ? (
-          <p className="text-white/70 text-xs font-medium mb-3">{country.institutionCount} institutions</p>
+        {country._count.universities > 0 ? (
+          <p className="text-white/70 text-xs font-medium mb-3">
+            {country._count.universities} Partner {country._count.universities === 1 ? 'university' : 'universities'}
+          </p>
         ) : country.shortDescription ? (
           <p className="text-white/70 text-xs mb-3 line-clamp-1">{country.shortDescription}</p>
         ) : null}
