@@ -1,5 +1,5 @@
 import { NextIntlClientProvider } from 'next-intl'
-import { getMessages } from 'next-intl/server'
+import { getMessages, setRequestLocale } from 'next-intl/server'
 import { Noto_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/shared/components/layout/Navbar"
@@ -18,6 +18,7 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  setRequestLocale(locale)
   const messages = await getMessages()
 
   return (

@@ -1,7 +1,8 @@
 import { notFound } from 'next/navigation'
+import { setRequestLocale } from 'next-intl/server'
 import { DestinationDetailPage, getAllCountrySlugs, getCountryBySlug } from '@/features/destination'
 
-type Props = { params: Promise<{ country: string }> }
+type Props = { params: Promise<{ locale: string; country: string }> }
 
 export async function generateStaticParams() {
   const slugs = await getAllCountrySlugs()
@@ -9,7 +10,8 @@ export async function generateStaticParams() {
 }
 
 export async function generateMetadata({ params }: Props) {
-  const { country: slug } = await params
+  const { locale, country: slug } = await params
+  setRequestLocale(locale)
   const country = await getCountryBySlug(slug)
   if (!country) return {}
   return {
@@ -19,6 +21,7 @@ export async function generateMetadata({ params }: Props) {
 }
 
 export default async function Page({ params }: Props) {
-  const { country: slug } = await params
+  const { locale, country: slug } = await params
+  setRequestLocale(locale)
   return <DestinationDetailPage slug={slug} />
 }
