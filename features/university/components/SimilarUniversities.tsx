@@ -7,6 +7,7 @@ import type { SimilarUniversity, UniversityListItem } from '../types/university.
 
 type CardTranslations = {
   avgCost: string
+  tuitionLabel: string
   acceptance: string
   courses: string
   intake: string

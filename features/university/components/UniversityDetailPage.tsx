@@ -70,6 +70,7 @@ export async function UniversityDetailPage({ slug }: Props) {
     title: t('detailSimilarTitle'),
     card: {
       avgCost: t('avgCost'),
+      tuitionLabel: t('tuitionLabel'),
       acceptance: t('acceptance'),
       courses: t('courses'),
       intake: t('intake'),
