@@ -4,8 +4,9 @@ import { useState } from 'react'
 import Image from 'next/image'
 import { motion, AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { Globe, ChevronDown, CheckCircle2 } from 'lucide-react'
+import { Globe, CheckCircle2 } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
+import { CustomDropdown } from '@/shared/components/common'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -35,39 +36,6 @@ const inputCls =
   'w-full px-4 py-3 rounded-xl bg-gray-50 border border-gray-200 text-gray-900 text-sm placeholder:text-gray-400 focus:outline-none focus:ring-2 focus:ring-[#590D82]/30 focus:border-[#590D82] transition-colors'
 
 const labelCls = 'text-xs font-semibold uppercase tracking-wider text-gray-500 mb-2 block'
-
-// ── Select wrapper with chevron ────────────────────────────────────────────────
-
-function SelectField({
-  label,
-  value,
-  onChange,
-  children,
-}: {
-  label: string
-  value: string
-  onChange: (value: string) => void
-  children: React.ReactNode
-}) {
-  return (
-    <div>
-      <label className={labelCls}>{label}</label>
-      <div className="relative">
-        <select
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          className={`${inputCls} appearance-none cursor-pointer pr-9`}
-        >
-          {children}
-        </select>
-        <ChevronDown
-          size={15}
-          className="pointer-events-none absolute right-3 top-1/2 -translate-y-1/2 text-gray-400"
-        />
-      </div>
-    </div>
-  )
-}
 
 // ── Success card ───────────────────────────────────────────────────────────────
 
@@ -150,6 +118,15 @@ export default function ConsultationSection({ onSubmit }: Props) {
   const [isSubmitting, setIsSubmitting]         = useState(false)
   const [error, setError]                       = useState<string | null>(null)
   const [submitted, setSubmitted]               = useState(false)
+
+  const countryOptions = [
+    'canada', 'newZealand', 'singapore', 'switzerland', 'ireland',
+    'thailand', 'malaysia', 'germany', 'hungary', 'finland', 'china',
+    'sweden', 'uae', 'japan', 'korea', 'uk', 'usa', 'australia',
+  ].map((value) => ({ value, label: t(`form.country.options.${value}`) }))
+
+  const consultationTypeOptions = ['online', 'inPerson', 'phoneCall']
+    .map((value) => ({ value, label: t(`form.consultationType.options.${value}`) }))
   const [submittedName, setSubmittedName]       = useState('')
   const [submittedEmail, setSubmittedEmail]     = useState('')
 
@@ -265,31 +242,26 @@ export default function ConsultationSection({ onSubmit }: Props) {
 
                     {/* Country + Consultation Type */}
                     <motion.div variants={fieldVariant} className="grid grid-cols-1 sm:grid-cols-2 gap-4 mb-5">
-                      <SelectField
-                        label={t('form.country.label')}
-                        value={targetCountry}
-                        onChange={setTargetCountry}
-                      >
-                        <option value="uk">{t('form.country.options.uk')}</option>
-                        <option value="usa">{t('form.country.options.usa')}</option>
-                        <option value="australia">{t('form.country.options.australia')}</option>
-                        <option value="canada">{t('form.country.options.canada')}</option>
-                        <option value="newZealand">{t('form.country.options.newZealand')}</option>
-                        <option value="singapore">{t('form.country.options.singapore')}</option>
-                        <option value="switzerland">{t('form.country.options.switzerland')}</option>
-                        <option value="ireland">{t('form.country.options.ireland')}</option>
-                        <option value="thailand">{t('form.country.options.thailand')}</option>
-                        <option value="other">{t('form.country.options.other')}</option>
-                      </SelectField>
-                      <SelectField
-                        label={t('form.consultationType.label')}
-                        value={consultationType}
-                        onChange={setConsultationType}
-                      >
-                        <option value="online">{t('form.consultationType.options.online')}</option>
-                        <option value="inPerson">{t('form.consultationType.options.inPerson')}</option>
-                        <option value="phoneCall">{t('form.consultationType.options.phoneCall')}</option>
-                      </SelectField>
+                      <div>
+                        <label className={labelCls}>{t('form.country.label')}</label>
+                        <CustomDropdown
+                          value={targetCountry}
+                          options={countryOptions}
+                          onChange={setTargetCountry}
+                          showPlaceholderOption={false}
+                          className="[&>button]:bg-gray-50 [&>button]:border-gray-200 [&>button]:rounded-xl [&>button]:py-3 [&>button]:font-normal [&>button]:text-sm"
+                        />
+                      </div>
+                      <div>
+                        <label className={labelCls}>{t('form.consultationType.label')}</label>
+                        <CustomDropdown
+                          value={consultationType}
+                          options={consultationTypeOptions}
+                          onChange={setConsultationType}
+                          showPlaceholderOption={false}
+                          className="[&>button]:bg-gray-50 [&>button]:border-gray-200 [&>button]:rounded-xl [&>button]:py-3 [&>button]:font-normal [&>button]:text-sm"
+                        />
+                      </div>
                     </motion.div>
 
                     {/* Textarea */}

@@ -36,49 +36,24 @@
       "heading": "Voices of Success",
       "reviews": {
         "1": {
-          "quote": "A truly prestigious environment. The academic rigor prepared me for the highest levels of professional competition in the EU.",
-          "name": "Elena Moretti",
-          "program": "LLM Law, Oxford"
+          "quote": "Saturday Education Consulting helped me figure out which Canadian universities actually fit my goals, then walked me through the whole application step by step. I'm now studying for my Master's in Business Administration in Canada.",
+          "name": "Ye Naing Htwe",
+          "program": "MBA, Canada"
         },
         "2": {
-          "quote": "The personalized mentorship at Royal Scholar transformed my approach to research. I couldn't have secured my placement without their guidance.",
-          "name": "May Thazin",
-          "program": "MSc Data Science, UK"
+          "quote": "I had no idea where to start with applying to Germany. The team explained everything clearly, from choosing a university to preparing my documents, and I got into my Computer Science program without the stress.",
+          "name": "Thi Han",
+          "program": "BSc Computer Science, Germany"
         },
         "3": {
-          "quote": "The curriculum depth is unmatched. Being part of the Global Alumni network has opened doors in industries I never thought possible.",
-          "name": "Liam O'Connor",
-          "program": "MBA International, Harvard"
+          "quote": "Saturday Education Consulting helped me pick the right university in Ireland for my Master's in Finance and guided me through the whole application. They made a confusing process feel simple.",
+          "name": "Akar Kyaw",
+          "program": "MSc Finance, Ireland"
         },
         "4": {
-          "quote": "Saturday Education made my dream of studying in Australia a reality. From application to arrival, every step was handled with care.",
-          "name": "Aung Kyaw",
-          "program": "BEng Engineering, Melbourne"
-        },
-        "5": {
-          "quote": "I received a 50% scholarship thanks to their guidance. The counselors truly understood my profile and matched me perfectly.",
-          "name": "Priya Sharma",
-          "program": "MSc Finance, LSE"
-        },
-        "6": {
-          "quote": "The visa process felt effortless with their support. I was nervous about interviews but the mock sessions gave me real confidence.",
-          "name": "Thandar Win",
-          "program": "BSc Computer Science, Canada"
-        },
-        "7": {
-          "quote": "The team helped me navigate the complex UK visa process with ease. Their attention to detail and constant support made all the difference.",
-          "name": "Zaw Min Oo",
-          "program": "MSc Civil Engineering, UCL"
-        },
-        "8": {
-          "quote": "From choosing the right university to settling in a new country, Saturday Education was with me at every step. Truly a life-changing experience.",
-          "name": "Suki Tanaka",
-          "program": "BA International Relations, ANU"
-        },
-        "9": {
-          "quote": "Their scholarship guidance saved me thousands of dollars. The counselors genuinely care about finding the best financial options for students.",
-          "name": "Nay Chi Aung",
-          "program": "BBA Business, Singapore"
+          "quote": "The advisors took the time to understand what I wanted and matched me with a Data Science Master's program in the UK that was the right fit. I couldn't have done it on my own.",
+          "name": "May Thazin",
+          "program": "MSc Data Science, UK"
         }
       }
     },
@@ -192,7 +167,15 @@
             "switzerland": "Switzerland",
             "ireland": "Ireland",
             "thailand": "Thailand",
-            "other": "Other"
+            "malaysia": "Malaysia",
+            "germany": "Germany",
+            "hungary": "Hungary",
+            "finland": "Finland",
+            "china": "China",
+            "sweden": "Sweden",
+            "uae": "UAE",
+            "japan": "Japan",
+            "korea": "Korea"
           }
         },
         "consultationType": {
@@ -336,7 +319,7 @@
       "thailandOffice": "Thailand Office",
       "addressThailand": "Soi Bearing 18, Samrong Nuea Subdistrict, Mueang Samut Prakan District, Samut Prakan 10270",
       "myanmarOffice": "Myanmar Office",
-      "addressMyanmar": "Shine Tower, 4th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
+      "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
       "email": "info@saturdayeducation.com",
       "bookConsultation": "Book Consultation"
