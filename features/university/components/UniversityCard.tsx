@@ -116,9 +116,9 @@ export function UniversityCard({ university: u, translations: t, index = 0 }: Pr
           {/* Stats — purple-tinted glass pills */}
           {stats.length > 0 && (
             <div className="grid grid-cols-2 gap-2 mb-4">
-              {stats.map(({ label, value }) => (
+              {stats.map(({ label, value }, i) => (
                 <div
-                  key={label}
+                  key={`${label}-${i}`}
                   className="bg-gradient-to-br from-purple-50 to-purple-50/40 border border-purple-100/60 rounded-xl px-3 py-2"
                 >
                   <p className="text-[9px] uppercase tracking-widest text-purple-400/80 font-semibold mb-0.5 whitespace-nowrap">

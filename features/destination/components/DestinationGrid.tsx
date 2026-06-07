@@ -72,6 +72,7 @@ export function DestinationGrid({ countries, translations: t }: Props) {
             options={sortOptions}
             onChange={(v) => setSortBy(v as SortOption)}
             placeholder={t.sortHighestRanking}
+            showPlaceholderOption={false}
             size="compact"
             className="min-w-[160px]"
           />

@@ -254,6 +254,7 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
                   options={sortOptions}
                   onChange={(v) => { filters.setSort(v as SortValue); filters.setPage(1) }}
                   placeholder={t.sortHighestRanking}
+                  showPlaceholderOption={false}
                   size="compact"
                   className="w-44"
                 />

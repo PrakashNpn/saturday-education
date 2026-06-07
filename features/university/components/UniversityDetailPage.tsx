@@ -91,11 +91,15 @@ export async function UniversityDetailPage({ slug }: Props) {
         city={university.city}
         countryName={university.country.name}
         rankedLabel={university.ranking !== null ? t('rankedWorldwide', { rank: university.ranking }) : ''}
+        breadcrumb={{
+          home: t('breadcrumbHome'),
+          universities: t('breadcrumbUniversities'),
+        }}
       />
 
       <div className="bg-neutral-50 min-h-screen">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12 pt-12 pb-16">
+        <div className="lg:grid lg:grid-cols-[220px_1fr] lg:gap-12 pt-10 pb-16">
           <UniDetailSidebar
             sections={sections}
             sidebarTitle={t('detailSidebarTitle')}

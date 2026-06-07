@@ -446,7 +446,11 @@
     "overviewSubtitle": "ข้อเท็จจริงและสถิติสำคัญเกี่ยวกับจุดหมายปลายทางนี้",
     "intlStudentsSub": "นักศึกษาปัจจุบัน",
     "about": "เกี่ยวกับ",
-    "sidebarEyebrow": "จุดหมายการเรียน"
+    "sidebarEyebrow": "จุดหมายการเรียน",
+    "breadcrumbHome": "หน้าแรก",
+    "breadcrumbDestinations": "Study Destination",
+    "seeMore": "ดูเพิ่มเติม",
+    "seeLess": "ย่อข้อความ"
   },
   "universities": {
     "heroLabel": "ค้นหามหาวิทยาลัย",
@@ -553,7 +557,9 @@
     "diplomaDesc": "หลักสูตรประกาศนียบัตรวิชาชีพสำหรับผู้ที่มุ่งเน้นการพัฒนาอาชีพ",
     "worldRank": "อันดับโลก #{rank}",
     "rankAll": "ทั้งหมด",
-    "tuitionLabel": "ค่าเล่าเรียน"
+    "tuitionLabel": "ค่าเล่าเรียน",
+    "breadcrumbHome": "หน้าแรก",
+    "breadcrumbUniversities": "University Finder"
   },
   "about": {
     "heroLabel": "เรื่องราวของเรา",

@@ -446,7 +446,11 @@
     "overviewSubtitle": "Key facts and statistics about this destination at a glance.",
     "intlStudentsSub": "Currently enrolled",
     "about": "About",
-    "sidebarEyebrow": "Study Destination"
+    "sidebarEyebrow": "Study Destination",
+    "breadcrumbHome": "Home",
+    "breadcrumbDestinations": "Study Destination",
+    "seeMore": "See more",
+    "seeLess": "See less"
   },
   "universities": {
     "heroLabel": "FIND YOUR UNIVERSITY",
@@ -554,7 +558,9 @@
     "diplomaDesc": "Professional diploma programs designed for career-focused learners.",
     "worldRank": "WORLD RANK #{rank}",
     "rankAll": "All",
-    "tuitionLabel": "Tuition Fees"
+    "tuitionLabel": "Tuition Fees",
+    "breadcrumbHome": "Home",
+    "breadcrumbUniversities": "University Finder"
   },
   "about": {
     "heroLabel": "OUR STORY",

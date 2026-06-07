@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react'
 import Image from 'next/image'
+import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { Menu, X } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
@@ -63,13 +64,20 @@ export default function Navbar() {
                   key={href}
                   href={href}
                   className={cn(
-                    'text-sm xl:text-base font-medium whitespace-nowrap transition-colors duration-150',
+                    'relative pb-1.5 text-sm xl:text-base font-medium whitespace-nowrap transition-colors duration-150',
                     isActive
                       ? 'text-brand-purple-dark font-semibold'
                       : 'text-brand-purple hover:text-brand-purple-dark',
                   )}
                 >
                   {t(labelKey)}
+                  {isActive && (
+                    <motion.span
+                      layoutId="navActiveUnderline"
+                      className="absolute left-0 right-0 -bottom-0.5 h-0.5 rounded-full bg-brand-purple"
+                      transition={{ type: 'spring', stiffness: 380, damping: 30 }}
+                    />
+                  )}
                 </Link>
               )
             })}

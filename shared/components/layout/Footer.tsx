@@ -91,7 +91,7 @@ export default function Footer() {
             {/* Social icons */}
             <div className="flex items-center gap-3 mt-auto">
               <a
-                href="#"
+                href="https://www.facebook.com/profile.php?id=61589431014535"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -103,7 +103,7 @@ export default function Footer() {
               </svg>
               </a>
               <a
-                href="#"
+                href="https://www.instagram.com/saturdayeducationconsulting?igsh=a3lnbnB2NjRmeWs2"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -117,7 +117,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.linkedin.com/company/nexa-education-consulting/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -130,7 +130,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="#"
+                href="https://www.tiktok.com/@user9387607725127"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"

@@ -30,13 +30,14 @@ export async function CountryAdvantages({ countryName, advantages, heroImageUrl 
       <div className="grid md:grid-cols-2 gap-5">
         {/* Left: image overlay with first advantage */}
         <div className="relative rounded-2xl overflow-hidden min-h-[260px] md:min-h-[320px]">
-          <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-brand-purple" />
-          {heroImageUrl && (
+          {heroImageUrl ? (
             <img
               src={heroImageUrl}
               alt=""
-              className="absolute inset-0 w-full h-full object-cover opacity-40"
+              className="absolute inset-0 w-full h-full object-cover"
             />
+          ) : (
+            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-brand-purple" />
           )}
           <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
           <div className="relative z-10 flex flex-col justify-end h-full p-6">

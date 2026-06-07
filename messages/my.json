@@ -446,7 +446,11 @@
     "overviewSubtitle": "ဤနိုင်ငံနှင့်ပတ်သက်သော အချက်အလက်များနှင့် စာရင်းဇယားများ",
     "intlStudentsSub": "လက်ရှိကျောင်းသားများ",
     "about": "အကြောင်း",
-    "sidebarEyebrow": "ပညာသင်နေရာ"
+    "sidebarEyebrow": "ပညာသင်နေရာ",
+    "breadcrumbHome": "ပင်မစာမျက်နှာ",
+    "breadcrumbDestinations": "Study Destination",
+    "seeMore": "ပိုမိုကြည့်ရှုရန်",
+    "seeLess": "လျှော့ပြရန်"
   },
   "universities": {
     "heroLabel": "တက္ကသိုလ်ရှာဖွေရန်",
@@ -553,7 +557,9 @@
     "diplomaDesc": "အလုပ်အကိုင်ကိုဦးတည်သူများအတွက် ပရော်ဖက်ရှင်နယ်ဒီပလိုမာပရိုဂရမ်များ",
     "worldRank": "ကမ္ဘာ့အဆင့် #{rank}",
     "rankAll": "အားလုံး",
-    "tuitionLabel": "ကျောင်းလခများ"
+    "tuitionLabel": "ကျောင်းလခများ",
+    "breadcrumbHome": "ပင်မစာမျက်နှာ",
+    "breadcrumbUniversities": "University Finder"
   },
   "about": {
     "heroLabel": "ကျွန်ုပ်တို့၏ ဇာတ်လမ်း",

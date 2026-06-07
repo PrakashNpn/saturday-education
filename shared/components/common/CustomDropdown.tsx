@@ -15,6 +15,7 @@ interface Props {
   placeholder?: string
   className?: string
   size?: 'default' | 'compact'
+  showPlaceholderOption?: boolean
 }
 
 export function CustomDropdown({
@@ -25,6 +26,7 @@ export function CustomDropdown({
   placeholder = 'All',
   className,
   size = 'default',
+  showPlaceholderOption = true,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const ref = useRef<HTMLDivElement>(null)
@@ -70,15 +72,17 @@ export function CustomDropdown({
       {isOpen && (
         <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
           <div className="max-h-[240px] overflow-y-auto scrollbar-thin py-1">
-            <button
-              type="button"
-              onClick={() => { onChange(''); setIsOpen(false) }}
-              className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                value === '' ? 'bg-brand-purple-50 text-brand-purple font-semibold' : 'text-gray-700 hover:bg-gray-50'
-              }`}
-            >
-              {placeholder}
-            </button>
+            {showPlaceholderOption && (
+              <button
+                type="button"
+                onClick={() => { onChange(''); setIsOpen(false) }}
+                className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
+                  value === '' ? 'bg-brand-purple-50 text-brand-purple font-semibold' : 'text-gray-700 hover:bg-gray-50'
+                }`}
+              >
+                {placeholder}
+              </button>
+            )}
             {options.map((opt) => (
               <button
                 key={opt.value}

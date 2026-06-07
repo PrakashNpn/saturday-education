@@ -37,11 +37,15 @@ export async function DestinationDetailPage({ slug }: Props) {
         heroImageUrl={country.heroImageUrl}
         region={country.region}
         studyAbroadLabel={t('studyAbroad')}
+        breadcrumb={{
+          home: t('breadcrumbHome'),
+          destinations: t('breadcrumbDestinations'),
+        }}
       />
 
       <div className="bg-neutral-50">
       <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 pt-12 pb-20">
+        <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 pt-10 pb-20">
           <DetailSidebar
             sections={sections}
             guideName={t('destinationGuide')}
