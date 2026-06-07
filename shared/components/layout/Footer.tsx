@@ -14,8 +14,8 @@ const linkCls = 'text-sm text-gray-500 hover:text-[#590D82] transition-colors du
 // ── Study Abroad links ────────────────────────────────────────────────────────
 
 const STUDY_LINKS = [
-  { key: 'uk', href: '/destinations/uk' },
-  { key: 'usa', href: '/destinations/usa' },
+  { key: 'uk', href: '/destinations/united-kingdom' },
+  { key: 'usa', href: '/destinations/united-states' },
   { key: 'canada', href: '/destinations/canada' },
   { key: 'australia', href: '/destinations/australia' },
   { key: 'singapore', href: '/destinations/singapore' },
@@ -35,10 +35,8 @@ const SERVICE_LINKS = [
 
 const COMPANY_LINKS = [
   { key: 'about', href: '/about' },
-  { key: 'blog', href: '/blog' },
   { key: 'testimonials', href: '/#testimonials' },
   { key: 'contact', href: '/#consultation' },
-  { key: 'officeTour', href: '/office-tour' },
   { key: 'privacy', href: '/privacy' },
   { key: 'terms', href: '/terms' },
 ] as const
@@ -78,6 +76,17 @@ export default function Footer() {
             <p className="mt-5 mb-6 text-gray-500 text-sm leading-relaxed max-w-[300px]">
               {t('tagline')}
             </p>
+
+            {/* Book Consultation button */}
+            <div className="mb-6">
+              <Link
+                href="/#consultation"
+                className="inline-flex items-center gap-2 bg-[#590D82] hover:bg-[#4A0A6E] text-white font-bold px-6 py-3 rounded-full text-sm transition-colors duration-300"
+              >
+                {t('contactUs.bookConsultation')}
+                <ArrowRight size={16} />
+              </Link>
+            </div>
 
             {/* Social icons */}
             <div className="flex items-center gap-3 mt-auto">
@@ -152,11 +161,11 @@ export default function Footer() {
           <div>
             <h3 className={headingCls}>{t('services.heading')}</h3>
             <ul className="space-y-3">
-              {SERVICE_LINKS.map(({ key, href }) => (
+              {SERVICE_LINKS.map(({ key }) => (
                 <li key={key}>
-                  <Link href={href} className={linkCls}>
+                  <span className="text-sm text-gray-500 cursor-default block">
                     {t(`services.${key}`)}
-                  </Link>
+                  </span>
                 </li>
               ))}
             </ul>
@@ -181,16 +190,28 @@ export default function Footer() {
             <h3 className={headingCls}>{t('contactUs.heading')}</h3>
             <div className="space-y-4">
 
-              {/* Address */}
+              {/* Thailand Address */}
               <div className="flex items-start gap-3">
                 <MapPin size={18} className="text-[#590D82] flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-gray-500 leading-relaxed">{t('contactUs.address')}</p>
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  <span className="block font-semibold text-gray-700">{t('contactUs.thailandOffice')}</span>
+                  {t('contactUs.addressThailand')}
+                </p>
+              </div>
+
+              {/* Myanmar Address */}
+              <div className="flex items-start gap-3">
+                <MapPin size={18} className="text-[#590D82] flex-shrink-0 mt-0.5" />
+                <p className="text-sm text-gray-500 leading-relaxed">
+                  <span className="block font-semibold text-gray-700">{t('contactUs.myanmarOffice')}</span>
+                  {t('contactUs.addressMyanmar')}
+                </p>
               </div>
 
               {/* Phone */}
               <div className="flex items-center gap-3">
                 <Phone size={18} className="text-[#590D82] flex-shrink-0" />
-                <a href="tel:+9591234567" className="text-sm text-[#590D82] hover:underline">
+                <a href="tel:+66823288445" className="text-sm text-[#590D82] hover:underline">
                   {t('contactUs.phone')}
                 </a>
               </div>
@@ -199,22 +220,11 @@ export default function Footer() {
               <div className="flex items-center gap-3">
                 <Mail size={18} className="text-[#590D82] flex-shrink-0" />
                 <a
-                  href="mailto:saturdayeducation@gmail.com"
+                  href="mailto:info@saturdayeducation.com"
                   className="text-sm text-[#590D82] hover:underline break-all"
                 >
                   {t('contactUs.email')}
                 </a>
-              </div>
-
-              {/* Book Consultation button */}
-              <div className="mt-4">
-                <Link
-                  href="/#consultation"
-                  className="inline-flex items-center gap-2 bg-[#590D82] hover:bg-[#4A0A6E] text-white font-bold px-6 py-3 rounded-full text-sm transition-colors duration-300"
-                >
-                  {t('contactUs.bookConsultation')}
-                  <ArrowRight size={16} />
-                </Link>
               </div>
             </div>
           </div>

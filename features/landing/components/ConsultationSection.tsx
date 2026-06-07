@@ -331,7 +331,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
                     </p>
                     <div className="flex justify-center gap-3 flex-wrap">
                       <a
-                        href="https://wa.me/9591234567"
+                        href="https://wa.me/66823288445"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"
@@ -342,7 +342,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
                         <span className="whitespace-nowrap">{t('directContact.whatsapp')}</span>
                       </a>
                       <a
-                        href="https://m.me/saturdayeducation"
+                        href="https://m.me/61589431014535"
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"

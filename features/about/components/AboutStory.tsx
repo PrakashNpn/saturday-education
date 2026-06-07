@@ -28,10 +28,10 @@ export function AboutStory({ translations: t }: Props) {
   ]
 
   const cardStats = [
-    { value: '3', label: 'Countries' },
-    { value: '50+', label: 'Students' },
+    { value: '2', label: 'Target Countries' },
     { value: '10+', label: 'Advisors' },
-    { value: '200+', label: 'Partner Unis' },
+    { value: 'Aug 2026', label: 'Launch Date' },
+    { value: 'Asia', label: 'Expansion Vision' },
   ]
 
   return (
@@ -44,7 +44,7 @@ export function AboutStory({ translations: t }: Props) {
             <div className="inline-flex items-center bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
               {t.storyLabel}
             </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-gray-900 mb-6 leading-tight">
+            <h2 className="text-3xl md:text-4xl font-bold text-brand-purple mb-6 leading-tight">
               {t.storyTitle}
             </h2>
             <p className="text-gray-600 leading-relaxed mb-4">
