@@ -27,8 +27,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
     },
   }
 }
-import UniversityFinderSection from "@/features/landing/components/UniversityFinderSection"
-import { getFinderDropdownOptions } from '@/features/university'
+// HIDDEN: universities feature temporarily disabled — uncomment to restore
+// import UniversityFinderSection from "@/features/landing/components/UniversityFinderSection"
+// import { getFinderDropdownOptions } from '@/features/university'
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
 import { getComparisonUniversities } from '@/features/landing/services/comparison-service'
 import GlobalLeadersSection from "@/features/landing/components/GlobalLeadersSection"
@@ -41,15 +42,17 @@ import ConsultationSection from "@/features/landing/components/ConsultationSecti
 import { submitConsultation } from '@/features/consultation'
 
 export default async function HomePage() {
-  const [finderOptions, comparisonUniversities] = await Promise.all([
-    getFinderDropdownOptions(),
+  // HIDDEN: universities feature temporarily disabled — restore the Promise.all([getFinderDropdownOptions(), getComparisonUniversities()]) pairing to bring back finderOptions
+  const [comparisonUniversities] = await Promise.all([
     getComparisonUniversities(),
   ])
 
   return (
     <main>
       <HeroSection />
+      {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
       <UniversityFinderSection dropdownOptions={finderOptions} />
+      */}
       <ComparisonToolSection universities={comparisonUniversities} />
       <GlobalLeadersSection />
       {/* <CountryGuideSection /> */}

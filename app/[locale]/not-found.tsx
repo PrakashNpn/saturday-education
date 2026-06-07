@@ -17,12 +17,14 @@ export default function NotFound() {
         >
           Go Home
         </Link>
+        {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
         <Link
           href="/universities"
           className="border border-brand-purple text-brand-purple text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-brand-purple-50 transition-colors"
         >
           Browse Universities
         </Link>
+        */}
       </div>
     </div>
   )

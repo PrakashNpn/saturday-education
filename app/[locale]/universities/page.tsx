@@ -1,3 +1,4 @@
+import { notFound } from 'next/navigation'
 import { UniversityFinderPage } from '@/features/university'
 import { getTranslations } from 'next-intl/server'
 
@@ -14,6 +15,8 @@ export async function generateMetadata() {
 }
 
 export default async function Page({ searchParams }: Props) {
+  // HIDDEN: universities feature temporarily disabled — remove this line to restore
+  notFound()
   const params = await searchParams
   return <UniversityFinderPage initialFilters={params} />
 }

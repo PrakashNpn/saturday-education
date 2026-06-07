@@ -269,6 +269,7 @@
     }
   },
   "nav": {
+    "home": "Home",
     "universityFinder": "University Finder",
     "studyDestination": "Study Destination",
     "blogs": "Blogs",

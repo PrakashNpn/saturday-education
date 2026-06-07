@@ -9,7 +9,9 @@ import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/shared/utils/cn'
 
 const NAV_LINKS = [
-  { labelKey: 'universityFinder', href: '/universities' },
+  { labelKey: 'home', href: '/' },
+  // HIDDEN: universities feature temporarily disabled — uncomment to restore
+  // { labelKey: 'universityFinder', href: '/universities' },
   { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'aboutUs', href: '/about' },
 ] as const

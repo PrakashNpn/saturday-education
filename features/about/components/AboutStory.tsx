@@ -28,7 +28,7 @@ export function AboutStory({ translations: t }: Props) {
   ]
 
   const cardStats = [
-    { value: '2', label: 'Target Countries' },
+    { value: '2', label: 'Operating Countries' },
     { value: '10+', label: 'Advisors' },
     { value: 'Aug 2026', label: 'Launch Date' },
     { value: 'Asia', label: 'Expansion Vision' },

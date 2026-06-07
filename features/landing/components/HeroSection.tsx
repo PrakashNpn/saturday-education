@@ -133,6 +133,7 @@ export default function HeroSection() {
               {/* CTA Buttons */}
               <motion.div {...fadeInUp(0.45)}>
                 <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
+                  {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
                   <Link
                     href="/universities"
                     className="px-6 py-2.5 rounded-full bg-brand-purple text-white font-semibold hover:bg-brand-purple-dark hover:shadow-lg transition-all duration-200"
@@ -140,6 +141,7 @@ export default function HeroSection() {
                   >
                     {t('exploreUniversities')}
                   </Link>
+                  */}
                   <Link
                     href="/#consultation"
                     className="px-6 py-2.5 rounded-full border-2 border-brand-purple text-brand-purple font-semibold bg-white hover:bg-brand-purple-50 transition-all duration-200"
