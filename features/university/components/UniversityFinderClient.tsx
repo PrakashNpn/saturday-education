@@ -38,11 +38,11 @@ type Translations = {
   filterStudyType: string
   tuitionMin: string
   tuitionMax: string
+  rankAll: string
   rankTop50: string
   rankTop100: string
   rankTop300: string
   onCampus: string
-  hybrid: string
   online: string
   noLimit: string
   showingResults: string
@@ -53,6 +53,7 @@ type Translations = {
   sortAZ: string
   sortZA: string
   avgCost: string
+  tuitionLabel: string
   acceptance: string
   courses: string
   intake: string
@@ -95,6 +96,7 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
     courses: initialFilters?.course ? [initialFilters.course] : [],
   })
   const [showMobileFilters, setShowMobileFilters] = useState(false)
+  const [searchTrigger, setSearchTrigger] = useState(0)
   const resultsRef = useRef<HTMLDivElement>(null)
   const initialMount = useRef(true)
 
@@ -168,7 +170,15 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
         onDegreeChange={handleHeroDegreeChange}
         onCourseChange={handleHeroCourseChange}
         onCountryChange={handleHeroCountryChange}
-        onSearch={() => filters.setPage(1)}
+        onSearch={() => {
+          filters.setPage(1)
+          setSearchTrigger((n) => n + 1)
+          const el = resultsRef.current
+          if (el) {
+            const y = el.getBoundingClientRect().top + window.scrollY - 96
+            window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
+          }
+        }}
       />
 
       {/* pt-16 md:pt-20 accounts for search bar translate-y-1/2 overlap */}
@@ -189,7 +199,7 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
 
         <div className="lg:grid lg:grid-cols-[240px_minmax(0,1fr)] lg:gap-8">
           {/* Sidebar */}
-          <aside className={`${showMobileFilters ? 'block' : 'hidden'} lg:block mb-8 lg:mb-0 lg:self-start lg:sticky lg:top-24`}>
+          <aside className={`${showMobileFilters ? 'block' : 'hidden'} lg:block mb-8 lg:mb-0 lg:self-start lg:sticky lg:top-24 lg:max-h-[calc(100vh-7rem)] lg:overflow-y-auto scrollbar-thin lg:pr-1`}>
             <UniversityFilters
               data={data}
               selectedCountries={filters.countries}
@@ -218,11 +228,11 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
                 filterStudyType: t.filterStudyType,
                 tuitionMin: t.tuitionMin,
                 tuitionMax: t.tuitionMax,
+                rankAll: t.rankAll,
                 rankTop50: t.rankTop50,
                 rankTop100: t.rankTop100,
                 rankTop300: t.rankTop300,
                 onCampus: t.onCampus,
-                hybrid: t.hybrid,
                 online: t.online,
                 noLimit: t.noLimit,
               }}
@@ -251,11 +261,12 @@ export function UniversityFinderClient({ data, translations: t, initialFilters }
             </div>
 
             <UniversityGrid
-              key={`${filters.page}-${filters.filtered.length}-${filters.sort}`}
+              key={`${filters.page}-${filters.filtered.length}-${filters.sort}-${searchTrigger}`}
               universities={filters.paginated}
               noResultsText={t.noResults}
               cardTranslations={{
                 avgCost: t.avgCost,
+                tuitionLabel: t.tuitionLabel,
                 acceptance: t.acceptance,
                 courses: t.courses,
                 intake: t.intake,

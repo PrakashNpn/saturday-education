@@ -8,6 +8,7 @@ interface Props {
   noResultsText: string
   cardTranslations: {
     avgCost: string
+    tuitionLabel: string
     acceptance: string
     courses: string
     intake: string

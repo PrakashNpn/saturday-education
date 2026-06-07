@@ -1,5 +1,5 @@
 'use client'
-import { useState, useMemo } from 'react'
+import { useState, useMemo, useRef } from 'react'
 import { DestinationsHero } from './DestinationsHero'
 import { RegionFilter } from './RegionFilter'
 import { DestinationGrid } from './DestinationGrid'
@@ -16,6 +16,15 @@ interface Props {
 export function DestinationsPageClient({ countries, translations: t }: Props) {
   const [search, setSearch] = useState('')
   const [region, setRegion] = useState('All')
+  const resultsRef = useRef<HTMLDivElement>(null)
+
+  const handleSearchSubmit = (value: string) => {
+    setSearch(value)
+    const el = resultsRef.current
+    if (!el) return
+    const y = el.getBoundingClientRect().top + window.scrollY - 96
+    window.scrollTo({ top: Math.max(0, y), behavior: 'smooth' })
+  }
 
   const regionCounts = useMemo(() => {
     const counts: Record<string, number> = { _total: countries.length }
@@ -42,7 +51,7 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
     <main>
       <DestinationsHero
         searchValue={search}
-        onSearchChange={setSearch}
+        onSearchChange={handleSearchSubmit}
         translations={{
           heroLabel: t.heroLabel,
           heroTitle: t.heroTitle,
@@ -53,7 +62,7 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
       />
 
       <div className="bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8 pt-16 pb-12">
+      <div ref={resultsRef} className="max-w-7xl mx-auto px-4 md:px-8 pt-16 pb-12">
         <div className="mb-8">
           <RegionFilter
             selected={region}

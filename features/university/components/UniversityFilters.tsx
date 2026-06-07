@@ -34,11 +34,11 @@ interface Props {
     filterStudyType: string
     tuitionMin: string
     tuitionMax: string
+    rankAll: string
     rankTop50: string
     rankTop100: string
     rankTop300: string
     onCampus: string
-    hybrid: string
     online: string
     noLimit: string
   }
@@ -422,6 +422,12 @@ export function UniversityFilters({
           />
           {open.ranking && (
             <div className="space-y-2.5">
+              <RadioRow
+                name="ranking"
+                selected={rankingMax === null}
+                onChange={() => onRankingChange(null)}
+                label={t.rankAll}
+              />
               {RANKING_FILTERS.map(({ value }) => (
                 <RadioRow
                   key={value}
@@ -447,7 +453,6 @@ export function UniversityFilters({
             <div className="space-y-2.5">
               {[
                 { value: 'on-campus', label: t.onCampus },
-                { value: 'hybrid', label: t.hybrid },
                 { value: 'online', label: t.online },
               ].map(({ value, label }) => (
                 <RadioRow

@@ -15,6 +15,7 @@ interface Props {
   university: UniversityListItem
   translations: {
     avgCost: string
+    tuitionLabel: string
     acceptance: string
     courses: string
     intake: string
@@ -26,23 +27,27 @@ interface Props {
   index?: number
 }
 
-function formatAvgTuition(u: UniversityListItem): string | null {
+function formatTuition(u: UniversityListItem): { label: 'avgCost' | 'tuitionLabel'; value: string } | null {
   if (!u.tuitionFeeMin && !u.tuitionFeeMax) return null
-  const avg = Math.round(
-    ((u.tuitionFeeMin ?? u.tuitionFeeMax!) + (u.tuitionFeeMax ?? u.tuitionFeeMin!)) / 2,
-  )
   const symbol = getCurrencySymbol(u.tuitionCurrency)
-  return `${symbol} ${(avg / 1000).toFixed(0)}k`
+  const fmt = (n: number) => `${(n / 1000).toFixed(0)}k`
+
+  if (u.tuitionFeeMin && u.tuitionFeeMax && u.tuitionFeeMin !== u.tuitionFeeMax) {
+    return { label: 'tuitionLabel', value: `${symbol} ${fmt(u.tuitionFeeMin)} – ${fmt(u.tuitionFeeMax)}` }
+  }
+
+  const single = u.tuitionFeeMin ?? u.tuitionFeeMax!
+  return { label: 'avgCost', value: `${symbol} ${fmt(single)}` }
 }
 
 export function UniversityCard({ university: u, translations: t, index = 0 }: Props) {
-  const avgTuition = formatAvgTuition(u)
+  const tuition = formatTuition(u)
   const rankLabel = u.ranking ? t.rankLabel.replace('{rank}', String(u.ranking)) : null
   const initial = u.name.charAt(0).toUpperCase()
 
   const stats = [
-    avgTuition
-      ? { label: t.avgCost, value: `${avgTuition}${t.perYear}` }
+    tuition
+      ? { label: t[tuition.label], value: `${tuition.value}${t.perYear}` }
       : null,
     u.acceptanceRate !== null
       ? { label: t.acceptance, value: `${u.acceptanceRate}%` }

@@ -1,4 +1,5 @@
 'use client'
+import { useState } from 'react'
 import { Globe } from 'lucide-react'
 
 interface Props {
@@ -14,6 +15,10 @@ interface Props {
 }
 
 export function DestinationsHero({ searchValue, onSearchChange, translations: t }: Props) {
+  const [draft, setDraft] = useState(searchValue)
+
+  const submit = () => onSearchChange(draft)
+
   return (
     <div className="relative bg-gradient-to-b from-brand-purple via-purple-800 to-purple-900 pt-16 pb-8 md:pb-14 px-4 text-center overflow-visible">
 
@@ -55,22 +60,25 @@ export function DestinationsHero({ searchValue, onSearchChange, translations: t 
 
       {/* Search bar — inline on mobile, overlaps on desktop */}
       <div className="relative z-20 px-0 md:absolute md:bottom-0 md:translate-y-1/2 md:left-0 md:right-0 md:px-4">
-        <div className="flex items-center bg-white rounded-2xl shadow-xl max-w-5xl mx-auto p-4 md:p-5 gap-3">
+        <form
+          onSubmit={(e) => { e.preventDefault(); submit() }}
+          className="flex items-center bg-white rounded-2xl shadow-xl max-w-5xl mx-auto p-4 md:p-5 gap-3"
+        >
           <Globe className="w-5 h-5 text-gray-400 flex-shrink-0" />
           <input
             type="text"
-            value={searchValue}
-            onChange={(e) => onSearchChange(e.target.value)}
+            value={draft}
+            onChange={(e) => setDraft(e.target.value)}
             placeholder={t.searchPlaceholder}
             className="flex-1 py-1.5 text-gray-700 bg-transparent focus:outline-none text-sm min-w-0"
           />
           <button
-            type="button"
+            type="submit"
             className="bg-brand-purple text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-brand-purple-dark transition-colors flex-shrink-0 whitespace-nowrap"
           >
             ✦ {t.searchButton}
           </button>
-        </div>
+        </form>
       </div>
     </div>
   )

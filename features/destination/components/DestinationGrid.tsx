@@ -1,6 +1,8 @@
 'use client'
 import { useState, useEffect } from 'react'
+import { motion } from 'framer-motion'
 import { DestinationCard } from './DestinationCard'
+import { CustomDropdown } from '@/shared/components/common'
 import { PAGE_SIZE, type SortOption } from '../utils/constants'
 import type { CountryCardData } from '../types'
 
@@ -17,6 +19,15 @@ interface Props {
   }
 }
 
+const cardVariants = {
+  hidden: { opacity: 0, y: 24 },
+  show: (i: number) => ({
+    opacity: 1,
+    y: 0,
+    transition: { duration: 0.35, delay: i * 0.05, ease: [0.25, 0.1, 0.25, 1] as const },
+  }),
+}
+
 export function DestinationGrid({ countries, translations: t }: Props) {
   const [sortBy, setSortBy] = useState<SortOption>('ranking')
   const [shown, setShown] = useState(PAGE_SIZE)
@@ -25,6 +36,12 @@ export function DestinationGrid({ countries, translations: t }: Props) {
   useEffect(() => {
     setShown(PAGE_SIZE)
   }, [countries])
+
+  const sortOptions = [
+    { value: 'ranking', label: t.sortHighestRanking },
+    { value: 'az', label: t.sortAZ },
+    { value: 'za', label: t.sortZA },
+  ]
 
   const sorted = [...countries].sort((a, b) => {
     if (sortBy === 'az') return a.name.localeCompare(b.name)
@@ -47,30 +64,33 @@ export function DestinationGrid({ countries, translations: t }: Props) {
           {countLabel}
         </p>
         <div className="flex items-center gap-2">
-          <span className="text-xs font-semibold text-gray-500 tracking-widest uppercase hidden sm:block">
+          <span className="text-xs font-semibold text-gray-500 tracking-widest uppercase hidden sm:block whitespace-nowrap">
             {t.sortBy}:
           </span>
-          <select
+          <CustomDropdown
             value={sortBy}
-            onChange={(e) => setSortBy(e.target.value as SortOption)}
-            className="border border-gray-200 rounded-lg px-3 py-1.5 text-sm text-gray-700 focus:outline-none focus:ring-2 focus:ring-brand-purple/20 bg-white cursor-pointer"
-          >
-            <option value="ranking">{t.sortHighestRanking}</option>
-            <option value="az">{t.sortAZ}</option>
-            <option value="za">{t.sortZA}</option>
-          </select>
+            options={sortOptions}
+            onChange={(v) => setSortBy(v as SortOption)}
+            placeholder={t.sortHighestRanking}
+            size="compact"
+            className="min-w-[160px]"
+          />
         </div>
       </div>
 
       {/* Card grid */}
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
+      <div
+        key={`${sortBy}-${shown}-${visible.map((c) => c.id).join('-')}`}
+        className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6"
+      >
         {visible.map((country, i) => (
-          <DestinationCard
-            key={country.id}
-            country={country}
-            viewDetailsLabel={t.viewDetails}
-            index={i}
-          />
+          <motion.div key={country.id} custom={i} variants={cardVariants} initial="hidden" animate="show">
+            <DestinationCard
+              country={country}
+              viewDetailsLabel={t.viewDetails}
+              index={i}
+            />
+          </motion.div>
         ))}
       </div>
 
