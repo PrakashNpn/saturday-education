@@ -60,6 +60,7 @@ export const ModelName = {
   Scholarship: 'Scholarship',
   AdmissionStep: 'AdmissionStep',
   Consultation: 'Consultation',
+  CareerLead: 'CareerLead',
   ChatConversation: 'ChatConversation',
   User: 'User',
   Account: 'Account',
@@ -249,6 +250,29 @@ export const ConsultationScalarFieldEnum = {
 export type ConsultationScalarFieldEnum = (typeof ConsultationScalarFieldEnum)[keyof typeof ConsultationScalarFieldEnum]
 
 
+export const CareerLeadScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  educationLevel: 'educationLevel',
+  preferredCountry: 'preferredCountry',
+  hollandCode: 'hollandCode',
+  riasecScores: 'riasecScores',
+  bigFiveScores: 'bigFiveScores',
+  recommendedFields: 'recommendedFields',
+  recommendedUniversities: 'recommendedUniversities',
+  rawAnswers: 'rawAnswers',
+  aiBrief: 'aiBrief',
+  status: 'status',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CareerLeadScalarFieldEnum = (typeof CareerLeadScalarFieldEnum)[keyof typeof CareerLeadScalarFieldEnum]
+
+
 export const ChatConversationScalarFieldEnum = {
   id: 'id',
   sessionId: 'sessionId',
@@ -309,6 +333,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -323,4 +354,13 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 

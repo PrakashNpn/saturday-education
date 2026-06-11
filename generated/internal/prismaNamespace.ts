@@ -393,6 +393,7 @@ export const ModelName = {
   Scholarship: 'Scholarship',
   AdmissionStep: 'AdmissionStep',
   Consultation: 'Consultation',
+  CareerLead: 'CareerLead',
   ChatConversation: 'ChatConversation',
   User: 'User',
   Account: 'Account',
@@ -412,7 +413,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "country" | "countryAdvantage" | "countryProcessStep" | "countryFAQ" | "university" | "program" | "scholarship" | "admissionStep" | "consultation" | "chatConversation" | "user" | "account" | "session"
+    modelProps: "country" | "countryAdvantage" | "countryProcessStep" | "countryFAQ" | "university" | "program" | "scholarship" | "admissionStep" | "consultation" | "careerLead" | "chatConversation" | "user" | "account" | "session"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1082,6 +1083,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    CareerLead: {
+      payload: Prisma.$CareerLeadPayload<ExtArgs>
+      fields: Prisma.CareerLeadFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.CareerLeadFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.CareerLeadFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>
+        }
+        findFirst: {
+          args: Prisma.CareerLeadFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.CareerLeadFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>
+        }
+        findMany: {
+          args: Prisma.CareerLeadFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>[]
+        }
+        create: {
+          args: Prisma.CareerLeadCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>
+        }
+        createMany: {
+          args: Prisma.CareerLeadCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.CareerLeadCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>[]
+        }
+        delete: {
+          args: Prisma.CareerLeadDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>
+        }
+        update: {
+          args: Prisma.CareerLeadUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>
+        }
+        deleteMany: {
+          args: Prisma.CareerLeadDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.CareerLeadUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.CareerLeadUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>[]
+        }
+        upsert: {
+          args: Prisma.CareerLeadUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$CareerLeadPayload>
+        }
+        aggregate: {
+          args: Prisma.CareerLeadAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateCareerLead>
+        }
+        groupBy: {
+          args: Prisma.CareerLeadGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CareerLeadGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.CareerLeadCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.CareerLeadCountAggregateOutputType> | number
+        }
+      }
+    }
     ChatConversation: {
       payload: Prisma.$ChatConversationPayload<ExtArgs>
       fields: Prisma.ChatConversationFieldRefs
@@ -1584,6 +1659,29 @@ export const ConsultationScalarFieldEnum = {
 export type ConsultationScalarFieldEnum = (typeof ConsultationScalarFieldEnum)[keyof typeof ConsultationScalarFieldEnum]
 
 
+export const CareerLeadScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  educationLevel: 'educationLevel',
+  preferredCountry: 'preferredCountry',
+  hollandCode: 'hollandCode',
+  riasecScores: 'riasecScores',
+  bigFiveScores: 'bigFiveScores',
+  recommendedFields: 'recommendedFields',
+  recommendedUniversities: 'recommendedUniversities',
+  rawAnswers: 'rawAnswers',
+  aiBrief: 'aiBrief',
+  status: 'status',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type CareerLeadScalarFieldEnum = (typeof CareerLeadScalarFieldEnum)[keyof typeof CareerLeadScalarFieldEnum]
+
+
 export const ChatConversationScalarFieldEnum = {
   id: 'id',
   sessionId: 'sessionId',
@@ -1644,6 +1742,13 @@ export const SortOrder = {
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
 
 
+export const JsonNullValueInput = {
+  JsonNull: JsonNull
+} as const
+
+export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
 export const QueryMode = {
   default: 'default',
   insensitive: 'insensitive'
@@ -1658,6 +1763,15 @@ export const NullsOrder = {
 } as const
 
 export type NullsOrder = (typeof NullsOrder)[keyof typeof NullsOrder]
+
+
+export const JsonNullValueFilter = {
+  DbNull: DbNull,
+  JsonNull: JsonNull,
+  AnyNull: AnyNull
+} as const
+
+export type JsonNullValueFilter = (typeof JsonNullValueFilter)[keyof typeof JsonNullValueFilter]
 
 
 
@@ -1798,6 +1912,20 @@ export type EnumConsultationStatusFieldRefInput<$PrismaModel> = FieldRefInputTyp
 export type ListEnumConsultationStatusFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'ConsultationStatus[]'>
     
 
+
+/**
+ * Reference to a field of type 'Json'
+ */
+export type JsonFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'Json'>
+    
+
+
+/**
+ * Reference to a field of type 'QueryMode'
+ */
+export type EnumQueryModeFieldRefInput<$PrismaModel> = FieldRefInputType<$PrismaModel, 'QueryMode'>
+    
+
 /**
  * Batch Payload for updateMany & deleteMany & createMany
  */
@@ -1902,6 +2030,7 @@ export type GlobalOmitConfig = {
   scholarship?: Prisma.ScholarshipOmit
   admissionStep?: Prisma.AdmissionStepOmit
   consultation?: Prisma.ConsultationOmit
+  careerLead?: Prisma.CareerLeadOmit
   chatConversation?: Prisma.ChatConversationOmit
   user?: Prisma.UserOmit
   account?: Prisma.AccountOmit

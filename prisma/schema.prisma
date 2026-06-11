@@ -313,6 +313,38 @@ model Consultation {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// CareerLead — Career Discovery Assessment submissions (lead generation)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model CareerLead {
+  id                      String             @id @default(cuid())
+  fullName                String             @map("full_name")
+  email                   String
+  phone                   String?
+  educationLevel          String?            @map("education_level")
+  preferredCountry        String?            @map("preferred_country")
+
+  hollandCode             String             @map("holland_code")
+  riasecScores            Json               @map("riasec_scores")
+  bigFiveScores           Json               @map("big_five_scores")
+  recommendedFields       Json               @map("recommended_fields")
+  recommendedUniversities Json               @map("recommended_universities")
+  rawAnswers              Json               @map("raw_answers")
+  aiBrief                 String?            @map("ai_brief") @db.Text
+
+  status                  ConsultationStatus @default(NEW)
+  source                  String?            @default("career-discovery")
+
+  createdAt               DateTime           @default(now()) @map("created_at")
+  updatedAt               DateTime           @updatedAt      @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
+  @@map("career_leads")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // ChatConversation — UNTOUCHED
 // ─────────────────────────────────────────────────────────────────────────────
 

@@ -40,6 +40,7 @@ import TestimonialsSection from "@/features/landing/components/TestimonialsSecti
 import CtaSection from "@/features/landing/components/CtaSection"
 import ConsultationSection from "@/features/landing/components/ConsultationSection"
 import { submitConsultation } from '@/features/consultation'
+import { CareerDiscoveryCTA } from '@/features/career-assessment'
 
 export default async function HomePage() {
   // HIDDEN: universities feature temporarily disabled — restore the Promise.all([getFinderDropdownOptions(), getComparisonUniversities()]) pairing to bring back finderOptions
@@ -50,6 +51,7 @@ export default async function HomePage() {
   return (
     <main>
       <HeroSection />
+      <CareerDiscoveryCTA />
       {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
       <UniversityFinderSection dropdownOptions={finderOptions} />
       */}

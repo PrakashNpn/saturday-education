@@ -87,6 +87,11 @@ export type AdmissionStep = Prisma.AdmissionStepModel
  */
 export type Consultation = Prisma.ConsultationModel
 /**
+ * Model CareerLead
+ * 
+ */
+export type CareerLead = Prisma.CareerLeadModel
+/**
  * Model ChatConversation
  * 
  */
