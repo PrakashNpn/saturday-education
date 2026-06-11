@@ -5,6 +5,7 @@ import NextTopLoader from 'nextjs-toploader'
 import Navbar from "@/shared/components/layout/Navbar"
 import Footer from "@/shared/components/layout/Footer"
 import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
+import { Analytics } from "@vercel/analytics/next"
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 const notoSansThai = Noto_Sans_Thai({ subsets: ['thai'], variable: '--font-thai', display: 'swap' })
@@ -37,6 +38,7 @@ export default async function LocaleLayout({
           <Footer />
           <ChatWidget />
         </NextIntlClientProvider>
+        <Analytics />
       </body>
     </html>
   )
