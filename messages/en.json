@@ -97,7 +97,7 @@
           },
           "results": {
             "title": "Proven Results",
-            "description": "98% visa success rate and high student satisfaction."
+            "description": "95% visa success rate and high student satisfaction."
           }
         },
         "cta": "Book a Free Consultation"
@@ -251,8 +251,147 @@
       "searchButton": "Find Universities"
     }
   },
+  "careerAssessment": {
+    "intro": {
+      "eyebrow": "Free Career Assessment",
+      "title": "Discover the career that fits you",
+      "subtitle": "Answer 110 quick questions about what you enjoy and how you naturally work. Our counsellors will personally review your profile and guide you — completely free.",
+      "point1": "Discover your interests & personality",
+      "point2": "Match to suitable degree fields",
+      "point3": "A counsellor guides your next steps",
+      "startButton": "Start the assessment",
+      "metaQuestions": "150 questions",
+      "metaParts": "3 parts",
+      "metaTime": "~20–25 min",
+      "reassurance": "No payment required · Your results stay private",
+      "trustFrameworks": "Based on Holland's RIASEC, the Big Five (OCEAN), and an indicative aptitude check",
+      "noticeTitle": "Before you begin",
+      "notice": "Please finish in one sitting — your progress isn't saved if you leave or refresh. Answer honestly; there are no right or wrong answers."
+    },
+    "sections": {
+      "riasecTitle": "Part 1 · What energises you?",
+      "riasecSubtitle": "Rate how much you would enjoy each activity. There are no right or wrong answers.",
+      "bigfiveTitle": "Part 2 · How you work",
+      "bigfiveSubtitle": "Tell us how much you agree with each statement about yourself.",
+      "aptitudeTitle": "Aptitude"
+    },
+    "transition": {
+      "title": "Part 1 complete!",
+      "subtitle": "Now a short personality section — there are no right answers, just answer honestly.",
+      "continue": "Continue"
+    },
+    "question": {
+      "counter": "{current} of {total}",
+      "back": "Back",
+      "promptLike": "How much would you enjoy this?",
+      "promptAgree": "How much does this sound like you?",
+      "helper": "Tap one to continue — there are no right or wrong answers.",
+      "tipMcq": "Tip: press 1–{count} on your keyboard"
+    },
+    "likert": {
+      "like1": "Strongly dislike",
+      "like2": "Dislike",
+      "like3": "Neutral",
+      "like4": "Like",
+      "like5": "Strongly like",
+      "agree1": "Strongly disagree",
+      "agree2": "Disagree",
+      "agree3": "Neutral",
+      "agree4": "Agree",
+      "agree5": "Strongly agree"
+    },
+    "contact": {
+      "title": "Almost done!",
+      "subtitle": "Enter your details so our counsellor can review your profile and guide your next steps — at no cost.",
+      "fullName": "Full Name",
+      "fullNamePlaceholder": "Your name",
+      "email": "Email Address",
+      "emailPlaceholder": "you@example.com",
+      "phone": "Phone Number",
+      "phonePlaceholder": "+95 9 ...",
+      "educationLevel": "Current Education Level",
+      "preferredCountry": "Preferred Destination",
+      "optional": "optional",
+      "submit": "See my results",
+      "requiredError": "Please enter your name and a valid email address.",
+      "educationOptions": {
+        "highSchool": "High school graduate",
+        "foundation": "Foundation / pre-university",
+        "undergraduate": "Undergraduate",
+        "graduate": "Graduate",
+        "other": "Other"
+      },
+      "eyebrow": "Final step",
+      "complete": "Assessment complete · 150 questions",
+      "privacy": "Your details stay private.",
+      "submitting": "Submitting…",
+      "educationPlaceholder": "Select your level",
+      "destinationPlaceholder": "Select a destination",
+      "otherDestination": "Other",
+      "selectError": "Please choose your education level and preferred destination."
+    },
+    "submitting": {
+      "title": "Analysing your profile…",
+      "subtitle": "Hang tight — this only takes a moment.",
+      "steps": {
+        "step1": "Mapping your interests",
+        "step2": "Reading your personality",
+        "step3": "Matching career directions",
+        "step4": "Finding suitable programmes",
+        "step5": "Finalising your report"
+      }
+    },
+    "thankYou": {
+      "title": "You're all set!",
+      "subtitle": "Thank you for completing your Career Assessment. One of our counsellors will review your results and reach out to guide you on your next steps.",
+      "cta": "Contact us now",
+      "homeCta": "Back to home",
+      "nextTitle": "What happens next",
+      "step1": "A counsellor reviews your profile",
+      "step2": "We reach out within 1–2 days",
+      "step3": "A free guidance session to plan your path"
+    },
+    "homeCta": {
+      "eyebrow": "New · Free Tool",
+      "title": "Not sure what to study?",
+      "subtitle": "Take our free Career Assessment. Understand your strengths, and let our counsellors guide you to the right path.",
+      "button": "Start free assessment"
+    },
+    "leaveConfirm": "You haven't finished the assessment yet. If you leave this page now, your answers will be lost.",
+    "preparing": {
+      "title": "Personalising your questions…",
+      "subtitle": "Setting up your assessment"
+    },
+    "transitionAptitude": {
+      "title": "Personality done!",
+      "subtitle": "Last part: a few aptitude questions. These DO have right answers — take your time, there's no timer.",
+      "continue": "Start aptitude"
+    },
+    "dashboard": {
+      "eyebrow": "Your snapshot",
+      "title": "Here's a glimpse of your profile",
+      "subtitle": "A quick preview — your full report is on its way to our counsellors.",
+      "interestLabel": "Your interest type",
+      "personalityLabel": "Personality highlights",
+      "aptitudeLabel": "Your strongest ability",
+      "fullReportTitle": "Your full report is on its way",
+      "fullReportBody": "Your detailed scores, career directions and university matches are being prepared for our counsellors. Book a free session to walk through everything with an expert.",
+      "ctaConsult": "Book a free consultation",
+      "ctaHome": "Back to home",
+      "interestsTitle": "Your interests",
+      "personalityTitle": "Your personality",
+      "aptitudeTitle": "Your aptitude",
+      "overallLabel": "Overall",
+      "hollandLabel": "Holland code",
+      "lockedTitle": "Career directions & university matches",
+      "lockedBadge": "Locked",
+      "lockedNote": "Book a free consultation to unlock your full report — detailed scores, career directions and your matched universities.",
+      "preparedFor": "Prepared for"
+    }
+  },
   "nav": {
     "home": "Home",
+    "careerAssessment": "Career Assessment",
     "universityFinder": "University Finder",
     "studyDestination": "Study Destination",
     "blogs": "Blogs",
@@ -295,7 +434,10 @@
       "singapore": "Study in Singapore",
       "thailand": "Study in Thailand",
       "ireland": "Study in Ireland",
-      "newZealand": "Study in New Zealand"
+      "newZealand": "Study in New Zealand",
+      "germany": "Study in Germany",
+      "malaysia": "Study in Malaysia",
+      "dubai": "Study in Dubai"
     },
     "services": {
       "heading": "Our Services",
@@ -342,6 +484,10 @@
     "blog": {
       "title": "Study Abroad Blog — Tips, Guides & News | Saturday Education",
       "description": "Expert advice on studying abroad, scholarship tips, visa guides, university comparisons, and student success stories."
+    },
+    "careerAssessment": {
+      "title": "Career Assessment | Saturday Education",
+      "description": "Take our free Career Assessment to understand your interests and personality — our counsellors will personally review your profile and guide you."
     }
   },
   "chatWidget": {

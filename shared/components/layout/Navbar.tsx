@@ -10,6 +10,7 @@ import { cn } from '@/shared/utils/cn'
 
 const NAV_LINKS = [
   { labelKey: 'home', href: '/' },
+  { labelKey: 'careerAssessment', href: '/career-assessment' },
   // HIDDEN: universities feature temporarily disabled — uncomment to restore
   // { labelKey: 'universityFinder', href: '/universities' },
   { labelKey: 'studyDestination', href: '/destinations' },

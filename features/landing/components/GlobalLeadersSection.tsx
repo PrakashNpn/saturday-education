@@ -11,22 +11,22 @@ import { Link } from '@/i18n/navigation'
 
 const COUNTRIES = [
   {
-    slug: 'united-kingdom',
-    name: 'United Kingdom',
-    tagline: 'Excellence in Heritage',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/united-kingdom/card.jpg',
+    slug: 'germany',
+    name: 'Germany',
+    tagline: 'Engineering & Innovation',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/germany/card.jpg',
   },
   {
-    slug: 'australia',
-    name: 'Australia',
-    tagline: 'Innovation & Lifestyle',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/australia/card.jpg',
+    slug: 'ireland',
+    name: 'Ireland',
+    tagline: 'Tech & Tradition',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/ireland/card.jpg',
   },
   {
-    slug: 'usa',
-    name: 'USA',
-    tagline: 'Land of Global Reach',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/united-states/card.webp',
+    slug: 'malaysia',
+    name: 'Malaysia',
+    tagline: 'Affordable Global Degrees',
+    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/malaysia/card.jpg',
   },
   {
     slug: 'canada',
