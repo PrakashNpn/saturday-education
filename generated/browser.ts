@@ -68,6 +68,11 @@ export type Consultation = Prisma.ConsultationModel
  */
 export type CareerLead = Prisma.CareerLeadModel
 /**
+ * Model AssessmentLead
+ * 
+ */
+export type AssessmentLead = Prisma.AssessmentLeadModel
+/**
  * Model ChatConversation
  * 
  */

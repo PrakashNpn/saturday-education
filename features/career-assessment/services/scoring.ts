@@ -90,7 +90,9 @@ export function computeBigFive(answers: AnswerMap): BigFiveScore {
   return { raw, percent, percentile }
 }
 
-export function computeScores(answers: AnswerMap): AssessmentScores {
+// Interests + personality only; aptitude is scored separately (server-only) and
+// merged into the full AssessmentScores in the submit service.
+export function computeScores(answers: AnswerMap): Omit<AssessmentScores, 'aptitude'> {
   return {
     riasec: computeRiasec(answers),
     bigFive: computeBigFive(answers),

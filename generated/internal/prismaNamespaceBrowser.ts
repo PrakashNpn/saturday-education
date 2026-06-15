@@ -61,6 +61,7 @@ export const ModelName = {
   AdmissionStep: 'AdmissionStep',
   Consultation: 'Consultation',
   CareerLead: 'CareerLead',
+  AssessmentLead: 'AssessmentLead',
   ChatConversation: 'ChatConversation',
   User: 'User',
   Account: 'Account',
@@ -271,6 +272,31 @@ export const CareerLeadScalarFieldEnum = {
 } as const
 
 export type CareerLeadScalarFieldEnum = (typeof CareerLeadScalarFieldEnum)[keyof typeof CareerLeadScalarFieldEnum]
+
+
+export const AssessmentLeadScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  educationLevel: 'educationLevel',
+  preferredCountry: 'preferredCountry',
+  hollandCode: 'hollandCode',
+  riasecScores: 'riasecScores',
+  bigFiveScores: 'bigFiveScores',
+  aptitudeScores: 'aptitudeScores',
+  aptitudeOverall: 'aptitudeOverall',
+  recommendedFields: 'recommendedFields',
+  recommendedUniversities: 'recommendedUniversities',
+  rawAnswers: 'rawAnswers',
+  aiBrief: 'aiBrief',
+  status: 'status',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssessmentLeadScalarFieldEnum = (typeof AssessmentLeadScalarFieldEnum)[keyof typeof AssessmentLeadScalarFieldEnum]
 
 
 export const ChatConversationScalarFieldEnum = {

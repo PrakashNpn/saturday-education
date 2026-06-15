@@ -2,5 +2,5 @@
 
 export { AssessmentFlow } from './components/AssessmentFlow'
 export { default as CareerDiscoveryCTA } from './components/CareerDiscoveryCTA'
-export { submitCareerAssessment } from './services/careerLeadService'
-export type { ContactDetails, SubmitResult } from './types'
+export { submitAssessment } from './services/careerLeadService'
+export type { ContactDetails, SubmitResult, DashboardData } from './types'

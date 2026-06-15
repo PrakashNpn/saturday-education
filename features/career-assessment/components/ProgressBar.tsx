@@ -6,10 +6,10 @@ interface Props {
   current: number // 1-based question number
   total: number
   sectionLabel?: string
-  boundary?: number // 0–1 position of the section split (e.g. RIASEC/Big-Five)
+  boundaries?: number[] // 0–1 positions of the section splits
 }
 
-export function ProgressBar({ current, total, sectionLabel, boundary }: Props) {
+export function ProgressBar({ current, total, sectionLabel, boundaries }: Props) {
   const pct = Math.max(0, Math.min(100, Math.round((current / total) * 100)))
   return (
     <div className="w-full">
@@ -30,13 +30,16 @@ export function ProgressBar({ current, total, sectionLabel, boundary }: Props) {
           animate={{ width: `${pct}%` }}
           transition={{ type: 'spring', stiffness: 200, damping: 30 }}
         />
-        {boundary != null && boundary > 0 && boundary < 1 && (
-          <div
-            className="absolute top-0 bottom-0 w-[2px] bg-white/70"
-            style={{ left: `${boundary * 100}%` }}
-            aria-hidden
-          />
-        )}
+        {boundaries
+          ?.filter((b) => b > 0 && b < 1)
+          .map((b, i) => (
+            <div
+              key={i}
+              className="absolute top-0 bottom-0 w-[2px] bg-white/70"
+              style={{ left: `${b * 100}%` }}
+              aria-hidden
+            />
+          ))}
       </div>
     </div>
   )

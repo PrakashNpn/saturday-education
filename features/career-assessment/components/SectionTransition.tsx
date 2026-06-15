@@ -6,10 +6,11 @@ import { CheckCircle2 } from 'lucide-react'
 
 interface Props {
   onContinue: () => void
+  to: 'personality' | 'aptitude' // which section is coming up next
 }
 
-export function SectionTransition({ onContinue }: Props) {
-  const t = useTranslations('careerAssessment.transition')
+export function SectionTransition({ onContinue, to }: Props) {
+  const t = useTranslations(`careerAssessment.${to === 'aptitude' ? 'transitionAptitude' : 'transition'}`)
 
   return (
     <motion.div

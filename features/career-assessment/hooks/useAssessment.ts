@@ -37,10 +37,12 @@ export function useAssessment() {
     setIndex(0)
   }, [])
 
-  // Dev/testing helper: fill every question with a random 1–5 answer.
+  // Dev/testing helper: fill every question — Likert 1–5, MCQ a random option index.
   const autofill = useCallback(() => {
     const filled: AnswerMap = {}
-    for (const q of ALL_QUESTIONS) filled[q.id] = 1 + Math.floor(Math.random() * 5)
+    for (const q of ALL_QUESTIONS) {
+      filled[q.id] = q.kind === 'mcq' ? Math.floor(Math.random() * q.options.length) : 1 + Math.floor(Math.random() * 5)
+    }
     setAnswers(filled)
     setIndex(TOTAL_QUESTIONS)
   }, [])

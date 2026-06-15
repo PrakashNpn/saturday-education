@@ -14,14 +14,17 @@ const linkCls = 'text-sm text-gray-500 hover:text-[#590D82] transition-colors du
 // ── Study Abroad links ────────────────────────────────────────────────────────
 
 const STUDY_LINKS = [
-  { key: 'uk', href: '/destinations/united-kingdom' },
-  { key: 'usa', href: '/destinations/united-states' },
-  { key: 'canada', href: '/destinations/canada' },
-  { key: 'australia', href: '/destinations/australia' },
-  { key: 'singapore', href: '/destinations/singapore' },
-  { key: 'thailand', href: '/destinations/thailand' },
+  { key: 'germany', href: '/destinations/germany' },
   { key: 'ireland', href: '/destinations/ireland' },
+  { key: 'malaysia', href: '/destinations/malaysia' },
+  { key: 'singapore', href: '/destinations/singapore' },
+  { key: 'dubai', href: '/destinations/uae' },
+  { key: 'canada', href: '/destinations/canada' },
+  { key: 'thailand', href: '/destinations/thailand' },
   { key: 'newZealand', href: '/destinations/new-zealand' },
+  { key: 'usa', href: '/destinations/united-states' },
+  { key: 'uk', href: '/destinations/united-kingdom' },
+  { key: 'australia', href: '/destinations/australia' },
 ] as const
 
 const SERVICE_LINKS = [

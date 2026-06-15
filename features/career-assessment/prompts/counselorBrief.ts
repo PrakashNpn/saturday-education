@@ -23,10 +23,14 @@ export function buildCounselorPrompt(
   tree: RecommendationTree,
   preferredCountry?: string,
 ): string {
-  const { riasec, bigFive } = scores
+  const { riasec, bigFive, aptitude } = scores
 
   const interestLines = riasec.ranked
     .map((c) => `- ${RIASEC_INFO[c].label}: ${riasec.scores[c]}/50`)
+    .join('\n')
+
+  const aptitudeLines = aptitude.areas
+    .map((a) => `- ${a.label}: ${a.percent}% (${a.band})`)
     .join('\n')
 
   const personalityLines = (Object.keys(TRAIT_LABELS) as Array<keyof typeof TRAIT_LABELS>)
@@ -42,7 +46,7 @@ export function buildCounselorPrompt(
           const cs = b.countries
             .map((c) => `${c.country}${c.strongFit ? ' (strong)' : ''}`)
             .join(', ')
-          return `- ${b.bucket}: ${cs || '—'}`
+          return `- ${b.bucket}: ${cs || 'none'}`
         })
         .join('\n')
     : '(no matching programs currently in our database)'
@@ -56,18 +60,30 @@ Holland code (top 3): ${riasec.hollandCode}
 PERSONALITY PROFILE (Big Five, percentile vs the general adult population):
 ${personalityLines}
 
+APTITUDE PROFILE (short, indicative ability check, % correct per area, treat as a rough signal only):
+${aptitudeLines}
+
 FIELDS & DESTINATIONS WE CAN ACTUALLY OFFER (field → countries we have partner universities in; "strong" = country is known for that field):
 ${pathLines}
 ${preferredCountry ? `\nThe student's preferred study destination is ${preferredCountry}. If it appears above, acknowledge it; if not, gently suggest the closest available alternatives.\n` : ''}
-Write for the counselor, not the student. Tie interests and personality together (e.g. how their conscientiousness or extraversion shapes which version of a field would suit them). When you mention degree fields, countries, or study destinations, use ONLY the fields and countries from the list above — do not invent options we cannot offer.
+Write for the counselor, not the student. Tie interests, personality and aptitude together (e.g. how their conscientiousness or extraversion shapes which version of a field would suit them, and whether their strongest ability area reinforces or stretches their interests). When you mention degree fields, countries, or study destinations, use ONLY the fields and countries from the list above; do not invent options we cannot offer.
+IMPORTANT writing style: write in plain, professional prose. Do NOT use em dashes ("—") or en dashes ("–") anywhere in any field of your output (read, careerDirections, careerPaths titles/roles, suggestedFields). Use commas, semicolons, full stops, parentheses or colons instead. Heavy dash use reads as machine-generated; avoid it.
 
 Return ONLY valid JSON, no markdown, in exactly this shape:
 {
-  "read": "2-4 sentence counselor read connecting interests + personality into a clear direction.",
+  "read": "A concise ~60-word read.",
   "careerDirections": [
     { "title": "Career or role", "why": "One sentence on why it fits this profile." }
   ],
-  "suggestedFields": ["Field 1", "Field 2", "Field 3"]
+  "suggestedFields": ["Field 1", "Field 2", "Field 3"],
+  "careerPaths": [
+    { "title": "Field or career area", "roles": "2-3 example job titles", "psychFit": 88, "skillsFit": 80 }
+  ]
 }
-Provide 3 to 5 careerDirections. suggestedFields must be drawn from the fields we can offer above.`
+"read": a concise, specific briefing of about 60 words (2-3 sentences) tying interests, personality and aptitude into a clear direction for the counselor. No filler, and do not restate the raw scores.
+Provide exactly 3 careerDirections. suggestedFields must be drawn from the fields we can offer above.
+Provide exactly the 5 STRONGEST careerPaths, RANKED from best fit to least (highest first). For each:
+- "psychFit" (0-100) = how well it matches their interests + personality.
+- "skillsFit" (0-100) = how well it matches their aptitude strengths.
+Be realistic (a mix of strong and moderate fits); use whole numbers, mostly in the 55-95 range. Prefer careers connected to the fields we can offer.`
 }

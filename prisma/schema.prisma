@@ -345,6 +345,40 @@ model CareerLead {
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
+// AssessmentLead — combined assessment (Interests + Personality + Aptitude)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model AssessmentLead {
+  id                      String             @id @default(cuid())
+  fullName                String             @map("full_name")
+  email                   String
+  phone                   String?
+  educationLevel          String?            @map("education_level")
+  preferredCountry        String?            @map("preferred_country")
+
+  hollandCode             String             @map("holland_code")
+  riasecScores            Json               @map("riasec_scores")
+  bigFiveScores           Json               @map("big_five_scores")
+  aptitudeScores          Json               @map("aptitude_scores")
+  aptitudeOverall         Int                @map("aptitude_overall")
+  recommendedFields       Json               @map("recommended_fields")
+  recommendedUniversities Json               @map("recommended_universities")
+  rawAnswers              Json               @map("raw_answers")
+  aiBrief                 String?            @map("ai_brief") @db.Text
+
+  status                  ConsultationStatus @default(NEW)
+  source                  String?            @default("assessment")
+
+  createdAt               DateTime           @default(now()) @map("created_at")
+  updatedAt               DateTime           @updatedAt      @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
+  @@map("assessment_leads")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
 // ChatConversation — UNTOUCHED
 // ─────────────────────────────────────────────────────────────────────────────
 

@@ -3,21 +3,24 @@
 import { useState, useEffect, useCallback } from 'react'
 import { AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { RIASEC_COUNT, TOTAL_QUESTIONS } from '../data/allQuestions'
+import { RIASEC_COUNT, PERSONALITY_END, TOTAL_QUESTIONS } from '../data/allQuestions'
+import { APTITUDE_AREA_LABELS } from '../data/aptitudeQuestions'
 import { useAssessment } from '../hooks/useAssessment'
 import { useNavigationGuard } from '../hooks/useNavigationGuard'
-import { submitCareerAssessment } from '../services/careerLeadService'
-import type { ContactDetails } from '../types'
+import { submitAssessment } from '../services/careerLeadService'
+import type { ContactDetails, DashboardData } from '../types'
 import { CareerDiscoveryIntro } from './CareerDiscoveryIntro'
 import { PreparingScreen } from './PreparingScreen'
 import { QuestionScreen } from './QuestionScreen'
+import { AptitudeQuestionCard } from './AptitudeQuestionCard'
 import { ProgressBar } from './ProgressBar'
 import { SectionTransition } from './SectionTransition'
 import { ContactForm } from './ContactForm'
 import { SubmittingScreen } from './SubmittingScreen'
-import { ThankYouScreen } from './ThankYouScreen'
+import { ResultsDashboard } from './ResultsDashboard'
 
-type Phase = 'intro' | 'preparing' | 'questions' | 'transition' | 'contact' | 'submitting' | 'thankyou'
+type Phase = 'intro' | 'preparing' | 'questions' | 'transition' | 'contact' | 'submitting' | 'dashboard'
+type NextSection = 'personality' | 'aptitude'
 
 const ADVANCE_DELAY = 220
 const PREPARE_MS = 2000
@@ -28,12 +31,14 @@ export function AssessmentFlow() {
   const { questions, answers, index, setAnswer, goNext, goBack, reset, start, autofill } = useAssessment()
 
   const [phase, setPhase] = useState<Phase>('intro')
-  const [transitionDone, setTransitionDone] = useState(false)
+  const [transitionTo, setTransitionTo] = useState<NextSection>('personality')
+  const [shown, setShown] = useState<Set<NextSection>>(new Set())
   const [serverError, setServerError] = useState<string | null>(null)
+  const [dashboard, setDashboard] = useState<DashboardData | null>(null)
 
   const inProgress = phase === 'questions' || phase === 'transition' || phase === 'contact'
 
-  // Warn before leaving while in progress: refresh / tab close (beforeunload)…
+  // Warn before leaving while in progress: refresh / tab close…
   useEffect(() => {
     if (!inProgress) return
     const handler = (e: BeforeUnloadEvent) => {
@@ -44,15 +49,19 @@ export function AssessmentFlow() {
     return () => window.removeEventListener('beforeunload', handler)
   }, [inProgress])
 
-  // …and in-app nav (nav-link clicks, Back/Forward).
   useNavigationGuard(inProgress, tc('leaveConfirm'))
 
-  // "Preparing your assessment" → first question after a short beat.
+  // "Preparing" → first question after a short beat.
   useEffect(() => {
     if (phase !== 'preparing') return
     const id = window.setTimeout(() => setPhase('questions'), PREPARE_MS)
     return () => window.clearTimeout(id)
   }, [phase])
+
+  const openTransition = useCallback((to: NextSection) => {
+    setTransitionTo(to)
+    setPhase('transition')
+  }, [])
 
   const handleSelect = useCallback(
     (value: number) => {
@@ -63,7 +72,10 @@ export function AssessmentFlow() {
       window.setTimeout(() => {
         if (index === RIASEC_COUNT - 1) {
           goNext()
-          if (!transitionDone) setPhase('transition')
+          if (!shown.has('personality')) openTransition('personality')
+        } else if (index === PERSONALITY_END - 1) {
+          goNext()
+          if (!shown.has('aptitude')) openTransition('aptitude')
         } else if (index === TOTAL_QUESTIONS - 1) {
           goNext()
           setPhase('contact')
@@ -72,17 +84,18 @@ export function AssessmentFlow() {
         }
       }, ADVANCE_DELAY)
     },
-    [index, questions, setAnswer, goNext, transitionDone],
+    [index, questions, setAnswer, goNext, shown, openTransition],
   )
 
   const handleSubmit = useCallback(
     async (contact: ContactDetails) => {
       setServerError(null)
       setPhase('submitting')
-      const result = await submitCareerAssessment(contact, answers)
+      const result = await submitAssessment(contact, answers)
       if (result.success) {
+        setDashboard(result.dashboard ?? null)
         reset()
-        setPhase('thankyou')
+        setPhase('dashboard')
       } else {
         setServerError(result.error ?? 'Something went wrong. Please try again.')
         setPhase('contact')
@@ -93,18 +106,24 @@ export function AssessmentFlow() {
 
   const handleStart = useCallback(() => {
     start() // fresh shuffled order + cleared answers
-    setTransitionDone(false)
+    setShown(new Set())
     setPhase('preparing')
   }, [start])
 
   const handleAutofill = useCallback(() => {
     autofill()
-    setTransitionDone(true)
+    setShown(new Set<NextSection>(['personality', 'aptitude']))
     setPhase('contact')
   }, [autofill])
 
   const question = questions[Math.min(index, TOTAL_QUESTIONS - 1)]
-  const isRiasec = question?.section === 'riasec'
+  const sectionLabel = question
+    ? question.section === 'riasec'
+      ? t('riasecTitle')
+      : question.section === 'bigfive'
+        ? t('bigfiveTitle')
+        : t('aptitudeTitle')
+    : ''
   const showHeader = phase === 'questions' || phase === 'transition'
 
   return (
@@ -127,16 +146,16 @@ export function AssessmentFlow() {
             <ProgressBar
               current={Math.min(index + 1, TOTAL_QUESTIONS)}
               total={TOTAL_QUESTIONS}
-              sectionLabel={isRiasec ? t('riasecTitle') : t('bigfiveTitle')}
-              boundary={RIASEC_COUNT / TOTAL_QUESTIONS}
+              sectionLabel={sectionLabel}
+              boundaries={[RIASEC_COUNT / TOTAL_QUESTIONS, PERSONALITY_END / TOTAL_QUESTIONS]}
             />
           </div>
         </div>
       )}
 
       {/* Phase content */}
-      <div className="relative flex flex-1 items-center justify-center px-4 py-8">
-        <div className="mx-auto w-full max-w-3xl">
+      <div className={`relative flex flex-1 ${phase === 'dashboard' ? 'items-start' : 'items-center'} justify-center px-4 py-8`}>
+        <div className={`mx-auto w-full ${phase === 'dashboard' ? 'max-w-6xl' : 'max-w-3xl'}`}>
           <AnimatePresence mode="wait">
             {phase === 'intro' && (
               <CareerDiscoveryIntro key="intro" onStart={handleStart} onAutofill={handleAutofill} />
@@ -144,7 +163,7 @@ export function AssessmentFlow() {
 
             {phase === 'preparing' && <PreparingScreen key="preparing" />}
 
-            {phase === 'questions' && question && (
+            {phase === 'questions' && question && question.kind === 'likert' && (
               <QuestionScreen
                 key={`q-${question.id}`}
                 question={question}
@@ -156,11 +175,25 @@ export function AssessmentFlow() {
               />
             )}
 
+            {phase === 'questions' && question && question.kind === 'mcq' && (
+              <AptitudeQuestionCard
+                key={`q-${question.id}`}
+                question={question}
+                questionNumber={index + 1}
+                areaLabel={APTITUDE_AREA_LABELS[question.area]}
+                value={answers[question.id]}
+                canGoBack={index > 0}
+                onSelect={handleSelect}
+                onBack={goBack}
+              />
+            )}
+
             {phase === 'transition' && (
               <SectionTransition
-                key="transition"
+                key={`transition-${transitionTo}`}
+                to={transitionTo}
                 onContinue={() => {
-                  setTransitionDone(true)
+                  setShown((prev) => new Set(prev).add(transitionTo))
                   setPhase('questions')
                 }}
               />
@@ -172,7 +205,7 @@ export function AssessmentFlow() {
 
             {phase === 'submitting' && <SubmittingScreen key="submitting" />}
 
-            {phase === 'thankyou' && <ThankYouScreen key="thankyou" />}
+            {phase === 'dashboard' && dashboard && <ResultsDashboard key="dashboard" dashboard={dashboard} />}
           </AnimatePresence>
         </div>
       </div>

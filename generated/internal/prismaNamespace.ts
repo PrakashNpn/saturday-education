@@ -394,6 +394,7 @@ export const ModelName = {
   AdmissionStep: 'AdmissionStep',
   Consultation: 'Consultation',
   CareerLead: 'CareerLead',
+  AssessmentLead: 'AssessmentLead',
   ChatConversation: 'ChatConversation',
   User: 'User',
   Account: 'Account',
@@ -413,7 +414,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "country" | "countryAdvantage" | "countryProcessStep" | "countryFAQ" | "university" | "program" | "scholarship" | "admissionStep" | "consultation" | "careerLead" | "chatConversation" | "user" | "account" | "session"
+    modelProps: "country" | "countryAdvantage" | "countryProcessStep" | "countryFAQ" | "university" | "program" | "scholarship" | "admissionStep" | "consultation" | "careerLead" | "assessmentLead" | "chatConversation" | "user" | "account" | "session"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -1157,6 +1158,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    AssessmentLead: {
+      payload: Prisma.$AssessmentLeadPayload<ExtArgs>
+      fields: Prisma.AssessmentLeadFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.AssessmentLeadFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.AssessmentLeadFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>
+        }
+        findFirst: {
+          args: Prisma.AssessmentLeadFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.AssessmentLeadFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>
+        }
+        findMany: {
+          args: Prisma.AssessmentLeadFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>[]
+        }
+        create: {
+          args: Prisma.AssessmentLeadCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>
+        }
+        createMany: {
+          args: Prisma.AssessmentLeadCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.AssessmentLeadCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>[]
+        }
+        delete: {
+          args: Prisma.AssessmentLeadDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>
+        }
+        update: {
+          args: Prisma.AssessmentLeadUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>
+        }
+        deleteMany: {
+          args: Prisma.AssessmentLeadDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.AssessmentLeadUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.AssessmentLeadUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>[]
+        }
+        upsert: {
+          args: Prisma.AssessmentLeadUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$AssessmentLeadPayload>
+        }
+        aggregate: {
+          args: Prisma.AssessmentLeadAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateAssessmentLead>
+        }
+        groupBy: {
+          args: Prisma.AssessmentLeadGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssessmentLeadGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.AssessmentLeadCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AssessmentLeadCountAggregateOutputType> | number
+        }
+      }
+    }
     ChatConversation: {
       payload: Prisma.$ChatConversationPayload<ExtArgs>
       fields: Prisma.ChatConversationFieldRefs
@@ -1682,6 +1757,31 @@ export const CareerLeadScalarFieldEnum = {
 export type CareerLeadScalarFieldEnum = (typeof CareerLeadScalarFieldEnum)[keyof typeof CareerLeadScalarFieldEnum]
 
 
+export const AssessmentLeadScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  educationLevel: 'educationLevel',
+  preferredCountry: 'preferredCountry',
+  hollandCode: 'hollandCode',
+  riasecScores: 'riasecScores',
+  bigFiveScores: 'bigFiveScores',
+  aptitudeScores: 'aptitudeScores',
+  aptitudeOverall: 'aptitudeOverall',
+  recommendedFields: 'recommendedFields',
+  recommendedUniversities: 'recommendedUniversities',
+  rawAnswers: 'rawAnswers',
+  aiBrief: 'aiBrief',
+  status: 'status',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type AssessmentLeadScalarFieldEnum = (typeof AssessmentLeadScalarFieldEnum)[keyof typeof AssessmentLeadScalarFieldEnum]
+
+
 export const ChatConversationScalarFieldEnum = {
   id: 'id',
   sessionId: 'sessionId',
@@ -2031,6 +2131,7 @@ export type GlobalOmitConfig = {
   admissionStep?: Prisma.AdmissionStepOmit
   consultation?: Prisma.ConsultationOmit
   careerLead?: Prisma.CareerLeadOmit
+  assessmentLead?: Prisma.AssessmentLeadOmit
   chatConversation?: Prisma.ChatConversationOmit
   user?: Prisma.UserOmit
   account?: Prisma.AccountOmit

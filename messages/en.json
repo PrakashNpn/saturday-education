@@ -97,7 +97,7 @@
           },
           "results": {
             "title": "Proven Results",
-            "description": "98% visa success rate and high student satisfaction."
+            "description": "95% visa success rate and high student satisfaction."
           }
         },
         "cta": "Book a Free Consultation"
@@ -260,11 +260,11 @@
       "point2": "Match to suitable degree fields",
       "point3": "A counsellor guides your next steps",
       "startButton": "Start the assessment",
-      "metaQuestions": "110 questions",
-      "metaParts": "2 parts",
-      "metaTime": "15–20 min",
+      "metaQuestions": "150 questions",
+      "metaParts": "3 parts",
+      "metaTime": "~20–25 min",
       "reassurance": "No payment required · Your results stay private",
-      "trustFrameworks": "Based on Holland's RIASEC + Big Five (OCEAN) scientific frameworks",
+      "trustFrameworks": "Based on Holland's RIASEC, the Big Five (OCEAN), and an indicative aptitude check",
       "noticeTitle": "Before you begin",
       "notice": "Please finish in one sitting — your progress isn't saved if you leave or refresh. Answer honestly; there are no right or wrong answers."
     },
@@ -272,11 +272,12 @@
       "riasecTitle": "Part 1 · What energises you?",
       "riasecSubtitle": "Rate how much you would enjoy each activity. There are no right or wrong answers.",
       "bigfiveTitle": "Part 2 · How you work",
-      "bigfiveSubtitle": "Tell us how much you agree with each statement about yourself."
+      "bigfiveSubtitle": "Tell us how much you agree with each statement about yourself.",
+      "aptitudeTitle": "Aptitude"
     },
     "transition": {
-      "title": "Nice work — interests done!",
-      "subtitle": "Now a shorter section about how you naturally work and think.",
+      "title": "Part 1 complete!",
+      "subtitle": "Now a short personality section — there are no right answers, just answer honestly.",
       "continue": "Continue"
     },
     "question": {
@@ -284,7 +285,8 @@
       "back": "Back",
       "promptLike": "How much would you enjoy this?",
       "promptAgree": "How much does this sound like you?",
-      "helper": "Tap one to continue — there are no right or wrong answers."
+      "helper": "Tap one to continue — there are no right or wrong answers.",
+      "tipMcq": "Tip: press 1–{count} on your keyboard"
     },
     "likert": {
       "like1": "Strongly dislike",
@@ -310,7 +312,7 @@
       "educationLevel": "Current Education Level",
       "preferredCountry": "Preferred Destination",
       "optional": "optional",
-      "submit": "Submit & finish",
+      "submit": "See my results",
       "requiredError": "Please enter your name and a valid email address.",
       "educationOptions": {
         "highSchool": "High school graduate",
@@ -320,8 +322,8 @@
         "other": "Other"
       },
       "eyebrow": "Final step",
-      "complete": "Assessment complete · 110 questions",
-      "privacy": "Your details stay private — a counsellor reviews your profile personally.",
+      "complete": "Assessment complete · 150 questions",
+      "privacy": "Your details stay private.",
       "submitting": "Submitting…",
       "educationPlaceholder": "Select your level",
       "destinationPlaceholder": "Select a destination",
@@ -359,6 +361,32 @@
     "preparing": {
       "title": "Personalising your questions…",
       "subtitle": "Setting up your assessment"
+    },
+    "transitionAptitude": {
+      "title": "Personality done!",
+      "subtitle": "Last part: a few aptitude questions. These DO have right answers — take your time, there's no timer.",
+      "continue": "Start aptitude"
+    },
+    "dashboard": {
+      "eyebrow": "Your snapshot",
+      "title": "Here's a glimpse of your profile",
+      "subtitle": "A quick preview — your full report is on its way to our counsellors.",
+      "interestLabel": "Your interest type",
+      "personalityLabel": "Personality highlights",
+      "aptitudeLabel": "Your strongest ability",
+      "fullReportTitle": "Your full report is on its way",
+      "fullReportBody": "Your detailed scores, career directions and university matches are being prepared for our counsellors. Book a free session to walk through everything with an expert.",
+      "ctaConsult": "Book a free consultation",
+      "ctaHome": "Back to home",
+      "interestsTitle": "Your interests",
+      "personalityTitle": "Your personality",
+      "aptitudeTitle": "Your aptitude",
+      "overallLabel": "Overall",
+      "hollandLabel": "Holland code",
+      "lockedTitle": "Career directions & university matches",
+      "lockedBadge": "Locked",
+      "lockedNote": "Book a free consultation to unlock your full report — detailed scores, career directions and your matched universities.",
+      "preparedFor": "Prepared for"
     }
   },
   "nav": {
@@ -406,7 +434,10 @@
       "singapore": "Study in Singapore",
       "thailand": "Study in Thailand",
       "ireland": "Study in Ireland",
-      "newZealand": "Study in New Zealand"
+      "newZealand": "Study in New Zealand",
+      "germany": "Study in Germany",
+      "malaysia": "Study in Malaysia",
+      "dubai": "Study in Dubai"
     },
     "services": {
       "heading": "Our Services",

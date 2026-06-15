@@ -8,8 +8,10 @@ import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
 import { Analytics } from "@vercel/analytics/next"
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
-const notoSansThai = Noto_Sans_Thai({ subsets: ['thai'], variable: '--font-thai', display: 'swap' })
-const notoSansMyanmar = Noto_Sans_Myanmar({ subsets: ['myanmar'], variable: '--font-myanmar', display: 'swap' })
+// preload:false — these script fonts aren't preloaded on every page (the audience is
+// English-primary); they load on demand only when Thai/Burmese glyphs actually render.
+const notoSansThai = Noto_Sans_Thai({ subsets: ['thai'], variable: '--font-thai', display: 'swap', preload: false })
+const notoSansMyanmar = Noto_Sans_Myanmar({ subsets: ['myanmar'], variable: '--font-myanmar', display: 'swap', preload: false })
 
 export default async function LocaleLayout({
   children,

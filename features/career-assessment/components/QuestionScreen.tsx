@@ -4,11 +4,11 @@ import { useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { ChevronLeft } from 'lucide-react'
-import type { FlowQuestion } from '../data/allQuestions'
+import type { LikertFlowQuestion } from '../data/allQuestions'
 import { LikertScale } from './LikertScale'
 
 interface Props {
-  question: FlowQuestion
+  question: LikertFlowQuestion
   questionNumber: number // 1-based across all questions
   value?: number
   canGoBack: boolean

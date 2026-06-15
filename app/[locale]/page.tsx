@@ -51,7 +51,7 @@ export default async function HomePage() {
   return (
     <main>
       <HeroSection />
-      <CareerDiscoveryCTA />
+      {/* <CareerDiscoveryCTA /> */}
       {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
       <UniversityFinderSection dropdownOptions={finderOptions} />
       */}
