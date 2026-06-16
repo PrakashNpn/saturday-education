@@ -1,4 +1,18 @@
 {
+  "cookieConsent": {
+    "title": "သင့်ကိုယ်ရေးအချက်အလက်ကို ကျွန်ုပ်တို့ တန်ဖိုးထားပါသည်",
+    "description": "ဝဘ်ဆိုက် အလုပ်လုပ်စေရန် မရှိမဖြစ်လိုအပ်သော ကွတ်ကီးများကို အသုံးပြုပါသည်။ သင်၏ သဘောတူညီချက်ဖြင့် ဧည့်သည်များ ဝဘ်ဆိုက်ကို မည်သို့အသုံးပြုသည်ကို နားလည်ပြီး တိုးတက်အောင်လုပ်ရန် ခွဲခြမ်းစိတ်ဖြာရေး ကွတ်ကီးများ (Google Analytics) ကိုလည်း အသုံးပြုပါသည်။ ကျွန်ုပ်တို့၏ <link>ကိုယ်ရေးအချက်အလက်မူဝါဒ</link>ကို ကြည့်ပါ။",
+    "acceptAll": "အားလုံး လက်ခံမည်",
+    "rejectAll": "အားလုံး ငြင်းပယ်မည်",
+    "customize": "စိတ်ကြိုက်ပြင်ဆင်ရန်",
+    "save": "ရွေးချယ်မှုများ သိမ်းမည်",
+    "necessaryTitle": "မရှိမဖြစ် လိုအပ်သော",
+    "necessaryDesc": "သင့်ဘာသာစကားကို မှတ်သားခြင်းကဲ့သို့ ဝဘ်ဆိုက်အလုပ်လုပ်ရန် လိုအပ်ပါသည်။",
+    "analyticsTitle": "ခွဲခြမ်းစိတ်ဖြာရေး",
+    "analyticsDesc": "ကျွန်ုပ်တို့ ဝဘ်ဆိုက်ကို တိုင်းတာပြီး တိုးတက်အောင်လုပ်ရန် Google Analytics။ မဖြစ်မနေ မဟုတ်ပါ။",
+    "alwaysOn": "အမြဲဖွင့်ထား",
+    "settingsLink": "ကွတ်ကီး ဆက်တင်များ"
+  },
   "Landing": {
     "comparisonTool": {
       "heading": "Comparison Tool",
@@ -192,7 +206,8 @@
         },
         "submit": "Book My Consultation",
         "submitting": "တင်သွင်းနေသည်...",
-        "submitError": "တစ်ခုခုမှားယွင်းသွားသည်။ ထပ်မံကြိုးစားပါ"
+        "submitError": "တစ်ခုခုမှားယွင်းသွားသည်။ ထပ်မံကြိုးစားပါ",
+        "privacyNote": "ဘွတ်ကင်လုပ်ခြင်းဖြင့် ကျွန်ုပ်တို့၏ <link>ကိုယ်ရေးအချက်အလက်မူဝါဒ</link>ကို သဘောတူပါသည်။"
       },
       "success": {
         "title": "တောင်းဆိုမှု လက်ခံရရှိပြီ!",
@@ -425,7 +440,7 @@
       },
       "eyebrow": "Final step",
       "complete": "Assessment complete · 150 questions",
-      "privacy": "Your details stay private — a counsellor reviews your profile personally.",
+      "privacy": "သင့်အချက်အလက်များကို လျှို့ဝှက်ထားသည်။ ဆက်လက်လုပ်ဆောင်ခြင်းဖြင့် ကျွန်ုပ်တို့၏ <link>ကိုယ်ရေးအချက်အလက်မူဝါဒ</link>ကို သဘောတူပါသည်။",
       "submitting": "Submitting…",
       "educationPlaceholder": "Select your level",
       "destinationPlaceholder": "Select a destination",

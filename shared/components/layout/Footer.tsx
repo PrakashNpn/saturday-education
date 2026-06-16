@@ -5,6 +5,7 @@ import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
+import { CookieSettingsButton } from '@/shared/components/consent'
 
 // ── Column heading class ──────────────────────────────────────────────────────
 
@@ -235,10 +236,12 @@ export default function Footer() {
         </div>
 
         {/* ── Bottom Bar ─────────────────────────────────────────────────────── */}
-        <div className="border-t border-gray-200 pt-6 mt-4">
-          <p className="text-center text-gray-400 text-sm">
+        <div className="border-t border-gray-200 pt-6 mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3">
+          <p className="text-gray-400 text-sm">
             {t('copyright', { year: new Date().getFullYear() })}
           </p>
+          <span className="hidden sm:inline text-gray-300" aria-hidden="true">·</span>
+          <CookieSettingsButton className="text-sm text-gray-400 hover:text-[#590D82] transition-colors" />
         </div>
 
       </div>

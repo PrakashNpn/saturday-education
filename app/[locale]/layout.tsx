@@ -6,6 +6,7 @@ import Navbar from "@/shared/components/layout/Navbar"
 import Footer from "@/shared/components/layout/Footer"
 import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
 import { Analytics } from "@vercel/analytics/next"
+import { CookieConsent, GoogleAnalytics } from "@/shared/components/consent"
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 // preload:false — these script fonts aren't preloaded on every page (the audience is
@@ -39,6 +40,8 @@ export default async function LocaleLayout({
           </div>
           <Footer />
           <ChatWidget />
+          <CookieConsent />
+          <GoogleAnalytics />
         </NextIntlClientProvider>
         <Analytics />
       </body>

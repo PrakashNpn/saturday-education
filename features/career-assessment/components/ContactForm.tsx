@@ -16,6 +16,7 @@ import {
   MapPin,
 } from 'lucide-react'
 import { CustomDropdown } from '@/shared/components/common'
+import { Link } from '@/i18n/navigation'
 import type { ContactDetails } from '../types'
 
 interface Props {
@@ -230,8 +231,16 @@ export function ContactForm({ onSubmit, serverError }: Props) {
               variants={item}
               className="flex items-center justify-center gap-1.5 pt-1 text-center text-[11px] text-gray-400"
             >
-              <ShieldCheck size={13} className="text-brand-purple" />
-              {t('privacy')}
+              <ShieldCheck size={13} className="text-brand-purple shrink-0" />
+              <span>
+                {t.rich('privacy', {
+                  link: (chunks) => (
+                    <Link href="/privacy" target="_blank" className="text-brand-purple hover:underline">
+                      {chunks}
+                    </Link>
+                  ),
+                })}
+              </span>
             </motion.p>
           </motion.form>
         </div>

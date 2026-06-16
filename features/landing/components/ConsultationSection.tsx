@@ -296,6 +296,16 @@ export default function ConsultationSection({ onSubmit }: Props) {
                         {isSubmitting ? t('form.submitting') : t('form.submit')}
                       </button>
                     </motion.div>
+
+                    <motion.p variants={fieldVariant} className="mt-3 text-center text-xs text-gray-400">
+                      {t.rich('form.privacyNote', {
+                        link: (chunks) => (
+                          <Link href="/privacy" target="_blank" className="text-brand-purple hover:underline">
+                            {chunks}
+                          </Link>
+                        ),
+                      })}
+                    </motion.p>
                   </motion.form>
 
                   {/* Direct contact */}
