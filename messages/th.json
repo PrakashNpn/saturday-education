@@ -1,4 +1,18 @@
 {
+  "cookieConsent": {
+    "title": "เราให้ความสำคัญกับความเป็นส่วนตัวของคุณ",
+    "description": "เราใช้คุกกี้ที่จำเป็นเพื่อให้เว็บไซต์ทำงานได้ และเมื่อคุณยินยอม เราจะใช้คุกกี้เพื่อการวิเคราะห์ (Google Analytics) เพื่อทำความเข้าใจวิธีที่ผู้เยี่ยมชมใช้งานเว็บไซต์และปรับปรุงให้ดียิ่งขึ้น ดู<link>นโยบายความเป็นส่วนตัว</link>ของเรา",
+    "acceptAll": "ยอมรับทั้งหมด",
+    "rejectAll": "ปฏิเสธทั้งหมด",
+    "customize": "ปรับแต่ง",
+    "save": "บันทึกตัวเลือก",
+    "necessaryTitle": "จำเป็นอย่างยิ่ง",
+    "necessaryDesc": "จำเป็นต่อการทำงานของเว็บไซต์ เช่น การจดจำภาษาของคุณ",
+    "analyticsTitle": "การวิเคราะห์",
+    "analyticsDesc": "Google Analytics เพื่อวัดผลและปรับปรุงเว็บไซต์ของเรา (ไม่บังคับ)",
+    "alwaysOn": "เปิดเสมอ",
+    "settingsLink": "ตั้งค่าคุกกี้"
+  },
   "Landing": {
     "comparisonTool": {
       "heading": "Comparison Tool",
@@ -192,7 +206,8 @@
         },
         "submit": "Book My Consultation",
         "submitting": "กำลังส่ง...",
-        "submitError": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง"
+        "submitError": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+        "privacyNote": "เมื่อทำการจอง ถือว่าคุณยอมรับ<link>นโยบายความเป็นส่วนตัว</link>ของเรา"
       },
       "success": {
         "title": "ได้รับคำขอของคุณแล้ว!",
@@ -425,7 +440,7 @@
       },
       "eyebrow": "Final step",
       "complete": "Assessment complete · 150 questions",
-      "privacy": "Your details stay private — a counsellor reviews your profile personally.",
+      "privacy": "ข้อมูลของคุณจะถูกเก็บเป็นความลับ เมื่อดำเนินการต่อ ถือว่าคุณยอมรับ<link>นโยบายความเป็นส่วนตัว</link>ของเรา",
       "submitting": "Submitting…",
       "educationPlaceholder": "Select your level",
       "destinationPlaceholder": "Select a destination",

@@ -4,6 +4,7 @@ import { useState } from "react"
 import ChatMessage from "./ChatMessage"
 import ChatInput from "./ChatInput"
 import ChatTypingIndicator from "./ChatTypingIndicator"
+import { Link } from "@/i18n/navigation"
 
 interface ChatWindowProps {
   onClose: () => void
@@ -52,6 +53,10 @@ export default function ChatWindow({ onClose }: ChatWindowProps) {
         {isTyping && <ChatTypingIndicator />}
       </div>
       <ChatInput onSend={handleSend} />
+      <p className="px-3 pb-2 text-center text-[10px] leading-tight text-neutral-400">
+        Your messages are handled per our{" "}
+        <Link href="/privacy" className="underline hover:text-[#590D82]">Privacy Policy</Link>.
+      </p>
     </div>
   )
 }

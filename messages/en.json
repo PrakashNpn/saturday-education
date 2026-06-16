@@ -1,4 +1,18 @@
 {
+  "cookieConsent": {
+    "title": "We value your privacy",
+    "description": "We use essential cookies to make our site work. With your consent, we also use analytics cookies (Google Analytics) to understand how visitors use our site and improve it. See our <link>Privacy Policy</link>.",
+    "acceptAll": "Accept all",
+    "rejectAll": "Reject all",
+    "customize": "Customize",
+    "save": "Save choices",
+    "necessaryTitle": "Strictly necessary",
+    "necessaryDesc": "Required for the site to work, such as remembering your language.",
+    "analyticsTitle": "Analytics",
+    "analyticsDesc": "Google Analytics, to measure and improve our site. Optional.",
+    "alwaysOn": "Always on",
+    "settingsLink": "Cookie settings"
+  },
   "Landing": {
     "comparisonTool": {
       "heading": "Comparison Tool",
@@ -192,7 +206,8 @@
         },
         "submit": "Book My Consultation",
         "submitting": "Submitting...",
-        "submitError": "Something went wrong. Please try again."
+        "submitError": "Something went wrong. Please try again.",
+        "privacyNote": "By booking, you agree to our <link>Privacy Policy</link>."
       },
       "success": {
         "title": "Request Received!",
@@ -323,7 +338,7 @@
       },
       "eyebrow": "Final step",
       "complete": "Assessment complete · 150 questions",
-      "privacy": "Your details stay private.",
+      "privacy": "Your details stay private. By continuing, you agree to our <link>Privacy Policy</link>.",
       "submitting": "Submitting…",
       "educationPlaceholder": "Select your level",
       "destinationPlaceholder": "Select a destination",
