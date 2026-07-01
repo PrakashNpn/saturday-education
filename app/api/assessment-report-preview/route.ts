@@ -108,12 +108,7 @@ export async function GET() {
     ],
   }
 
-  const evidence = {
-    topLiked: ['Write computer programs to analyse data', 'Examine data to find patterns and draw conclusions', 'Lead a team toward an ambitious goal'],
-    disliked: ['Care for sick or injured people'],
-  }
-
-  const pdf = await buildAssessmentPdf({ contact, scores, evidence, synthesis, tree })
+  const pdf = await buildAssessmentPdf({ contact, scores, synthesis, tree })
 
   return new Response(new Uint8Array(pdf), {
     headers: {

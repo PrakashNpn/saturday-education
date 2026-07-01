@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { Compass, Heart, Award, Lock, ArrowRight, Home } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { HollandHexagon, BipolarBar, ScoreRing } from './DashboardCharts'
+import { CareerBreakdown } from './CareerBreakdown'
 import type { DashboardData } from '../types'
 
 interface Props {
@@ -35,47 +36,53 @@ function initials(name: string): string {
 export function ResultsDashboard({ dashboard }: Props) {
   const t = useTranslations('careerAssessment.dashboard')
   const rankedInterests = [...dashboard.interests].sort((a, b) => b.value - a.value)
+  const teaser = dashboard.universityTeaser
+  const sampleRows = teaser?.sample ?? [
+    'Computer Science · Germany · TU Munich',
+    'Data Science · Ireland · UC Dublin',
+    'Business · Canada · U of Toronto',
+  ]
 
   return (
     <div className="mx-auto w-full space-y-4">
       {/* Hero — letterhead banner */}
       <Rise>
         <div className="rounded-3xl border border-gray-100 bg-white/95 px-6 py-6 shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)] backdrop-blur-sm sm:px-8">
-          <div className="flex flex-col gap-6 sm:flex-row sm:items-center sm:justify-between">
-            {/* left: identity + archetype */}
-            <div className="min-w-0 flex-1">
-              <div className="inline-flex max-w-full items-center gap-3 rounded-2xl border border-gray-100 bg-gray-50/70 px-4 py-2.5">
-                <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-purple to-brand-purple-light text-sm font-bold text-white">
-                  {initials(dashboard.fullName)}
-                </span>
-                <div className="min-w-0">
-                  <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">{t('preparedFor')}</p>
-                  <p className="truncate text-sm font-bold text-neutral-900">{dashboard.fullName}</p>
-                  <p className="truncate text-xs text-gray-400">
-                    {dashboard.email}
-                    {dashboard.phone ? ` · ${dashboard.phone}` : ''}
-                  </p>
-                </div>
-              </div>
-
-              <div className="mt-6">
-                <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-purple">
-                  {t('eyebrow')}
-                </span>
-                <h2 className="mt-2.5 text-3xl font-extrabold text-neutral-900 sm:text-4xl">{dashboard.archetype}</h2>
-                <p className="mt-1.5 max-w-lg text-sm leading-relaxed text-gray-500">{dashboard.archetypeSummary}</p>
+          {/* top row: identity (left) + logo (right) */}
+          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
+            <div className="inline-flex max-w-full items-center gap-3 rounded-2xl border border-gray-100 bg-gray-50/70 px-4 py-2.5">
+              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-purple to-brand-purple-light text-sm font-bold text-white">
+                {initials(dashboard.fullName)}
+              </span>
+              <div className="min-w-0">
+                <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">{t('preparedFor')}</p>
+                <p className="truncate text-sm font-bold text-neutral-900">{dashboard.fullName}</p>
+                <p className="truncate text-xs text-gray-400">
+                  {dashboard.email}
+                  {dashboard.phone ? ` · ${dashboard.phone}` : ''}
+                </p>
               </div>
             </div>
 
-            {/* right: brand logo, centered + larger */}
             <Image
               src="/images/logo/logo.png"
               alt="Saturday Education Consulting"
               width={300}
               height={84}
               priority
-              className="h-16 w-auto self-center sm:h-20"
+              className="h-16 w-auto self-start sm:h-20 sm:self-auto"
             />
+          </div>
+
+          {/* full-width snapshot — spans the whole card so the read reads in fewer lines */}
+          <div className="mt-7">
+            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-purple">
+              {t('eyebrow')}
+            </span>
+            <h2 className="mt-2.5 text-3xl font-extrabold text-neutral-900 sm:text-4xl">{dashboard.archetype}</h2>
+            <p className="mt-3 text-[15px] leading-relaxed text-gray-600">
+              {dashboard.studentRead ?? dashboard.archetypeSummary}
+            </p>
           </div>
         </div>
       </Rise>
@@ -138,24 +145,52 @@ export function ResultsDashboard({ dashboard }: Props) {
         </Rise>
       </div>
 
-      {/* Locked full report */}
+      {/* Career matches breakdown (free value) */}
+      <Rise delay={0.18}>
+        <CareerBreakdown careers={dashboard.careers} />
+      </Rise>
+
+      {/* Locked: university shortlist + application roadmap (the gated hook) */}
       <Rise delay={0.2}>
         <div className="relative overflow-hidden rounded-2xl border border-brand-purple-100 bg-gradient-to-br from-brand-purple-50/70 to-white p-5">
           <p className={panelTitle}>
             <Lock size={14} />
             {t('lockedTitle')}
           </p>
-          <div aria-hidden className="grid gap-2 select-none blur-[5px] sm:grid-cols-3">
-            <div className="rounded-lg border border-gray-100 bg-white px-3 py-2 text-sm text-gray-700">Computer Science · Germany · TU Munich</div>
-            <div className="rounded-lg border border-gray-100 bg-white px-3 py-2 text-sm text-gray-700">Data Science · Ireland · UC Dublin</div>
-            <div className="rounded-lg border border-gray-100 bg-white px-3 py-2 text-sm text-gray-700">Business · Canada · U of Toronto</div>
+
+          {teaser && (
+            <>
+              <p className="text-sm font-medium leading-relaxed text-neutral-700">
+                {t('lockedTeaser', { count: teaser.totalCount, countries: teaser.countries.join(', ') })}
+              </p>
+              {teaser.fields.length > 0 && (
+                <div className="mt-2.5 flex flex-wrap gap-1.5">
+                  {teaser.fields.map((f) => (
+                    <span key={f} className="rounded-full border border-brand-purple-100 bg-white px-2.5 py-1 text-[11px] font-medium text-brand-purple">
+                      {f}
+                    </span>
+                  ))}
+                </div>
+              )}
+            </>
+          )}
+
+          <div className="relative mt-3">
+            <div aria-hidden className="grid gap-2 select-none blur-[5px] sm:grid-cols-3">
+              {sampleRows.map((row, i) => (
+                <div key={i} className="rounded-lg border border-gray-100 bg-white px-3 py-2 text-sm text-gray-700">
+                  {row}
+                </div>
+              ))}
+            </div>
+            <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
+              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple px-3 py-1 text-[11px] font-semibold text-white shadow">
+                <Lock size={12} />
+                {t('lockedBadge')}
+              </span>
+            </div>
           </div>
-          <div className="pointer-events-none absolute inset-x-0 top-[3.2rem] flex justify-center">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple px-3 py-1 text-[11px] font-semibold text-white shadow">
-              <Lock size={12} />
-              {t('lockedBadge')}
-            </span>
-          </div>
+
           <p className="mt-3 text-center text-[13px] leading-relaxed text-gray-600">{t('lockedNote')}</p>
         </div>
       </Rise>

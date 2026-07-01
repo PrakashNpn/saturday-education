@@ -151,3 +151,6 @@ export function ScoreRing({
     </div>
   )
 }
+
+// OutlookChart + DemandGauge moved to shared/components/careers/OutlookCharts.tsx
+// (reused by the public Career Library, which cannot import from this feature).

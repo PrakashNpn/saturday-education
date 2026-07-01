@@ -12,6 +12,8 @@ interface Props {
   searchPlaceholder?: string
   noResultsText?: string
   className?: string
+  /** Allow submitting free text that isn't in the options (passes the raw text to onChange). */
+  allowCustom?: boolean
 }
 
 export function SearchableDropdown({
@@ -23,6 +25,7 @@ export function SearchableDropdown({
   searchPlaceholder = 'Search...',
   noResultsText = 'No results found',
   className,
+  allowCustom = false,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
@@ -45,11 +48,8 @@ export function SearchableDropdown({
   }, [])
 
   useEffect(() => {
-    if (isOpen) {
-      setTimeout(() => searchRef.current?.focus(), 10)
-    } else {
-      setQuery('')
-    }
+    // Focus the search box on open (DOM side effect only; query is reset on toggle).
+    if (isOpen) setTimeout(() => searchRef.current?.focus(), 10)
   }, [isOpen])
 
   const filtered = useMemo(() => {
@@ -57,7 +57,12 @@ export function SearchableDropdown({
     return options.filter((o) => o.label.toLowerCase().includes(query.toLowerCase()))
   }, [options, query])
 
-  const selectedLabel = options.find((o) => o.value === value)?.label ?? placeholder
+  const trimmed = query.trim()
+  const hasExact = options.some((o) => o.label.toLowerCase() === trimmed.toLowerCase())
+  const showCustom = allowCustom && trimmed.length > 0 && !hasExact
+
+  const selectedLabel =
+    options.find((o) => o.value === value)?.label ?? (value && allowCustom ? value : placeholder)
 
   return (
     <div ref={ref} className={`relative ${className ?? ''}`}>
@@ -69,7 +74,7 @@ export function SearchableDropdown({
 
       <button
         type="button"
-        onClick={() => setIsOpen((v) => !v)}
+        onClick={() => { setIsOpen((v) => !v); setQuery('') }}
         className="w-full flex items-center justify-between gap-2 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-gray-900 font-medium px-4 py-2.5 text-sm"
       >
         <span className="truncate">{selectedLabel}</span>
@@ -97,6 +102,18 @@ export function SearchableDropdown({
 
           {/* Options */}
           <div className="max-h-[200px] overflow-y-auto scrollbar-thin py-1">
+            {showCustom && (
+              <button
+                type="button"
+                onClick={() => { onChange(trimmed); setIsOpen(false) }}
+                className="flex w-full items-center gap-2 px-4 py-2.5 text-left text-sm text-brand-purple hover:bg-brand-purple-50/60"
+              >
+                <Search className="h-3.5 w-3.5 flex-shrink-0" />
+                <span className="truncate">
+                  Get outlook for <span className="font-semibold">&ldquo;{trimmed}&rdquo;</span>
+                </span>
+              </button>
+            )}
             {!query && (
               <button
                 type="button"
@@ -120,7 +137,7 @@ export function SearchableDropdown({
                 {opt.label}
               </button>
             ))}
-            {filtered.length === 0 && (
+            {filtered.length === 0 && !showCustom && (
               <p className="px-4 py-3 text-sm text-gray-400 text-center">{noResultsText}</p>
             )}
           </div>

@@ -1,5 +1,6 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
+import { createPortal } from 'react-dom'
 import { ChevronDown } from 'lucide-react'
 
 export interface DropdownOption {
@@ -18,6 +19,15 @@ interface Props {
   showPlaceholderOption?: boolean
 }
 
+interface Placement {
+  left: number
+  width: number
+  top: number
+  bottomOffset: number
+  maxHeight: number
+  dropUp: boolean
+}
+
 export function CustomDropdown({
   label,
   value,
@@ -29,11 +39,48 @@ export function CustomDropdown({
   showPlaceholderOption = true,
 }: Props) {
   const [isOpen, setIsOpen] = useState(false)
-  const ref = useRef<HTMLDivElement>(null)
+  const [place, setPlace] = useState<Placement | null>(null)
+  const btnRef = useRef<HTMLButtonElement>(null)
+  const panelRef = useRef<HTMLDivElement>(null)
+
+  // Position the panel relative to the trigger in viewport coordinates. Rendered in
+  // a portal (fixed) so it can never be clipped by an ancestor's overflow, and it
+  // flips above the trigger only when there genuinely isn't room below.
+  const reposition = () => {
+    const el = btnRef.current
+    if (!el) return
+    const r = el.getBoundingClientRect()
+    const margin = 6
+    const spaceBelow = window.innerHeight - r.bottom - margin
+    const spaceAbove = r.top - margin
+    const dropUp = spaceBelow < 200 && spaceAbove > spaceBelow
+    setPlace({
+      left: r.left,
+      width: r.width,
+      top: r.bottom + margin,
+      bottomOffset: window.innerHeight - r.top + margin,
+      maxHeight: Math.max(140, Math.min(280, dropUp ? spaceAbove : spaceBelow)),
+      dropUp,
+    })
+  }
+
+  useEffect(() => {
+    if (!isOpen) return
+    reposition()
+    const onMove = () => reposition()
+    window.addEventListener('scroll', onMove, true)
+    window.addEventListener('resize', onMove)
+    return () => {
+      window.removeEventListener('scroll', onMove, true)
+      window.removeEventListener('resize', onMove)
+    }
+  }, [isOpen])
 
   useEffect(() => {
     function onOutside(e: MouseEvent) {
-      if (ref.current && !ref.current.contains(e.target as Node)) setIsOpen(false)
+      const t = e.target as Node
+      if (btnRef.current?.contains(t) || panelRef.current?.contains(t)) return
+      setIsOpen(false)
     }
     function onEscape(e: KeyboardEvent) {
       if (e.key === 'Escape') setIsOpen(false)
@@ -47,11 +94,15 @@ export function CustomDropdown({
   }, [])
 
   const selectedLabel = options.find((o) => o.value === value)?.label ?? placeholder
-
   const triggerPadding = size === 'compact' ? 'px-3 py-1.5 text-sm' : 'px-4 py-2.5 text-sm'
 
+  const rowCls = (active: boolean) =>
+    `w-full text-left px-4 py-2.5 text-sm transition-colors ${
+      active ? 'bg-brand-purple-50 text-brand-purple font-semibold' : 'text-gray-700 hover:bg-gray-50'
+    }`
+
   return (
-    <div ref={ref} className={`relative ${className ?? ''}`}>
+    <div className={`relative ${className ?? ''}`}>
       {label && (
         <p className="text-[10px] uppercase text-start tracking-wider font-semibold text-gray-500 mb-1.5">
           {label}
@@ -59,6 +110,7 @@ export function CustomDropdown({
       )}
 
       <button
+        ref={btnRef}
         type="button"
         onClick={() => setIsOpen((v) => !v)}
         className={`w-full flex items-center justify-between gap-2 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-gray-900 font-medium ${triggerPadding}`}
@@ -69,35 +121,35 @@ export function CustomDropdown({
         />
       </button>
 
-      {isOpen && (
-        <div className="absolute top-full left-0 right-0 mt-1 z-50 bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden">
-          <div className="max-h-[240px] overflow-y-auto scrollbar-thin py-1">
-            {showPlaceholderOption && (
-              <button
-                type="button"
-                onClick={() => { onChange(''); setIsOpen(false) }}
-                className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                  value === '' ? 'bg-brand-purple-50 text-brand-purple font-semibold' : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {placeholder}
-              </button>
-            )}
-            {options.map((opt) => (
-              <button
-                key={opt.value}
-                type="button"
-                onClick={() => { onChange(opt.value); setIsOpen(false) }}
-                className={`w-full text-left px-4 py-2.5 text-sm transition-colors ${
-                  value === opt.value ? 'bg-brand-purple-50 text-brand-purple font-semibold' : 'text-gray-700 hover:bg-gray-50'
-                }`}
-              >
-                {opt.label}
-              </button>
-            ))}
-          </div>
-        </div>
-      )}
+      {isOpen &&
+        place &&
+        createPortal(
+          <div
+            ref={panelRef}
+            style={{
+              position: 'fixed',
+              left: place.left,
+              width: place.width,
+              zIndex: 100,
+              ...(place.dropUp ? { bottom: place.bottomOffset } : { top: place.top }),
+            }}
+            className="bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden"
+          >
+            <div className="overflow-y-auto scrollbar-thin py-1" style={{ maxHeight: place.maxHeight }}>
+              {showPlaceholderOption && (
+                <button type="button" onClick={() => { onChange(''); setIsOpen(false) }} className={rowCls(value === '')}>
+                  {placeholder}
+                </button>
+              )}
+              {options.map((opt) => (
+                <button key={opt.value} type="button" onClick={() => { onChange(opt.value); setIsOpen(false) }} className={rowCls(value === opt.value)}>
+                  {opt.label}
+                </button>
+              ))}
+            </div>
+          </div>,
+          document.body,
+        )}
     </div>
   )
 }

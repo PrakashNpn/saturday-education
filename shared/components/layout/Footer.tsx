@@ -39,6 +39,7 @@ const SERVICE_LINKS = [
 
 const COMPANY_LINKS = [
   { key: 'about', href: '/about' },
+  { key: 'careerAssessment', href: '/career-assessment' },
   { key: 'testimonials', href: '/#testimonials' },
   { key: 'contact', href: '/#consultation' },
   { key: 'privacy', href: '/privacy' },

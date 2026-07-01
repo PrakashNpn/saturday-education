@@ -8,14 +8,16 @@ import { Menu, X } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/shared/utils/cn'
 
-const NAV_LINKS = [
+type NavItem = { labelKey: string; href: string }
+
+const NAV_LINKS: NavItem[] = [
   { labelKey: 'home', href: '/' },
   { labelKey: 'careerAssessment', href: '/career-assessment' },
   // HIDDEN: universities feature temporarily disabled — uncomment to restore
   // { labelKey: 'universityFinder', href: '/universities' },
   { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'aboutUs', href: '/about' },
-] as const
+]
 
 // ── Navbar ────────────────────────────────────────────────────────────────────
 
@@ -24,6 +26,7 @@ export default function Navbar() {
   const pathname = usePathname()
   const [isScrolled, setIsScrolled] = useState(false)
   const [mobileOpen, setMobileOpen] = useState(false)
+  const [prevPathname, setPrevPathname] = useState(pathname)
 
   useEffect(() => {
     const handleScroll = () => setIsScrolled(window.scrollY > 0)
@@ -31,9 +34,12 @@ export default function Navbar() {
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  useEffect(() => {
+  // Close the mobile menu on route change — reset-on-prop-change during render
+  // (avoids a setState-in-effect that triggers an extra render pass).
+  if (pathname !== prevPathname) {
+    setPrevPathname(pathname)
     setMobileOpen(false)
-  }, [pathname])
+  }
 
   return (
     <nav
@@ -60,20 +66,18 @@ export default function Navbar() {
 
           {/* ── Desktop Nav + CTA (right-aligned) ─────────────── */}
           <div className="hidden lg:flex items-center gap-6 xl:gap-8 ml-auto">
-            {NAV_LINKS.map(({ labelKey, href }) => {
-              const isActive = pathname === href || pathname.startsWith(href + '/')
+            {NAV_LINKS.map((item) => {
+              const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
               return (
                 <Link
-                  key={href}
-                  href={href}
+                  key={item.href}
+                  href={item.href}
                   className={cn(
                     'relative pb-1.5 text-sm xl:text-base font-medium whitespace-nowrap transition-colors duration-150',
-                    isActive
-                      ? 'text-brand-purple-dark font-semibold'
-                      : 'text-brand-purple hover:text-brand-purple-dark',
+                    isActive ? 'text-brand-purple-dark font-semibold' : 'text-brand-purple hover:text-brand-purple-dark',
                   )}
                 >
-                  {t(labelKey)}
+                  {t(item.labelKey)}
                   {isActive && (
                     <motion.span
                       layoutId="navActiveUnderline"
@@ -113,20 +117,18 @@ export default function Navbar() {
         )}
       >
         <div className="border-t border-gray-100 bg-white px-4 py-6 space-y-1">
-          {NAV_LINKS.map(({ labelKey, href }) => {
-            const isActive = pathname === href || pathname.startsWith(href + '/')
+          {NAV_LINKS.map((item) => {
+            const isActive = pathname === item.href || pathname.startsWith(item.href + '/')
             return (
               <Link
-                key={href}
-                href={href}
+                key={item.href}
+                href={item.href}
                 className={cn(
                   'block px-4 py-3 rounded-xl text-base font-medium transition-colors duration-150',
-                  isActive
-                    ? 'text-brand-purple bg-brand-purple-50 font-semibold'
-                    : 'text-gray-700 hover:text-brand-purple hover:bg-gray-50',
+                  isActive ? 'text-brand-purple bg-brand-purple-50 font-semibold' : 'text-gray-700 hover:text-brand-purple hover:bg-gray-50',
                 )}
               >
-                {t(labelKey)}
+                {t(item.labelKey)}
               </Link>
             )
           })}

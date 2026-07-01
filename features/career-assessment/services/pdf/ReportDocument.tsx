@@ -1,3 +1,4 @@
+/* eslint-disable jsx-a11y/alt-text -- @react-pdf/renderer's <Image> is not an HTML img and has no alt prop */
 // Server-only: the counsellor PDF report (~6 pages) for a completed assessment.
 // Built with @react-pdf/renderer primitives. English-only (built-in Helvetica).
 
@@ -28,10 +29,7 @@ import type {
   BigFiveTrait,
   RiasecCategory,
 } from '../../types'
-import type { InterestEvidence } from '../brief'
-
-const LOGO_URL =
-  'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/saturday%20education/logo/logo.png'
+import { LOGO_DATA_URI } from './logoAsset'
 
 // Palette
 const PURPLE = '#590D82'
@@ -141,7 +139,11 @@ function Ring({ percent, size = 64, color }: { percent: number; size?: number; c
     <View style={{ width: size, height: size, position: 'relative' }}>
       <Svg width={size} height={size}>
         <Circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={TRACK} strokeWidth={stroke} />
-        <Circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={col} strokeWidth={stroke} strokeLinecap="round" strokeDasharray={`${(circ * pct) / 100} ${circ}`} />
+        {/* Only draw the progress arc when there's something to fill — a 0% (or NaN)
+            dash length is rejected by pdfkit and crashes the whole render. */}
+        {pct > 0 && (
+          <Circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke={col} strokeWidth={stroke} strokeLinecap="round" strokeDasharray={`${(circ * pct) / 100} ${circ}`} />
+        )}
       </Svg>
       <View style={{ position: 'absolute', top: 0, left: 0, right: 0, bottom: 0, alignItems: 'center', justifyContent: 'center' }}>
         <Text style={{ fontSize: size > 90 ? 16 : 11, fontFamily: 'Helvetica-Bold', color: INK }}>{pct}%</Text>
@@ -207,7 +209,7 @@ function AnalysisCard({ letter, label, color, bullets }: { letter: string; label
 function Header() {
   return (
     <View style={s.header} fixed>
-      <Image src={LOGO_URL} style={{ width: 120, objectFit: 'contain' }} />
+      <Image src={LOGO_DATA_URI} style={{ width: 120, objectFit: 'contain' }} />
       <Text style={s.headerTitle}>CAREER ASSESSMENT REPORT</Text>
     </View>
   )
@@ -224,12 +226,11 @@ function Footer({ name }: { name: string }) {
 export interface ReportArgs {
   contact: ContactDetails
   scores: AssessmentScores
-  evidence: InterestEvidence
   synthesis: CounselorSynthesis | null
   tree: RecommendationTree
 }
 
-export function ReportDocument({ contact, scores, evidence, synthesis, tree }: ReportArgs) {
+export function ReportDocument({ contact, scores, synthesis, tree }: ReportArgs) {
   const { riasec, bigFive, aptitude } = scores
   const top3 = riasec.ranked.slice(0, 3)
   const archetype = buildArchetype(scores)
@@ -279,7 +280,7 @@ export function ReportDocument({ contact, scores, evidence, synthesis, tree }: R
         </Svg>
 
         <View style={{ flex: 1, justifyContent: 'center', paddingHorizontal: 52, paddingTop: 150, paddingBottom: 130 }}>
-          <Image src={LOGO_URL} style={{ width: 240, alignSelf: 'flex-start', objectFit: 'contain', marginBottom: 26 }} />
+          <Image src={LOGO_DATA_URI} style={{ width: 240, alignSelf: 'flex-start', objectFit: 'contain', marginBottom: 26 }} />
           <View style={{ height: 4, width: 56, backgroundColor: GOLD, borderRadius: 2, marginBottom: 18 }} />
           <Text style={{ fontSize: 30, fontFamily: 'Helvetica-Bold', color: INK }}>Career Assessment Report</Text>
           <Text style={{ fontSize: 11, color: GRAY, marginTop: 6 }}>Interests · Personality · Aptitude</Text>
@@ -554,7 +555,7 @@ export function ReportDocument({ contact, scores, evidence, synthesis, tree }: R
         </View>
 
         <Text style={{ ...s.muted, textAlign: 'center', marginTop: 10 }}>
-          Based on Holland's RIASEC, the Big Five (OCEAN) and an aptitude check, designed to guide your career and study planning.
+          {"Based on Holland's RIASEC, the Big Five (OCEAN) and an aptitude check, designed to guide your career and study planning."}
         </Text>
       </Page>
     </Document>

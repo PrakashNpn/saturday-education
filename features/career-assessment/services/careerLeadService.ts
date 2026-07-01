@@ -6,6 +6,7 @@ import { resend } from '@/shared/lib/email'
 import { computeScores } from './scoring'
 import { scoreAptitude } from './aptitudeScoring'
 import { getRecommendationTree } from './universityRecs'
+import { matchCareers } from './careerMatch'
 import { extractInterestEvidence, buildCounselorEmailHtml } from './brief'
 import { buildArchetype } from './archetype'
 import { buildAssessmentPdf } from './pdf/ReportDocument'
@@ -20,6 +21,8 @@ import type {
   RecommendationTree,
   SubmitResult,
   DashboardData,
+  MatchedCareer,
+  UniversityTeaser,
   RiasecCategory,
   BigFiveTrait,
 } from '../types'
@@ -53,18 +56,23 @@ const BIG_FIVE_BARS: { trait: BigFiveTrait; label: string; low: string; high: st
 async function generateSynthesis(
   scores: AssessmentScores,
   tree: RecommendationTree,
+  matched: MatchedCareer[],
   preferredCountry?: string,
 ): Promise<CounselorSynthesis | null> {
   if (!process.env.ANTHROPIC_API_KEY) return null
   try {
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
+    // Bound the server→Anthropic call: 45s is ample for the ~3.2k-token response, and
+    // one retry (not the SDK default 2) rescues a transient overload without ballooning
+    // the student's "Submitting…" wait. A timeout/error is caught below → graceful null.
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 1, timeout: 45_000 })
     const res = await client.messages.create({
       model: 'claude-sonnet-4-6',
-      // The prompt asks for a read + 3-5 directions + suggested fields + 8-12 ranked
-      // careerPaths — a full response is ~1.2k tokens. Keep generous headroom so the
-      // JSON is never truncated (truncation breaks JSON.parse and nulls the synthesis).
-      max_tokens: 2500,
-      messages: [{ role: 'user', content: buildCounselorPrompt(scores, tree, preferredCountry) }],
+      // The prompt asks for a counselor read + 3 directions + suggested fields + 5
+      // ranked careerPaths + a student read + a whyFit per matched career — a full
+      // response is ~1.5k tokens. Keep generous headroom so the JSON is never
+      // truncated (truncation breaks JSON.parse and nulls the synthesis).
+      max_tokens: 3200,
+      messages: [{ role: 'user', content: buildCounselorPrompt(scores, tree, matched, preferredCountry) }],
     })
     const text = res.content
       .filter((b): b is Anthropic.TextBlock => b.type === 'text')
@@ -109,6 +117,12 @@ async function generateSynthesis(
             .sort((a, b) => b.psychFit + b.skillsFit - (a.psychFit + a.skillsFit))
             .slice(0, 5)
         : [],
+      studentRead: typeof parsed.studentRead === 'string' ? deDash(parsed.studentRead) : undefined,
+      careerFit: Array.isArray(parsed.careerFit)
+        ? parsed.careerFit
+            .filter((c) => c && typeof c.id === 'string' && typeof c.whyFit === 'string')
+            .map((c) => ({ id: String(c.id), whyFit: deDash(String(c.whyFit)) }))
+        : undefined,
     }
   } catch (error) {
     console.error('Assessment synthesis (AI) failed:', error)
@@ -119,7 +133,38 @@ async function generateSynthesis(
 /** The student's visual profile (scores) for the dashboard charts. Deliberately
  *  excludes the interpretation (career directions / university matches / AI read),
  *  which stays gated in the counselor email/report. */
-function buildDashboard(scores: AssessmentScores): Omit<DashboardData, 'fullName' | 'email' | 'phone'> {
+/** A real, personalised teaser of the recommendation tree (counts + countries +
+ *  a few blurred sample rows). The full shortlist stays gated. */
+function buildUniversityTeaser(tree: RecommendationTree): UniversityTeaser | undefined {
+  const countries = new Set<string>()
+  const sample: string[] = []
+  let totalCount = 0
+
+  for (const bucket of tree.buckets) {
+    for (const c of bucket.countries) {
+      countries.add(c.country)
+      totalCount += c.universities.length + (c.moreCount ?? 0)
+      for (const u of c.universities) {
+        if (sample.length < 3) sample.push(`${u.program} · ${c.country} · ${u.name}`)
+      }
+    }
+  }
+
+  if (totalCount === 0) return undefined
+  return {
+    totalCount,
+    countries: Array.from(countries).slice(0, 4),
+    fields: tree.fields.slice(0, 3),
+    sample,
+  }
+}
+
+function buildDashboard(
+  scores: AssessmentScores,
+  matched: MatchedCareer[],
+  synthesis: CounselorSynthesis | null,
+  tree: RecommendationTree,
+): Omit<DashboardData, 'fullName' | 'email' | 'phone'> {
   const { riasec, bigFive, aptitude } = scores
 
   const mainLabel = (c: RiasecCategory) => RIASEC_INFO[c].label.replace(/\s*\(.*\)\s*/, '').trim()
@@ -131,9 +176,14 @@ function buildDashboard(scores: AssessmentScores): Omit<DashboardData, 'fullName
       ? `You're drawn most to ${mainLabel(top2[0])} and ${mainLabel(top2[1])} activities.`
       : `You're drawn most to ${mainLabel(top2[0])} activities.`
 
+  // Merge the AI's personal "why it fits you" (keyed by career slug) into the matches.
+  const whyById = new Map((synthesis?.careerFit ?? []).map((c) => [c.id, c.whyFit]))
+  const careers = matched.map((m) => ({ ...m, whyFit: whyById.get(m.slug) }))
+
   return {
     archetype,
     archetypeSummary,
+    studentRead: synthesis?.studentRead || archetypeSummary,
     hollandCode: riasec.hollandCode,
     interests: RIASEC_ORDER.map((c) => ({
       category: c,
@@ -143,6 +193,8 @@ function buildDashboard(scores: AssessmentScores): Omit<DashboardData, 'fullName
     personality: BIG_FIVE_BARS.map((b) => ({ ...b, percentile: bigFive.percentile[b.trait] })),
     aptitude: aptitude.areas.map((a) => ({ area: a.area, label: a.label, percent: a.percent, band: a.band })),
     aptitudeOverall: { percent: aptitude.overallPercent, band: aptitude.overallBand },
+    careers,
+    universityTeaser: buildUniversityTeaser(tree),
   }
 }
 
@@ -170,16 +222,20 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
     const topCategories = scores.riasec.ranked.slice(0, 3)
     const buckets = candidateBuckets(topCategories, 3)
 
-    // Recommendation tree first (it grounds the AI synthesis in real programs).
+    // Deterministic career matches from the frozen catalog (drives the dashboard
+    // breakdown and grounds the AI's personal "why it fits you").
+    const matched = matchCareers(scores)
+
+    // Recommendation tree (grounds the AI synthesis in real programs we can offer).
     const tree = await getRecommendationTree(buckets, {
       preferredCountry: cleanContact.preferredCountry,
       educationLevel: cleanContact.educationLevel,
     })
-    const synthesis = await generateSynthesis(scores, tree, cleanContact.preferredCountry)
     const evidence = extractInterestEvidence(answers, topCategories)
 
-    // 1. Persist the lead (source of truth) — must succeed.
-    await prisma.assessmentLead.create({
+    // 1. Persist the lead FIRST (source of truth) — independent of the AI, so a slow or
+    //    failed synthesis can never lose the lead. This is the only step that must succeed.
+    const lead = await prisma.assessmentLead.create({
       data: {
         fullName: cleanContact.fullName,
         email: cleanContact.email,
@@ -194,14 +250,25 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
         recommendedFields: tree.fields,
         recommendedUniversities: tree as unknown as object,
         rawAnswers: answers,
-        aiBrief: synthesis ? JSON.stringify(synthesis) : null,
+        aiBrief: null,
       },
     })
 
-    // 2. Generate the PDF report (best-effort), then email the counselor brief.
+    // 2. AI synthesis (bounded) — nice-to-have. Persist it onto the saved lead best-effort;
+    //    a failure here must never fail the submission.
+    const synthesis = await generateSynthesis(scores, tree, matched, cleanContact.preferredCountry)
+    if (synthesis) {
+      try {
+        await prisma.assessmentLead.update({ where: { id: lead.id }, data: { aiBrief: JSON.stringify(synthesis) } })
+      } catch (error) {
+        console.error('Assessment aiBrief update failed:', error)
+      }
+    }
+
+    // 3. Generate the PDF report (best-effort), then email the counselor brief.
     let pdf: Buffer | null = null
     try {
-      pdf = await buildAssessmentPdf({ contact: cleanContact, scores, evidence, synthesis, tree })
+      pdf = await buildAssessmentPdf({ contact: cleanContact, scores, synthesis, tree })
     } catch (error) {
       console.error('Assessment PDF generation failed:', error)
     }
@@ -211,7 +278,7 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
     return {
       success: true,
       dashboard: {
-        ...buildDashboard(scores),
+        ...buildDashboard(scores, matched, synthesis, tree),
         fullName: cleanContact.fullName,
         email: cleanContact.email,
         phone: cleanContact.phone || undefined,

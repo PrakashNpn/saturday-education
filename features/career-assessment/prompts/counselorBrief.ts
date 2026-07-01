@@ -2,7 +2,7 @@
 // student's assessment. Output is strict JSON so it can be parsed and stored.
 
 import { RIASEC_INFO } from '../data/riasecFieldMap'
-import type { AssessmentScores, RecommendationTree } from '../types'
+import type { AssessmentScores, RecommendationTree, MatchedCareer } from '../types'
 
 const TRAIT_LABELS: Record<string, string> = {
   O: 'Openness',
@@ -21,6 +21,7 @@ function band(pct: number): string {
 export function buildCounselorPrompt(
   scores: AssessmentScores,
   tree: RecommendationTree,
+  matched: MatchedCareer[],
   preferredCountry?: string,
 ): string {
   const { riasec, bigFive, aptitude } = scores
@@ -39,6 +40,8 @@ export function buildCounselorPrompt(
       return `- ${TRAIT_LABELS[t]}: ${p}th percentile (${band(p)})`
     })
     .join('\n')
+
+  const matchedLines = matched.map((m) => `- id: ${m.slug} | ${m.title} (${m.field})`).join('\n')
 
   const pathLines = tree.buckets.length
     ? tree.buckets
@@ -65,6 +68,9 @@ ${aptitudeLines}
 
 FIELDS & DESTINATIONS WE CAN ACTUALLY OFFER (field → countries we have partner universities in; "strong" = country is known for that field):
 ${pathLines}
+
+CAREER MATCHES ALREADY SELECTED FOR THIS STUDENT (chosen from our catalog; write a personal "why it fits you" for each, in second person, addressed TO the student):
+${matchedLines}
 ${preferredCountry ? `\nThe student's preferred study destination is ${preferredCountry}. If it appears above, acknowledge it; if not, gently suggest the closest available alternatives.\n` : ''}
 Write for the counselor, not the student. Tie interests, personality and aptitude together (e.g. how their conscientiousness or extraversion shapes which version of a field would suit them, and whether their strongest ability area reinforces or stretches their interests). When you mention degree fields, countries, or study destinations, use ONLY the fields and countries from the list above; do not invent options we cannot offer.
 IMPORTANT writing style: write in plain, professional prose. Do NOT use em dashes ("—") or en dashes ("–") anywhere in any field of your output (read, careerDirections, careerPaths titles/roles, suggestedFields). Use commas, semicolons, full stops, parentheses or colons instead. Heavy dash use reads as machine-generated; avoid it.
@@ -78,6 +84,10 @@ Return ONLY valid JSON, no markdown, in exactly this shape:
   "suggestedFields": ["Field 1", "Field 2", "Field 3"],
   "careerPaths": [
     { "title": "Field or career area", "roles": "2-3 example job titles", "psychFit": 88, "skillsFit": 80 }
+  ],
+  "studentRead": "A warm ~50-word summary written TO the student (second person).",
+  "careerFit": [
+    { "id": "the-matched-career-id", "whyFit": "One encouraging sentence, second person, on why this path suits them." }
   ]
 }
 "read": a concise, specific briefing of about 60 words (2-3 sentences) tying interests, personality and aptitude into a clear direction for the counselor. No filler, and do not restate the raw scores.
@@ -85,5 +95,7 @@ Provide exactly 3 careerDirections. suggestedFields must be drawn from the field
 Provide exactly the 5 STRONGEST careerPaths, RANKED from best fit to least (highest first). For each:
 - "psychFit" (0-100) = how well it matches their interests + personality.
 - "skillsFit" (0-100) = how well it matches their aptitude strengths.
-Be realistic (a mix of strong and moderate fits); use whole numbers, mostly in the 55-95 range. Prefer careers connected to the fields we can offer.`
+Be realistic (a mix of strong and moderate fits); use whole numbers, mostly in the 55-95 range. Prefer careers connected to the fields we can offer.
+"studentRead": warm, encouraging, second person ("You..."), about 50 words; no raw scores, no jargon.
+"careerFit": one object for EACH career in the matched list above, using its exact "id". "whyFit" is ONE encouraging second-person sentence connecting the student's strengths/interests to that specific career. Keep it specific, not generic.`
 }
