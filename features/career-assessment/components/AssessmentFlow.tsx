@@ -1,7 +1,7 @@
 'use client'
 
 import { useState, useEffect, useCallback } from 'react'
-import { AnimatePresence } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { RIASEC_COUNT, PERSONALITY_END, TOTAL_QUESTIONS } from '../data/allQuestions'
 import { APTITUDE_AREA_LABELS } from '../data/aptitudeQuestions'
@@ -10,6 +10,7 @@ import { useNavigationGuard } from '../hooks/useNavigationGuard'
 import { submitAssessment } from '../services/careerLeadService'
 import type { ContactDetails, DashboardData } from '../types'
 import { CareerDiscoveryIntro } from './CareerDiscoveryIntro'
+import { CareerOutlookExplorer } from './CareerOutlookExplorer'
 import { PreparingScreen } from './PreparingScreen'
 import { QuestionScreen } from './QuestionScreen'
 import { AptitudeQuestionCard } from './AptitudeQuestionCard'
@@ -154,11 +155,26 @@ export function AssessmentFlow() {
       )}
 
       {/* Phase content */}
-      <div className={`relative flex flex-1 ${phase === 'dashboard' ? 'items-start' : 'items-center'} justify-center px-4 py-8`}>
-        <div className={`mx-auto w-full ${phase === 'dashboard' ? 'max-w-6xl' : 'max-w-3xl'}`}>
+      <div className={`relative flex flex-1 ${phase === 'dashboard' ? 'items-start' : 'items-center'} justify-center px-4 py-6`}>
+        <div className={`mx-auto w-full ${phase === 'dashboard' ? 'max-w-6xl' : phase === 'intro' ? 'max-w-5xl' : 'max-w-3xl'}`}>
           <AnimatePresence mode="wait">
             {phase === 'intro' && (
-              <CareerDiscoveryIntro key="intro" onStart={handleStart} onAutofill={handleAutofill} />
+              <motion.div
+                key="intro"
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                transition={{ duration: 0.45, ease: 'easeOut' }}
+                className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)]"
+              >
+                <div className="grid lg:grid-cols-2">
+                  <div className="p-5 sm:p-7">
+                    <CareerDiscoveryIntro bare onStart={handleStart} onAutofill={handleAutofill} />
+                  </div>
+                  <div className="border-t border-gray-100 bg-gradient-to-br from-brand-purple-50/80 via-brand-purple-50/30 to-white p-5 sm:p-7 lg:border-l lg:border-t-0">
+                    <CareerOutlookExplorer bare />
+                  </div>
+                </div>
+              </motion.div>
             )}
 
             {phase === 'preparing' && <PreparingScreen key="preparing" />}

@@ -292,6 +292,7 @@
       "arrival": "Arrival & Settlement"
     },
     "company": {
+      "careerAssessment": "Career Assessment",
       "heading": "Company",
       "about": "About Us",
       "testimonials": "Testimonials",
@@ -488,27 +489,23 @@
       "eyebrow": "Your snapshot",
       "title": "Here's a glimpse of your profile",
       "subtitle": "A quick preview — your full report is on its way to our counsellors.",
-      "interestLabel": "Your interest type",
-      "personalityLabel": "Personality highlights",
-      "aptitudeLabel": "Your strongest ability",
-      "fullReportTitle": "Your full report is on its way",
-      "fullReportBody": "Your detailed scores, career directions and university matches are being prepared for our counsellors. Book a free session to walk through everything with an expert.",
-      "ctaConsult": "Book a free consultation",
+      "ctaConsult": "Book Free Consultation",
       "ctaHome": "Back to home",
       "interestsTitle": "Your interests",
       "personalityTitle": "Your personality",
       "aptitudeTitle": "Your aptitude",
       "overallLabel": "Overall",
-      "hollandLabel": "Holland code",
-      "lockedTitle": "Career directions & university matches",
-      "lockedBadge": "Locked",
-      "lockedNote": "Book a free consultation to unlock your full report — detailed scores, career directions and your matched universities.",
-      "preparedFor": "Prepared for"
+      "lockedTitle": "သင်နှင့်ကိုက်ညီသော အသက်မွေးဝမ်းကြောင်းများနှင့် တက္ကသိုလ်ရွေးချယ်စာရင်း",
+      "lockedBadge": "သော့ခတ်ထား",
+      "lockedNote": "အခမဲ့ တိုင်ပင်ဆွေးနွေးမှု ဘွတ်ကင်လုပ်ပါ။ အတိုင်ပင်ခံက သင့်အသက်မွေးဝမ်းကြောင်းများကို ရှင်းပြပြီး တက္ကသိုလ်ရွေးချယ်စာရင်းနှင့် လျှောက်ထားမှုအစီအစဉ်ကို တည်ဆောက်ပေးပါမည်။",
+      "lockedTeaser": "{countries} ရှိ တက္ကသိုလ် {count} ခုနှင့် သင့်ကို တိုက်ဆိုက်ပေးထားပါသည်။",
+      "preparedFor": "အတွက် ပြင်ဆင်ထားသည်",
+      "careerLockedNote": "သင့်အတွက် တိုက်ဆိုင်ပေးထားသော အသက်မွေးဝမ်းကြောင်းများနှင့် ၁၀ နှစ်အလုပ်အကိုင်ဈေးကွက်အလားအလာ၊ လိုအပ်သောကျွမ်းကျင်မှုများ"
     }
   },
   "nav": {
-    "home": "Home",
     "careerAssessment": "Career Assessment",
+    "home": "Home",
     "universityFinder": "University Finder",
     "studyDestination": "Study Destination",
     "blogs": "Blogs",

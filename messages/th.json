@@ -292,6 +292,7 @@
       "arrival": "Arrival & Settlement"
     },
     "company": {
+      "careerAssessment": "Career Assessment",
       "heading": "Company",
       "about": "About Us",
       "testimonials": "Testimonials",
@@ -488,27 +489,23 @@
       "eyebrow": "Your snapshot",
       "title": "Here's a glimpse of your profile",
       "subtitle": "A quick preview — your full report is on its way to our counsellors.",
-      "interestLabel": "Your interest type",
-      "personalityLabel": "Personality highlights",
-      "aptitudeLabel": "Your strongest ability",
-      "fullReportTitle": "Your full report is on its way",
-      "fullReportBody": "Your detailed scores, career directions and university matches are being prepared for our counsellors. Book a free session to walk through everything with an expert.",
-      "ctaConsult": "Book a free consultation",
+      "ctaConsult": "Book Free Consultation",
       "ctaHome": "Back to home",
       "interestsTitle": "Your interests",
       "personalityTitle": "Your personality",
       "aptitudeTitle": "Your aptitude",
       "overallLabel": "Overall",
-      "hollandLabel": "Holland code",
-      "lockedTitle": "Career directions & university matches",
-      "lockedBadge": "Locked",
-      "lockedNote": "Book a free consultation to unlock your full report — detailed scores, career directions and your matched universities.",
-      "preparedFor": "Prepared for"
+      "lockedTitle": "อาชีพที่เหมาะกับคุณและรายชื่อมหาวิทยาลัย",
+      "lockedBadge": "ล็อกอยู่",
+      "lockedNote": "จองคำปรึกษาฟรี แล้วที่ปรึกษาจะอธิบายอาชีพที่เหมาะกับคุณ และช่วยสร้างรายชื่อมหาวิทยาลัยพร้อมแผนการสมัครให้",
+      "lockedTeaser": "เราจับคู่คุณกับมหาวิทยาลัย {count} แห่งใน {countries}",
+      "preparedFor": "จัดทำสำหรับ",
+      "careerLockedNote": "อาชีพที่จับคู่ให้คุณ พร้อมแนวโน้มตลาดงาน 10 ปีและทักษะที่จำเป็น"
     }
   },
   "nav": {
-    "home": "Home",
     "careerAssessment": "Career Assessment",
+    "home": "Home",
     "universityFinder": "University Finder",
     "studyDestination": "Study Destination",
     "blogs": "Blogs",

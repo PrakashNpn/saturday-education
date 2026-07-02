@@ -2,6 +2,7 @@
 // layout in the browser without running a full submit + email. 404 in production.
 
 import { buildAssessmentPdf } from '@/features/career-assessment/services/pdf/ReportDocument'
+import { matchCareers } from '@/features/career-assessment/services/careerMatch'
 import type { AssessmentScores, ContactDetails, CounselorSynthesis, RecommendationTree } from '@/features/career-assessment/types'
 
 export async function GET() {
@@ -108,12 +109,13 @@ export async function GET() {
     ],
   }
 
-  const evidence = {
-    topLiked: ['Write computer programs to analyse data', 'Examine data to find patterns and draw conclusions', 'Lead a team toward an ambitious goal'],
-    disliked: ['Care for sick or injured people'],
-  }
+  // Real catalog matches from the sample scores; add a sample "why it fits" to the top two.
+  const careers = matchCareers(scores).map((c, i) => ({
+    ...c,
+    whyFit: i < 2 ? 'This blends the student\'s investigative and enterprising interests with their numerical strength, a strong practical fit.' : undefined,
+  }))
 
-  const pdf = await buildAssessmentPdf({ contact, scores, evidence, synthesis, tree })
+  const pdf = await buildAssessmentPdf({ contact, scores, synthesis, tree, careers })
 
   return new Response(new Uint8Array(pdf), {
     headers: {
