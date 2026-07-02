@@ -161,7 +161,6 @@ function buildUniversityTeaser(tree: RecommendationTree): UniversityTeaser | und
 
 function buildDashboard(
   scores: AssessmentScores,
-  matched: MatchedCareer[],
   synthesis: CounselorSynthesis | null,
   tree: RecommendationTree,
 ): Omit<DashboardData, 'fullName' | 'email' | 'phone'> {
@@ -176,10 +175,6 @@ function buildDashboard(
       ? `You're drawn most to ${mainLabel(top2[0])} and ${mainLabel(top2[1])} activities.`
       : `You're drawn most to ${mainLabel(top2[0])} activities.`
 
-  // Merge the AI's personal "why it fits you" (keyed by career slug) into the matches.
-  const whyById = new Map((synthesis?.careerFit ?? []).map((c) => [c.id, c.whyFit]))
-  const careers = matched.map((m) => ({ ...m, whyFit: whyById.get(m.slug) }))
-
   return {
     archetype,
     archetypeSummary,
@@ -193,7 +188,6 @@ function buildDashboard(
     personality: BIG_FIVE_BARS.map((b) => ({ ...b, percentile: bigFive.percentile[b.trait] })),
     aptitude: aptitude.areas.map((a) => ({ area: a.area, label: a.label, percent: a.percent, band: a.band })),
     aptitudeOverall: { percent: aptitude.overallPercent, band: aptitude.overallBand },
-    careers,
     universityTeaser: buildUniversityTeaser(tree),
   }
 }
@@ -265,10 +259,15 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
       }
     }
 
+    // Merge the AI's per-career "why it fits you" into the matches — for the counsellor
+    // PDF only (the student's dashboard no longer receives the career matches).
+    const whyById = new Map((synthesis?.careerFit ?? []).map((c) => [c.id, c.whyFit]))
+    const careers = matched.map((m) => ({ ...m, whyFit: whyById.get(m.slug) }))
+
     // 3. Generate the PDF report (best-effort), then email the counselor brief.
     let pdf: Buffer | null = null
     try {
-      pdf = await buildAssessmentPdf({ contact: cleanContact, scores, synthesis, tree })
+      pdf = await buildAssessmentPdf({ contact: cleanContact, scores, synthesis, tree, careers })
     } catch (error) {
       console.error('Assessment PDF generation failed:', error)
     }
@@ -278,7 +277,7 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
     return {
       success: true,
       dashboard: {
-        ...buildDashboard(scores, matched, synthesis, tree),
+        ...buildDashboard(scores, synthesis, tree),
         fullName: cleanContact.fullName,
         email: cleanContact.email,
         phone: cleanContact.phone || undefined,

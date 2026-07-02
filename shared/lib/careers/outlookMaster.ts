@@ -11,10 +11,20 @@ import type { Career, CareerField, Demand, HollandCode } from './catalog'
 
 export type Horizon = '5' | '10'
 
+/** A known catalog field, or a free-text label the AI coins for an off-catalog
+ *  career. Kept separate from the catalog's strict `CareerField` so the curated
+ *  entries stay fully type-checked; this widening is display-only — it drives the
+ *  field chip + icon, which already fall back gracefully for unknown labels. */
+export type FieldLabel = CareerField | (string & {})
+
+/** A derived horizon view: a `Career`-shaped object for the modal, but carrying the
+ *  widened field label (an AI-generated career may have a free-text field). */
+export type OutlookView = Omit<Career, 'field'> & { field: FieldLabel }
+
 export interface CareerOutlookMaster {
   slug: string
   title: string
-  field: CareerField
+  field: FieldLabel
   summary: string
   exampleRoles: string[]
   requiredSkills: string[]
@@ -46,6 +56,7 @@ export const CAREER_FIELDS: CareerField[] = [
   'Education',
   'Humanities & Languages',
   'Hospitality & Tourism',
+  'Sports, Fitness & Recreation',
 ]
 export const DEMAND_LEVELS: Demand[] = ['High', 'Moderate', 'Competitive']
 export const HOLLAND_CODES: HollandCode[] = ['R', 'I', 'A', 'S', 'E', 'C']
@@ -119,7 +130,13 @@ export function coerceMasterFromAI(raw: unknown, fallbackQuery: string): CareerO
   const title = deDash(str(r.title)) || deDash(fallbackQuery)
   if (!title) return null
 
-  const field = CAREER_FIELDS.includes(r.field as CareerField) ? (r.field as CareerField) : FALLBACK_FIELD
+  // Keep a recognised field as-is; otherwise preserve the model's own short field
+  // label (display-only) rather than forcing an unrelated fallback. Only fall back
+  // when the model returned nothing usable.
+  const fieldRaw = deDash(str(r.field)).slice(0, 40)
+  const field: FieldLabel = CAREER_FIELDS.includes(fieldRaw as CareerField)
+    ? (fieldRaw as CareerField)
+    : fieldRaw || FALLBACK_FIELD
 
   const riasec = (Array.isArray(r.riasec) ? r.riasec : [])
     .map((x) => String(x).toUpperCase())
@@ -181,7 +198,7 @@ function sampleYears(trend: number[], years: number[]): number[] {
  * Both views slice the SAME master.trend, guaranteeing they stay consistent:
  *   10-yr → years 0,2,4,6,8,10   |   5-yr → years 0,1,2,3,4,5
  */
-export function deriveHorizonView(master: CareerOutlookMaster, horizon: Horizon): Career {
+export function deriveHorizonView(master: CareerOutlookMaster, horizon: Horizon): OutlookView {
   const years = horizon === '5' ? [0, 1, 2, 3, 4, 5] : [0, 2, 4, 6, 8, 10]
   const pts = sampleYears(master.trend, years)
   const first = pts[0]

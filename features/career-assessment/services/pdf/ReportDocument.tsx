@@ -28,6 +28,7 @@ import type {
   RecommendationTree,
   BigFiveTrait,
   RiasecCategory,
+  MatchedCareer,
 } from '../../types'
 import { LOGO_DATA_URI } from './logoAsset'
 
@@ -81,13 +82,6 @@ function fitColor(n: number): string {
   if (n >= 65) return BLUE
   return MUTE
 }
-function verdict(psych: number, skills: number): { label: string; color: string } {
-  const m = Math.min(psych, skills)
-  if (m >= 80) return { label: 'Top Choice', color: GREEN }
-  if (m >= 65) return { label: 'Good Choice', color: BLUE }
-  return { label: 'Explore', color: GRAY }
-}
-
 const s = StyleSheet.create({
   page: { paddingTop: 42, paddingBottom: 50, paddingHorizontal: 40, fontFamily: 'Helvetica', color: INK, fontSize: 10 },
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 },
@@ -223,14 +217,171 @@ function Footer({ name }: { name: string }) {
   )
 }
 
+// ── Career match profile (counsellor-facing: fit + why + outlook + skills + gap) ──
+const DEMAND_COLOR: Record<string, string> = { High: GREEN, Moderate: BLUE, Competitive: GRAY }
+function growthColor(g: number): string {
+  if (g <= -8) return '#DC2626'
+  if (g < 8) return GRAY
+  return GREEN
+}
+
+function FitCol({ label, value }: { label: string; value: number }) {
+  const v = Math.max(0, Math.min(100, value))
+  return (
+    <View style={{ flex: 1, paddingRight: 10 }}>
+      <Text style={{ fontSize: 8, color: GRAY }}>
+        {label} · {fitLabel(v)} ({v})
+      </Text>
+      <View style={{ height: 5, backgroundColor: TRACK, borderRadius: 3, marginTop: 2 }}>
+        <View style={{ height: 5, width: `${v}%`, backgroundColor: fitColor(v), borderRadius: 3 }} />
+      </View>
+    </View>
+  )
+}
+
+const CHIP_TONE = {
+  req: { color: PURPLE, bg: PURPLE_50, border: PURPLE_BORDER },
+  nice: { color: GRAY, bg: '#F3F4F6', border: BORDER },
+  strength: { color: '#15803D', bg: '#F0FDF4', border: '#BBF7D0' },
+  focus: { color: '#B45309', bg: '#FFFBEB', border: '#FDE68A' },
+} as const
+function Chip({ text, tone }: { text: string; tone: keyof typeof CHIP_TONE }) {
+  const c = CHIP_TONE[tone]
+  return (
+    <Text style={{ fontSize: 8, fontFamily: 'Helvetica-Bold', color: c.color, backgroundColor: c.bg, borderWidth: 1, borderColor: c.border, borderRadius: 999, paddingVertical: 2.5, paddingHorizontal: 7, marginRight: 4, marginBottom: 4 }}>
+      {text}
+    </Text>
+  )
+}
+
+function CareerProfile({ career, rank }: { career: MatchedCareer; rank: number }) {
+  const t = career.outlook.trend
+  const growth = t.length > 1 && t[0] > 0 ? Math.round(((t[t.length - 1] - t[0]) / t[0]) * 100) : 0
+  const mn = Math.min(...t)
+  const mx = Math.max(...t)
+  // Scale bars tight to the trend's own range so the trajectory reads clearly (the
+  // exact values + growth label above keep it honest for slow-moving careers).
+  const lo = Math.max(0, mn - 1)
+  const hi = Math.min(100, mx + 1)
+  const barH = (v: number) => 6 + ((v - lo) / (hi - lo || 1)) * 32
+  const startYear = new Date().getFullYear()
+  const step = t.length > 1 ? Math.round(10 / (t.length - 1)) : 2
+  const sources = career.outlook.sources
+  const { strengths, focus } = career.skillGap
+  return (
+    <View wrap={false} style={{ ...s.card, marginBottom: 10 }}>
+      {/* header: title + field + demand · match ring */}
+      <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <View style={{ flex: 1, paddingRight: 8 }}>
+          <View style={{ flexDirection: 'row', alignItems: 'baseline' }}>
+            <Text style={{ fontSize: 8.5, fontFamily: 'Helvetica-Bold', color: MUTE, marginRight: 5 }}>#{rank}</Text>
+            <Text style={{ fontSize: 12, fontFamily: 'Helvetica-Bold', color: INK }}>{career.title}</Text>
+          </View>
+          <View style={{ flexDirection: 'row', alignItems: 'center', marginTop: 2 }}>
+            <Text style={{ fontSize: 8.5, color: MUTE, marginRight: 8 }}>{career.field}</Text>
+            <Text style={{ fontSize: 8, fontFamily: 'Helvetica-Bold', color: DEMAND_COLOR[career.outlook.demand] ?? GRAY }}>
+              {career.outlook.demand} demand
+            </Text>
+          </View>
+        </View>
+        <View style={{ alignItems: 'center' }}>
+          <Ring percent={career.match} size={50} />
+          <Text style={{ ...s.muted, marginTop: 1, fontFamily: 'Helvetica-Bold' }}>MATCH</Text>
+        </View>
+      </View>
+
+      {/* fit breakdown */}
+      <View style={{ flexDirection: 'row', marginTop: 8 }}>
+        <FitCol label="Interest fit" value={career.interestFit} />
+        <FitCol label="Skills fit" value={career.skillsFit} />
+      </View>
+
+      {/* why this fits (AI, per student) */}
+      {career.whyFit ? (
+        <View style={{ backgroundColor: PURPLE_50, borderRadius: 6, padding: 8, marginTop: 8 }}>
+          <Text style={{ ...s.eyebrow, marginBottom: 3 }}>Why this fits</Text>
+          <Text style={{ fontSize: 9, color: INK, lineHeight: 1.45 }}>{career.whyFit}</Text>
+        </View>
+      ) : null}
+
+      {/* 10-year outlook — labelled bar chart + sources */}
+      <View style={{ borderTopWidth: 1, borderTopColor: BORDER, marginTop: 8, paddingTop: 7 }}>
+        <View style={{ flexDirection: 'row', justifyContent: 'space-between', alignItems: 'center', marginBottom: 6 }}>
+          <Text style={s.eyebrow}>10-year job outlook</Text>
+          <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', color: growthColor(growth) }}>
+            {career.outlook.growthLabel} · ~{growth > 0 ? '+' : ''}{growth}%
+          </Text>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 46 }}>
+          {t.map((v, i) => (
+            <View key={i} style={{ flex: 1, marginRight: i < t.length - 1 ? 5 : 0, alignItems: 'center', justifyContent: 'flex-end' }}>
+              <Text style={{ fontSize: 6.5, fontFamily: 'Helvetica-Bold', color: PURPLE, marginBottom: 1.5 }}>{v}</Text>
+              <View style={{ width: '100%', height: barH(v), backgroundColor: PURPLE, borderTopLeftRadius: 2, borderTopRightRadius: 2 }} />
+            </View>
+          ))}
+        </View>
+        <View style={{ flexDirection: 'row', marginTop: 3, borderTopWidth: 1, borderTopColor: BORDER, paddingTop: 3 }}>
+          {t.map((_, i) => (
+            <Text key={i} style={{ flex: 1, marginRight: i < t.length - 1 ? 5 : 0, fontSize: 6, color: MUTE, textAlign: 'center' }}>
+              {startYear + i * step}
+            </Text>
+          ))}
+        </View>
+        <Text style={{ ...s.small, marginTop: 6 }}>{career.outlook.marketNote}</Text>
+        <Text style={{ ...s.muted, marginTop: 3 }}>
+          Indicative, based on public labour-market sources{sources.length ? ` (${sources.join(', ')})` : ''}. Varies by country and over time.
+        </Text>
+      </View>
+
+      {/* skills the career needs — chips */}
+      <View style={{ marginTop: 8 }}>
+        <Text style={{ ...s.eyebrow, marginBottom: 1 }}>Must-have skills</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 3 }}>
+          {career.requiredSkills.map((sk) => <Chip key={sk} text={sk} tone="req" />)}
+        </View>
+        <Text style={{ ...s.eyebrow, marginTop: 6, marginBottom: 1 }}>Nice-to-have skills</Text>
+        <View style={{ flexDirection: 'row', flexWrap: 'wrap', marginTop: 3 }}>
+          {career.niceToHaveSkills.map((sk) => <Chip key={sk} text={sk} tone="nice" />)}
+        </View>
+      </View>
+
+      {/* student readiness (skill gap) — chips */}
+      <View style={{ borderTopWidth: 1, borderTopColor: BORDER, marginTop: 8, paddingTop: 7 }}>
+        <Text style={{ ...s.eyebrow, marginBottom: 5 }}>Student&apos;s readiness for this path</Text>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start', marginBottom: 4 }}>
+          <Text style={{ width: 82, fontSize: 8, fontFamily: 'Helvetica-Bold', color: '#15803D', paddingTop: 3 }}>Head start</Text>
+          <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+            {strengths.length ? (
+              strengths.map((x) => <Chip key={x.label} text={`${x.label} ${x.percent}%`} tone="strength" />)
+            ) : (
+              <Text style={{ ...s.small, paddingTop: 2 }}>Strengths will build with study and practice.</Text>
+            )}
+          </View>
+        </View>
+        <View style={{ flexDirection: 'row', alignItems: 'flex-start' }}>
+          <Text style={{ width: 82, fontSize: 8, fontFamily: 'Helvetica-Bold', color: '#B45309', paddingTop: 3 }}>Focus to get ready</Text>
+          <View style={{ flex: 1, flexDirection: 'row', flexWrap: 'wrap' }}>
+            {focus.length ? (
+              focus.map((f) => <Chip key={f} text={f} tone="focus" />)
+            ) : (
+              <Text style={{ ...s.small, paddingTop: 2 }}>Well-rounded for this path.</Text>
+            )}
+          </View>
+        </View>
+      </View>
+    </View>
+  )
+}
+
 export interface ReportArgs {
   contact: ContactDetails
   scores: AssessmentScores
   synthesis: CounselorSynthesis | null
   tree: RecommendationTree
+  careers: MatchedCareer[]
 }
 
-export function ReportDocument({ contact, scores, synthesis, tree }: ReportArgs) {
+export function ReportDocument({ contact, scores, synthesis, tree, careers }: ReportArgs) {
   const { riasec, bigFive, aptitude } = scores
   const top3 = riasec.ranked.slice(0, 3)
   const archetype = buildArchetype(scores)
@@ -442,59 +593,41 @@ export function ReportDocument({ contact, scores, synthesis, tree }: ReportArgs)
       <Page size="A4" style={s.page}>
         <Header />
         <Footer name={contact.fullName} />
-        <View style={s.band}><Text style={s.bandText}>Recommended Career Paths</Text></View>
+        <View style={s.band}><Text style={s.bandText}>Career Matches & 10-Year Outlook</Text></View>
+        <Text style={{ ...s.small, marginBottom: 10 }}>
+          The careers that best fit this student&apos;s profile, with how each job market looks over the next
+          10 years. Use these to guide the consultation.
+        </Text>
 
-        {paths.length ? (
-          <View style={{ borderWidth: 1, borderColor: BORDER, borderRadius: 8, overflow: 'hidden', marginBottom: 12 }}>
-            {/* header */}
-            <View style={{ flexDirection: 'row', backgroundColor: PURPLE_DARK }}>
-              <Text style={{ width: 22, ...thc }}>#</Text>
-              <Text style={{ flex: 1, ...thc }}>Career path</Text>
-              <Text style={{ width: 96, ...thc }}>Interest fit</Text>
-              <Text style={{ width: 96, ...thc }}>Aptitude fit</Text>
-              <Text style={{ width: 70, ...thc }}>Verdict</Text>
-            </View>
-            {paths.map((p, i) => {
-              const v = verdict(p.psychFit, p.skillsFit)
-              return (
-                <View key={i} style={{ flexDirection: 'row', borderTopWidth: i === 0 ? 0 : 1, borderTopColor: BORDER, alignItems: 'center', backgroundColor: i % 2 ? '#FAFAFC' : '#fff' }}>
-                  <Text style={{ width: 22, ...tdc, fontFamily: 'Helvetica-Bold' }}>{i + 1}</Text>
-                  <View style={{ flex: 1, paddingVertical: 6, paddingHorizontal: 6 }}>
-                    <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', color: INK }}>{p.title}</Text>
-                    {p.roles ? <Text style={{ fontSize: 8, color: MUTE }}>{p.roles}</Text> : null}
-                  </View>
-                  <View style={{ width: 96, paddingHorizontal: 6 }}>
-                    <Text style={{ fontSize: 8, color: GRAY }}>{fitLabel(p.psychFit)} · {p.psychFit}</Text>
-                    <View style={{ height: 5, backgroundColor: TRACK, borderRadius: 3, marginTop: 2 }}><View style={{ height: 5, width: `${p.psychFit}%`, backgroundColor: fitColor(p.psychFit), borderRadius: 3 }} /></View>
-                  </View>
-                  <View style={{ width: 96, paddingHorizontal: 6 }}>
-                    <Text style={{ fontSize: 8, color: GRAY }}>{fitLabel(p.skillsFit)} · {p.skillsFit}</Text>
-                    <View style={{ height: 5, backgroundColor: TRACK, borderRadius: 3, marginTop: 2 }}><View style={{ height: 5, width: `${p.skillsFit}%`, backgroundColor: fitColor(p.skillsFit), borderRadius: 3 }} /></View>
-                  </View>
-                  <Text style={{ width: 70, paddingHorizontal: 6, fontSize: 8.5, fontFamily: 'Helvetica-Bold', color: v.color }}>{v.label}</Text>
-                </View>
-              )
-            })}
-          </View>
+        {careers.length ? (
+          careers.map((c, i) => <CareerProfile key={c.slug} career={c} rank={i + 1} />)
         ) : (
-          <View style={s.card}>
-            {synthesis?.careerDirections?.length ? (
-              synthesis.careerDirections.map((d, i) => (
-                <View key={i} style={{ marginBottom: 5 }}>
-                  <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', color: INK }}>{d.title}</Text>
-                  <Text style={s.small}>{d.why}</Text>
-                </View>
-              ))
-            ) : (
-              <Text style={s.muted}>Ranked career fit requires the AI synthesis.</Text>
-            )}
-          </View>
+          <Text style={s.muted}>No career matches were generated for this profile.</Text>
         )}
+      </Page>
+
+      {/* ── DIRECTIONS + UNIVERSITY MATCHES (kept together on one page) ── */}
+      <Page size="A4" style={s.page}>
+        <Header />
+        <Footer name={contact.fullName} />
+        <View style={s.band}><Text style={s.bandText}>Directions & University Matches</Text></View>
+
+        {synthesis?.careerDirections?.length ? (
+          <View style={{ ...s.card, marginBottom: 10 }} wrap={false}>
+            <Text style={{ ...s.eyebrow, marginBottom: 4 }}>Broader directions to explore</Text>
+            {synthesis.careerDirections.map((d, i) => (
+              <View key={i} style={{ marginBottom: 4 }}>
+                <Text style={{ fontSize: 9.5, fontFamily: 'Helvetica-Bold', color: INK }}>{d.title}</Text>
+                <Text style={s.small}>{d.why}</Text>
+              </View>
+            ))}
+          </View>
+        ) : null}
 
         <Text style={s.eyebrow}>Universities we can match (from our database)</Text>
         {tree.buckets.length ? (
           tree.buckets.slice(0, 3).map((b) => (
-            <View key={b.bucket} style={{ marginBottom: 6 }}>
+            <View key={b.bucket} style={{ marginBottom: 5 }} wrap={false}>
               <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', color: PURPLE_DARK }}>{b.bucket}</Text>
               {b.countries.slice(0, 2).map((c) => (
                 <View key={c.country} style={{ marginTop: 2, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: c.preferred ? GOLD : PURPLE_BORDER }}>
@@ -561,10 +694,6 @@ export function ReportDocument({ contact, scores, synthesis, tree }: ReportArgs)
     </Document>
   )
 }
-
-// table cell style helpers
-const thc = { color: '#fff', fontSize: 8.5, fontFamily: 'Helvetica-Bold', paddingVertical: 6, paddingHorizontal: 6 } as const
-const tdc = { fontSize: 9, color: INK, paddingVertical: 6, paddingHorizontal: 6 } as const
 
 /** Renders the report to a PDF Buffer (server-side). */
 export async function buildAssessmentPdf(args: ReportArgs): Promise<Buffer> {

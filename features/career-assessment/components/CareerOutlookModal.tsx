@@ -6,8 +6,7 @@ import { X, TrendingUp, CheckCircle2, Check, Plus, GraduationCap, SearchX, Rotat
 import { OutlookChart, DemandGauge } from '@/shared/components/careers/OutlookCharts'
 import { fieldStyle } from '@/shared/components/careers/fieldStyle'
 import { growthTone } from '@/shared/components/careers/outlookTone'
-import { deriveHorizonView, type Horizon } from '@/shared/lib/careers/outlookMaster'
-import type { Career } from '@/shared/lib/careers/catalog'
+import { deriveHorizonView, type Horizon, type OutlookView } from '@/shared/lib/careers/outlookMaster'
 import { getCareerOutlook } from '../services/careerOutlookService'
 import { CareerOutlookResearching } from './CareerOutlookResearching'
 
@@ -76,7 +75,7 @@ function SkillList({ title, skills, variant }: { title: string; skills: string[]
   )
 }
 
-function ModalBody({ career, horizonYears }: { career: Career; horizonYears: number }) {
+function ModalBody({ career, horizonYears }: { career: OutlookView; horizonYears: number }) {
   const fs = fieldStyle(career.field)
   const Icon = fs.icon
   const trend = career.outlook.trend
@@ -91,7 +90,7 @@ function ModalBody({ career, horizonYears }: { career: Career; horizonYears: num
   return (
     <>
       {/* Header — soft field-tinted band */}
-      <div className={`border-b border-gray-100 bg-gradient-to-b ${fs.gradFrom} to-white p-5 sm:p-6`}>
+      <div className="border-b border-gray-100 bg-gradient-to-b from-brand-purple-50 to-white p-5 sm:p-6">
         <div className="flex items-start gap-3 pr-8">
           <span className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl ${fs.iconBg}`}>
             <Icon size={22} />
@@ -223,7 +222,7 @@ function StateMessage({
 
 type FetchState =
   | { phase: 'loading' }
-  | { phase: 'ready'; career: Career }
+  | { phase: 'ready'; career: OutlookView }
   | { phase: 'invalid' }
   | { phase: 'busy' }
   | { phase: 'error' }

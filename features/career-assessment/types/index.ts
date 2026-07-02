@@ -177,7 +177,8 @@ export interface DashboardData {
   aptitude: { area: string; label: string; percent: number; band: AptitudeBandLabel }[] // 4
   aptitudeOverall: { percent: number; band: AptitudeBandLabel }
   studentRead?: string // a warm, student-facing summary (AI, falls back to archetypeSummary)
-  careers: MatchedCareer[] // top-5 career matches with outlook, skills, fit, and skill-gap
+  // NOTE: career matches (outlook/skills/fit/skill-gap) are intentionally NOT sent to the
+  // client — they're gated to the counsellor PDF. See buildAssessmentPdf.
   universityTeaser?: UniversityTeaser // personalised gated hook (undefined if no matches in DB)
 }
 

@@ -1,5 +1,5 @@
 'use client'
-import { useRef, useState, useEffect } from 'react'
+import { useState } from 'react'
 
 interface FallbackImageProps {
   src: string | null | undefined
@@ -10,16 +10,16 @@ interface FallbackImageProps {
 }
 
 export function FallbackImage({ src, alt, className, fallbackClassName, fallbackBg }: FallbackImageProps) {
-  const [failed, setFailed] = useState(!src || src.trim() === '')
-  const imgRef = useRef<HTMLImageElement>(null)
+  const empty = !src || src.trim() === ''
+  const [failed, setFailed] = useState(empty)
+  const [prevSrc, setPrevSrc] = useState(src)
 
-  useEffect(() => {
-    if (!src || src.trim() === '') {
-      setFailed(true)
-      return
-    }
-    setFailed(false)
-  }, [src])
+  // Reset the failed state when the src prop changes — done during render (not in an
+  // effect) so it doesn't trigger an extra render pass.
+  if (src !== prevSrc) {
+    setPrevSrc(src)
+    setFailed(empty)
+  }
 
   if (failed) {
     return (
@@ -32,12 +32,7 @@ export function FallbackImage({ src, alt, className, fallbackClassName, fallback
   }
 
   return (
-    <img
-      ref={imgRef}
-      src={src!}
-      alt={alt}
-      className={className ?? ''}
-      onError={() => setFailed(true)}
-    />
+    // eslint-disable-next-line @next/next/no-img-element -- intentional: generic external image with an onError → fallback pattern that next/image can't express
+    <img src={src!} alt={alt} className={className ?? ''} onError={() => setFailed(true)} />
   )
 }

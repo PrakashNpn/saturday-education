@@ -3,10 +3,9 @@
 import Image from 'next/image'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { Compass, Heart, Award, Lock, ArrowRight, Home } from 'lucide-react'
+import { Compass, Heart, Award, Lock, ArrowRight, Home, CheckCircle2 } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { HollandHexagon, BipolarBar, ScoreRing } from './DashboardCharts'
-import { CareerBreakdown } from './CareerBreakdown'
 import type { DashboardData } from '../types'
 
 interface Props {
@@ -145,34 +144,35 @@ export function ResultsDashboard({ dashboard }: Props) {
         </Rise>
       </div>
 
-      {/* Career matches breakdown (free value) */}
+      {/* Locked: career matches + university shortlist — one gated hook (unlocked in the consultation) */}
       <Rise delay={0.18}>
-        <CareerBreakdown careers={dashboard.careers} />
-      </Rise>
-
-      {/* Locked: university shortlist + application roadmap (the gated hook) */}
-      <Rise delay={0.2}>
         <div className="relative overflow-hidden rounded-2xl border border-brand-purple-100 bg-gradient-to-br from-brand-purple-50/70 to-white p-5">
           <p className={panelTitle}>
             <Lock size={14} />
             {t('lockedTitle')}
           </p>
 
-          {teaser && (
-            <>
-              <p className="text-sm font-medium leading-relaxed text-neutral-700">
+          <div className="mt-1 space-y-1.5">
+            <p className="flex items-start gap-2 text-sm leading-relaxed text-neutral-700">
+              <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0 text-brand-purple" />
+              {t('careerLockedNote')}
+            </p>
+            {teaser && (
+              <p className="flex items-start gap-2 text-sm leading-relaxed text-neutral-700">
+                <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0 text-brand-purple" />
                 {t('lockedTeaser', { count: teaser.totalCount, countries: teaser.countries.join(', ') })}
               </p>
-              {teaser.fields.length > 0 && (
-                <div className="mt-2.5 flex flex-wrap gap-1.5">
-                  {teaser.fields.map((f) => (
-                    <span key={f} className="rounded-full border border-brand-purple-100 bg-white px-2.5 py-1 text-[11px] font-medium text-brand-purple">
-                      {f}
-                    </span>
-                  ))}
-                </div>
-              )}
-            </>
+            )}
+          </div>
+
+          {teaser && teaser.fields.length > 0 && (
+            <div className="mt-2.5 flex flex-wrap gap-1.5">
+              {teaser.fields.map((f) => (
+                <span key={f} className="rounded-full border border-brand-purple-100 bg-white px-2.5 py-1 text-[11px] font-medium text-brand-purple">
+                  {f}
+                </span>
+              ))}
+            </div>
           )}
 
           <div className="relative mt-3">
@@ -192,19 +192,19 @@ export function ResultsDashboard({ dashboard }: Props) {
           </div>
 
           <p className="mt-3 text-center text-[13px] leading-relaxed text-gray-600">{t('lockedNote')}</p>
-        </div>
-      </Rise>
-
-      {/* CTAs */}
-      <Rise delay={0.25}>
-        <div className="mx-auto max-w-lg space-y-2.5">
           <Link
             href="/#consultation"
-            className="group flex w-full items-center justify-center gap-2 rounded-full bg-brand-purple px-7 py-3 font-semibold text-white shadow-md shadow-brand-purple/25 transition-colors hover:bg-brand-purple-dark"
+            className="group mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-brand-purple px-7 py-3 font-semibold text-white shadow-md shadow-brand-purple/25 transition-colors hover:bg-brand-purple-dark"
           >
             {t('ctaConsult')}
             <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
           </Link>
+        </div>
+      </Rise>
+
+      {/* Secondary action */}
+      <Rise delay={0.25}>
+        <div className="mx-auto max-w-lg">
           <Link
             href="/"
             className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50"
