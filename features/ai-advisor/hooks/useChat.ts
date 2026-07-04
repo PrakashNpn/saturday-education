@@ -28,7 +28,7 @@ function makeWelcome(content: string): Message[] {
   return [{ id: makeId(), role: 'assistant', content }]
 }
 
-export function useChat(initialMessage: string) {
+export function useChat(initialMessage: string, locale?: string) {
   const [messages, setMessages] = useState<Message[]>(() => loadFromStorage(initialMessage))
   const [isStreaming, setIsStreaming] = useState(false)
   const abortRef = useRef<AbortController | null>(null)
@@ -66,17 +66,17 @@ export function useChat(initialMessage: string) {
       const res = await fetch('/api/chat', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ messages: historyToSend }),
+        body: JSON.stringify({ messages: historyToSend, locale }),
         signal: controller.signal,
       })
 
       if (!res.ok || !res.body) {
+        const busy = res.status === 503 || res.status === 429
+        const errorText = busy
+          ? "I'm getting a lot of questions right now. Please try again in a moment."
+          : 'Sorry, something went wrong. Please try again.'
         setMessages((prev) =>
-          prev.map((m) =>
-            m.id === assistantId
-              ? { ...m, content: 'Sorry, something went wrong. Please try again.' }
-              : m,
-          ),
+          prev.map((m) => (m.id === assistantId ? { ...m, content: errorText } : m)),
         )
         return
       }

@@ -1,14 +1,22 @@
+'use client'
+
 import Image from 'next/image'
+import { ArrowRight } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { Link } from '@/i18n/navigation'
+import { parseAssistantReply } from '../utils/formatReply'
 
 interface ChatMessageProps {
   message: {
     role: 'user' | 'assistant'
     content: string
   }
+  onNavigate?: () => void
 }
 
-export default function ChatMessage({ message }: ChatMessageProps) {
+export default function ChatMessage({ message, onNavigate }: ChatMessageProps) {
   const isUser = message.role === 'user'
+  const t = useTranslations('chatWidget')
 
   if (isUser) {
     return (
@@ -26,6 +34,8 @@ export default function ChatMessage({ message }: ChatMessageProps) {
     )
   }
 
+  const { text, cta } = parseAssistantReply(message.content)
+
   return (
     <div className="flex items-start gap-2.5">
       {/* Bot avatar */}
@@ -33,16 +43,35 @@ export default function ChatMessage({ message }: ChatMessageProps) {
         <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" fill sizes="28px" className="object-contain p-0.5" />
       </div>
 
-      {/* Glass bubble */}
-      <div
-        className="
-          flex-1 px-4 py-3 rounded-2xl rounded-tl-sm text-sm text-gray-700 leading-relaxed
-          bg-white/70 backdrop-blur-sm
-          border border-purple-100/80
-          shadow-[0_2px_16px_rgba(89,13,130,0.07),inset_0_1px_0_rgba(255,255,255,0.8)]
-        "
-      >
-        {message.content}
+      {/* Glass bubble + optional CTA */}
+      <div className="flex-1 min-w-0">
+        <div
+          className="
+            px-4 py-3 rounded-2xl rounded-tl-sm text-sm text-gray-700 leading-relaxed
+            bg-white/70 backdrop-blur-sm
+            border border-purple-100/80
+            shadow-[0_2px_16px_rgba(89,13,130,0.07),inset_0_1px_0_rgba(255,255,255,0.8)]
+          "
+        >
+          {text}
+        </div>
+
+        {cta && (
+          <Link
+            href={cta.href}
+            onClick={onNavigate}
+            className="
+              mt-2 inline-flex items-center gap-1.5 rounded-full px-4 py-2
+              bg-gradient-to-br from-[#590D82] to-[#8B2FC9]
+              text-xs font-semibold text-white
+              shadow-[0_2px_10px_rgba(89,13,130,0.3)]
+              transition-all hover:shadow-[0_4px_16px_rgba(89,13,130,0.5)] hover:scale-[1.02] active:scale-95
+            "
+          >
+            {t(cta.labelKey)}
+            <ArrowRight size={13} />
+          </Link>
+        )}
       </div>
     </div>
   )

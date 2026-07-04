@@ -4,7 +4,7 @@ import { useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send } from 'lucide-react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useTranslations, useLocale } from 'next-intl'
 import { useChat } from '../hooks/useChat'
 import ChatMessage from './ChatMessage'
 import ChatTypingIndicator from './ChatTypingIndicator'
@@ -19,12 +19,14 @@ export default function ChatWidget() {
     return () => clearTimeout(t)
   }, [])
   const t = useTranslations('chatWidget')
+  const locale = useLocale()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const inputRef = useRef<HTMLInputElement>(null)
 
-  const { messages, isStreaming, sendMessage, clearHistory } = useChat(t('welcomeMessage'))
+  const { messages, isStreaming, sendMessage, clearHistory } = useChat(t('welcomeMessage'), locale)
 
   const suggestions = [
-    t('suggestions.findUni'),
+    t('suggestions.whatToStudy'),
     t('suggestions.compare'),
     t('suggestions.scholarships'),
   ]
@@ -36,6 +38,15 @@ export default function ChatWidget() {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, isOpen, isStreaming])
+
+  // Auto-focus the input when the panel opens and after each reply finishes, so the
+  // user can keep typing without clicking back into the field. The input is disabled
+  // while streaming, so we (re)focus once it is enabled again.
+  useEffect(() => {
+    if (isOpen && !isStreaming) {
+      inputRef.current?.focus({ preventScroll: true })
+    }
+  }, [isOpen, isStreaming])
 
   function handleSend() {
     const text = inputValue.trim()
@@ -136,7 +147,7 @@ export default function ChatWidget() {
                 {/* Chat body */}
                 <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3 bg-gradient-to-b from-white/40 via-purple-50/30 to-purple-100/20">
                   {messages.map((msg) =>
-                    msg.content === '' ? null : <ChatMessage key={msg.id} message={msg} />
+                    msg.content === '' ? null : <ChatMessage key={msg.id} message={msg} onNavigate={() => setIsOpen(false)} />
                   )}
 
                   {isStreaming && messages[messages.length - 1]?.content === '' && (
@@ -164,6 +175,7 @@ export default function ChatWidget() {
                 {/* Input bar */}
                 <div className="p-3 border-t border-white/40 bg-white/50 backdrop-blur-xl flex-shrink-0 flex items-center gap-2">
                   <input
+                    ref={inputRef}
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
@@ -215,7 +227,7 @@ export default function ChatWidget() {
 
               {/* Text */}
               <div className="text-left">
-                <p className="text-gray-800 font-semibold text-sm leading-tight">Let's Chat</p>
+                <p className="text-gray-800 font-semibold text-sm leading-tight">Let&apos;s Chat</p>
                 <div className="flex items-center gap-1 mt-0.5">
                   <motion.span
                     animate={{ opacity: [1, 0.3, 1] }}
