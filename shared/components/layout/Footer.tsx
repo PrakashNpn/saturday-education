@@ -6,6 +6,7 @@ import { useTranslations } from 'next-intl'
 import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { CookieSettingsButton } from '@/shared/components/consent'
+import { SOCIAL_LINKS } from '@/shared/constants/social'
 
 // ── Column heading class ──────────────────────────────────────────────────────
 
@@ -69,9 +70,9 @@ export default function Footer() {
             {/* Logo row */}
             <Link href="/" className="flex items-center">
               <Image
-                src="/images/logo/logo.png"
+                src="/images/logo/logo.webp"
                 alt="Saturday Education"
-                width={166}
+                width={217}
                 height={80}
                 className="h-16 w-auto"
               />
@@ -96,7 +97,7 @@ export default function Footer() {
             {/* Social icons */}
             <div className="flex items-center gap-3 mt-auto">
               <a
-                href="https://www.facebook.com/profile.php?id=61589431014535"
+                href={SOCIAL_LINKS.facebook}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Facebook"
@@ -108,7 +109,7 @@ export default function Footer() {
               </svg>
               </a>
               <a
-                href="https://www.instagram.com/saturdayeducationconsulting?igsh=a3lnbnB2NjRmeWs2"
+                href={SOCIAL_LINKS.instagram}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="Instagram"
@@ -122,7 +123,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.linkedin.com/company/nexa-education-consulting/"
+                href={SOCIAL_LINKS.linkedin}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="LinkedIn"
@@ -135,7 +136,7 @@ export default function Footer() {
                 </svg>
               </a>
               <a
-                href="https://www.tiktok.com/@user9387607725127"
+                href={SOCIAL_LINKS.tiktok}
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="TikTok"

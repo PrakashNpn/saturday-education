@@ -176,10 +176,10 @@ export default function HeroSection() {
                 }}
               >
                 <Image
-                  src="/images/hero/updated-hero.png"
+                  src="/images/hero/updated-hero.webp"
                   alt={t('heroImageAlt')}
-                  width={500}
-                  height={400}
+                  width={550}
+                  height={550}
                   className="w-full h-auto max-w-[400px] md:max-w-[90%] lg:max-w-none"
                   priority
                 />

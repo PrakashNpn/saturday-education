@@ -45,7 +45,7 @@ export function CareerDiscoveryIntro({ onStart, onAutofill, bare }: Props) {
     <>
       {/* Logo */}
       <Image
-        src="/images/logo/logo.png"
+        src="/images/logo/logo.webp"
         alt="Saturday Education Consulting"
         width={176}
         height={65}

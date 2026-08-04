@@ -55,9 +55,9 @@ export default function Navbar() {
           {/* ── Logo ──────────────────────────────────────────── */}
           <Link href="/" className="flex items-center flex-shrink-0">
             <Image
-              src="/images/logo/logo.png"
+              src="/images/logo/logo.webp"
               alt="Saturday Education"
-              width={166}
+              width={217}
               height={80}
               className="h-15 w-auto"
               priority
