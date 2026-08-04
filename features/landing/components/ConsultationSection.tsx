@@ -7,6 +7,7 @@ import { useTranslations } from 'next-intl'
 import { Globe, CheckCircle2 } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { CustomDropdown } from '@/shared/components/common'
+import { CONTACT_LINKS } from '@/shared/constants/social'
 
 // ── Types ──────────────────────────────────────────────────────────────────────
 
@@ -315,7 +316,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
                     </p>
                     <div className="flex justify-center gap-3 flex-wrap">
                       <a
-                        href="https://wa.me/66823288445"
+                        href={CONTACT_LINKS.whatsapp}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"
@@ -326,7 +327,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
                         <span className="whitespace-nowrap">{t('directContact.whatsapp')}</span>
                       </a>
                       <a
-                        href="https://m.me/61589431014535"
+                        href={CONTACT_LINKS.messenger}
                         target="_blank"
                         rel="noopener noreferrer"
                         className="flex items-center gap-2 px-5 py-2.5 rounded-full border border-gray-200 bg-white hover:bg-gray-50 transition-colors text-sm font-medium text-gray-700"
@@ -389,7 +390,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
               >
                 <div className="relative rounded-xl overflow-hidden aspect-square">
                   <Image
-                    src="/images/landing/form-image.png"
+                    src="/images/landing/form-image.webp"
                     alt="Global education destinations"
                     fill
                     sizes="(max-width: 768px) 100vw, 400px"

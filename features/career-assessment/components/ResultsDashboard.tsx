@@ -64,7 +64,7 @@ export function ResultsDashboard({ dashboard }: Props) {
             </div>
 
             <Image
-              src="/images/logo/logo.png"
+              src="/images/logo/logo.webp"
               alt="Saturday Education Consulting"
               width={300}
               height={84}

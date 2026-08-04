@@ -5,7 +5,7 @@ export default function ChatTypingIndicator() {
     <div className="flex items-start gap-2.5">
       {/* Bot avatar — matches ChatMessage */}
       <div className="relative shrink-0 w-7 h-7 rounded-full bg-white shadow-[0_2px_10px_rgba(89,13,130,0.2)] mt-0.5 overflow-hidden">
-        <Image src="/images/logo/logo-symbol.png" alt="Saturday Education" fill sizes="28px" className="object-contain p-0.5" />
+        <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill sizes="28px" className="object-contain p-0.5" />
       </div>
 
       {/* Glass bubble */}
