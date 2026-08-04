@@ -58,6 +58,16 @@ export type Scholarship = Prisma.ScholarshipModel
  */
 export type AdmissionStep = Prisma.AdmissionStepModel
 /**
+ * Model Application
+ * 
+ */
+export type Application = Prisma.ApplicationModel
+/**
+ * Model ApplicationDocument
+ * 
+ */
+export type ApplicationDocument = Prisma.ApplicationDocumentModel
+/**
  * Model Consultation
  * 
  */

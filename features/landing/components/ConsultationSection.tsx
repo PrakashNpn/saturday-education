@@ -85,14 +85,12 @@ function SuccessCard({ name, email }: { name: string; email: string }) {
 
       {/* Actions */}
       <div className="flex gap-3 flex-wrap justify-center">
-        {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
         <Link
           href="/universities"
           className="bg-brand-purple text-white text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-brand-purple-dark transition-colors"
         >
           {t('success.browseUniversities')}
         </Link>
-        */}
         <button
           onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
           className="border border-brand-purple text-brand-purple text-sm font-semibold px-6 py-2.5 rounded-full hover:bg-brand-purple-50 transition-colors"

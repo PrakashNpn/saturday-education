@@ -5,8 +5,7 @@ import { DetailHero } from './DetailHero'
 import { DetailSidebar } from './DetailSidebar'
 import { CountryOverview } from './CountryOverview'
 import { CountryAdvantages } from './CountryAdvantages'
-// HIDDEN: universities feature temporarily disabled — uncomment to restore
-// import { PartnerUniversities } from './PartnerUniversities'
+import { PartnerUniversities } from './PartnerUniversities'
 import { AcademicSpecialties } from './AcademicSpecialties'
 import { StudentJourney } from './StudentJourney'
 import { CountryFAQs } from './CountryFAQs'
@@ -68,7 +67,6 @@ export async function DestinationDetailPage({ slug }: Props) {
               />
             </section>
 
-            {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
             <section id="universities">
               <PartnerUniversities
                 universities={country.universities}
@@ -78,7 +76,6 @@ export async function DestinationDetailPage({ slug }: Props) {
                 exploreLabel={t('explore')}
               />
             </section>
-            */}
 
             <section id="specialties">
               <AcademicSpecialties specialties={country.academicSpecialties} />

@@ -441,10 +441,6 @@ export type NullableEnumConsultationTypeFieldUpdateOperationsInput = {
   set?: $Enums.ConsultationType | null
 }
 
-export type EnumConsultationStatusFieldUpdateOperationsInput = {
-  set?: $Enums.ConsultationStatus
-}
-
 
 
 export type ConsultationSelect<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetSelect<{

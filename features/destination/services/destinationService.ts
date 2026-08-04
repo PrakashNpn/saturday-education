@@ -30,6 +30,7 @@ export async function getCountryBySlug(slug: string): Promise<CountryDetailData 
       processSteps: { orderBy: { stepNumber: 'asc' } },
       faqs: { orderBy: { order: 'asc' } },
       universities: {
+        where: { isPublished: true },
         select: {
           id: true,
           slug: true,

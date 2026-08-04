@@ -1,15 +1,12 @@
 import { notFound } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
-// HIDDEN: getAllUniversitySlugs unused while universities feature is disabled — restore in the import below
-import { UniversityDetailPage, /* getAllUniversitySlugs, */ getUniversityBySlug } from '@/features/university'
+import { UniversityDetailPage, getAllUniversitySlugs, getUniversityBySlug } from '@/features/university'
 
 type Props = { params: Promise<{ locale: string; slug: string }> }
 
 export async function generateStaticParams() {
-  // HIDDEN: universities feature temporarily disabled — restore the two lines below to re-enable prerendering
-  // const slugs = await getAllUniversitySlugs()
-  // return slugs.map((s) => ({ slug: s.slug }))
-  return []
+  const slugs = await getAllUniversitySlugs()
+  return slugs.map((s) => ({ slug: s.slug }))
 }
 
 export async function generateMetadata({ params }: Props) {
@@ -26,7 +23,5 @@ export async function generateMetadata({ params }: Props) {
 export default async function Page({ params }: Props) {
   const { locale, slug } = await params
   setRequestLocale(locale)
-  // HIDDEN: universities feature temporarily disabled — remove this line to restore
-  notFound()
   return <UniversityDetailPage slug={slug} />
 }

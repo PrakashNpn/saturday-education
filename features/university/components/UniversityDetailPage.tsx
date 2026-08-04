@@ -44,6 +44,7 @@ export async function UniversityDetailPage({ slug }: Props) {
     intake: t('metricIntake'),
     campus: t('metricCampus'),
     workRights: t('metricWorkRights'),
+    acceptanceRate: t('metricAcceptanceRate'),
   }
 
   const programTranslations = {
@@ -52,10 +53,17 @@ export async function UniversityDetailPage({ slug }: Props) {
     degreeMasters: t('degreeMasters'),
     degreePhd: t('degreePhd'),
     degreeDiploma: t('degreeDiploma'),
+    degreeAssociate: t('degreeAssociate'),
     degreeCertificate: t('degreeCertificate'),
     degreeFoundation: t('degreeFoundation'),
     year: t('year'),
     years: t('years'),
+    duration: t('programDuration'),
+    campus: t('programCampus'),
+    intake: t('programIntake'),
+    tuitionFee: t('metricTuitionFee'),
+    appFee: t('metricAppFee'),
+    programDetails: t('detailProgramDetails'),
   }
 
   const scholarshipTranslations = {
@@ -123,6 +131,7 @@ export async function UniversityDetailPage({ slug }: Props) {
                   tuitionFeeMax: university.tuitionFeeMax,
                   tuitionCurrency: university.tuitionCurrency,
                   numberOfCampuses: university.numberOfCampuses,
+                  acceptanceRate: university.acceptanceRate,
                   graduateEmployability: university.graduateEmployability,
                   internationalStudents: university.internationalStudents,
                   intakeMonths: university.intakeMonths,
@@ -137,12 +146,19 @@ export async function UniversityDetailPage({ slug }: Props) {
               <AcademicPrograms
                 programs={university.programs.map((p) => ({
                   id: p.id,
+                  slug: p.slug,
                   name: p.name,
                   degreeLevel: p.degreeLevel as string,
                   field: p.field,
                   durationYears: p.durationYears ?? null,
+                  campus: p.campus ?? null,
+                  intakeMonths: p.intakeMonths ?? null,
+                  tuitionFeePerYear: p.tuitionFeePerYear ?? null,
+                  applicationFee: p.applicationFee ?? null,
+                  learnMoreUrl: p.learnMoreUrl ?? null,
                 }))}
                 translations={programTranslations}
+                universitySlug={university.slug}
               />
             </section>
 

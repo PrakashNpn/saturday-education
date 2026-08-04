@@ -226,13 +226,19 @@ model Program {
   slug              String
   degreeLevel       DegreeType @map("degree_level")
   field             String
+  campus            String?
   applicationFee    String?    @map("application_fee")
   tuitionFeePerYear String?    @map("tuition_fee_per_year")
   durationYears     Float?     @map("duration_years")
+  intakeMonths      String?    @map("intake_months")
+  entryRequirements String?    @map("entry_requirements") @db.Text
+  learnMoreUrl      String?    @map("learn_more_url")
   description       String?
+  requiredDocuments Json?      @map("required_documents")
 
   universityId      String     @map("university_id")
   university        University @relation(fields: [universityId], references: [id], onDelete: Cascade)
+  applications      Application[]
 
   createdAt         DateTime   @default(now()) @map("created_at")
   updatedAt         DateTime   @updatedAt      @map("updated_at")
@@ -286,6 +292,59 @@ model AdmissionStep {
   @@unique([universityId, stepNumber])
   @@index([universityId])
   @@map("admission_steps")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// Application — program application submissions (with uploaded documents)
+// ─────────────────────────────────────────────────────────────────────────────
+
+model Application {
+  id              String              @id @default(cuid())
+  fullName        String              @map("full_name")
+  email           String
+  phone           String?
+  nationality     String?
+  message         String?             @db.Text
+
+  programId       String?             @map("program_id")
+  program         Program?            @relation(fields: [programId], references: [id], onDelete: SetNull)
+  programName     String              @map("program_name")
+  universityName  String              @map("university_name")
+
+  status          ConsultationStatus  @default(NEW)
+  source          String?             @default("apply")
+
+  documents       ApplicationDocument[]
+
+  createdAt       DateTime            @default(now()) @map("created_at")
+  updatedAt       DateTime            @updatedAt      @map("updated_at")
+
+  @@index([status])
+  @@index([createdAt])
+  @@index([email])
+  @@map("applications")
+}
+
+// ─────────────────────────────────────────────────────────────────────────────
+// ApplicationDocument — one row per uploaded file for an Application
+// ─────────────────────────────────────────────────────────────────────────────
+
+model ApplicationDocument {
+  id            String      @id @default(cuid())
+  documentKey   String      @map("document_key")
+  label         String
+  fileName      String      @map("file_name")
+  storagePath   String      @map("storage_path")
+  mimeType      String      @map("mime_type")
+  fileSize      Int         @map("file_size")
+
+  applicationId String      @map("application_id")
+  application   Application @relation(fields: [applicationId], references: [id], onDelete: Cascade)
+
+  createdAt     DateTime    @default(now()) @map("created_at")
+
+  @@index([applicationId])
+  @@map("application_documents")
 }
 
 // ─────────────────────────────────────────────────────────────────────────────

@@ -13,8 +13,7 @@ type NavItem = { labelKey: string; href: string }
 const NAV_LINKS: NavItem[] = [
   { labelKey: 'home', href: '/' },
   { labelKey: 'careerAssessment', href: '/career-assessment' },
-  // HIDDEN: universities feature temporarily disabled — uncomment to restore
-  // { labelKey: 'universityFinder', href: '/universities' },
+  { labelKey: 'universityFinder', href: '/universities' },
   { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'aboutUs', href: '/about' },
 ]

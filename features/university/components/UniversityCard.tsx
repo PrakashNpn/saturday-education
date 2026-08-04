@@ -2,7 +2,7 @@ import { MapPin, ArrowRight } from 'lucide-react'
 import { FallbackImage } from '@/shared/components/common'
 import { Link } from '@/i18n/navigation'
 import type { UniversityListItem } from '../types/university.types'
-import { getCurrencySymbol } from '../utils/universityUtils'
+import { formatIntakeMonthsCompact, getCurrencySymbol } from '../utils/universityUtils'
 
 const COVER_GRADIENTS = [
   'bg-gradient-to-br from-brand-purple to-purple-900',
@@ -54,7 +54,7 @@ export function UniversityCard({ university: u, translations: t, index = 0 }: Pr
       : null,
     { label: t.courses, value: `${u._count.programs}+` },
     u.intakeMonths
-      ? { label: t.intake, value: u.intakeMonths.split(',').map((m) => m.trim().slice(0, 3)).join(', ') }
+      ? { label: t.intake, value: formatIntakeMonthsCompact(u.intakeMonths) }
       : null,
   ].filter(Boolean) as { label: string; value: string }[]
 
@@ -124,7 +124,7 @@ export function UniversityCard({ university: u, translations: t, index = 0 }: Pr
                   <p className="text-[9px] uppercase tracking-widest text-purple-400/80 font-semibold mb-0.5 whitespace-nowrap">
                     {label}
                   </p>
-                  <p className="text-sm font-bold text-brand-purple leading-tight truncate">{value}</p>
+                  <p className="text-sm font-bold text-brand-purple leading-tight truncate" title={value}>{value}</p>
                 </div>
               ))}
             </div>

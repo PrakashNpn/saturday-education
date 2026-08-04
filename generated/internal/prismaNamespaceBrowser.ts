@@ -59,6 +59,8 @@ export const ModelName = {
   Program: 'Program',
   Scholarship: 'Scholarship',
   AdmissionStep: 'AdmissionStep',
+  Application: 'Application',
+  ApplicationDocument: 'ApplicationDocument',
   Consultation: 'Consultation',
   CareerLead: 'CareerLead',
   AssessmentLead: 'AssessmentLead',
@@ -194,10 +196,15 @@ export const ProgramScalarFieldEnum = {
   slug: 'slug',
   degreeLevel: 'degreeLevel',
   field: 'field',
+  campus: 'campus',
   applicationFee: 'applicationFee',
   tuitionFeePerYear: 'tuitionFeePerYear',
   durationYears: 'durationYears',
+  intakeMonths: 'intakeMonths',
+  entryRequirements: 'entryRequirements',
+  learnMoreUrl: 'learnMoreUrl',
   description: 'description',
+  requiredDocuments: 'requiredDocuments',
   universityId: 'universityId',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
@@ -232,6 +239,40 @@ export const AdmissionStepScalarFieldEnum = {
 } as const
 
 export type AdmissionStepScalarFieldEnum = (typeof AdmissionStepScalarFieldEnum)[keyof typeof AdmissionStepScalarFieldEnum]
+
+
+export const ApplicationScalarFieldEnum = {
+  id: 'id',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  nationality: 'nationality',
+  message: 'message',
+  programId: 'programId',
+  programName: 'programName',
+  universityName: 'universityName',
+  status: 'status',
+  source: 'source',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type ApplicationScalarFieldEnum = (typeof ApplicationScalarFieldEnum)[keyof typeof ApplicationScalarFieldEnum]
+
+
+export const ApplicationDocumentScalarFieldEnum = {
+  id: 'id',
+  documentKey: 'documentKey',
+  label: 'label',
+  fileName: 'fileName',
+  storagePath: 'storagePath',
+  mimeType: 'mimeType',
+  fileSize: 'fileSize',
+  applicationId: 'applicationId',
+  createdAt: 'createdAt'
+} as const
+
+export type ApplicationDocumentScalarFieldEnum = (typeof ApplicationDocumentScalarFieldEnum)[keyof typeof ApplicationDocumentScalarFieldEnum]
 
 
 export const ConsultationScalarFieldEnum = {
@@ -357,6 +398,14 @@ export const SortOrder = {
 } as const
 
 export type SortOrder = (typeof SortOrder)[keyof typeof SortOrder]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const JsonNullValueInput = {

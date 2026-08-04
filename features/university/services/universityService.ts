@@ -5,6 +5,7 @@ import type { UniversityFinderData, UniversityListItem } from '../types/universi
 export async function getAllUniversitiesWithFilters(): Promise<UniversityFinderData> {
   const [rawUniversities, countries, programFields] = await Promise.all([
     prisma.university.findMany({
+      where: { isPublished: true },
       include: {
         country: { select: { name: true, slug: true } },
         programs: { select: { field: true, degreeLevel: true, name: true } },
@@ -13,11 +14,12 @@ export async function getAllUniversitiesWithFilters(): Promise<UniversityFinderD
       orderBy: { ranking: 'asc' },
     }),
     prisma.country.findMany({
-      where: { universities: { some: {} } },
+      where: { universities: { some: { isPublished: true } } },
       select: { id: true, name: true, slug: true },
       orderBy: { name: 'asc' },
     }),
     prisma.program.findMany({
+      where: { university: { isPublished: true } },
       select: { field: true },
       distinct: ['field'],
       orderBy: { field: 'asc' },
@@ -47,16 +49,18 @@ export async function getUniversityBySlug(slug: string) {
 export async function getFinderDropdownOptions() {
   const [countries, programFields, degreeLevels] = await Promise.all([
     prisma.country.findMany({
-      where: { universities: { some: {} } },
+      where: { universities: { some: { isPublished: true } } },
       select: { id: true, name: true, slug: true },
       orderBy: { name: 'asc' },
     }),
     prisma.program.findMany({
+      where: { university: { isPublished: true } },
       select: { field: true },
       distinct: ['field'],
       orderBy: { field: 'asc' },
     }),
     prisma.program.findMany({
+      where: { university: { isPublished: true } },
       select: { degreeLevel: true },
       distinct: ['degreeLevel'],
     }),
@@ -70,12 +74,12 @@ export async function getFinderDropdownOptions() {
 }
 
 export async function getAllUniversitySlugs() {
-  return prisma.university.findMany({ select: { slug: true } })
+  return prisma.university.findMany({ where: { isPublished: true }, select: { slug: true } })
 }
 
 export async function getSimilarUniversities(universityId: string, countryId: string, limit = 4) {
   return prisma.university.findMany({
-    where: { countryId, id: { not: universityId } },
+    where: { countryId, id: { not: universityId }, isPublished: true },
     select: {
       id: true,
       slug: true,
