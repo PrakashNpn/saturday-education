@@ -17,9 +17,12 @@ export function CookieConsent() {
   const { showBanner, consent, acceptAll, rejectAll, save } = useConsent()
   const [customizing, setCustomizing] = useState(false)
   const [analytics, setAnalytics] = useState(false)
+  const [marketing, setMarketing] = useState(false)
 
   const handleCustomize = () => {
-    setAnalytics(consent?.analytics ?? false) // seed toggle from current choice
+    // seed toggles from current choice
+    setAnalytics(consent?.analytics ?? false)
+    setMarketing(consent?.marketing ?? false)
     setCustomizing(true)
   }
   const handleAccept = () => {
@@ -32,7 +35,7 @@ export function CookieConsent() {
   }
   const handleSave = () => {
     setCustomizing(false)
-    save({ analytics })
+    save({ analytics, marketing })
   }
 
   if (!showBanner) return null
@@ -98,6 +101,30 @@ export function CookieConsent() {
                   <span
                     className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
                       analytics ? 'translate-x-5' : ''
+                    }`}
+                  />
+                </button>
+              </div>
+
+              {/* Marketing — optional toggle (Meta Pixel) */}
+              <div className="flex items-center justify-between gap-3">
+                <div className="min-w-0">
+                  <p className="text-xs font-semibold text-gray-800">{t('marketingTitle')}</p>
+                  <p className="text-[11px] leading-snug text-gray-500">{t('marketingDesc')}</p>
+                </div>
+                <button
+                  type="button"
+                  role="switch"
+                  aria-checked={marketing}
+                  aria-label={t('marketingTitle')}
+                  onClick={() => setMarketing((v) => !v)}
+                  className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
+                    marketing ? 'bg-brand-purple' : 'bg-gray-300'
+                  }`}
+                >
+                  <span
+                    className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
+                      marketing ? 'translate-x-5' : ''
                     }`}
                   />
                 </button>

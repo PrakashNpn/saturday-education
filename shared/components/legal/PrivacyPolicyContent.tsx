@@ -112,6 +112,11 @@ export default function PrivacyPolicyContent() {
                   <strong>To keep our website secure and to improve our services and AI advisor:</strong> on the
                   basis of our legitimate interests in running and improving a safe, effective service.
                 </li>
+                <li>
+                  <strong>To measure our advertising and reach people who have visited our site:</strong> on the
+                  basis of your consent, given through our cookie banner. This applies only if you accept
+                  marketing cookies, and you can withdraw that consent at any time.
+                </li>
               </ul>
               <p>
                 Where we rely on consent (for example, for marketing messages), you can withdraw it at any time.
@@ -160,6 +165,12 @@ export default function PrivacyPolicyContent() {
                   delivery, website hosting, and database providers, under contract and only on our
                   instructions.
                 </li>
+                <li>
+                  <strong>Advertising platforms, only if you accept marketing cookies:</strong> where you have
+                  consented, the Meta Pixel shares your visit to our site with Meta Platforms so that we can
+                  measure our advertising. Meta uses this data for its own purposes as well as ours. If you do
+                  not accept marketing cookies, nothing is shared with Meta.
+                </li>
               </ul>
               <p>
                 We may also disclose information where required by law, or to protect the rights, safety, or
@@ -173,8 +184,9 @@ export default function PrivacyPolicyContent() {
           body: (
             <p>
               Some of the providers we use process data outside the countries where we operate. This includes the{' '}
-              <strong>United States</strong>, where our AI, email delivery, and website hosting providers operate,
-              and <strong>Japan</strong>, where our database is hosted. When we use these providers, we put data
+              <strong>United States</strong>, where our AI, email delivery, website hosting, and, where you have
+              accepted marketing cookies, our advertising providers operate, and <strong>Japan</strong>, where our
+              database is hosted. When we use these providers, we put data
               processing agreements in place that require recognised safeguards, such as the Standard Contractual
               Clauses (including the UK Addendum where relevant). Where Thailand&rsquo;s Personal Data Protection
               Act (PDPA) applies, we make these transfers in line with its cross-border transfer rules. You can
@@ -240,13 +252,32 @@ export default function PrivacyPolicyContent() {
                   visitors use our site so that we can improve it. These cookies are set only after you accept
                   them. We also use Vercel&rsquo;s privacy-friendly analytics, which does not use cookies.
                 </li>
+                <li>
+                  <strong>Marketing:</strong> with your consent, we use the Meta Pixel, an advertising and
+                  measurement tool provided by Meta Platforms (the company behind Facebook and Instagram). It
+                  sets cookies that allow us to measure how well our advertising works, and to show our adverts
+                  to people who have visited our site. It records that you visited a page on our site, along
+                  with your IP address and browser information, and shares that with Meta. It is set only after
+                  you accept marketing cookies, and it is switched off by default.
+                </li>
               </ul>
               <p>
-                We do not use advertising or cross-site tracking cookies. When you first visit, our cookie banner
-                lets you <strong>accept</strong> or <strong>reject</strong> analytics cookies with equal ease, and
-                you can change your choice at any time using the{' '}
-                <strong>&ldquo;Cookie settings&rdquo;</strong> link in our website footer. You can also block or
-                delete cookies through your browser settings.
+                Analytics and marketing cookies are separate choices. When you first visit, our cookie banner
+                lets you <strong>accept</strong> or <strong>reject</strong> all non-essential cookies with equal
+                ease, and <strong>&ldquo;Customize&rdquo;</strong> lets you accept analytics without accepting
+                marketing, or the other way round. You can change your choice at any time using the{' '}
+                <strong>&ldquo;Cookie settings&rdquo;</strong> link in our website footer. If you withdraw
+                consent, we delete the relevant cookies. You can also block or delete cookies through your
+                browser settings, and you can control how Meta uses your data for advertising in your{' '}
+                <a
+                  href="https://www.facebook.com/adpreferences"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium text-brand-purple hover:underline"
+                >
+                  Facebook ad preferences
+                </a>
+                .
               </p>
             </>
           ),
