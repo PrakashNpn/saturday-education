@@ -1,7 +1,7 @@
 {
   "cookieConsent": {
     "title": "We value your privacy",
-    "description": "We use essential cookies to make our site work. With your consent, we also use analytics cookies (Google Analytics) to understand how visitors use our site and improve it. See our <link>Privacy Policy</link>.",
+    "description": "We use essential cookies to make our site work. With your consent, we also use analytics cookies (Google Analytics) to understand how visitors use our site, and marketing cookies (Meta Pixel) to measure our advertising. See our <link>Privacy Policy</link>.",
     "acceptAll": "Accept all",
     "rejectAll": "Reject all",
     "customize": "Customize",
@@ -10,6 +10,8 @@
     "necessaryDesc": "Required for the site to work, such as remembering your language.",
     "analyticsTitle": "Analytics",
     "analyticsDesc": "Google Analytics, to measure and improve our site. Optional.",
+    "marketingTitle": "Marketing",
+    "marketingDesc": "Meta Pixel, to measure our advertising and show you relevant ads. Optional.",
     "alwaysOn": "Always on",
     "settingsLink": "Cookie settings"
   },

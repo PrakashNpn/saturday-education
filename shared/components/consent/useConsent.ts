@@ -5,6 +5,9 @@ import { CONSENT_STORAGE_KEY } from './config'
 
 export interface Consent {
   analytics: boolean
+  /** Advertising / retargeting trackers (Meta Pixel). Kept separate from
+   *  analytics so a visitor can accept measurement without accepting ad tracking. */
+  marketing: boolean
 }
 
 interface StoreState {
@@ -36,8 +39,11 @@ function readStorage(): { consent: Consent | null; decided: boolean } {
   try {
     const raw = localStorage.getItem(CONSENT_STORAGE_KEY)
     if (raw) {
-      const parsed = JSON.parse(raw) as { analytics?: boolean }
-      return { consent: { analytics: !!parsed.analytics }, decided: true }
+      const parsed = JSON.parse(raw) as { analytics?: boolean; marketing?: boolean }
+      return {
+        consent: { analytics: !!parsed.analytics, marketing: !!parsed.marketing },
+        decided: true,
+      }
     }
   } catch {
     /* storage unavailable or corrupt — treat as undecided */
@@ -60,6 +66,21 @@ function clearAnalyticsCookies() {
   })
 }
 
+/** Best-effort removal of Meta Pixel cookies when marketing consent is withdrawn. */
+function clearMarketingCookies() {
+  if (typeof document === 'undefined') return
+  const host = window.location.hostname
+  const domains = ['', host, `.${host}`, `.${host.split('.').slice(-2).join('.')}`]
+  document.cookie.split(';').forEach((c) => {
+    const name = c.split('=')[0].trim()
+    if (name === '_fbp' || name === '_fbc') {
+      domains.forEach((d) => {
+        document.cookie = `${name}=; path=/; expires=Thu, 01 Jan 1970 00:00:00 GMT${d ? `; domain=${d}` : ''}`
+      })
+    }
+  })
+}
+
 function persist(next: Consent) {
   try {
     localStorage.setItem(CONSENT_STORAGE_KEY, JSON.stringify({ ...next, ts: Date.now() }))
@@ -67,6 +88,7 @@ function persist(next: Consent) {
     /* ignore */
   }
   if (!next.analytics) clearAnalyticsCookies()
+  if (!next.marketing) clearMarketingCookies()
   setState({ consent: next, decided: true, ready: true, forceOpen: false })
 }
 
@@ -96,8 +118,8 @@ const getSnapshot = () => state
 const getServerSnapshot = () => SERVER_STATE
 
 export const consentActions = {
-  acceptAll: () => persist({ analytics: true }),
-  rejectAll: () => persist({ analytics: false }),
+  acceptAll: () => persist({ analytics: true, marketing: true }),
+  rejectAll: () => persist({ analytics: false, marketing: false }),
   save: (c: Consent) => persist(c),
   openSettings: () => setState({ forceOpen: true }),
 }
