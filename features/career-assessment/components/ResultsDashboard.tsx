@@ -1,15 +1,110 @@
 'use client'
 
+import { useState, useEffect } from 'react'
 import Image from 'next/image'
-import { motion } from 'framer-motion'
+import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { Compass, Heart, Award, Lock, ArrowRight, Home, CheckCircle2 } from 'lucide-react'
+import { Compass, Heart, Award, Lock, ArrowRight, Home, CheckCircle2, Sparkles } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
+import { Skeleton } from '@/shared/components/ui/skeleton'
+import { getStudentRead } from '../services/careerLeadService'
 import { HollandHexagon, BipolarBar, ScoreRing } from './DashboardCharts'
 import type { DashboardData } from '../types'
 
 interface Props {
   dashboard: DashboardData
+  /** Saved lead id, used to collect the AI paragraph once the background work finishes. */
+  leadId?: string | null
+}
+
+/** When to look for the AI paragraph, in ms after the dashboard appears. The synthesis
+ *  usually lands within ~20-30s, but the window extends past the Anthropic timeout so a
+ *  slow response is still picked up. */
+const READ_POLL_MS = [4000, 8000, 15000, 25000, 40000, 55000]
+
+/** Stop waiting after this. The skeleton resolves to the deterministic one-line summary,
+ *  so the student is never left staring at a placeholder that never fills. */
+const READ_GIVE_UP_MS = 58000
+
+/**
+ * The student's results render immediately from their own answers. Only the archetype
+ * paragraph comes from the AI, which now runs after the response is sent, so we collect it
+ * separately.
+ *
+ * `waiting` drives a skeleton: showing the fallback sentence straight away reads as the
+ * finished answer, so students assumed that was their whole result and were confused when
+ * it silently rewrote itself half a minute later.
+ */
+function useDeferredStudentRead(leadId: string | null | undefined, initial?: string) {
+  const [read, setRead] = useState<string | undefined>(initial)
+  // Only wait when there is actually something to wait for.
+  const [waiting, setWaiting] = useState(() => Boolean(leadId) && !initial)
+
+  useEffect(() => {
+    if (!leadId || initial) return
+
+    let cancelled = false
+    const timers: number[] = []
+    const stopAll = () => timers.forEach(window.clearTimeout)
+
+    for (const delay of READ_POLL_MS) {
+      timers.push(
+        window.setTimeout(async () => {
+          if (cancelled) return
+          try {
+            const text = await getStudentRead(leadId)
+            if (!cancelled && text) {
+              setRead(text)
+              setWaiting(false)
+              stopAll()
+            }
+          } catch {
+            /* background nicety — the fallback sentence still resolves below */
+          }
+        }, delay),
+      )
+    }
+
+    // Give up gracefully rather than shimmering forever.
+    timers.push(
+      window.setTimeout(() => {
+        if (!cancelled) setWaiting(false)
+      }, READ_GIVE_UP_MS),
+    )
+
+    return () => {
+      cancelled = true
+      stopAll()
+    }
+  }, [leadId, initial])
+
+  return { read, waiting }
+}
+
+/** Placeholder shown while the AI writes the student's summary. Sized to the real
+ *  paragraph so the layout does not jump when the text replaces it. */
+function StudentReadSkeleton({ label }: { label: string }) {
+  return (
+    <motion.div
+      initial={{ opacity: 0 }}
+      animate={{ opacity: 1 }}
+      exit={{ opacity: 0 }}
+      transition={{ duration: 0.3 }}
+      className="mt-3"
+      aria-live="polite"
+      aria-busy="true"
+    >
+      <div className="space-y-2">
+        <Skeleton className="h-3.5 w-full" />
+        <Skeleton className="h-3.5 w-[95%]" />
+        <Skeleton className="h-3.5 w-[62%]" />
+      </div>
+      <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-brand-purple/70">
+        <Sparkles size={13} className="animate-pulse" />
+        {label}
+      </p>
+    </motion.div>
+  )
 }
 
 const panel = 'rounded-2xl border border-gray-100 bg-white/95 p-5 shadow-[0_18px_50px_-24px_rgba(89,13,130,0.22)] backdrop-blur-sm'
@@ -32,8 +127,12 @@ function initials(name: string): string {
     .join('')
 }
 
-export function ResultsDashboard({ dashboard }: Props) {
+export function ResultsDashboard({ dashboard, leadId }: Props) {
   const t = useTranslations('careerAssessment.dashboard')
+  const { read: studentRead, waiting: readWaiting } = useDeferredStudentRead(
+    leadId,
+    dashboard.studentRead,
+  )
   const rankedInterests = [...dashboard.interests].sort((a, b) => b.value - a.value)
   const teaser = dashboard.universityTeaser
   const sampleRows = teaser?.sample ?? [
@@ -79,9 +178,22 @@ export function ResultsDashboard({ dashboard }: Props) {
               {t('eyebrow')}
             </span>
             <h2 className="mt-2.5 text-3xl font-extrabold text-neutral-900 sm:text-4xl">{dashboard.archetype}</h2>
-            <p className="mt-3 text-[15px] leading-relaxed text-gray-600">
-              {dashboard.studentRead ?? dashboard.archetypeSummary}
-            </p>
+            <AnimatePresence mode="wait" initial={false}>
+              {readWaiting ? (
+                <StudentReadSkeleton key="skeleton" label={t('writingSummary')} />
+              ) : (
+                <motion.p
+                  key="read"
+                  initial={{ opacity: 0, y: 4 }}
+                  animate={{ opacity: 1, y: 0 }}
+                  exit={{ opacity: 0 }}
+                  transition={{ duration: 0.45 }}
+                  className="mt-3 text-[15px] leading-relaxed text-gray-600"
+                >
+                  {studentRead ?? dashboard.archetypeSummary}
+                </motion.p>
+              )}
+            </AnimatePresence>
           </div>
         </div>
       </Rise>

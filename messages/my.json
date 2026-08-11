@@ -465,6 +465,13 @@
         "step5": "Finalising your report"
       }
     },
+    "submitError": "တစ်ခုခု မှားယွင်းသွားပါသည်။ ထပ်မံကြိုးစားကြည့်ပါ။",
+    "saved": {
+      "title": "သင့်အဖြေများကို သိမ်းဆည်းထားပါသည်",
+      "body": "ယခုအချိန်တွင် ဆာဗာနှင့် ချိတ်ဆက်၍ မရပါ။ အင်တာနက် ချိတ်ဆက်မှု ပြဿနာ ဖြစ်နိုင်ပါသည်။ သင့်အဖြေများ ပျောက်ဆုံးမသွားပါ၊ ဤစက်တွင် သိမ်းဆည်းထားပြီး ဖြစ်ပါသည်။",
+      "retry": "အစီရင်ခံစာ ဆက်လက်ရယူမည်",
+      "hint": "ဤစာမျက်နှာကို ပိတ်ပြီး နောက်မှ ပြန်လာနိုင်ပါသည်။ ကျွန်ုပ်တို့ ဆက်လက် လုပ်ဆောင်ပေးပါမည်။"
+    },
     "thankYou": {
       "title": "You're all set!",
       "subtitle": "Thank you for completing your Career Assessment. One of our counsellors will review your results and reach out to guide you on your next steps.",
@@ -493,6 +500,7 @@
     },
     "dashboard": {
       "eyebrow": "Your snapshot",
+      "writingSummary": "သင့်ကိုယ်ပိုင် အကျဥ်းချုပ် ရေးသားနေပါသည်…",
       "title": "Here's a glimpse of your profile",
       "subtitle": "A quick preview — your full report is on its way to our counsellors.",
       "ctaConsult": "Book Free Consultation",

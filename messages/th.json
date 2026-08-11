@@ -465,6 +465,13 @@
         "step5": "Finalising your report"
       }
     },
+    "submitError": "เกิดข้อผิดพลาด กรุณาลองใหม่อีกครั้ง",
+    "saved": {
+      "title": "คำตอบของคุณถูกบันทึกไว้แล้ว",
+      "body": "ขณะนี้เราไม่สามารถเชื่อมต่อกับเซิร์ฟเวอร์ได้ อาจเป็นปัญหาการเชื่อมต่ออินเทอร์เน็ต ข้อมูลของคุณไม่สูญหาย เราบันทึกคำตอบไว้ในอุปกรณ์นี้แล้ว",
+      "retry": "ดำเนินการต่อ",
+      "hint": "คุณสามารถปิดหน้านี้แล้วกลับมาใหม่ภายหลังได้ เราจะดำเนินการต่อจากจุดเดิม"
+    },
     "thankYou": {
       "title": "You're all set!",
       "subtitle": "Thank you for completing your Career Assessment. One of our counsellors will review your results and reach out to guide you on your next steps.",
@@ -493,6 +500,7 @@
     },
     "dashboard": {
       "eyebrow": "Your snapshot",
+      "writingSummary": "กำลังเขียนสรุปส่วนตัวของคุณ…",
       "title": "Here's a glimpse of your profile",
       "subtitle": "A quick preview — your full report is on its way to our counsellors.",
       "ctaConsult": "Book Free Consultation",
