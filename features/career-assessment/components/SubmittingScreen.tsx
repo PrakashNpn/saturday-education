@@ -6,7 +6,10 @@ import { useTranslations } from 'next-intl'
 import { Sparkles, Check, Loader2 } from 'lucide-react'
 
 const STEP_KEYS = ['step1', 'step2', 'step3', 'step4', 'step5']
-const STEP_MS = 1300
+// The submit used to take 30-90s, so the steps crawled. Now that the counsellor pipeline
+// runs in the background the server answers in ~1-2s, so the steps are paced to complete
+// within the minimum display time enforced in AssessmentFlow (MIN_SUBMITTING_MS).
+const STEP_MS = 420
 
 export function SubmittingScreen() {
   const t = useTranslations('careerAssessment.submitting')

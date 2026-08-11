@@ -188,4 +188,7 @@ export interface SubmitResult {
   success: boolean
   error?: string
   dashboard?: DashboardData
+  /** Saved lead id — the dashboard uses it to pick up the AI paragraph once the
+   *  background synthesis finishes. */
+  leadId?: string
 }

@@ -1,5 +1,6 @@
 'use server'
 
+import { after } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { prisma } from '@/shared/lib/db/prisma'
 import { resend } from '@/shared/lib/email'
@@ -61,10 +62,13 @@ async function generateSynthesis(
 ): Promise<CounselorSynthesis | null> {
   if (!process.env.ANTHROPIC_API_KEY) return null
   try {
-    // Bound the server→Anthropic call: 45s is ample for the ~3.2k-token response, and
-    // one retry (not the SDK default 2) rescues a transient overload without ballooning
-    // the student's "Submitting…" wait. A timeout/error is caught below → graceful null.
-    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 1, timeout: 45_000 })
+    // Bound the server→Anthropic call. The student no longer waits on this (it runs in
+    // after()), but the whole background chain — synthesis, then PDF, then email — still
+    // has to finish inside the route's maxDuration of 60s. 45s plus a retry could reach
+    // ~90s and lose the counsellor email entirely, so this is capped at 30s with no retry:
+    // worst case ~30s here plus PDF and send still fits. A timeout is caught below and
+    // yields a null synthesis, which the email and PDF already handle.
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 0, timeout: 30_000 })
     const res = await client.messages.create({
       model: 'claude-sonnet-4-6',
       // The prompt asks for a counselor read + 3 directions + suggested fields + 5
@@ -178,7 +182,11 @@ function buildDashboard(
   return {
     archetype,
     archetypeSummary,
-    studentRead: synthesis?.studentRead || archetypeSummary,
+    // Left undefined when the AI has not run yet, so the dashboard knows to go and fetch it
+    // via getStudentRead(). The UI renders `studentRead ?? archetypeSummary`, so the student
+    // sees the deterministic summary in the meantime either way. Do NOT default it here:
+    // a truthy value makes the dashboard think the AI text already arrived and stop polling.
+    studentRead: synthesis?.studentRead,
     hollandCode: riasec.hollandCode,
     interests: RIASEC_ORDER.map((c) => ({
       category: c,
@@ -248,36 +256,51 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
       },
     })
 
-    // 2. AI synthesis (bounded) — nice-to-have. Persist it onto the saved lead best-effort;
-    //    a failure here must never fail the submission.
-    const synthesis = await generateSynthesis(scores, tree, matched, cleanContact.preferredCountry)
-    if (synthesis) {
+    // 2. The counsellor pipeline (AI synthesis → PDF → email) runs AFTER the response is
+    //    sent. It used to run inline, holding the student's request open for 30-90s, which
+    //    on a mobile connection frequently dropped before it finished — losing the result,
+    //    the email, and the student's 25 minutes of work. None of it is needed to render
+    //    their dashboard, so it no longer blocks them.
+    after(async () => {
       try {
-        await prisma.assessmentLead.update({ where: { id: lead.id }, data: { aiBrief: JSON.stringify(synthesis) } })
+        const synthesis = await generateSynthesis(scores, tree, matched, cleanContact.preferredCountry)
+        if (synthesis) {
+          try {
+            await prisma.assessmentLead.update({
+              where: { id: lead.id },
+              data: { aiBrief: JSON.stringify(synthesis) },
+            })
+          } catch (error) {
+            console.error('Assessment aiBrief update failed:', error)
+          }
+        }
+
+        // Merge the AI's per-career "why it fits you" into the matches — for the counsellor
+        // PDF only (the student's dashboard no longer receives the career matches).
+        const whyById = new Map((synthesis?.careerFit ?? []).map((c) => [c.id, c.whyFit]))
+        const careers = matched.map((m) => ({ ...m, whyFit: whyById.get(m.slug) }))
+
+        let pdf: Buffer | null = null
+        try {
+          pdf = await buildAssessmentPdf({ contact: cleanContact, scores, synthesis, tree, careers })
+        } catch (error) {
+          console.error('Assessment PDF generation failed:', error)
+        }
+        await sendBriefEmail({ contact: cleanContact, scores, evidence, synthesis, tree }, pdf)
       } catch (error) {
-        console.error('Assessment aiBrief update failed:', error)
+        // The lead is already saved, so the student is unaffected by anything failing here.
+        console.error('Assessment background pipeline failed:', error)
       }
-    }
+    })
 
-    // Merge the AI's per-career "why it fits you" into the matches — for the counsellor
-    // PDF only (the student's dashboard no longer receives the career matches).
-    const whyById = new Map((synthesis?.careerFit ?? []).map((c) => [c.id, c.whyFit]))
-    const careers = matched.map((m) => ({ ...m, whyFit: whyById.get(m.slug) }))
-
-    // 3. Generate the PDF report (best-effort), then email the counselor brief.
-    let pdf: Buffer | null = null
-    try {
-      pdf = await buildAssessmentPdf({ contact: cleanContact, scores, synthesis, tree, careers })
-    } catch (error) {
-      console.error('Assessment PDF generation failed:', error)
-    }
-    await sendBriefEmail({ contact: cleanContact, scores, evidence, synthesis, tree }, pdf)
-
-    // Return the visual profile for the student dashboard (with their identity).
+    // Return the visual profile immediately. Only `studentRead` comes from the AI and it
+    // falls back to `archetypeSummary`; the dashboard fetches the real one via
+    // getStudentRead() once the background work lands.
     return {
       success: true,
+      leadId: lead.id,
       dashboard: {
-        ...buildDashboard(scores, synthesis, tree),
+        ...buildDashboard(scores, null, tree),
         fullName: cleanContact.fullName,
         email: cleanContact.email,
         phone: cleanContact.phone || undefined,
@@ -286,6 +309,34 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
   } catch (error) {
     console.error('Assessment submission error:', error)
     return { success: false, error: 'Something went wrong. Please try again.' }
+  }
+}
+
+/**
+ * The student-facing paragraph, once the background AI synthesis has landed.
+ *
+ * Returns ONLY `studentRead` — never the rest of the synthesis. The counsellor read,
+ * career directions and university shortlist stay gated to the counsellor email/report,
+ * which is the same boundary the dashboard has always respected.
+ *
+ * Returns null while the background work is still running, so the caller can simply keep
+ * showing the deterministic `archetypeSummary` fallback.
+ */
+export async function getStudentRead(leadId: string): Promise<string | null> {
+  if (!leadId) return null
+  try {
+    const lead = await prisma.assessmentLead.findUnique({
+      where: { id: leadId },
+      select: { aiBrief: true },
+    })
+    if (!lead?.aiBrief) return null
+    const parsed = JSON.parse(lead.aiBrief) as Partial<CounselorSynthesis>
+    return typeof parsed.studentRead === 'string' && parsed.studentRead.trim()
+      ? parsed.studentRead
+      : null
+  } catch (error) {
+    console.error('getStudentRead failed:', error)
+    return null
   }
 }
 
