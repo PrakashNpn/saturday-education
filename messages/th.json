@@ -101,7 +101,7 @@
           },
           "partnerships": {
             "title": "University Partnerships",
-            "description": "Direct relationships with 500+ universities worldwide."
+            "description": "Direct relationships with 100+ universities worldwide."
           },
           "postAdmission": {
             "title": "Post-Admission Support",
@@ -113,7 +113,7 @@
           },
           "results": {
             "title": "Proven Results",
-            "description": "98% visa success rate and high student satisfaction."
+            "description": "95% visa success rate and high student satisfaction."
           }
         },
         "cta": "Book a Free Consultation"
@@ -232,7 +232,7 @@
         "heading": "Let's Make Your Study Abroad Dream Come True",
         "badge": "Global Opportunities",
         "subtitle": "Global Education, Within Reach",
-        "subtext": "Over 500+ Partner Universities worldwide"
+        "subtext": "Over 100 Partner Universities worldwide"
       }
     },
     "statsCta": {
@@ -305,10 +305,12 @@
     "contactUs": {
       "heading": "Contact Us",
       "thailandOffice": "Thailand Office",
-      "addressThailand": "Soi Bearing 18, Samrong Nuea Subdistrict, Mueang Samut Prakan District, Samut Prakan 10270",
+      "addressThailand": "170/72, Ocean Tower 1, 23rd Floor, Rachadaphisek Rd, Klongtoei, Bangkok 10110",
       "myanmarOffice": "Myanmar Office",
       "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
+      "phoneMyanmar1": "+959 765 929 492",
+      "phoneMyanmar2": "+959 790 839 290",
       "email": "info@saturdayeducation.com",
       "bookConsultation": "Book Consultation"
     },
@@ -317,7 +319,7 @@
   "metadata": {
     "home": {
       "title": "Saturday Education — Your Global Education Journey Starts Here",
-      "description": "We've helped 10,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
+      "description": "We've helped 3,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
     },
     "universities": {
       "title": "University Finder — Compare Top Universities Worldwide | Saturday Education",
@@ -356,18 +358,18 @@
     "titleLine1": "Your Global Education",
     "titleLine2": "Journey Begins with",
     "titleHighlight": "Saturday Education",
-    "description": "We've helped 2,000+ students secure admissions in top universities worldwide. Professional guidance to make your study abroad dreams come true.",
+    "description": "We've helped 3,000+ students secure admissions in top universities worldwide. Professional guidance to make your study abroad dreams come true.",
     "exploreUniversities": "Explore Universities",
     "bookConsultation": "Book Consultation",
     "heroImageAlt": "Education counselor meeting with a student",
     "stats": {
-      "studentsCount": "10,000+",
+      "studentsCount": "3,000+",
       "studentsLabel": "Students Guided",
-      "visaCount": "98%",
+      "visaCount": "95%",
       "visaLabel": "Visa Success Rate",
-      "scholarshipsCount": "$12M",
+      "scholarshipsCount": "$3M",
       "scholarshipsLabel": "Scholarships Secured",
-      "partnersCount": "500+",
+      "partnersCount": "100+",
       "partnersLabel": "Partner Universities"
     }
   },
@@ -657,7 +659,7 @@
     "previous": "ก่อนหน้า",
     "next": "ถัดไป",
     "ctaTitle": "ต้องการคำแนะนำจากผู้เชี่ยวชาญ?",
-    "ctaSubtitle": "ที่ปรึกษาของเราช่วยนักเรียนกว่า 10,000 คนได้รับที่นั่งในมหาวิทยาลัยในฝัน ปรึกษาฟรีวันนี้",
+    "ctaSubtitle": "ที่ปรึกษาของเราช่วยนักเรียนกว่า 3,000 คนได้รับที่นั่งในมหาวิทยาลัยในฝัน ปรึกษาฟรีวันนี้",
     "ctaButton": "จองเซสชั่นฟรี",
     "filtersButton": "ตัวกรอง",
     "noResults": "ไม่พบมหาวิทยาลัยที่ตรงกับเงื่อนไข ลองปรับตัวกรองใหม่",
@@ -724,7 +726,7 @@
     "storyLabel": "จุดเริ่มต้นของเรา",
     "storyTitle": "A New Path to Studying Abroad",
     "storyBody1": "Saturday Education Consulting was founded in 2026 by a small team passionate about helping students from Myanmar and across Southeast Asia access honest, expert guidance for studying abroad.",
-    "storyBody2": "We're currently building our platform, advisor team, and university partnerships ahead of our official launch in August 2026 — so that from day one, students get personalised pathways and guidance they can truly trust.",
+    "storyBody2": "We're currently building our platform, advisor team, and university partnerships ahead of our official launch in August 2026. From day one, students get personalised pathways and guidance they can truly trust.",
     "storyHighlight": "Launching August 2026. Built to change lives.",
     "storyHighlightSub": "ก่อตั้งขึ้น",
     "valuesLabel": "สิ่งที่เราเชื่อ",
@@ -771,7 +773,7 @@
     "milestone2Year": "Mid 2026",
     "milestone2Label": "Building our advisor team and forming university partnerships across the UK, Australia, and beyond.",
     "milestone3Year": "Aug 2026",
-    "milestone3Label": "Official launch — opening our doors to students across Myanmar, Thailand, and Southeast Asia.",
+    "milestone3Label": "Official launch, opening our doors to students across Myanmar, Thailand, and Southeast Asia.",
     "certsLabel": "การรับรองและสมาชิกภาพ",
     "certsTitle": "น่าเชื่อถือและได้รับการรับรอง",
     "certsSubtitle": "ใบรับรองและสมาชิกภาพในอุตสาหกรรมที่รองรับทุกคำมั่นสัญญาของเรา"

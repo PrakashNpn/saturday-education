@@ -101,7 +101,7 @@
           },
           "partnerships": {
             "title": "University Partnerships",
-            "description": "Direct relationships with 500+ universities worldwide."
+            "description": "Direct relationships with 100+ universities worldwide."
           },
           "postAdmission": {
             "title": "Post-Admission Support",
@@ -113,7 +113,7 @@
           },
           "results": {
             "title": "Proven Results",
-            "description": "98% visa success rate and high student satisfaction."
+            "description": "95% visa success rate and high student satisfaction."
           }
         },
         "cta": "Book a Free Consultation"
@@ -232,7 +232,7 @@
         "heading": "Let's Make Your Study Abroad Dream Come True",
         "badge": "Global Opportunities",
         "subtitle": "Global Education, Within Reach",
-        "subtext": "Over 500+ Partner Universities worldwide"
+        "subtext": "Over 100 Partner Universities worldwide"
       }
     },
     "statsCta": {
@@ -305,10 +305,12 @@
     "contactUs": {
       "heading": "Contact Us",
       "thailandOffice": "Thailand Office",
-      "addressThailand": "Soi Bearing 18, Samrong Nuea Subdistrict, Mueang Samut Prakan District, Samut Prakan 10270",
+      "addressThailand": "170/72, Ocean Tower 1, 23rd Floor, Rachadaphisek Rd, Klongtoei, Bangkok 10110",
       "myanmarOffice": "Myanmar Office",
       "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
+      "phoneMyanmar1": "+959 765 929 492",
+      "phoneMyanmar2": "+959 790 839 290",
       "email": "info@saturdayeducation.com",
       "bookConsultation": "Book Consultation"
     },
@@ -317,7 +319,7 @@
   "metadata": {
     "home": {
       "title": "Saturday Education — Your Global Education Journey Starts Here",
-      "description": "We've helped 10,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
+      "description": "We've helped 3,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
     },
     "universities": {
       "title": "University Finder — Compare Top Universities Worldwide | Saturday Education",
@@ -356,18 +358,18 @@
     "titleLine1": "Your Global Education",
     "titleLine2": "Journey Begins with",
     "titleHighlight": "Saturday Education",
-    "description": "We've helped 2,000+ students secure admissions in top universities worldwide. Professional guidance to make your study abroad dreams come true.",
+    "description": "We've helped 3,000+ students secure admissions in top universities worldwide. Professional guidance to make your study abroad dreams come true.",
     "exploreUniversities": "Explore Universities",
     "bookConsultation": "Book Consultation",
     "heroImageAlt": "Education counselor meeting with a student",
     "stats": {
-      "studentsCount": "10,000+",
+      "studentsCount": "3,000+",
       "studentsLabel": "Students Guided",
-      "visaCount": "98%",
+      "visaCount": "95%",
       "visaLabel": "Visa Success Rate",
-      "scholarshipsCount": "$12M",
+      "scholarshipsCount": "$3M",
       "scholarshipsLabel": "Scholarships Secured",
-      "partnersCount": "500+",
+      "partnersCount": "100+",
       "partnersLabel": "Partner Universities"
     }
   },
@@ -657,7 +659,7 @@
     "previous": "နောက်သို့",
     "next": "ရှေ့သို့",
     "ctaTitle": "လျှောက်လွှာပြင်ဆင်ရာတွင် ကျွမ်းကျင်သူ၏လမ်းညွှန်မှုလိုအပ်ပါသလား?",
-    "ctaSubtitle": "ကျွန်ုပ်တို့၏အတိုင်ပင်ခံများသည် ကျောင်းသားပေါင်း ၁၀,၀၀၀ ကျော်ကို ၎င်းတို့၏ဆန္ဒပြည့်ဝသောတက္ကသိုလ်တွင် ရရှိနိုင်ရန်ကူညီခဲ့သည်",
+    "ctaSubtitle": "ကျွန်ုပ်တို့၏အတိုင်ပင်ခံများသည် ကျောင်းသားပေါင်း ၃,၀၀၀ ကျော်ကို ၎င်းတို့၏ဆန္ဒပြည့်ဝသောတက္ကသိုလ်တွင် ရရှိနိုင်ရန်ကူညီခဲ့သည်",
     "ctaButton": "အခမဲ့ဆွေးနွေးချိန်းဆိုရန်",
     "filtersButton": "စစ်ဆေးမှုများ",
     "noResults": "စစ်ဆေးမှုများနှင့်ကိုက်ညီသောတက္ကသိုလ်မတွေ့ပါ။ စစ်ဆေးမှုများကိုပြင်ဆင်ကြည့်ပါ",
@@ -724,7 +726,7 @@
     "storyLabel": "ကျွန်ုပ်တို့ မည်သို့ စတင်ခဲ့သည်",
     "storyTitle": "A New Path to Studying Abroad",
     "storyBody1": "Saturday Education Consulting was founded in 2026 by a small team passionate about helping students from Myanmar and across Southeast Asia access honest, expert guidance for studying abroad.",
-    "storyBody2": "We're currently building our platform, advisor team, and university partnerships ahead of our official launch in August 2026 — so that from day one, students get personalised pathways and guidance they can truly trust.",
+    "storyBody2": "We're currently building our platform, advisor team, and university partnerships ahead of our official launch in August 2026. From day one, students get personalised pathways and guidance they can truly trust.",
     "storyHighlight": "Launching August 2026. Built to change lives.",
     "storyHighlightSub": "တည်ထောင်သည်",
     "valuesLabel": "ကျွန်ုပ်တို့ ဘာကို ကိုင်စွဲသည်",
@@ -756,7 +758,7 @@
     "why1Title": "ကိုယ်တွေ့ကြုံခဲ့သော အကြံပေးများ",
     "why1Desc": "ကျွန်ုပ်တို့အဖွဲ့သည် ကျွန်ုပ်တို့အကြံပြုသည့် တက္ကသိုလ်များတွင် တကယ်ပညာသင်ကြားခဲ့သည်။ ကျွန်ုပ်တို့၏ အကြံဉာဏ်များသည် ကိုယ်တိုင်ကြုံတွေ့ခဲ့သော အတွေ့အကြုံများမှ ဆင်းသက်လာခြင်းဖြစ်သည်။",
     "why2Title": "သင်၏ပန်းတိုင်၊ ကျွန်ုပ်တို့၏စီမံချက်",
-    "why2Desc": "ကျောင်းသားတိုင်းအတွက် ကိုယ်ပိုင်လမ်းပြမြေပုံကို ကျွန်ုပ်တို့ ရေးဆွဲပေးသည် — သင်၏ပရိုဖိုင်နှင့် ဘတ်ဂျက်နှင့် ကိုက်ညီသော မှန်ကန်သောတက္ကသိုလ်နှင့် ဘာသာရပ်များ",
+    "why2Desc": "ကျောင်းသားတိုင်းအတွက် ကိုယ်ပိုင်လမ်းပြမြေပုံကို ကျွန်ုပ်တို့ ရေးဆွဲပေးသည်။ သင်၏ပရိုဖိုင်နှင့် ဘတ်ဂျက်နှင့် ကိုက်ညီသော မှန်ကန်သောတက္ကသိုလ်နှင့် ဘာသာရပ်များ",
     "why3Title": "ခြေတိုင်းတွင် သင်နှင့်အတူ",
     "why3Desc": "ပထမဆွေးနွေးချိန်မှ ဗီဇာအတည်ပြုချိန်နှင့် ထွက်ခွာမတိုင်မီ ပြင်ဆင်မှုများအထိ ကျွန်ုပ်တို့သည် ခရီးတစ်လျှောက်လုံး သင်နှင့်အတူ ရှိနေပါမည်",
     "ctaTitle": "နိုင်ငံတကာ ခရီးစဉ် စတင်ရန် အဆင်သင့်ဖြစ်ပြီလား?",
@@ -771,7 +773,7 @@
     "milestone2Year": "Mid 2026",
     "milestone2Label": "Building our advisor team and forming university partnerships across the UK, Australia, and beyond.",
     "milestone3Year": "Aug 2026",
-    "milestone3Label": "Official launch — opening our doors to students across Myanmar, Thailand, and Southeast Asia.",
+    "milestone3Label": "Official launch, opening our doors to students across Myanmar, Thailand, and Southeast Asia.",
     "certsLabel": "အသိအမှတ်ပြုလက်မှတ်များနှင့် အဖွဲ့ဝင်ဆက်ဆံရေး",
     "certsTitle": "ယုံကြည်ရပြီး အသိအမှတ်ပြုထားသည်",
     "certsSubtitle": "ကျွန်ုပ်တို့ ပေးသောကတိများကို ထောက်ခံသော အထောက်အထားများနှင့် လုပ်ငန်းနယ်ပယ် အဖွဲ့ဝင်ဆက်ဆံရေးများ"

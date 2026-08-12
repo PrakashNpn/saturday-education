@@ -33,10 +33,10 @@ function useCountUp(target: number, duration: number = 2000, active: boolean) {
 // ── Stat Card ─────────────────────────────────────────────────────────────────
 
 const STAT_CONFIG = [
-  { icon: GraduationCap, target: 10000, format: (n: number) => `${n.toLocaleString()}+`, labelKey: 'students' as const },
-  { icon: ShieldCheck,   target: 98,    format: (n: number) => `${n}%`,                  labelKey: 'visa' as const },
-  { icon: Banknote,      target: 12,    format: (n: number) => `$${n}M`,                 labelKey: 'scholarships' as const },
-  { icon: Building2,     target: 500,   format: (n: number) => `${n}+`,                  labelKey: 'universities' as const },
+  { icon: GraduationCap, target: 3000,  format: (n: number) => `${n.toLocaleString()}+`, labelKey: 'students' as const },
+  { icon: ShieldCheck,   target: 95,    format: (n: number) => `${n}%`,                  labelKey: 'visa' as const },
+  { icon: Banknote,      target: 3,     format: (n: number) => `$${n}M`,                 labelKey: 'scholarships' as const },
+  { icon: Building2,     target: 100,   format: (n: number) => `${n}+`,                  labelKey: 'universities' as const },
 ] as const
 
 const cardVariants = {
