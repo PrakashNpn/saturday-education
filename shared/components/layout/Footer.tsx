@@ -38,6 +38,25 @@ const SERVICE_LINKS = [
   { key: 'arrival', href: '/services/arrival' },
 ] as const
 
+// Each office lists its own numbers, so a student calls the right country.
+const OFFICES = [
+  {
+    key: 'thailand',
+    officeKey: 'contactUs.thailandOffice',
+    addressKey: 'contactUs.addressThailand',
+    phones: [{ tel: '+66823288445', labelKey: 'contactUs.phone' }],
+  },
+  {
+    key: 'myanmar',
+    officeKey: 'contactUs.myanmarOffice',
+    addressKey: 'contactUs.addressMyanmar',
+    phones: [
+      { tel: '+959765929492', labelKey: 'contactUs.phoneMyanmar1' },
+      { tel: '+959790839290', labelKey: 'contactUs.phoneMyanmar2' },
+    ],
+  },
+] as const
+
 const COMPANY_LINKS = [
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
@@ -196,31 +215,28 @@ export default function Footer() {
             <h3 className={headingCls}>{t('contactUs.heading')}</h3>
             <div className="space-y-4">
 
-              {/* Thailand Address */}
-              <div className="flex items-start gap-3">
-                <MapPin size={18} className="text-[#590D82] flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  <span className="block font-semibold text-gray-700">{t('contactUs.thailandOffice')}</span>
-                  {t('contactUs.addressThailand')}
-                </p>
-              </div>
-
-              {/* Myanmar Address */}
-              <div className="flex items-start gap-3">
-                <MapPin size={18} className="text-[#590D82] flex-shrink-0 mt-0.5" />
-                <p className="text-sm text-gray-500 leading-relaxed">
-                  <span className="block font-semibold text-gray-700">{t('contactUs.myanmarOffice')}</span>
-                  {t('contactUs.addressMyanmar')}
-                </p>
-              </div>
-
-              {/* Phone */}
-              <div className="flex items-center gap-3">
-                <Phone size={18} className="text-[#590D82] flex-shrink-0" />
-                <a href="tel:+66823288445" className="text-sm text-[#590D82] hover:underline">
-                  {t('contactUs.phone')}
-                </a>
-              </div>
+              {/* Offices, each with its own address and phone numbers */}
+              {OFFICES.map(({ key, officeKey, addressKey, phones }) => (
+                <div key={key} className="flex items-start gap-3">
+                  <MapPin size={18} className="text-[#590D82] flex-shrink-0 mt-0.5" />
+                  <div className="text-sm text-gray-500 leading-relaxed">
+                    <span className="block font-semibold text-gray-700">{t(officeKey)}</span>
+                    {t(addressKey)}
+                    <span className="flex flex-col items-start gap-1 mt-1.5">
+                      {phones.map(({ tel, labelKey }) => (
+                        <a
+                          key={tel}
+                          href={`tel:${tel}`}
+                          className="inline-flex items-center gap-1.5 text-[#590D82] hover:underline"
+                        >
+                          <Phone size={14} className="flex-shrink-0" />
+                          {t(labelKey)}
+                        </a>
+                      ))}
+                    </span>
+                  </div>
+                </div>
+              ))}
 
               {/* Email */}
               <div className="flex items-center gap-3">

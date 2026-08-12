@@ -55,10 +55,10 @@ interface Props {
 
 export function AboutHero({ translations: t }: Props) {
   const stats = [
-    { icon: GraduationCap, target: 2000, prefix: '', suffix: '+', label: t.heroStat1Label },
+    { icon: GraduationCap, target: 3000, prefix: '', suffix: '+', label: t.heroStat1Label },
     { icon: ShieldCheck, target: 95, prefix: '', suffix: '%', label: t.heroStat2Label },
     { icon: BadgeDollarSign, target: 3, prefix: '$', suffix: 'M', label: t.heroStat3Label },
-    { icon: Building2, target: 50, prefix: '', suffix: '+', label: t.heroStat4Label },
+    { icon: Building2, target: 100, prefix: '', suffix: '+', label: t.heroStat4Label },
   ]
 
   return (

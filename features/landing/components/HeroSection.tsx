@@ -69,10 +69,10 @@ export default function HeroSection() {
   })
 
   const statsData = [
-    { icon: GraduationCap,   target: 2000, prefix: '',  suffix: '+', label: t('stats.studentsLabel') },
+    { icon: GraduationCap,   target: 3000, prefix: '',  suffix: '+', label: t('stats.studentsLabel') },
     { icon: ShieldCheck,     target: 95,   prefix: '',  suffix: '%', label: t('stats.visaLabel') },
     { icon: BadgeDollarSign, target: 3,    prefix: '$', suffix: 'M', label: t('stats.scholarshipsLabel') },
-    { icon: Building2,       target: 50,   prefix: '',  suffix: '+', label: t('stats.partnersLabel') },
+    { icon: Building2,       target: 100,  prefix: '',  suffix: '+', label: t('stats.partnersLabel') },
   ]
 
   return (
