@@ -325,6 +325,10 @@
       "title": "University Finder — Compare Top Universities Worldwide | Saturday Education",
       "description": "Search and compare universities across the UK, USA, Australia, Canada, and more. Find the perfect program for your study abroad journey."
     },
+    "courseFinder": {
+      "title": "ค้นหาหลักสูตร",
+      "description": "ค้นหาหลักสูตรหลายพันหลักสูตรจากมหาวิทยาลัยและวิทยาลัยทั่วโลก คัดกรองตามประเทศ สถาบัน ระดับการศึกษา ช่วงเปิดเรียน ระยะเวลา และภาษา"
+    },
     "destinations": {
       "title": "Study Destinations — Explore Top Countries for Education | Saturday Education",
       "description": "Discover the best countries for international students. Compare education systems, costs, visa processes, and career opportunities."
@@ -523,6 +527,7 @@
     "careerAssessment": "Career Assessment",
     "home": "Home",
     "universityFinder": "University Finder",
+    "courseFinder": "ค้นหาหลักสูตร",
     "studyDestination": "Study Destination",
     "blogs": "Blogs",
     "aboutUs": "About Us",
@@ -777,5 +782,8 @@
     "certsLabel": "การรับรองและสมาชิกภาพ",
     "certsTitle": "น่าเชื่อถือและได้รับการรับรอง",
     "certsSubtitle": "ใบรับรองและสมาชิกภาพในอุตสาหกรรมที่รองรับทุกคำมั่นสัญญาของเรา"
+  },
+  "courseFinder": {
+    "frameTitle": "ค้นหาหลักสูตร"
   }
 }
