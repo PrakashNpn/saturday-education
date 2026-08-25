@@ -414,6 +414,7 @@
     "careerAssessment": "Career Assessment",
     "home": "Home",
     "universityFinder": "University Finder",
+    "courseFinder": "Course Finder",
     "studyDestination": "Study Destination",
     "blogs": "Blogs",
     "aboutUs": "About Us",
@@ -500,6 +501,10 @@
     "universities": {
       "title": "University Finder — Compare Top Universities Worldwide | Saturday Education",
       "description": "Search and compare universities across the UK, USA, Australia, Canada, and more. Find the perfect program for your study abroad journey."
+    },
+    "courseFinder": {
+      "title": "Course Finder",
+      "description": "Search thousands of programs at universities and colleges worldwide. Filter by country, institution, study level, intake, duration and language."
     },
     "destinations": {
       "title": "Study Destinations — Explore Top Countries for Education | Saturday Education",
@@ -778,5 +783,8 @@
     "certsLabel": "CERTIFICATIONS & MEMBERSHIPS",
     "certsTitle": "Trusted & Accredited",
     "certsSubtitle": "Our credentials and industry memberships that back every promise we make."
+  },
+  "courseFinder": {
+    "frameTitle": "Course Finder"
   }
 }
