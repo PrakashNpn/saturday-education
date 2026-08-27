@@ -266,6 +266,17 @@
       "courseLabel": "DESIRED COURSE",
       "courseValue": "Computer Science",
       "searchButton": "Find Universities"
+    },
+    "courseSearch": {
+      "eyebrow": "Course Finder",
+      "heading": "Find Your Perfect Courses",
+      "subtitle": "Filter by where you want to go, what you want to study and how far you want to take it.",
+      "stats": "<b>{programs}</b> programmes and <b>{institutions}</b> institutions",
+      "destinationLabel": "Preferred Destination",
+      "levelLabel": "Study Level",
+      "fieldLabel": "Field of Study",
+      "allOption": "All",
+      "searchButton": "Find Programs"
     }
   },
   "careerAssessment": {

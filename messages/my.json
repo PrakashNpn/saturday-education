@@ -266,6 +266,17 @@
       "courseLabel": "3. Desired Course",
       "courseValue": "Computer Science",
       "searchButton": "Find Universities"
+    },
+    "courseSearch": {
+      "eyebrow": "သင်တန်းရှာဖွေရေး",
+      "heading": "သင့်အတွက် သင့်တော်သော သင်တန်းများကို ရှာဖွေပါ",
+      "subtitle": "သွားရောက်လိုသည့် နိုင်ငံ၊ လေ့လာလိုသည့် ပညာရပ်နှင့် ဆက်လက်သင်ယူလိုသည့် အဆင့်အလိုက် ရှာဖွေပါ",
+      "stats": "ပညာရေးအဖွဲ့အစည်း <b>{institutions}</b> ခုမှ သင်တန်း <b>{programs}</b> ခု",
+      "destinationLabel": "သွားရောက်လိုသည့် နိုင်ငံ",
+      "levelLabel": "ပညာသင်ကြားမှု အဆင့်",
+      "fieldLabel": "ပညာရပ် နယ်ပယ်",
+      "allOption": "အားလုံး",
+      "searchButton": "သင်တန်းများ ရှာဖွေရန်"
     }
   },
   "footer": {

@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // HIDDEN: universities feature temporarily disabled — uncomment to restore
 // import UniversityFinderSection from "@/features/landing/components/UniversityFinderSection"
 // import { getFinderDropdownOptions } from '@/features/university'
+import CourseSearchSection from "@/features/landing/components/CourseSearchSection"
+import { getCourseFinderOptions } from '@/features/course-finder'
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
 import { getComparisonUniversities } from '@/features/landing/services/comparison-service'
 import GlobalLeadersSection from "@/features/landing/components/GlobalLeadersSection"
@@ -44,13 +46,17 @@ import { CareerDiscoveryCTA } from '@/features/career-assessment'
 
 export default async function HomePage() {
   // HIDDEN: universities feature temporarily disabled — restore the Promise.all([getFinderDropdownOptions(), getComparisonUniversities()]) pairing to bring back finderOptions
-  const [comparisonUniversities] = await Promise.all([
+  const [comparisonUniversities, courseFinderOptions] = await Promise.all([
     getComparisonUniversities(),
+    getCourseFinderOptions(),
   ])
 
   return (
     <main>
       <HeroSection />
+      {/* Dropped entirely when Firmli's option lists are unreachable, rather
+          than rendered with empty selects that would look broken. */}
+      {courseFinderOptions && <CourseSearchSection options={courseFinderOptions} />}
       {/* <CareerDiscoveryCTA /> */}
       {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
       <UniversityFinderSection dropdownOptions={finderOptions} />
