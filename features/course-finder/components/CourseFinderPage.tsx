@@ -1,23 +1,22 @@
+import { buildEmbedUrl, type CourseFinderFilters } from '../utils/embed-url'
+
 // The chrome-less build of the finder: it renders no header or footer of its
 // own, so it sits directly under our navbar without a second set of navigation.
 //
-// ?theme takes a hex colour and repaints the tool's accent (the Apply Filter
-// button, the active page number, the Advanced Filter link and the Apply Now
-// buttons), which otherwise ships a magenta that is close to our brand purple
-// without matching it. It is read once into state when the app mounts, so it
-// survives the app rewriting the query string as students filter. The value is
-// --color-brand-purple from globals.css, minus the leading hash, since a hash
-// in a URL would start a fragment.
-const BRAND_PURPLE = '590D82'
-const EMBED_URL = `https://coursefinder.saturdayeducation.com/embeddable-programs?theme=${BRAND_PURPLE}`
+// The src carries the brand colour and, when a student arrives from the
+// homepage search, their chosen country, study level and field. See
+// utils/embed-url.ts for why those travel as a JSON programFilters param.
 
 interface Props {
+  filters: CourseFinderFilters
   translations: {
     frameTitle: string
   }
 }
 
-export function CourseFinderPage({ translations: t }: Props) {
+export function CourseFinderPage({ filters, translations: t }: Props) {
+  const embedUrl = buildEmbedUrl(filters)
+
   return (
     <main>
       {/* The page is the tool, so the only heading is one for screen readers and
@@ -35,7 +34,9 @@ export function CourseFinderPage({ translations: t }: Props) {
           Below 1200px the tool has no reachable filters at all. It does build a
           filter Drawer for narrow screens, but the Burger that opens it lives in
           the Mantine AppShell.Header, and this embeddable build is the one that
-          switches the header off. That one is Firmli's to fix. */}
+          switches the header off. That one is Firmli's to fix, and it is the
+          reason the homepage search matters: on a phone it is the only way to
+          narrow the catalogue at all. */}
       <div className="max-w-7xl mx-auto px-0 xl:px-8 py-6">
 
         {/* Card view sits at two programs per row: the grid is a SimpleGrid set
@@ -44,7 +45,10 @@ export function CourseFinderPage({ translations: t }: Props) {
             better anyway, via the toggle above the results. */}
         <div className="overflow-hidden border-y border-gray-200 xl:rounded-2xl xl:border-x h-[calc(100dvh-7.5rem)] min-h-[640px]">
           <iframe
-            src={EMBED_URL}
+            // Keyed on the URL so a student who changes their homepage search
+            // and comes back gets a reloaded frame rather than a stale one.
+            key={embedUrl}
+            src={embedUrl}
             title={t.frameTitle}
             className="block w-full h-full border-0"
             referrerPolicy="strict-origin-when-cross-origin"

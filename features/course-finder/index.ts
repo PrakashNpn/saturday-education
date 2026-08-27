@@ -1,1 +1,5 @@
 export { CourseFinderPage } from './components/CourseFinderPage'
+export { getCourseFinderOptions } from './services/finder-options-service'
+export type { CourseFinderOptions, FinderOption } from './services/finder-options-service'
+export { parseCourseFinderFilters, buildEmbedUrl } from './utils/embed-url'
+export type { CourseFinderFilters } from './utils/embed-url'

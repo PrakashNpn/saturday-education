@@ -266,6 +266,17 @@
       "courseLabel": "3. Desired Course",
       "courseValue": "Computer Science",
       "searchButton": "Find Universities"
+    },
+    "courseSearch": {
+      "eyebrow": "ค้นหาหลักสูตร",
+      "heading": "ค้นหาหลักสูตรที่ใช่สำหรับคุณ",
+      "subtitle": "เลือกจากประเทศที่อยากไป สาขาที่อยากเรียน และระดับที่ต้องการศึกษาต่อ",
+      "stats": "<b>{programs}</b> หลักสูตร จาก <b>{institutions}</b> สถาบัน",
+      "destinationLabel": "ประเทศที่ต้องการ",
+      "levelLabel": "ระดับการศึกษา",
+      "fieldLabel": "สาขาวิชา",
+      "allOption": "ทั้งหมด",
+      "searchButton": "ค้นหาหลักสูตร"
     }
   },
   "footer": {
