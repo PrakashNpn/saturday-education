@@ -11,41 +11,39 @@ export async function StudentJourney({ steps }: Props) {
   if (steps.length === 0) return null
 
   return (
-    <div>
-      {/* Section header */}
-      <div className="mb-8">
-        <div className="inline-flex items-center gap-1.5 bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
-          {t('process')}
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2">{t('journeyTitle')}</h2>
-        <p className="text-gray-500 text-sm md:text-base">{t('journeySubtitle')}</p>
-      </div>
+    <>
+      <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
+        {t('process')}
+      </h2>
+      <p className="mb-8 max-w-[52ch] text-section font-medium">{t('journeyTitle')}</p>
 
+      {/* The design hangs the dashed rail inside the <ol>; it lives on this
+          wrapper instead, which has the same box but keeps the list valid. It
+          stops 16px short at each end so it runs between badge centres. */}
       <div className="relative">
-        {steps.map((step, index) => {
-          const isLast = index === steps.length - 1
-          return (
-            <div key={step.id} className="flex gap-5">
-              {/* Number circle + connector line */}
-              <div className="flex flex-col items-center">
-                <div className="w-9 h-9 rounded-full bg-brand-purple ring-4 ring-brand-purple/15 flex items-center justify-center flex-shrink-0 z-10">
-                  <span className="text-white text-sm font-bold">{step.stepNumber}</span>
-                </div>
-                {!isLast && <div className="w-0.5 flex-1 bg-brand-purple/40 my-1" />}
+        <div
+          aria-hidden="true"
+          className="absolute top-4 bottom-4 left-4 border-l-2 border-dashed border-stroke-strong"
+        />
+
+        <ol className="relative flex flex-col gap-8">
+          {steps.map((step) => (
+            <li key={step.id} className="relative flex gap-4">
+              <span className="grid size-8 shrink-0 place-items-center rounded-full bg-action text-label font-medium text-white">
+                {step.stepNumber}
+              </span>
+              <div>
+                <b className="mb-1 block text-body font-medium text-primary-text">{step.title}</b>
+                {step.description && (
+                  <p className="max-w-[58ch] text-label leading-relaxed font-normal text-secondary-text">
+                    {step.description}
+                  </p>
+                )}
               </div>
-              {/* Content card */}
-              <div className={`${isLast ? 'pb-0' : 'pb-6'} flex-1`}>
-                <div className="bg-white border border-gray-100 rounded-2xl p-5 shadow-sm">
-                  <h3 className="font-bold text-neutral-900 mb-1">{step.title}</h3>
-                  {step.description && (
-                    <p className="text-sm text-gray-600 leading-relaxed">{step.description}</p>
-                  )}
-                </div>
-              </div>
-            </div>
-          )
-        })}
+            </li>
+          ))}
+        </ol>
       </div>
-    </div>
+    </>
   )
 }

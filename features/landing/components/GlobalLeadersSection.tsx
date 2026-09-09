@@ -1,136 +1,106 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useRef } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
-import { motion, useInView } from 'framer-motion'
-import { ChevronRight } from 'lucide-react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 import { Link } from '@/i18n/navigation'
 
-// ── Data ──────────────────────────────────────────────────────────────────────
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.055
 
-const COUNTRIES = [
-  {
-    slug: 'germany',
-    name: 'Germany',
-    tagline: 'Engineering & Innovation',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/germany/card.jpg',
-  },
-  {
-    slug: 'ireland',
-    name: 'Ireland',
-    tagline: 'Tech & Tradition',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/ireland/card.jpg',
-  },
-  {
-    slug: 'malaysia',
-    name: 'Malaysia',
-    tagline: 'Affordable Global Degrees',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/malaysia/card.jpg',
-  },
-  {
-    slug: 'canada',
-    name: 'Canada',
-    tagline: 'Multicultural & Welcoming',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/canada/card.jpg',
-  },
-  {
-    slug: 'new-zealand',
-    name: 'New Zealand',
-    tagline: 'Nature & Quality Research',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/new-zealand/card.jpg', // filename has typo in original file
-  },
-  {
-    slug: 'switzerland',
-    name: 'Switzerland',
-    tagline: 'Global Hub for Hospitality',
-    image: 'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/media/countries/switzerland/card.webp',
-  },
-]
-
-// ── Main component ─────────────────────────────────────────────────────────────
+// Counts are the designer's own figures, held here rather than derived from the
+// database, as agreed. `key` is the message-key stem; `slug` is the real
+// destination route.
+const DESTINATIONS = [
+  { key: 'canada', slug: 'canada', file: 'canada.webp', count: 49 },
+  { key: 'unitedkingdom', slug: 'united-kingdom', file: 'united-kingdom.webp', count: 35 },
+  { key: 'malaysia', slug: 'malaysia', file: 'malaysia.webp', count: 23 },
+  { key: 'unitedstates', slug: 'united-states', file: 'united-states.webp', count: 21 },
+  { key: 'thailand', slug: 'thailand', file: 'thailand.webp', count: 18 },
+  { key: 'ireland', slug: 'ireland', file: 'ireland.webp', count: 17 },
+  { key: 'germany', slug: 'germany', file: 'germany.webp', count: 16 },
+  { key: 'newzealand', slug: 'new-zealand', file: 'new-zealand.webp', count: 13 },
+  { key: 'australia', slug: 'australia', file: 'australia.webp', count: 11 },
+] as const
 
 export default function GlobalLeadersSection() {
   const t = useTranslations('Landing.globalLeaders')
-
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
-
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  useEffect(() => {
-    setPrefersReducedMotion(window.matchMedia('(prefers-reduced-motion: reduce)').matches)
-  }, [])
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section className="bg-neutral-100 ">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-
-        {/* Header row: heading+subtitle left, link right */}
-        <div className="flex flex-col sm:flex-row sm:items-end sm:justify-between gap-4 mb-8 sm:mb-10">
+    <section className="border-t border-stroke py-14 max-tablet:py-10">
+      <div className="mx-auto max-w-wrap px-6">
+        <div className="mb-10 flex flex-wrap items-end justify-between gap-4">
           <div>
-            <h2
-              className="font-extrabold text-brand-purple leading-tight"
-              style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
-            >
-              {t('heading')}
+            <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
+              {t('eyebrow')}
             </h2>
-            <p className="text-base sm:text-lg text-gray-500 mt-3 max-w-xl">
-              {t('subtitle')}
-            </p>
+            <p className="max-w-[46ch] text-section font-medium">{t('headline')}</p>
           </div>
           <Link
             href="/destinations"
-            className="flex items-center gap-1 text-brand-purple font-bold text-sm sm:text-base hover:underline shrink-0"
+            className="inline-flex items-center gap-2 text-label font-medium text-action"
           >
-            {t('viewAll')}
-            <ChevronRight size={16} />
+            <span className="underline underline-offset-[3px]">{t('viewAll')}</span>
           </Link>
         </div>
 
-        {/* Cards grid */}
+        {/* Same hairline trick as Beyond admissions: a 1px grid gap over a
+            stroke-coloured container, with the cards opaque on top. */}
         <div
           ref={ref}
-          className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 sm:gap-5 lg:gap-6"
+          className="grid gap-px overflow-hidden rounded-sm border border-stroke bg-stroke sm:grid-cols-2 lg:grid-cols-3"
         >
-          {COUNTRIES.map((country, index) => (
-            <motion.div
-              key={country.slug}
-              initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-              animate={isInView ? { opacity: 1, y: 0 } : {}}
-              transition={
-                prefersReducedMotion
-                  ? { duration: 0 }
-                  : { duration: 0.5, delay: index * 0.1, ease: [0.25, 0.1, 0.25, 1] as const }
-              }
-            >
-              <Link href={`/destinations/${country.slug}`} className="block group">
-                <div className="relative aspect-[4/3] rounded-2xl overflow-hidden">
-                  {/* Country image */}
-                  <Image
-                    src={country.image}
-                    alt={`Study in ${country.name}`}
-                    fill
-                    priority={index < 2}
-                    className="object-cover group-hover:scale-105 transition-transform duration-500 ease-out"
-                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  />
-                  {/* Gradient overlay */}
-                  <div className="absolute inset-0 bg-gradient-to-t from-purple-900/80 via-purple-800/30 to-transparent" />
-                  {/* Text */}
-                  <div className="absolute bottom-0 left-0 p-4 sm:p-5">
-                    <p className="text-xl sm:text-2xl font-bold text-white leading-tight">
-                      {country.name}
-                    </p>
-                    <p className="text-sm sm:text-base text-white/90 mt-1">
-                      {country.tagline}
-                    </p>
-                  </div>
-                </div>
-              </Link>
-            </motion.div>
-          ))}
-        </div>
+          {DESTINATIONS.map((destination, index) => {
+            const name = t(`${destination.key}Name`)
+            const count = t('partnerCount', { count: destination.count })
+            return (
+              <motion.div
+                key={destination.key}
+                initial={{ opacity: 0, y: 12 }}
+                animate={isInView ? { opacity: 1, y: 0 } : undefined}
+                transition={
+                  prefersReducedMotion
+                    ? { duration: 0 }
+                    : { duration: 0.5, delay: index * STAGGER, ease: EASE }
+                }
+                className="group relative aspect-16/9 overflow-hidden bg-surface-1"
+              >
+                {/* Not a link in the design, because none of the designer's
+                    routes existed. Ours do, and all nine slugs are published. */}
+                <Link href={`/destinations/${destination.slug}`} className="absolute inset-0 z-10">
+                  <span className="sr-only">{name}</span>
+                </Link>
 
+                <Image
+                  src={`/images/destinations/${destination.file}`}
+                  alt={name}
+                  fill
+                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                  className="object-cover"
+                />
+
+                <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-text/70 to-transparent p-4 pt-10">
+                  <b className="block text-card font-medium text-white">{name}</b>
+                  <p className="text-label font-normal text-white/85">{count}</p>
+                </div>
+
+                {/* The tagline is the hover state, so the resting card stays a
+                    photograph with one fact on it. */}
+                <div className="absolute inset-0 flex flex-col justify-end bg-primary-text/80 p-4 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
+                  <b className="text-card font-medium text-white">{name}</b>
+                  <p className="mb-1 text-label font-normal text-white/85">{count}</p>
+                  <p className="text-label font-normal text-white">
+                    {t(`${destination.key}Tagline`)}
+                  </p>
+                </div>
+              </motion.div>
+            )
+          })}
+        </div>
       </div>
     </section>
   )

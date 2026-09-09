@@ -1,96 +1,66 @@
-interface Reason {
-  num: string
-  title: string
-  desc: string
-  featured: boolean
-}
+import { useTranslations } from 'next-intl'
 
-interface Props {
-  translations: {
-    whyLabel: string
-    whyTitle: string
-    whySubtitle: string
-    why1Title: string
-    why1Desc: string
-    why2Title: string
-    why2Desc: string
-    why3Title: string
-    why3Desc: string
-  }
-}
+const REASONS = [1, 2, 3] as const
+const STATS = [1, 2, 3, 4] as const
 
-export function AboutWhyUs({ translations: t }: Props) {
-  const reasons: Reason[] = [
-    { num: '01', title: t.why1Title, desc: t.why1Desc, featured: false },
-    { num: '02', title: t.why2Title, desc: t.why2Desc, featured: true },
-    { num: '03', title: t.why3Title, desc: t.why3Desc, featured: false },
-  ]
+export function AboutWhyUs() {
+  const t = useTranslations('about')
 
   return (
-    <section className="">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section className="border-t border-stroke py-16 max-tablet:py-12">
+      <div className="mx-auto max-w-wrap px-6">
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-stretch">
+          <div className="flex flex-col lg:col-span-6">
+            <h2 className="text-section font-medium leading-[1.2]">{t('whyTitle')}</h2>
 
-        {/* Header */}
-        <div className="text-center mb-14">
-          <div className="inline-flex items-center bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
-            {t.whyLabel}
+            <div className="mt-6 space-y-5 border-t border-stroke pt-6">
+              {REASONS.map((n) => (
+                <div key={n} className="flex items-start gap-3.5">
+                  <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-action" />
+                  <div>
+                    <b className="block text-body font-medium text-primary-text">
+                      {t(`why${n}Title`)}
+                    </b>
+                    <p className="mt-1 text-body leading-relaxed font-light text-secondary-text">
+                      {t(`why${n}Desc`)}
+                    </p>
+                  </div>
+                </div>
+              ))}
+            </div>
           </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-brand-purple mb-4">
-            {t.whyTitle}
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto leading-relaxed">
-            {t.whySubtitle}
-          </p>
-        </div>
 
-        {/* Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-          {reasons.map(({ num, title, desc, featured }) => (
-            <div
-              key={num}
-              className={`relative rounded-2xl p-8 md:p-10 overflow-hidden hover:shadow-xl hover:-translate-y-1 transition-all duration-300 ${
-                featured
-                  ? 'bg-gradient-to-br from-brand-purple via-brand-purple to-brand-purple-dark shadow-md'
-                  : 'bg-white shadow-sm'
-              }`}
-            >
-              {/* Large background number */}
-              <span
-                className={`absolute -top-3 -right-1 text-[110px] font-black leading-none select-none pointer-events-none ${
-                  featured ? 'text-white/10' : 'text-gray-100'
-                }`}
-              >
-                {num}
-              </span>
-
-              {/* Content */}
-              <div className="relative">
-                <p
-                  className={`text-xs font-bold uppercase tracking-widest mb-6 ${
-                    featured ? 'text-white/50' : 'text-brand-purple/50'
-                  }`}
-                >
-                  {num}
-                </p>
-                <h3
-                  className={`font-bold text-xl leading-snug mb-4 ${
-                    featured ? 'text-white' : 'text-gray-900'
-                  }`}
-                >
-                  {title}
-                </h3>
-                <p
-                  className={`text-sm leading-relaxed ${
-                    featured ? 'text-white/70' : 'text-gray-500'
-                  }`}
-                >
-                  {desc}
-                </p>
+          <div className="lg:col-span-6">
+            {/* divide-x and divide-y draw the cross between the four cells, so
+                there are no per-cell borders to double up at the edges. */}
+            <div className="h-full overflow-hidden rounded-[6px] border border-stroke bg-surface shadow-none">
+              <div className="grid h-full grid-cols-2 divide-x divide-y divide-stroke">
+                {STATS.map((n) => (
+                  <div
+                    key={n}
+                    className="flex flex-col items-center justify-center p-6 text-center sm:p-7"
+                  >
+                    {/* The visa figure is the one people remember, so it is the
+                        only cell that takes the action colour. */}
+                    <span
+                      className={`text-title font-medium sm:text-[36px] ${
+                        n === 3 ? 'text-action' : 'text-primary-text'
+                      }`}
+                    >
+                      {t(`whyStat${n}Value`)}
+                    </span>
+                    <span className="mt-1.5 block text-min font-medium text-muted-text">
+                      {t(`whyStat${n}Label`)}
+                    </span>
+                    <span className="mt-1 block text-label font-normal text-secondary-text">
+                      {t(`whyStat${n}Sub`)}
+                    </span>
+                  </div>
+                ))}
               </div>
             </div>
-          ))}
+          </div>
         </div>
-
       </div>
     </section>
   )

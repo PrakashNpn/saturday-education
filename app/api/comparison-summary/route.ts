@@ -36,6 +36,8 @@ The student already sees tuition, visa time, work rights, scholarships, ranking,
 
 Add what they can't see: real cost of living in each city, what graduates actually do after, how employers see each degree, what student life is really like.
 
+Never use em dashes or en dashes. Use a comma, a semicolon, or a second sentence instead.
+
 Write like a real person talking to a friend — short sentences, plain words, direct opinions. No AI phrases like "it's worth noting", "both have their merits", "it's important to consider". No corporate language. Just honest, simple advice.
 
 Return ONLY valid JSON, no extra text:

@@ -120,6 +120,14 @@ export async function getCourseFinderOptions(): Promise<CourseFinderOptions | nu
 
   if (!countries || !studyLevels || !fieldsOfStudy) return null
 
+  // Firmli's discipline list carries its own "All Subjects" row. Left in, the
+  // field dropdown offers two ways to say the same thing, and they are not
+  // equivalent: the placeholder sends no filter at all while "All Subjects"
+  // sends discipline 18. The placeholder is the one that belongs to us.
+  const fields = fieldsOfStudy.filter(
+    (option) => option.label.trim().toLowerCase() !== 'all subjects',
+  )
+
   // counts is allowed to be null: the line beside the search is simply omitted.
-  return { countries, studyLevels, fieldsOfStudy, counts }
+  return { countries, studyLevels, fieldsOfStudy: fields, counts }
 }

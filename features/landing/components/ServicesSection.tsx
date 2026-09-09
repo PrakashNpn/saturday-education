@@ -1,98 +1,94 @@
 'use client'
 
-import { useRef, useState, useEffect } from 'react'
-import { motion, useInView } from 'framer-motion'
+import { useRef } from 'react'
 import { useTranslations } from 'next-intl'
-import { Check } from 'lucide-react'
+import { motion, useInView, useReducedMotion } from 'framer-motion'
 
-type Step = {
-  number: number
-  titleKey: string
-  descKey: string
-  itemKeys: [string, string, string]
-}
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.055
 
-const STEPS: Step[] = [
-  { number: 1, titleKey: 'step1Title', descKey: 'step1Desc', itemKeys: ['step1Item1', 'step1Item2', 'step1Item3'] },
-  { number: 2, titleKey: 'step2Title', descKey: 'step2Desc', itemKeys: ['step2Item1', 'step2Item2', 'step2Item3'] },
-  { number: 3, titleKey: 'step3Title', descKey: 'step3Desc', itemKeys: ['step3Item1', 'step3Item2', 'step3Item3'] },
-  { number: 4, titleKey: 'step4Title', descKey: 'step4Desc', itemKeys: ['step4Item1', 'step4Item2', 'step4Item3'] },
+// A barely-there purple that deepens across the four cards. At this chroma it
+// reads as a direction of travel rather than as colour.
+const TINTS = [
+  'bg-[oklch(97%_0.002_307.4)]',
+  'bg-[oklch(97%_0.005_307.4)]',
+  'bg-[oklch(97%_0.008_307.4)]',
+  'bg-[oklch(97%_0.011_307.4)]',
 ]
+
+function CheckIcon() {
+  return (
+    <svg viewBox="0 0 20 20" fill="none" aria-hidden="true" className="mt-0.5 size-4 shrink-0">
+      <path
+        d="M4 10.5 8 14l8-8"
+        stroke="currentColor"
+        strokeWidth="2"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+      />
+    </svg>
+  )
+}
 
 export default function ServicesSection() {
   const t = useTranslations('Landing.services')
   const ref = useRef<HTMLDivElement>(null)
   const isInView = useInView(ref, { once: true, margin: '-80px' })
+  const prefersReducedMotion = useReducedMotion()
 
-  const [prefersReducedMotion, setPrefersReducedMotion] = useState(false)
-  useEffect(() => {
-    setPrefersReducedMotion(
-      window.matchMedia('(prefers-reduced-motion: reduce)').matches
-    )
-  }, [])
+  const steps = [1, 2, 3, 4].map((n) => ({
+    n,
+    title: t(`step${n}Title`),
+    desc: t(`step${n}Desc`),
+    items: [t(`step${n}Item1`), t(`step${n}Item2`), t(`step${n}Item3`)],
+  }))
 
   return (
-    <section className="bg-neutral-100">
-      <div
-        ref={ref}
-        className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-20 pb-12 sm:py-20 lg:pt-28 lg:pb-12"
-      >
-        {/* Header */}
-        <motion.div
-          className="text-center"
-          initial={{ opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
-          animate={isInView ? { opacity: 1, y: 0 } : { opacity: 0, y: prefersReducedMotion ? 0 : 24 }}
-          transition={{ duration: prefersReducedMotion ? 0 : 0.6, ease: 'easeOut' }}
+    <section className="border-t border-stroke bg-surface py-14 max-tablet:py-10">
+      <div className="mx-auto max-w-wrap px-6 text-center">
+        <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
+          {t('eyebrow')}
+        </h2>
+        <p className="mx-auto mb-10 max-w-[46ch] text-section font-medium">{t('headline')}</p>
+
+        {/* The four rows are declared on the container and each card takes them
+            with grid-rows-subgrid, so the numbers, headings, paragraphs and
+            lists line up across all four however long the copy runs. Below the
+            tablet breakpoint the cards stack and the divider flips to
+            horizontal. */}
+        <div
+          ref={ref}
+          className="grid grid-cols-4 grid-rows-[auto_auto_auto_auto] divide-x divide-stroke overflow-hidden rounded-md border border-stroke max-tablet:grid-cols-1 max-tablet:grid-rows-none max-tablet:divide-x-0 max-tablet:divide-y"
         >
-          <h2
-            className="font-extrabold text-brand-purple text-center leading-tight"
-            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
-          >
-            {t('headingPrefix')}{' '}
-            {t('headingHighlight')}{' '}
-            {t('headingSuffix')}
-          </h2>
-          <p className="mt-4 text-base sm:text-lg text-gray-500 text-center max-w-3xl mx-auto">
-            {t('subtitle')}
-          </p>
-        </motion.div>
-
-        {/* Cards grid */}
-        <div className="relative grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 lg:gap-5 mt-10 sm:mt-12">
-          {/* Connecting line — runs through vertical center of cards, desktop only */}
-          <div className="hidden lg:block absolute left-0 right-0 top-1/2 -translate-y-1/2 h-[2px] bg-purple-300 z-0" />
-          {STEPS.map((step) => (
-            <div
-              key={step.number}
-              className="group relative z-10 bg-white rounded-2xl shadow-md border border-gray-100 pt-8 pb-8 px-6 text-center cursor-pointer transition-all duration-300 ease-out hover:-translate-y-1.5 hover:shadow-xl hover:border-purple-200"
+          {steps.map((step, index) => (
+            <motion.div
+              key={step.n}
+              initial={{ opacity: 0, y: 16 }}
+              animate={isInView ? { opacity: 1, y: 0 } : undefined}
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.6, delay: index * STAGGER, ease: EASE }
+              }
+              className={`row-span-4 grid grid-rows-subgrid gap-3 px-5 py-8 text-left max-tablet:row-span-1 max-tablet:grid-rows-none max-tablet:block max-tablet:p-6 ${TINTS[index]}`}
             >
-              {/* Number badge — scales on card hover */}
-              <div className="mx-auto w-12 h-12 rounded-full bg-brand-purple text-white font-bold text-lg flex items-center justify-center shadow-lg mb-4 transition-transform duration-300 ease-out group-hover:scale-110">
-                {step.number}
-              </div>
-
-              {/* Title */}
-              <h3 className="font-extrabold text-brand-purple text-base sm:text-lg mb-3">
-                {t(step.titleKey as Parameters<typeof t>[0])}
-              </h3>
-
-              {/* Description */}
-              <p className="text-gray-500 text-sm sm:text-base mb-6 leading-relaxed">
-                {t(step.descKey as Parameters<typeof t>[0])}
-              </p>
-
-              {/* Checklist */}
-              <div className="space-y-2.5 text-left">
-                {step.itemKeys.map((key) => (
-                  <div key={key} className="flex items-start gap-2.5">
-                    <Check size={16} className="text-purple-500 mt-0.5 shrink-0" />
-                    <span className="text-sm font-semibold text-gray-800">
-                      {t(key as Parameters<typeof t>[0])}
-                    </span>
-                  </div>
+              <span className="grid size-8 place-items-center rounded-full bg-structure text-label font-medium text-white">
+                {step.n}
+              </span>
+              <h3 className="text-card font-medium text-primary-text">{step.title}</h3>
+              <p className="text-body font-light text-secondary-text">{step.desc}</p>
+              <ul className="flex flex-col gap-2">
+                {step.items.map((item) => (
+                  <li
+                    key={item}
+                    className="flex items-start gap-2 text-label font-medium text-action"
+                  >
+                    <CheckIcon />
+                    {item}
+                  </li>
                 ))}
-              </div>
-            </div>
+              </ul>
+            </motion.div>
           ))}
         </div>
       </div>

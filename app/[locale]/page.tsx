@@ -30,6 +30,8 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 // HIDDEN: universities feature temporarily disabled — uncomment to restore
 // import UniversityFinderSection from "@/features/landing/components/UniversityFinderSection"
 // import { getFinderDropdownOptions } from '@/features/university'
+import PartnerLogosSection from "@/features/landing/components/PartnerLogosSection"
+import WhySaturdaySection from "@/features/landing/components/WhySaturdaySection"
 import CourseSearchSection from "@/features/landing/components/CourseSearchSection"
 import { getCourseFinderOptions } from '@/features/course-finder'
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
@@ -54,6 +56,10 @@ export default async function HomePage() {
   return (
     <main>
       <HeroSection />
+      <PartnerLogosSection />
+      <WhySaturdaySection />
+      <ServicesSection />
+      <AdditionalServicesSection />
       {/* Dropped entirely when Firmli's option lists are unreachable, rather
           than rendered with empty selects that would look broken. */}
       {courseFinderOptions && <CourseSearchSection options={courseFinderOptions} />}
@@ -64,11 +70,9 @@ export default async function HomePage() {
       <ComparisonToolSection universities={comparisonUniversities} />
       <GlobalLeadersSection />
       {/* <CountryGuideSection /> */}
-      <ServicesSection />
-      <AdditionalServicesSection />
       <TestimonialsSection />
-      <CtaSection />
       <ConsultationSection onSubmit={submitConsultation} />
+      <CtaSection />
     </main>
   )
 }

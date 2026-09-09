@@ -1,4 +1,6 @@
+import Image from 'next/image'
 import { getTranslations } from 'next-intl/server'
+import { cn } from '@/shared/utils/cn'
 import type { CountryAdvantageData } from '../types'
 
 interface Props {
@@ -7,73 +9,74 @@ interface Props {
   heroImageUrl: string | null
 }
 
+/** How many advantages sit beside the photograph. The design shows two. */
+const STACKED_LIMIT = 2
+
+const HEADING = 'mb-2 block text-body font-medium'
+const COPY = 'text-label leading-relaxed font-normal'
+
 export async function CountryAdvantages({ countryName, advantages, heroImageUrl }: Props) {
   const t = await getTranslations('destinations')
 
   if (advantages.length === 0) return null
 
-  const [first, ...rest] = advantages
+  // The first advantage gets the photograph and two more stack beside it, as
+  // in the design. Countries hold up to six; the rest are not shown here.
+  const [lead, ...rest] = advantages
+  const stacked = rest.slice(0, STACKED_LIMIT)
 
   return (
-    <div>
-      {/* Section header */}
-      <div className="mb-6">
-        <div className="inline-flex items-center gap-1.5 bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
-          {t('whyStudyHere')}
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-neutral-900 mb-2">
-          {t('theAdvantage', { country: countryName })}
-        </h2>
-        <p className="text-gray-500 text-sm md:text-base">{t('advantageSubtitle')}</p>
-      </div>
+    <>
+      <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
+        {t('whyStudyHere')}
+      </h2>
+      <p className="mb-8 max-w-[52ch] text-section font-medium">
+        {t('theAdvantage', { country: countryName })}
+      </p>
 
-      <div className="grid md:grid-cols-2 gap-5">
-        {/* Left: image overlay with first advantage */}
-        <div className="relative rounded-2xl overflow-hidden min-h-[260px] md:min-h-[320px]">
-          {heroImageUrl ? (
-            <img
+      <div
+        className={cn(
+          'grid divide-y divide-stroke overflow-hidden rounded-sm border border-stroke bg-surface max-tablet:grid-cols-1',
+          // Only split into two columns when there is something to put in the
+          // second one, so a country with a single advantage does not leave
+          // half the card empty.
+          stacked.length > 0 && 'lg:grid-cols-2 lg:divide-x lg:divide-y-0',
+        )}
+      >
+        <div className="relative flex min-h-[300px] flex-col justify-end overflow-hidden p-6 max-tablet:min-h-[240px]">
+          {heroImageUrl && (
+            <Image
               src={heroImageUrl}
+              // Decorative: the heading sitting on top of it carries the meaning.
               alt=""
-              className="absolute inset-0 w-full h-full object-cover"
+              fill
+              sizes="(max-width: 1024px) 100vw, 400px"
+              className="object-cover object-center"
             />
-          ) : (
-            <div className="absolute inset-0 bg-gradient-to-br from-purple-600 to-brand-purple" />
           )}
-          <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-          <div className="relative z-10 flex flex-col justify-end h-full p-6">
-            <h3 className="text-white font-bold text-lg mb-1">{first.title}</h3>
-            {first.description && (
-              <p className="text-white/80 text-sm leading-relaxed line-clamp-3">
-                {first.description}
-              </p>
+          <div className="absolute inset-0 bg-gradient-to-t from-primary-text/90 via-primary-text/40 to-transparent" />
+
+          <div className="relative z-10 text-white">
+            <b className={cn(HEADING, 'text-white')}>{lead.title}</b>
+            {lead.description && (
+              <p className={cn(COPY, 'text-white/90')}>{lead.description}</p>
             )}
           </div>
         </div>
 
-        {/* Right: alternating decorative ring cards */}
-        <div className="flex flex-col gap-5">
-          {rest.slice(0, 2).map((adv, i) => (
-            <div
-              key={adv.id}
-              className="relative flex-1 bg-gradient-to-br from-brand-purple-50/50 to-white border border-brand-purple/10 rounded-2xl p-6 overflow-hidden shadow-sm hover:shadow-md hover:-translate-y-0.5 transition-all duration-200"
-            >
-              {/* Concentric rings — top-right on first card, bottom-left on second */}
-              <div className={`absolute pointer-events-none ${i === 0 ? '-top-8 -right-8' : '-bottom-8 -left-8'}`}>
-                <div className="relative w-32 h-32">
-                  <div className="absolute inset-0 rounded-full border border-brand-purple/[0.07]" />
-                  <div className="absolute inset-4 rounded-full border border-brand-purple/[0.07]" />
-                  <div className="absolute inset-8 rounded-full border border-brand-purple/[0.07]" />
-                  <div className="absolute inset-0 rounded-full bg-brand-purple/[0.1]" />
-                </div>
+        {stacked.length > 0 && (
+          <div className="flex flex-col divide-y divide-stroke bg-surface">
+            {stacked.map((advantage) => (
+              <div key={advantage.id} className="flex flex-1 flex-col justify-center p-6">
+                <b className={cn(HEADING, 'text-primary-text')}>{advantage.title}</b>
+                {advantage.description && (
+                  <p className={cn(COPY, 'text-secondary-text')}>{advantage.description}</p>
+                )}
               </div>
-              <h3 className="relative font-bold text-brand-purple mb-2">{adv.title}</h3>
-              {adv.description && (
-                <p className="relative text-gray-600 text-sm leading-relaxed">{adv.description}</p>
-              )}
-            </div>
-          ))}
-        </div>
+            ))}
+          </div>
+        )}
       </div>
-    </div>
+    </>
   )
 }

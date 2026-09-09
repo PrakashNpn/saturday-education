@@ -13,39 +13,7 @@ export type CountryCardData = {
 }
 
 export type DestinationTranslations = {
-  heroLabel: string
-  heroTitle: string
-  heroSubtitle: string
-  searchPlaceholder: string
-  searchButton: string
-  popularRegions: string
-  regionAll: string
-  regionEurope: string
-  regionAsia: string
-  regionAmericas: string
-  regionOceania: string
-  regionAfrica: string
-  showingCount: string
-  sortBy: string
-  sortHighestRanking: string
-  sortAZ: string
-  sortZA: string
   viewDetails: string
-  loadMore: string
-  whyStudyAbroadLabel: string
-  whyStudyAbroadTitle: string
-  whyStudyAbroadSubtitle: string
-  globalExposure: string
-  globalExposureDesc: string
-  careerEdge: string
-  careerEdgeDesc: string
-  personalGrowth: string
-  personalGrowthDesc: string
-  lifetimeMemories: string
-  lifetimeMemoriesDesc: string
-  ctaTitle: string
-  ctaSubtitle: string
-  ctaButton: string
 }
 
 // ─── Detail page types ────────────────────────────────────────────────────────

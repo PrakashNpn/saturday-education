@@ -1,210 +1,88 @@
-'use client'
-
-import { useRef, useState, useEffect, useCallback } from 'react'
-import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { Star, ChevronLeft, ChevronRight } from 'lucide-react'
 
-// ── Data ──────────────────────────────────────────────────────────────────────
+const REVIEW_KEYS = ['1', '2', '3', '4'] as const
 
-const TESTIMONIAL_META = [
-  { id: '1' },
-  { id: '2' },
-  { id: '3' },
-  { id: '4' },
-] as const
-
-const avatarColors = [
-  'bg-orange-400 text-white',
-  'bg-amber-200 text-amber-800',
-  'bg-rose-300 text-white',
-  'bg-teal-400 text-white',
-  'bg-violet-300 text-white',
-  'bg-orange-300 text-white',
-  'bg-amber-300 text-amber-800',
-  'bg-rose-400 text-white',
-  'bg-teal-300 text-white',
-]
-
-// ── Card ──────────────────────────────────────────────────────────────────────
-
-function TestimonialCard({
-  id,
-  index,
-}: {
-  id: string
-  index: number
-}) {
-  const t = useTranslations('Landing.testimonials')
-  const name = t(`reviews.${id}.name` as Parameters<typeof t>[0])
-  const quote = t(`reviews.${id}.quote` as Parameters<typeof t>[0])
-  const program = t(`reviews.${id}.program` as Parameters<typeof t>[0])
-  const initials = name
-    .split(' ')
-    .map((w: string) => w[0])
-    .join('')
+/** First letter of the first two words, which is enough for these names. */
+function initials(name: string): string {
+  return name
+    .split(/\s+/)
     .slice(0, 2)
+    .map((word) => word[0] ?? '')
+    .join('')
     .toUpperCase()
+}
 
+function QuoteMark() {
   return (
-    <div
-      className="
-        flex-shrink-0 snap-start
-        bg-white rounded-2xl border border-gray-100
-        shadow-sm hover:shadow-md transition-shadow duration-300
-        flex flex-col min-h-[280px] md:min-h-[300px]
-        p-5 md:p-6
-        w-[85%] sm:w-[47%] lg:w-[32%]
-      "
-    >
-      {/* Stars */}
-      <div className="flex gap-1 mb-4">
-        {Array.from({ length: 5 }).map((_, i) => (
-          <Star key={i} size={18} fill="currentColor" className="text-yellow-400" />
-        ))}
-      </div>
-
-      {/* Quote */}
-      <p
-        className="text-gray-600 leading-[1.75]"
-        style={{ fontSize: 'clamp(0.875rem, 0.8rem + 0.2vw, 0.975rem)' }}
-      >
-        &ldquo;{quote}&rdquo;
-      </p>
-
-      {/* Author — always at bottom */}
-      <div className="flex items-center gap-3 mt-auto pt-6">
-        <div
-          className={`w-12 h-12 rounded-full flex items-center justify-center text-sm font-semibold shrink-0 ${avatarColors[index % avatarColors.length]}`}
-        >
-          {initials}
-        </div>
-        <div>
-          <p
-            className="font-semibold text-brand-purple"
-            style={{ fontSize: 'clamp(0.875rem, 0.8rem + 0.2vw, 0.95rem)' }}
-          >
-            {name}
-          </p>
-          <p className="text-gray-500 text-sm">{program}</p>
-        </div>
-      </div>
-    </div>
+    <svg viewBox="0 0 32 24" fill="currentColor" aria-hidden="true" className="size-8">
+      <path d="M0 24V14.4C0 6.4 4.8 1.067 14.4 0l1.067 3.733C9.6 5.067 6.933 8 6.933 12h6.4V24H0Zm17.6 0V14.4c0-8 4.8-13.333 14.4-14.4l1.067 3.733C27.2 5.067 24.533 8 24.533 12h6.4V24H17.6Z" />
+    </svg>
   )
 }
 
-// ── Section ───────────────────────────────────────────────────────────────────
-
 export default function TestimonialsSection() {
   const t = useTranslations('Landing.testimonials')
-  const scrollRef = useRef<HTMLDivElement>(null)
-  const [isPaused, setIsPaused] = useState(false)
 
-  // Infinite right-loop: silently jump back when we cross the midpoint of the
-  // duplicated list — the two halves are identical so the jump is invisible.
-  const handleScroll = useCallback(() => {
-    const el = scrollRef.current
-    if (!el) return
-    const half = el.scrollWidth / 2
-    if (el.scrollLeft >= half) {
-      el.scrollLeft -= half
-    }
-  }, [])
-
-  // Auto-slide — always scrolls right; infinite loop handled by handleScroll
-  useEffect(() => {
-    if (isPaused) return
-
-    const interval = setInterval(() => {
-      const container = scrollRef.current
-      if (!container) return
-      const cardWidth =
-        (container.firstElementChild as HTMLElement)?.offsetWidth ?? 300
-      container.scrollBy({ left: cardWidth + 24, behavior: 'smooth' })
-    }, 4000)
-
-    return () => clearInterval(interval)
-  }, [isPaused])
-
-  const scroll = useCallback((direction: 'left' | 'right') => {
-    const container = scrollRef.current
-    if (!container) return
-    const cardWidth =
-      (container.firstElementChild as HTMLElement)?.offsetWidth ?? 300
-    const amount = direction === 'left' ? -(cardWidth + 24) : cardWidth + 24
-    container.scrollBy({ left: amount, behavior: 'smooth' })
-  }, [])
-
-  const handleInteractionStart = () => setIsPaused(true)
-  const handleInteractionEnd = () => {
-    setTimeout(() => setIsPaused(false), 3000)
-  }
+  const reviews = REVIEW_KEYS.map((key) => ({
+    key,
+    quote: t(`reviews.${key}.quote`),
+    name: t(`reviews.${key}.name`),
+    program: t(`reviews.${key}.program`),
+  }))
 
   return (
-    <section className="bg-neutral-100">
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 sm:py-12 lg:py-16">
+    <section
+      id="testimonials"
+      className="border-y border-stroke bg-structure py-14 text-white max-tablet:py-10"
+    >
+      <div className="mx-auto mb-10 max-w-wrap px-6">
+        <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-white/60 uppercase">
+          {t('eyebrow')}
+        </h2>
+        <p className="max-w-[46ch] text-section font-medium">{t('headline')}</p>
+      </div>
 
-        {/* Heading */}
-        <motion.div
-          className="text-center mb-10 md:mb-14"
-          initial={{ opacity: 0, y: 30 }}
-          whileInView={{ opacity: 1, y: 0 }}
-          viewport={{ once: true, margin: '-80px' }}
-          transition={{ duration: 0.5 }}
+      {/* One row, travelling left. Same seamless-loop mechanism as the partner
+          wall: the list is rendered twice and the track slides by half. */}
+      <div className="marquee">
+        <div
+          className="marquee-track marquee-track--left"
+          style={{ '--marquee-duration': '42s' } as React.CSSProperties}
         >
-          <h2
-            className="font-extrabold text-brand-purple"
-            style={{ fontSize: 'clamp(1.75rem, 1rem + 3vw, 2.75rem)' }}
-          >
-            {t('heading')}
-          </h2>
-          <div className="w-16 h-1 bg-[#2D2B55] mx-auto mt-4 mb-12 rounded-full" />
-        </motion.div>
+          {[false, true].map((isClone) => (
+            <div key={String(isClone)} className="flex" aria-hidden={isClone}>
+              {reviews.map((review) => (
+                <figure
+                  key={review.key}
+                  className="mx-3 flex h-[24rem] w-72 shrink-0 flex-col rounded-sm border border-white/10 bg-white/[0.02] p-7"
+                >
+                  <span className="mb-4 text-[oklch(70%_0.13_307.4)]/50">
+                    <QuoteMark />
+                  </span>
 
-        {/* Carousel */}
-        <div className="relative">
+                  <blockquote className="mb-6 text-label font-light text-white/80">
+                    {review.quote}
+                  </blockquote>
 
-          {/* Left arrow */}
-          <button
-            onClick={() => scroll('left')}
-            aria-label="Previous testimonials"
-            className="hidden md:flex absolute -left-5 lg:-left-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-brand-purple hover:text-gray-900 hover:shadow-lg hover:border-gray-300 transition-all duration-200"
-          >
-            <ChevronLeft size={20} />
-          </button>
-
-          {/* Scrollable track */}
-          <div
-            ref={scrollRef}
-            role="region"
-            aria-label="Customer testimonials"
-            aria-live="polite"
-            className="flex gap-6 overflow-x-auto snap-x snap-mandatory scrollbar-hide py-3"
-            onMouseEnter={handleInteractionStart}
-            onMouseLeave={handleInteractionEnd}
-            onTouchStart={handleInteractionStart}
-            onTouchEnd={handleInteractionEnd}
-            onScroll={handleScroll}
-          >
-            {/* Render list twice — second copy enables seamless right-loop */}
-            {[...TESTIMONIAL_META, ...TESTIMONIAL_META].map((item, index) => (
-              <TestimonialCard
-                key={`${item.id}-${index}`}
-                id={item.id}
-                index={index % TESTIMONIAL_META.length}
-              />
-            ))}
-          </div>
-
-          {/* Right arrow */}
-          <button
-            onClick={() => scroll('right')}
-            aria-label="Next testimonials"
-            className="hidden md:flex absolute -right-5 lg:-right-6 top-1/2 -translate-y-1/2 z-10 w-10 h-10 md:w-12 md:h-12 rounded-full bg-white shadow-md border border-gray-200 items-center justify-center text-brand-purple hover:text-gray-900 hover:shadow-lg hover:border-gray-300 transition-all duration-200"
-          >
-            <ChevronRight size={20} />
-          </button>
-
+                  <figcaption className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4 text-label">
+                    {/* The design fills this slot with a generated DiceBear
+                        shape, which is neither a photograph nor the person.
+                        Initials say the same amount and claim less. */}
+                    <span
+                      aria-hidden="true"
+                      className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-min font-medium text-white/80"
+                    >
+                      {initials(review.name)}
+                    </span>
+                    <span>
+                      <span className="block font-medium text-white">{review.name}</span>
+                      <span className="text-white/60">{review.program}</span>
+                    </span>
+                  </figcaption>
+                </figure>
+              ))}
+            </div>
+          ))}
         </div>
       </div>
     </section>

@@ -1,12 +1,13 @@
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
 import { getCountryBySlug } from '../services/destinationService'
+import { REGION_DISPLAY } from '../utils/constants'
 import { DetailHero } from './DetailHero'
-import { DetailSidebar } from './DetailSidebar'
+import { DetailNav } from './DetailNav'
+import { DetailCta } from './DetailCta'
 import { CountryOverview } from './CountryOverview'
 import { CountryAdvantages } from './CountryAdvantages'
-// HIDDEN: universities feature temporarily disabled — uncomment to restore
-// import { PartnerUniversities } from './PartnerUniversities'
+import { PartnerUniversities } from './PartnerUniversities'
 import { AcademicSpecialties } from './AcademicSpecialties'
 import { StudentJourney } from './StudentJourney'
 import { CountryFAQs } from './CountryFAQs'
@@ -15,52 +16,53 @@ interface Props {
   slug: string
 }
 
+/** Matches the nav's lg:top-36, so an anchor jump parks the heading level with
+ *  where the rail sits rather than under the sticky header. */
+const SECTION = 'scroll-mt-36'
+
 export async function DestinationDetailPage({ slug }: Props) {
   const country = await getCountryBySlug(slug)
   if (!country) notFound()
 
   const t = await getTranslations('destinations')
 
+  // The universities section is dropped entirely when a country has no
+  // published partners yet, so the rail never points at a missing anchor.
+  const hasUniversities = country.universities.length > 0
+
   const sections = [
     { id: 'overview', label: t('overview') },
-    { id: 'advantages', label: t('whyStudyHere') },
-    { id: 'universities', label: t('exploreUniversities') },
-    { id: 'specialties', label: t('popularFields') },
-    { id: 'journey', label: t('process') },
+    { id: 'why-study-here', label: t('whyStudyHere') },
+    ...(hasUniversities ? [{ id: 'universities', label: t('exploreUniversities') }] : []),
+    { id: 'popular-fields', label: t('popularFields') },
+    { id: 'process', label: t('process') },
     { id: 'faqs', label: t('faqsLabel') },
   ]
 
   return (
     <>
       <DetailHero
+        slug={country.slug}
         name={country.name}
         tagline={country.tagline}
-        heroImageUrl={country.heroImageUrl}
+        // The design blurs the country's card photo behind the band, not the
+        // dedicated hero image.
+        backdropUrl={country.cardImageUrl ?? country.heroImageUrl}
         region={country.region}
-        studyAbroadLabel={t('studyAbroad')}
-        breadcrumb={{
-          home: t('breadcrumbHome'),
-          destinations: t('breadcrumbDestinations'),
-        }}
+        destinationsLabel={t('breadcrumbDestinations')}
+        regionLabel={REGION_DISPLAY[country.region] ?? country.region}
       />
 
-      <div className="bg-neutral-50">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="lg:grid lg:grid-cols-[220px_minmax(0,1fr)] lg:gap-12 pt-10 pb-20">
-          <DetailSidebar
-            sections={sections}
-            guideName={t('destinationGuide')}
-            ctaEyebrow={t('sidebarEyebrow')}
-            ctaTitle={t('readyToStudy', { country: country.name })}
-            ctaLabel={t('ctaButton')}
-          />
+      <section className="py-14 max-tablet:py-10">
+        <div className="mx-auto grid max-w-wrap gap-10 px-6 lg:grid-cols-[200px_1fr]">
+          <DetailNav sections={sections} />
 
-          <div className="space-y-16 lg:space-y-20 min-w-0">
-            <section id="overview">
+          <div className="flex flex-col gap-16">
+            <section id="overview" className={SECTION}>
               <CountryOverview country={country} />
             </section>
 
-            <section id="advantages">
+            <section id="why-study-here" className={SECTION}>
               <CountryAdvantages
                 countryName={country.name}
                 advantages={country.advantages}
@@ -68,39 +70,40 @@ export async function DestinationDetailPage({ slug }: Props) {
               />
             </section>
 
-            {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
-            <section id="universities">
-              <PartnerUniversities
-                universities={country.universities}
-                eyebrow={t('exploreUniversities')}
-                title={t('partnerUniversities')}
-                subtitle={t('universitiesSubtitle')}
-                exploreLabel={t('explore')}
-              />
-            </section>
-            */}
+            {hasUniversities && (
+              <section id="universities" className={SECTION}>
+                <PartnerUniversities
+                  universities={country.universities}
+                  eyebrow={t('exploreUniversities')}
+                  title={t('partnerInstitutions', { count: country.universities.length })}
+                />
+              </section>
+            )}
 
-            <section id="specialties">
+            <section id="popular-fields" className={SECTION}>
               <AcademicSpecialties specialties={country.academicSpecialties} />
             </section>
 
-            <section id="journey">
+            <section id="process" className={SECTION}>
               <StudentJourney steps={country.processSteps} />
             </section>
 
-            <section id="faqs">
+            <section id="faqs" className={SECTION}>
               <CountryFAQs
                 faqs={country.faqs}
                 eyebrow={t('faqsLabel')}
                 title={t('commonQuestions')}
-                subtitle={t('faqsSubtitle')}
               />
             </section>
-
           </div>
         </div>
-      </div>
-      </div>
+      </section>
+
+      <DetailCta
+        backdropUrl={country.cardImageUrl ?? country.heroImageUrl}
+        title={t('readyToStudy', { country: country.name })}
+        ctaLabel={t('ctaButton')}
+      />
     </>
   )
 }

@@ -31,7 +31,7 @@ export default async function LocaleLayout({
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
       className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable}`}
     >
-      <body className="antialiased flex flex-col min-h-screen">
+      <body className="bg-canvas text-primary-text font-sans text-body font-light leading-[1.65] antialiased flex flex-col min-h-screen">
         <NextIntlClientProvider messages={messages}>
           <NextTopLoader color="linear-gradient(to right, #3D0A5A, #590D82, #7B1FA2)" height={3} showSpinner={false} shadow="none" />
           <Navbar />
