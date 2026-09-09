@@ -1,7 +1,7 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
+import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from 'react'
+import { AnimatePresence } from 'framer-motion'
 import { useTranslations } from 'next-intl'
 import { RIASEC_COUNT, PERSONALITY_END, TOTAL_QUESTIONS } from '../data/allQuestions'
 import { APTITUDE_AREA_LABELS } from '../data/aptitudeQuestions'
@@ -9,9 +9,20 @@ import { useAssessment } from '../hooks/useAssessment'
 import { useNavigationGuard } from '../hooks/useNavigationGuard'
 import { submitAssessment } from '../services/careerLeadService'
 import { savePending, readPending, clearPending } from '../services/pendingSubmission'
+import {
+  clearProgress,
+  subscribeProgress,
+  getProgressSnapshot,
+  getProgressServerSnapshot,
+} from '../services/assessmentProgress'
 import type { AnswerMap, ContactDetails, DashboardData, SubmitResult } from '../types'
 import { CareerDiscoveryIntro } from './CareerDiscoveryIntro'
 import { CareerOutlookExplorer } from './CareerOutlookExplorer'
+import { AssessmentModeTabs, type AssessmentMode } from './AssessmentModeTabs'
+import { ReportShowcase } from './ReportShowcase'
+import { AssessmentMethod } from './AssessmentMethod'
+import { AssessmentFinalCta } from './AssessmentFinalCta'
+import { ResumeBanner } from './ResumeBanner'
 import { PreparingScreen } from './PreparingScreen'
 import { QuestionScreen } from './QuestionScreen'
 import { AptitudeQuestionCard } from './AptitudeQuestionCard'
@@ -75,9 +86,21 @@ async function submitWithRetry(contact: ContactDetails, answers: AnswerMap): Pro
 export function AssessmentFlow() {
   const t = useTranslations('careerAssessment.sections')
   const tc = useTranslations('careerAssessment')
-  const { questions, answers, index, setAnswer, goNext, goBack, reset, start, autofill } = useAssessment()
+  const { questions, answers, index, setAnswer, goNext, goBack, reset, start, resume, autofill } =
+    useAssessment()
 
   const [phase, setPhase] = useState<Phase>('intro')
+  // Which of the two landing modes the tabs are showing. Only meaningful while
+  // the flow is on the intro; once the questions start there is one path.
+  const [mode, setMode] = useState<AssessmentMode>('assessment')
+
+  // localStorage is not available on the server, so the store hands React a
+  // null server snapshot and the real value after hydration.
+  const saved = useSyncExternalStore(
+    subscribeProgress,
+    getProgressSnapshot,
+    getProgressServerSnapshot,
+  )
   const [transitionTo, setTransitionTo] = useState<NextSection>('personality')
   const [shown, setShown] = useState<Set<NextSection>>(new Set())
   const [serverError, setServerError] = useState<string | null>(null)
@@ -88,17 +111,10 @@ export function AssessmentFlow() {
 
   const inProgress = phase === 'questions' || phase === 'transition' || phase === 'contact'
 
-  // Warn before leaving while in progress: refresh / tab close…
-  useEffect(() => {
-    if (!inProgress) return
-    const handler = (e: BeforeUnloadEvent) => {
-      e.preventDefault()
-      e.returnValue = ''
-    }
-    window.addEventListener('beforeunload', handler)
-    return () => window.removeEventListener('beforeunload', handler)
-  }, [inProgress])
-
+  // No beforeunload prompt any more: a refresh or a closed tab costs nothing now
+  // that answers autosave, and warning about a loss that cannot happen is worse
+  // than not warning at all. The in-app guard stays, because clicking a nav link
+  // still drops you out of the flow, even though the answers survive.
   useNavigationGuard(inProgress, tc('leaveConfirm'))
 
   // "Preparing" → first question after a short beat.
@@ -155,6 +171,7 @@ export function AssessmentFlow() {
 
       if (result.success) {
         clearPending()
+        clearProgress()
         setDashboard(result.dashboard ?? null)
         setLeadId(result.leadId ?? null)
         reset()
@@ -225,6 +242,47 @@ export function AssessmentFlow() {
     : ''
   const showHeader = phase === 'questions' || phase === 'transition'
 
+  // The landing is full-bleed and sits on its own sections, so it returns
+  // before the centred shell the answering phases use. No entrance animation:
+  // this is the page's main content, and an opacity-0 initial would leave it
+  // invisible if the JS never arrives.
+  const handleResume = () => {
+    if (!saved) return
+    resume(saved)
+    setPhase('questions')
+  }
+
+  const handleRestart = () => {
+    clearProgress()
+  }
+
+  if (phase === 'intro') {
+    return (
+      <div className="bg-canvas">
+        <AssessmentModeTabs mode={mode} onChange={setMode} />
+
+        {mode === 'assessment' && saved && (
+          <ResumeBanner
+            answeredCount={saved.answeredCount}
+            onResume={handleResume}
+            onRestart={handleRestart}
+          />
+        )}
+
+        {mode === 'assessment' ? (
+          <>
+            <CareerDiscoveryIntro onStart={handleStart} onAutofill={handleAutofill} />
+            <ReportShowcase onStart={handleStart} />
+            <AssessmentMethod onStart={handleStart} />
+            <AssessmentFinalCta onStart={handleStart} />
+          </>
+        ) : (
+          <CareerOutlookExplorer onStart={handleStart} />
+        )}
+      </div>
+    )
+  }
+
   return (
     <section className="relative flex min-h-[calc(100dvh-72px)] flex-col bg-gradient-to-b from-white via-neutral-50 to-neutral-100">
       {/* Ambient background (shared by all phases) */}
@@ -254,27 +312,8 @@ export function AssessmentFlow() {
 
       {/* Phase content */}
       <div className={`relative flex flex-1 ${phase === 'dashboard' ? 'items-start' : 'items-center'} justify-center px-4 py-6`}>
-        <div className={`mx-auto w-full ${phase === 'dashboard' ? 'max-w-6xl' : phase === 'intro' ? 'max-w-5xl' : 'max-w-3xl'}`}>
+        <div className={`mx-auto w-full ${phase === 'dashboard' ? 'max-w-6xl' : 'max-w-3xl'}`}>
           <AnimatePresence mode="wait">
-            {phase === 'intro' && (
-              <motion.div
-                key="intro"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)]"
-              >
-                <div className="grid lg:grid-cols-2">
-                  <div className="p-5 sm:p-7">
-                    <CareerDiscoveryIntro bare onStart={handleStart} onAutofill={handleAutofill} />
-                  </div>
-                  <div className="border-t border-gray-100 bg-gradient-to-br from-brand-purple-50/80 via-brand-purple-50/30 to-white p-5 sm:p-7 lg:border-l lg:border-t-0">
-                    <CareerOutlookExplorer bare />
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
             {phase === 'preparing' && <PreparingScreen key="preparing" />}
 
             {phase === 'questions' && question && question.kind === 'likert' && (

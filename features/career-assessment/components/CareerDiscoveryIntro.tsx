@@ -1,153 +1,113 @@
 'use client'
 
 import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import {
-  Clock,
-  Sparkles,
-  Heart,
-  UserCheck,
-  ArrowRight,
-  ListChecks,
-  Layers,
-  ShieldCheck,
-  Info,
-} from 'lucide-react'
 
 interface Props {
   onStart: () => void
   onAutofill?: () => void
-  /** Render just the inner content (no card chrome) for use inside a shared panel. */
-  bare?: boolean
 }
 
-function MetaChip({ icon: Icon, label }: { icon: typeof Clock; label: string }) {
-  return (
-    <span className="inline-flex items-center gap-1.5 rounded-full border border-gray-200 bg-white/70 px-3 py-1 text-xs font-medium text-gray-600">
-      <Icon size={13} className="text-brand-purple" />
-      {label}
-    </span>
-  )
-}
+const CHIP =
+  'inline-flex items-center rounded-full border border-stroke bg-surface-0 px-3.5 py-1.5 text-label font-medium text-primary-text shadow-2xs'
 
-export function CareerDiscoveryIntro({ onStart, onAutofill, bare }: Props) {
+export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
   const t = useTranslations('careerAssessment.intro')
   const isDev = process.env.NODE_ENV !== 'production'
 
-  const points = [
-    { icon: Sparkles, text: t('point1') },
-    { icon: Heart, text: t('point2') },
-    { icon: UserCheck, text: t('point3') },
-  ]
-
-  const content = (
-    <>
-      {/* Logo */}
-      <Image
-        src="/images/logo/logo.webp"
-        alt="Saturday Education Consulting"
-        width={176}
-        height={65}
-        priority
-        className="mx-auto mb-2 h-auto w-32"
+  return (
+    <section className="relative overflow-hidden border-b border-stroke bg-surface py-20 max-tablet:py-12">
+      <div
+        aria-hidden="true"
+        className="assessment-hero-texture pointer-events-none absolute inset-0 z-0"
       />
 
-      {/* Eyebrow pill */}
-      <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-purple">
-        <span className="h-1.5 w-1.5 rounded-full bg-accent-gold" />
-        {t('eyebrow')}
-      </span>
+      <div className="relative z-10 mx-auto max-w-wrap px-6">
+        <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
+          {/* Report cover. Second on a phone so the headline leads. */}
+          <div className="relative order-2 flex flex-col items-center justify-center lg:order-1">
+            <div
+              aria-hidden="true"
+              className="pointer-events-none absolute top-1/2 left-1/2 -z-10 h-[340px] w-[340px] -translate-x-1/2 -translate-y-1/2 rounded-full bg-tint/50 blur-3xl sm:h-[400px] sm:w-[400px]"
+            />
 
-      <h2 className="mt-2 text-2xl font-extrabold leading-tight tracking-tight text-neutral-900 sm:text-[1.75rem]">
-        {t('title')}
-      </h2>
-      <p className="mx-auto mt-1.5 max-w-lg text-[13px] leading-relaxed text-gray-600">{t('subtitle')}</p>
+            <div className="relative">
+              {/* Styled as a physical document: a spine shadow down the left
+                  edge, square on that side and rounded on the other three. */}
+              <button
+                type="button"
+                onClick={onStart}
+                className="group relative block cursor-pointer perspective-[1000px]"
+              >
+                <div className="relative aspect-[1/1.414] w-[280px] rounded-l-xs rounded-r-md border-y border-r border-stroke bg-white shadow-[0_24px_48px_-12px_rgba(0,0,0,0.32),0_8px_18px_rgba(0,0,0,0.12)] transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:rotate-y-[-4deg] group-hover:scale-[1.02] group-hover:shadow-[0_32px_60px_-15px_rgba(0,0,0,0.4)] sm:w-[330px]">
+                  <div
+                    aria-hidden="true"
+                    className="pointer-events-none absolute inset-y-0 left-0 z-20 w-5 rounded-l-xs bg-gradient-to-r from-black/25 via-black/10 to-transparent"
+                  />
+                  <div className="relative h-full w-full overflow-hidden rounded-l-xs rounded-r-md">
+                    <Image
+                      src="/images/career-assessment/report-cover.webp"
+                      alt={t('coverAlt')}
+                      fill
+                      priority
+                      sizes="330px"
+                      className="object-cover object-top"
+                    />
+                  </div>
+                </div>
+              </button>
+            </div>
 
-      {/* Meta chips */}
-      <div className="mt-2.5 flex flex-wrap items-center justify-center gap-2">
-        <MetaChip icon={ListChecks} label={t('metaQuestions')} />
-        <MetaChip icon={Layers} label={t('metaParts')} />
-        <MetaChip icon={Clock} label={t('metaTime')} />
-      </div>
-
-      {/* Benefits — compact 3-up */}
-      <div className="mt-2.5 grid grid-cols-3 gap-2">
-        {points.map(({ icon: Icon, text }, i) => (
-          <div
-            key={i}
-            className="flex flex-col items-center gap-1.5 rounded-xl border border-gray-100 bg-gray-50/60 px-2 py-2 text-center"
-          >
-            <span className="flex h-7 w-7 items-center justify-center rounded-full bg-gradient-to-br from-brand-purple-50 to-brand-purple-100 text-brand-purple">
-              <Icon size={14} />
-            </span>
-            <span className="text-[11px] leading-snug text-gray-600">{text}</span>
+            <p className="mt-4 text-center text-min text-secondary-text">{t('coverCaption')}</p>
           </div>
-        ))}
-      </div>
 
-      {/* Notice */}
-      <div className="mt-2.5 flex items-start gap-2 rounded-xl border border-amber-200 bg-amber-50 px-3.5 py-2 text-left">
-        <Info size={15} className="mt-0.5 flex-shrink-0 text-amber-500" />
-        <p className="text-[11px] leading-relaxed text-amber-800">
-          <span className="font-semibold">{t('noticeTitle')}:</span> {t('notice')}
-        </p>
-      </div>
+          <div className="order-1 lg:order-2">
+            <h1 className="mb-[44px] tracking-tight">
+              <span className="block text-title leading-[1.18] font-medium text-primary-text">
+                {t('title')}
+              </span>
+              <span className="mt-2 block text-section leading-snug font-medium text-accent-ink">
+                {t('titleAccent')}
+              </span>
+            </h1>
 
-      {/* CTA */}
-      <div className="mt-3 flex flex-col items-center gap-2">
-        <button
-          type="button"
-          onClick={onStart}
-          className="group inline-flex w-full max-w-xs items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light px-8 py-2.5 font-semibold text-white shadow-md shadow-brand-purple/25 transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-purple/30 sm:w-auto"
-        >
-          {t('startButton')}
-          <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
-        </button>
-        <p className="text-[11px] text-gray-400">{t('reassurance')}</p>
+            <p className="mb-6 max-w-[54ch] text-body leading-relaxed font-normal text-secondary-text">
+              {t('subtitle')}
+            </p>
 
-        {isDev && onAutofill && (
-          <button
-            type="button"
-            onClick={onAutofill}
-            className="rounded-full border border-dashed border-gray-300 px-4 py-1 text-[11px] text-gray-400 transition-colors hover:border-brand-purple hover:text-brand-purple"
-          >
-            ⚡ Dev: autofill all answers
-          </button>
-        )}
-      </div>
+            <div className="mb-14 flex flex-wrap items-center gap-2.5">
+              <span className={CHIP}>{t('metaQuestions')}</span>
+              <span className={CHIP}>{t('metaParts')}</span>
+              <span className={CHIP}>{t('metaTime')}</span>
+            </div>
 
-      {/* Scientific footer */}
-      <div className="mt-3 flex items-center justify-center gap-1.5 border-t border-gray-100 pt-2.5 text-[11px] text-gray-500">
-        <ShieldCheck size={13} className="flex-shrink-0 text-brand-purple" />
-        {t('trustFrameworks')}
-      </div>
-    </>
-  )
+            <div className="space-y-3">
+              <div className="flex flex-wrap items-center gap-3">
+                <button
+                  type="button"
+                  onClick={onStart}
+                  className="inline-flex min-h-13 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-action px-16 text-body font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover sm:w-auto"
+                >
+                  {t('startButton')}
+                </button>
 
-  if (bare) {
-    // Vertically centered so the half stays balanced whether or not the dev-only
-    // "autofill" button is present (it's hidden in production). Inner block keeps
-    // the eyebrow pill content-width (a direct flex child would stretch it).
-    return (
-      <div className="flex h-full flex-col justify-center">
-        <div className="mx-auto w-full max-w-md text-center">{content}</div>
-      </div>
-    )
-  }
+                {/* Dev-only shortcut that fills the whole questionnaire. */}
+                {isDev && onAutofill && (
+                  <button
+                    type="button"
+                    onClick={onAutofill}
+                    className="cursor-pointer rounded-full border border-dashed border-stroke-strong px-4 py-2 text-min text-muted-text hover:text-primary-text"
+                  >
+                    Autofill (dev)
+                  </button>
+                )}
+              </div>
 
-  return (
-    <div className="relative w-full">
-      <motion.div
-        initial={{ opacity: 0, y: 20 }}
-        animate={{ opacity: 1, y: 0 }}
-        transition={{ duration: 0.45, ease: 'easeOut' }}
-        className="relative mx-auto w-full max-w-xl"
-      >
-        <div className="rounded-3xl border border-gray-100 bg-white/90 px-6 py-5 text-center shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)] backdrop-blur-sm sm:px-9">
-          {content}
+              <p className="text-min text-muted-text">{t('reassurance')}</p>
+            </div>
+          </div>
         </div>
-      </motion.div>
-    </div>
+      </div>
+    </section>
   )
 }

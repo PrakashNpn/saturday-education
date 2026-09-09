@@ -11,7 +11,7 @@ export async function GET() {
   }
 
   const contact: ContactDetails = {
-    fullName: 'Sample Student',
+    fullName: 'Thi Han',
     email: 'sample.student@example.com',
     phone: '+95 9 123 456 789',
     educationLevel: 'Undergraduate',

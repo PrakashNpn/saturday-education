@@ -2,200 +2,226 @@
 
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { X, TrendingUp, CheckCircle2, Check, Plus, GraduationCap, SearchX, RotateCw, Clock, Info } from 'lucide-react'
-import { OutlookChart, DemandGauge } from '@/shared/components/careers/OutlookCharts'
-import { fieldStyle } from '@/shared/components/careers/fieldStyle'
-import { growthTone } from '@/shared/components/careers/outlookTone'
+import { useTranslations } from 'next-intl'
+import { SearchX, RotateCw, Clock } from 'lucide-react'
+import { Link } from '@/i18n/navigation'
 import { deriveHorizonView, type Horizon, type OutlookView } from '@/shared/lib/careers/outlookMaster'
+import { workStyleOf } from '../utils/workStyle'
 import { getCareerOutlook } from '../services/careerOutlookService'
 import { CareerOutlookResearching } from './CareerOutlookResearching'
 
-const DEMAND_DOT: Record<string, string> = {
-  High: 'bg-brand-purple',
-  Moderate: 'bg-brand-purple-light',
-  Competitive: 'bg-gray-400',
-}
-
-// Career "work style" from its Holland (RIASEC) code: a role-noun for the strongest
-// type, optionally prefixed by an adjective from the second type (e.g. I·C →
-// "Methodical Analyst").
-const STYLE_NOUN: Record<string, string> = {
-  R: 'Builder',
-  I: 'Analyst',
-  A: 'Creative',
-  S: 'Mentor',
-  E: 'Leader',
-  C: 'Planner',
-}
-const STYLE_ADJ: Record<string, string> = {
-  R: 'Hands-on',
-  I: 'Analytical',
-  A: 'Creative',
-  S: 'Supportive',
-  E: 'Driven',
-  C: 'Methodical',
-}
-
-function workStyleOf(riasec: readonly string[]): string {
-  const noun = STYLE_NOUN[riasec[0] ?? '']
-  if (!noun) return '—'
-  const second = riasec[1]
-  const adj = second ? STYLE_ADJ[second] : undefined
-  return adj && adj !== noun ? `${adj} ${noun}` : noun
-}
-
-function Stat({ label, value, valueClass }: { label: string; value: string; valueClass?: string }) {
+function Chip({ label }: { label: string }) {
   return (
-    <div className="px-3 py-2.5 text-center">
-      <p className="text-[9px] font-semibold uppercase tracking-wider text-gray-400">{label}</p>
-      <p className={`mt-0.5 text-sm font-bold leading-tight ${valueClass ?? 'text-neutral-900'}`}>{value}</p>
+    <span className="inline-flex items-center gap-1 rounded-[4px] border border-emerald-500/25 bg-emerald-500/10 px-2.5 py-0.5 text-min font-medium text-emerald-700">
+      <svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true" className="size-3 shrink-0">
+        <path d="M8 1.5 1 5l7 3.5L15 5 8 1.5ZM2.5 7.6v3.2c0 1.8 2.5 3.2 5.5 3.2s5.5-1.4 5.5-3.2V7.6l-5.5 2.75L2.5 7.6Z" />
+      </svg>
+      {label}
+    </span>
+  )
+}
+
+function Cell({ label, children }: { label: string; children: ReactNode }) {
+  return (
+    <div className="p-3 sm:p-3.5">
+      <p className="mb-1 text-min font-medium text-muted-text uppercase">{label}</p>
+      {children}
     </div>
   )
 }
 
-function SkillList({ title, skills, variant }: { title: string; skills: string[]; variant: 'required' | 'nice' }) {
-  const required = variant === 'required'
+function SkillList({ skills, numberClass }: { skills: string[]; numberClass: string }) {
   return (
-    <div className={`rounded-xl border p-3.5 ${required ? 'border-brand-purple-100 bg-gradient-to-br from-brand-purple-50/50 to-white' : 'border-gray-100 bg-white'}`}>
-      <p className={`mb-2 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider ${required ? 'text-brand-purple' : 'text-gray-500'}`}>
-        {required ? <CheckCircle2 size={13} /> : <Plus size={13} />}
-        {title}
-      </p>
-      <ul className="space-y-1.5">
-        {skills.map((sk) => (
-          <li key={sk} className={`flex items-center gap-2 text-[13px] ${required ? 'text-neutral-700' : 'text-gray-600'}`}>
-            <span className={`flex h-4 w-4 flex-shrink-0 items-center justify-center rounded-full ${required ? 'bg-brand-purple/10 text-brand-purple' : 'bg-gray-200/70 text-gray-500'}`}>
-              {required ? <Check size={10} /> : <Plus size={10} />}
-            </span>
-            {sk}
-          </li>
-        ))}
-      </ul>
-    </div>
+    <ol className="space-y-2.5">
+      {skills.map((skill, i) => (
+        <li key={skill} className="flex items-start gap-2.5 text-label font-normal text-secondary-text">
+          <span className={`shrink-0 font-mono text-min ${numberClass}`}>
+            {String(i + 1).padStart(2, '0')}
+          </span>
+          <span className="leading-snug">{skill}</span>
+        </li>
+      ))}
+    </ol>
   )
 }
 
-function ModalBody({ career, horizonYears }: { career: OutlookView; horizonYears: number }) {
-  const fs = fieldStyle(career.field)
-  const Icon = fs.icon
+/** Bars scale against this career's own range, matching the sample sections. */
+const MIN_H = 30
+const SPAN = 65
+
+function ModalBody({
+  career,
+  horizonYears,
+  onStart,
+}: {
+  career: OutlookView
+  horizonYears: number
+  onStart?: () => void
+}) {
+  const t = useTranslations('careerAssessment.outlook')
   const trend = career.outlook.trend
   const startYear = new Date().getFullYear()
-  const endYear = startYear + horizonYears
   const step = horizonYears === 5 ? 1 : 2
-  const growth = trend.length > 1 && trend[0] > 0 ? Math.round(((trend[trend.length - 1] - trend[0]) / trend[0]) * 100) : 0
-  const tone = growthTone(growth)
-  const TrendIcon = tone.Icon
-  const workStyle = workStyleOf(career.riasec)
+  const growth =
+    trend.length > 1 && trend[0] > 0
+      ? Math.round(((trend[trend.length - 1] - trend[0]) / trend[0]) * 100)
+      : 0
+
+  const min = Math.min(...trend)
+  const max = Math.max(...trend)
+  const heightOf = (v: number) =>
+    max === min ? MIN_H + SPAN : Math.round(MIN_H + ((v - min) / (max - min)) * SPAN)
 
   return (
-    <>
-      {/* Header — soft field-tinted band */}
-      <div className="border-b border-gray-100 bg-gradient-to-b from-brand-purple-50 to-white p-5 sm:p-6">
-        <div className="flex items-start gap-3 pr-8">
-          <span className={`flex h-12 w-12 flex-shrink-0 items-center justify-center rounded-2xl ${fs.iconBg}`}>
-            <Icon size={22} />
-          </span>
-          <div className="min-w-0 flex-1">
-            <div className="flex flex-wrap items-center gap-1.5">
-              <span className={`inline-flex items-center rounded-full px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wider ${fs.chipBg} ${fs.chipText}`}>
-                {career.field}
-              </span>
-              <span className="inline-flex items-center gap-1 rounded-full border border-gray-100 bg-white/70 px-2 py-0.5 text-[10px] font-semibold text-gray-600">
-                <span className={`h-1.5 w-1.5 rounded-full ${DEMAND_DOT[career.outlook.demand] ?? 'bg-gray-400'}`} />
-                {career.outlook.demand}
-              </span>
-            </div>
-            <h2 className="mt-1.5 text-xl font-extrabold leading-tight text-neutral-900 sm:text-2xl">{career.title}</h2>
-          </div>
-        </div>
-        <p className="mt-3 text-sm leading-relaxed text-gray-600">{career.summary}</p>
-        <div className="mt-4 grid grid-cols-3 divide-x divide-gray-100 overflow-hidden rounded-xl border border-gray-100 bg-white/70">
-          <Stat label="Demand now" value={career.outlook.demand} />
-          <Stat label={`${horizonYears}-yr trend`} value={`~${growth > 0 ? '+' : ''}${growth}%`} valueClass={tone.numberText} />
-          <Stat label="Best fit" value={workStyle} />
-        </div>
-        <p className="mt-2.5 flex items-start gap-1.5 text-[11px] leading-relaxed text-gray-500">
-          <Info size={13} className="mt-px flex-shrink-0 text-gray-400" />
-          <span>
-            <span className="font-semibold text-gray-700">Demand</span>: hiring today
-            <span className="mx-1.5 text-gray-300">·</span>
-            <span className="font-semibold text-gray-700">Trend</span>: projected change over {horizonYears} years
-          </span>
+    <div className="space-y-5 p-6 sm:p-7">
+      <div>
+        <h2 className="pr-10 text-title leading-tight font-medium tracking-tight text-primary-text">
+          {career.title}
+        </h2>
+        <p className="mt-1.5 text-body leading-relaxed font-normal text-secondary-text">
+          {career.summary}
         </p>
+        <div className="mt-3 flex flex-wrap items-center gap-1.5">
+          {career.relatedFields.map((field) => (
+            <Chip key={field} label={field} />
+          ))}
+        </div>
       </div>
 
-      {/* Body */}
-      <div className="space-y-5 p-5 sm:p-6">
-        {/* Outlook */}
-        <div>
-          <div className="mb-3 flex items-center justify-between gap-2">
-            <p className="flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-brand-purple">
-              <TrendingUp size={13} />
-              {horizonYears}-year job outlook
-            </p>
-            <span className={`inline-flex items-center gap-1 rounded-full px-2.5 py-1 text-[11px] font-semibold ${tone.chipBg} ${tone.chipText}`}>
-              <TrendIcon size={12} />
-              {career.outlook.growthLabel}
-            </span>
-          </div>
-          <div className="flex flex-col gap-4 sm:flex-row sm:items-center">
-            <DemandGauge demand={career.outlook.demand} caption="Demand" />
-            <div className="min-w-0 flex-1">
-              <div className="mb-2 flex items-baseline gap-1.5">
-                <span className={`text-2xl font-extrabold ${tone.numberText}`}>
+      <div className="grid items-stretch gap-5 lg:grid-cols-2">
+        <div className="flex h-full flex-col overflow-hidden rounded-sm border border-stroke bg-surface shadow-xs">
+          <div className="grid grid-cols-[0.85fr_1.2fr_1.25fr] divide-x divide-stroke border-b border-stroke bg-surface">
+            <Cell label={t('demandNow')}>
+              <p className="text-label leading-tight font-medium text-primary-text">
+                {career.outlook.demand}
+              </p>
+            </Cell>
+            <Cell label={t('trajectory', { years: horizonYears })}>
+              <div className="flex flex-wrap items-center gap-1.5">
+                <p className="text-label leading-tight font-medium text-action">
                   ~{growth > 0 ? '+' : ''}
                   {growth}%
+                </p>
+                <span className="rounded-full bg-action px-2 py-0.5 text-min leading-none font-medium text-white shadow-2xs">
+                  {career.outlook.growthLabel}
                 </span>
-                <span className="text-[11px] text-gray-400">projected by {endYear}</span>
               </div>
-              <OutlookChart data={trend} startYear={startYear} step={step} />
+            </Cell>
+            <Cell label={t('bestFit')}>
+              <p className="text-label leading-tight font-medium text-primary-text">
+                {workStyleOf(career.riasec)}
+              </p>
+            </Cell>
+          </div>
+
+          <div className="flex flex-1 flex-col justify-between bg-[#fafafa] p-5 sm:p-5.5">
+            <div>
+              <h3 className="text-card font-medium text-primary-text">
+                {t('chartTitle', {
+                  years: horizonYears,
+                  start: startYear,
+                  end: startYear + horizonYears,
+                })}
+              </h3>
+              <p className="mt-1 text-label leading-relaxed font-normal text-secondary-text">
+                {career.outlook.marketNote}
+              </p>
+            </div>
+
+            <div className="mt-4">
+              <div className="flex h-32 items-end justify-between gap-2 border-b border-stroke pt-3 sm:h-36 sm:gap-3">
+                {trend.map((value, i) => {
+                  const last = i === trend.length - 1
+                  return (
+                    <div key={i} className="group flex h-full flex-1 flex-col items-center justify-end">
+                      <span
+                        className={`mb-1.5 font-mono text-min transition-colors ${
+                          last
+                            ? 'font-semibold text-action'
+                            : 'text-muted-text group-hover:text-primary-text'
+                        }`}
+                      >
+                        {value}
+                      </span>
+                      <div
+                        className={`w-full max-w-[38px] rounded-t-[3px] transition-all duration-300 ${
+                          last ? 'bg-action shadow-xs' : 'bg-action/25 hover:bg-action/50'
+                        }`}
+                        style={{ height: `${heightOf(value)}%` }}
+                      />
+                      <span
+                        className={`mt-2 font-mono text-min transition-colors ${
+                          last ? 'font-medium text-primary-text' : 'text-secondary-text'
+                        }`}
+                      >
+                        {startYear + i * step}
+                      </span>
+                    </div>
+                  )
+                })}
+              </div>
+
+              <div className="mt-2.5 flex items-center justify-between text-min text-muted-text">
+                <span>{t('indexNote', { start: startYear })}</span>
+                <span>{t('projected', { growth: `${growth > 0 ? '+' : ''}${growth}` })}</span>
+              </div>
+
+              <p className="mt-3.5 border-t border-stroke/70 pt-2.5 text-min leading-relaxed font-normal text-muted-text">
+                {t('source', { sources: career.outlook.sources.join(', ') })}
+              </p>
             </div>
           </div>
-          <p className="mt-3 text-sm leading-relaxed text-gray-500">{career.outlook.marketNote}</p>
-          <p className="mt-2 border-t border-gray-100 pt-2 text-[10px] leading-relaxed text-gray-400">
-            Indicative, based on public labour-market sources; varies by country and over time.
-            {career.outlook.sources.length > 0 ? ` (${career.outlook.sources.join(', ')})` : ''}
+        </div>
+
+        <div className="flex h-full flex-col divide-y divide-stroke overflow-hidden rounded-sm border border-stroke bg-surface shadow-xs">
+          <div className="bg-tint/20 p-5 sm:p-5.5">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-label font-medium text-primary-text">{t('emerging')}</p>
+              <span className="rounded-full border border-action/30 bg-action/15 px-2 py-0.5 text-min font-medium text-action">
+                {t('emergingBadge')}
+              </span>
+            </div>
+            <SkillList skills={career.niceToHaveSkills} numberClass="font-semibold text-action/70" />
+          </div>
+
+          <div className="p-5 sm:p-5.5">
+            <div className="mb-3 flex items-center justify-between">
+              <p className="text-label font-medium text-primary-text">{t('coreModal')}</p>
+              <span className="rounded-full border border-stroke bg-surface-0 px-2 py-0.5 text-min font-normal text-muted-text">
+                {t('coreModalBadge')}
+              </span>
+            </div>
+            <SkillList skills={career.requiredSkills} numberClass="font-medium text-muted-text" />
+          </div>
+        </div>
+      </div>
+
+      <div className="flex flex-col gap-4 border-t border-stroke pt-4 sm:flex-row sm:items-center sm:justify-between">
+        <div className="max-w-xl">
+          <p className="text-card font-medium text-primary-text">{t('interestedTitle')}</p>
+          <p className="mt-0.5 text-label leading-relaxed font-normal text-secondary-text">
+            {t('interestedBodyShort')}
           </p>
         </div>
-
-        {/* Skills */}
-        <div className="grid gap-3 sm:grid-cols-2">
-          <SkillList title="Must-have skills" skills={career.requiredSkills} variant="required" />
-          <SkillList title="Nice-to-have skills" skills={career.niceToHaveSkills} variant="nice" />
+        <div className="flex shrink-0 items-center gap-3">
+          <Link
+            href="/#consultation"
+            className="inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-action px-6 text-label font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover"
+          >
+            {t('bookShort')}
+          </Link>
+          {onStart && (
+            <button
+              type="button"
+              onClick={onStart}
+              className="cursor-pointer text-label font-medium text-action underline-offset-2 transition-colors hover:underline"
+            >
+              {t('takeAssessmentShort')} →
+            </button>
+          )}
         </div>
-
-        {/* Example roles */}
-        {career.exampleRoles.length > 0 && (
-          <div>
-            <p className="mb-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">Example roles</p>
-            <div className="flex flex-wrap gap-1.5">
-              {career.exampleRoles.map((r) => (
-                <span key={r} className="rounded-full border border-gray-200 bg-gray-50 px-2.5 py-1 text-xs font-medium text-gray-600">
-                  {r}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
-
-        {/* Related fields */}
-        {career.relatedFields.length > 0 && (
-          <div>
-            <p className="mb-1.5 flex items-center gap-1.5 text-[11px] font-semibold uppercase tracking-wider text-brand-purple">
-              <GraduationCap size={13} />
-              Related fields of study
-            </p>
-            <div className="flex flex-wrap gap-1.5">
-              {career.relatedFields.map((f) => (
-                <span key={f} className="rounded-full bg-brand-purple-50 px-2.5 py-1 text-xs font-medium text-brand-purple">
-                  {f}
-                </span>
-              ))}
-            </div>
-          </div>
-        )}
       </div>
-    </>
+    </div>
   )
 }
 
@@ -211,10 +237,14 @@ function StateMessage({
   action?: ReactNode
 }) {
   return (
-    <div className="flex flex-col items-center px-6 py-12 text-center">
-      <div className="mb-4 flex h-14 w-14 items-center justify-center rounded-2xl bg-gray-100 text-gray-500">{icon}</div>
-      <h3 className="text-lg font-bold text-neutral-900">{title}</h3>
-      <p className="mt-1.5 max-w-xs text-sm leading-relaxed text-gray-500">{body}</p>
+    <div className="flex flex-col items-center px-6 py-14 text-center">
+      <div className="mb-4 flex size-14 items-center justify-center rounded-sm bg-surface-0 text-muted-text">
+        {icon}
+      </div>
+      <h3 className="text-card font-medium text-primary-text">{title}</h3>
+      <p className="mt-1.5 max-w-sm text-label leading-relaxed font-normal text-secondary-text">
+        {body}
+      </p>
       {action && <div className="mt-5">{action}</div>}
     </div>
   )
@@ -239,10 +269,13 @@ export function CareerOutlookModal({
   query,
   horizon,
   onClose,
+  onStart,
 }: {
   query: string | null
   horizon: Horizon
   onClose: () => void
+  /** Sends the reader into the full assessment from the modal footer. */
+  onStart?: () => void
 }) {
   const [state, setState] = useState<FetchState>({ phase: 'loading' })
   const [reloadKey, setReloadKey] = useState(0)
@@ -293,18 +326,18 @@ export function CareerOutlookModal({
     <AnimatePresence>
       {query && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-end justify-center sm:items-center sm:p-4"
+          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs sm:p-6"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
           transition={{ duration: 0.18 }}
         >
-          <div className="absolute inset-0 bg-neutral-900/50 backdrop-blur-sm" onClick={onClose} />
+          <div className="absolute inset-0" onClick={onClose} />
           <motion.div
             role="dialog"
             aria-modal="true"
             aria-label={`${query} outlook`}
-            className="relative z-10 w-full max-w-2xl overflow-hidden rounded-t-3xl bg-white shadow-2xl sm:rounded-3xl"
+            className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-md border border-stroke bg-surface"
             initial={{ opacity: 0, y: 40, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
             exit={{ opacity: 0, y: 30, scale: 0.98 }}
@@ -314,10 +347,12 @@ export function CareerOutlookModal({
             <button
               type="button"
               onClick={onClose}
-              aria-label="Close"
-              className="absolute right-3 top-3 z-20 flex h-8 w-8 items-center justify-center rounded-full bg-white/80 text-gray-500 shadow-sm backdrop-blur transition-colors hover:bg-gray-100 hover:text-gray-700"
+              aria-label="Close dialog"
+              className="absolute top-4 right-4 z-10 cursor-pointer rounded-full p-1.5 text-muted-text transition-colors hover:bg-surface-0 hover:text-primary-text"
             >
-              <X size={17} />
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="size-5">
+                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M6 18L18 6M6 6l12 12" />
+              </svg>
             </button>
 
             {state.phase === 'loading' && <CareerOutlookResearching query={query} />}
@@ -375,10 +410,14 @@ export function CareerOutlookModal({
               />
             )}
 
+            {/* The panel itself scrolls, as in the design, so there is only one
+                scroll container rather than nested ones. */}
             {state.phase === 'ready' && (
-              <div className="scrollbar-thin max-h-[92dvh] overflow-y-auto overscroll-contain sm:max-h-[88dvh]">
-                <ModalBody career={state.career} horizonYears={horizonYears} />
-              </div>
+              <ModalBody
+                career={state.career}
+                horizonYears={horizonYears}
+                onStart={onStart}
+              />
             )}
           </motion.div>
         </motion.div>

@@ -124,6 +124,14 @@
   /* Tailwind's own value for rounded-full, so pills match the design exactly. */
   --radius-full: calc(infinity * 1px);
 
+  /* The one green in the palette: the reassurance bar under the assessment
+     steps, never anything interactive. Named as the design names it. */
+  --color-dark-green: #044E2B;
+
+  /* Lifts a panel off the page without reading as a drop shadow: a hairline
+     contact shadow plus a wide, tightly-spread ambient one. */
+  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.18);
+
   /* Content column. Narrower than the 80rem this site used before. */
   --container-wrap: 1080px;
 
@@ -229,4 +237,22 @@
     animation: none;
     display: none;
   }
+}
+
+/* Career Assessment hero: the same dot grid as the Course Finder, drifting one
+   tile over 28s so the loop is seamless, and masked so it fades out before it
+   reaches the section edges. */
+@keyframes assessment-grid-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 16px 16px; }
+}
+.assessment-hero-texture {
+  background-image: radial-gradient(circle, #632d8b38 1.25px, #0000 1.25px);
+  background-size: 16px 16px;
+  animation: assessment-grid-drift 28s linear infinite;
+  -webkit-mask-image: radial-gradient(92% 88%, #000 45%, #0000 100%);
+  mask-image: radial-gradient(92% 88%, #000 45%, #0000 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .assessment-hero-texture { animation: none; }
 }
