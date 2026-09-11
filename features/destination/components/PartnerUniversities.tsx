@@ -8,8 +8,8 @@ interface Props {
 }
 
 /** Logo wall of the partners we can currently place students with. The cards
- *  are deliberately not links: the design has none, and both /universities
- *  routes call notFound() while that feature is switched off. */
+ *  are deliberately not links, as in the design: there are no per-university
+ *  pages, the course finder covers that ground instead. */
 export function PartnerUniversities({ universities, eyebrow, title }: Props) {
   if (universities.length === 0) return null
 

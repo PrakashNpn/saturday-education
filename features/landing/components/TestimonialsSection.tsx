@@ -1,6 +1,26 @@
+import Image from 'next/image'
 import { useTranslations } from 'next-intl'
 
-const REVIEW_KEYS = ['1', '2', '3', '4'] as const
+/**
+ * Photographs live in `public/images/testimonials/` as square WebP, 160x160 or
+ * larger, cropped to the face. The slot renders at 40px, so 160 covers every
+ * sensible screen density.
+ *
+ * To add one: drop the file in, then put its filename (without the extension)
+ * against the right review below. A review with `photo: null` shows the
+ * person's initials instead, so the section stays presentable while the photos
+ * are still being collected — a mixed row reads as deliberate, not broken.
+ *
+ * The keys match `Landing.testimonials.reviews.*` in the message files. Photos
+ * are keyed here rather than in messages because the same person appears in all
+ * three locales.
+ */
+const REVIEWS = [
+  { key: '1', photo: 'ye-naing' },
+  { key: '2', photo: 'thi-han' },
+  { key: '3', photo: 'akar-kyaw' },
+  { key: '4', photo: 'may-thazin' }
+] as const satisfies readonly { key: string; photo: string | null }[]
 
 /** First letter of the first two words, which is enough for these names. */
 function initials(name: string): string {
@@ -23,8 +43,9 @@ function QuoteMark() {
 export default function TestimonialsSection() {
   const t = useTranslations('Landing.testimonials')
 
-  const reviews = REVIEW_KEYS.map((key) => ({
+  const reviews = REVIEWS.map(({ key, photo }) => ({
     key,
+    photo,
     quote: t(`reviews.${key}.quote`),
     name: t(`reviews.${key}.name`),
     program: t(`reviews.${key}.program`),
@@ -65,15 +86,26 @@ export default function TestimonialsSection() {
                   </blockquote>
 
                   <figcaption className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4 text-label">
-                    {/* The design fills this slot with a generated DiceBear
-                        shape, which is neither a photograph nor the person.
-                        Initials say the same amount and claim less. */}
-                    <span
-                      aria-hidden="true"
-                      className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-min font-medium text-white/80"
-                    >
-                      {initials(review.name)}
-                    </span>
+                    {/* A real photograph when we have one. The design fills
+                        this slot with a generated DiceBear shape, which is
+                        neither a photograph nor the person; initials say the
+                        same amount and claim less, so they are the fallback. */}
+                    {review.photo ? (
+                      <Image
+                        src={`/images/testimonials/${review.photo}.webp`}
+                        alt=""
+                        width={80}
+                        height={80}
+                        className="size-10 shrink-0 rounded-full bg-white/10 object-cover"
+                      />
+                    ) : (
+                      <span
+                        aria-hidden="true"
+                        className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-min font-medium text-white/80"
+                      >
+                        {initials(review.name)}
+                      </span>
+                    )}
                     <span>
                       <span className="block font-medium text-white">{review.name}</span>
                       <span className="text-white/60">{review.program}</span>

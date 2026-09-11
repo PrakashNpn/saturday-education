@@ -17,7 +17,6 @@ export const CTA_LINKS: Record<string, CtaLink> = {
   // '[[universities]]' is intentionally disabled: the universities page is hidden
   // pending partnership contracts. Re-enable by uncommenting the line below AND
   // restoring the [[universities]] marker + guidance in prompts/system.ts.
-  // '[[universities]]': { href: '/universities', labelKey: 'universitiesCta' },
   '[[destinations]]': { href: '/destinations', labelKey: 'destinationsCta' },
 }
 

@@ -9,7 +9,7 @@ This version has breaking changes — APIs, conventions, and file structure may 
 
 ## Project
 Study abroad consulting platform for Asian students. Production-grade, internationally scalable.
-Tech: Next.js 16.2 + TypeScript + Tailwind v4 + Prisma v7 + next-intl v4 + Auth.js v5 + Zod v4
+Tech: Next.js 16.2 + TypeScript + Tailwind v4 + Prisma v7 + next-intl v4 + Zod v4
 
 ## Architecture: Hybrid Feature-Based (3 Layers)
 - app/       → ROUTING ONLY (thin pages, 10-30 lines, imports from features/ and shared/)
@@ -46,27 +46,20 @@ Client import: import { PrismaClient } from '../generated'
 Lives in app/[locale]/layout.tsx — NOT in page.tsx.
 Fixed floating position, renders on EVERY page.
 
-## Phase 1 Scope
-Landing page (10 sections) + Navbar + Footer + ChatWidget UI shell +
-Static placeholder pages: /universities, /destinations, /destinations/[country], /blog, /blog/[slug]
-Static service stubs return hardcoded data — no real DB/CMS queries in Phase 1.
-
 ## Features Map
-landing/     → 10 sections: Hero, UniversityFinder, ComparisonTool, GlobalLeaders,
-               CountryGuide, Services, AdditionalServices, Testimonials, StatsCta, Consultation
-university/  → UniversityCard, UniversityGrid, UniversityFilters (Phase 1 static)
-destination/ → DestinationCard, DestinationGrid, DestinationDetail (Phase 1 static)
-blog/        → BlogCard, BlogGrid, BlogPost (Phase 1 static | Phase 3: Sanity GROQ)
+landing/     → 11 rendered sections, in page order: Hero, PartnerLogos, WhySaturday,
+               Services, AdditionalServices, CourseSearch, ComparisonTool,
+               GlobalLeaders, Testimonials, Consultation, Cta.
+               UniversityFinderSection also lives here but is commented out —
+               see UNIVERSITIES_HIDDEN_RESTORE.md.
+destination/ → Listing + country detail pages. Real Prisma queries, redesigned.
 consultation/→ ConsultationForm, ConsultationSuccess
 ai-advisor/  → ChatWidget, ChatWindow, ChatMessage, ChatInput, ChatTypingIndicator
-program/     → ProgramCard, ComparisonTable (Phase 4)
-auth/        → LoginForm, RegisterForm (Phase 7)
 
 ## Breaking Changes (2026 Stack — Read Before Writing Any Code)
 - `proxy.ts` NOT `middleware.ts` — Next.js 16 renamed it. Edge runtime NOT supported in proxy.
 - Tailwind v4: NO `tailwind.config.js` — ALL config lives in `app/globals.css` via `@theme`
 - Turbopack: Default bundler in Next.js 16 — no `--turbopack` flag needed
-- Auth.js v5: installed as `next-auth` but maintained by Better Auth Inc. — same import API
 - Dynamic params: All `params` in dynamic pages are Promises — must be awaited
 ```ts
   // ✅ CORRECT — Next.js 15+
@@ -76,37 +69,72 @@ auth/        → LoginForm, RegisterForm (Phase 7)
 ```
 
 ## Brand Design Tokens
-All tokens are CSS variables defined in `app/globals.css` via `@theme`.
-Tailwind v4 auto-generates utility classes from them.
+All tokens are CSS variables in the `@theme` block of `app/globals.css`. There is
+no `tailwind.config.js`. Read that block before writing any styles — it is the
+source of truth and this table is only a summary.
 
-| Token | Value | Tailwind Class |
+The brand purple is **`#632D8B`**, sampled from the logo where it is the dominant
+purple by a factor of nine. The older `#590D82` appeared nowhere in the mark and
+is gone.
+
+| Role | Token | Value |
 |---|---|---|
-| `--color-brand-purple` | `#590D82` | `bg-brand-purple`, `text-brand-purple` |
-| `--color-brand-purple-light` | `#7B1FA2` | `bg-brand-purple-light` |
-| `--color-brand-purple-dark` | `#3D0A5A` | `bg-brand-purple-dark` |
-| `--color-brand-purple-50` | `#F5E6FF` | `bg-brand-purple-50` |
-| `--color-brand-purple-100` | `#E8CCFF` | `bg-brand-purple-100` |
-| `--color-accent-gold` | `#F59E0B` | `bg-accent-gold` |
-| `--color-neutral-900` | `#18181B` | `bg-neutral-900` |
+| Primary action | `--color-action` | `#632D8B` |
+| Action hover | `--color-action-hover` | `#4C236C` |
+| Purple tint | `--color-tint` | `#F3EDFA` |
+| Dark surface | `--color-structure` | `#171717` |
+| Page background | `--color-canvas` | `#FAFAFA` |
+| Card background | `--color-surface` | `#FFFFFF` |
+| Raised greys | `--color-surface-0/1/2` | `#F5F5F5` / `#F0F0F0` / `#E3E3E3` |
+| Heading | `--color-primary-text` | `#141414` |
+| Body | `--color-secondary-text` | `#404040` |
+| Muted | `--color-muted-text` | `#737373` |
+| Hairline | `--color-stroke` | `#E5E5E5` |
+| Stronger rule | `--color-stroke-strong` | `#C4C4C4` |
+| Amber accent | `--color-accent` / `--color-accent-ink` | `#F59E0B` / `#B45309` |
+
+Type is a clamp-based scale, not Tailwind's default sizes: `text-display`,
+`text-title`, `text-section`, `text-lede`, `text-card`, `text-body` (17px),
+`text-label` (14px), `text-min` (12px). Layout uses `max-w-wrap` (1080px) and the
+custom `tablet` breakpoint at 860px, which gives `tablet:` and `max-tablet:`.
+
+`--color-brand-purple*` and `--color-neutral-*` still exist so unredesigned areas
+keep compiling. Do not use them in new work.
 
 Font: Noto Sans (all text — loaded in `[locale]/layout.tsx` via `next/font`)
 
-## shadcn/ui Components
-Location: `shared/components/ui/` — NOT the default `@/components/ui/`
-```ts
-// ✅ CORRECT import path
-import { Button } from "@/shared/components/ui/button"
-import { Card } from "@/shared/components/ui/card"
-```
-Installed: button, card, input, textarea, badge, dialog, select
+## UI primitives — there is no shadcn/ui here
+Despite an earlier plan, shadcn/ui was never installed: there is no Radix or CVA
+dependency, and `shared/components/ui/` holds a single file, `skeleton.tsx`.
+There is no Button, Card, Input or Select component.
+
+Buttons, cards, badges, inputs and eyebrow labels are written inline with the
+design tokens above. Copy the classes from an existing redesigned section rather
+than inventing new ones — `features/destination/components/DetailHero.tsx` and
+`features/landing/components/CtaSection.tsx` are good references.
+
+`shared/components/common/` holds the shared widgets: `SearchableDropdown` and
+`CustomDropdown` (both take a `variant` prop — `'default'` is the pre-redesign
+look, `'field'` matches the new form controls) and `FallbackImage`.
 
 ## Phase Roadmap
-- Phase 0 ✅ Scaffold — complete
-- Phase 1 🔄 Landing page UI + Navbar + Footer + ChatWidget shell + 3 static pages — **CURRENT**
-- Phase 2 — AI Advisor chatbot (live Anthropic API via Vercel AI SDK)
-- Phase 3 — Blog (connect Sanity CMS, replace static stubs with GROQ queries)
-- Phase 4 — University / Program / Destination (real Prisma queries, replace stubs)
-- Phase 5 — Internationalization (Thai + Burmese translations)
-- Phase 6 — Hardening & Launch
-- Phase 7 — Student Portal (Auth.js v5 login/register)
-- Phase 8 — Admin Dashboard
+- Phase 0 ✅ Scaffold
+- Phase 1 ✅ Landing page, navbar, footer, chat widget
+- Phase 2 ✅ AI Advisor — live on the Anthropic API (`claude-haiku-4-5`)
+- Phase 3 ✅ Real data — destinations run on Prisma; course discovery is handled
+  by the embedded Firmli course finder
+- Phase 4 🔄 Site-wide redesign — **CURRENT**. Done: home, about, destinations,
+  country detail, career assessment intro (both modes), the destinations
+  loading skeletons and the error page. Pending: the assessment flow past the
+  intro, cookie consent, chat widget, legal pages
+- Phase 5 🔄 Admin dashboard — countries and universities CRUD, plus login
+- Phase 6 ⬜ Internationalization — routing and config are done, but roughly 73%
+  of strings are still English in both `th` and `my`
+- Phase 7 ⬜ Hardening and launch
+
+A blog, a student portal and a public Universities section were previously
+planned. All three were dropped in September 2026 and their code, routes,
+messages and dependencies removed. The `University` and `Program` Prisma models
+remain in active use — by the homepage comparison tool, the partner logos on
+country pages, the career assessment's PDF recommendations, and the admin
+dashboard that maintains them.

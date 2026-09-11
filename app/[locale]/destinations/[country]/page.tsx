@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
 import { DestinationDetailPage, getAllCountrySlugs, getCountryBySlug } from '@/features/destination'
 
