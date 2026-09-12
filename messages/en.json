@@ -47,7 +47,7 @@
     },
     "globalLeaders": {
       "eyebrow": "Study destinations",
-      "headline": "One fact per country, not a mood.",
+      "headline": "Global destinations, backed by real partnerships.",
       "viewAll": "View all destinations",
       "partnerCount": "{count} partner universities",
       "canadaName": "Canada",
@@ -92,6 +92,32 @@
           "quote": "The advisors took the time to understand what I wanted and matched me with a Data Science Master's programme in the UK that was the right fit.",
           "name": "May Thazin",
           "program": "MSc Data Science, UK"
+        }
+      }
+    },
+    "faq": {
+      "heading": "Frequently Asked Questions",
+      "subtitle": "Everything you need to know about our study abroad consulting services.",
+      "items": {
+        "1": {
+          "question": "Are Saturday Education's consultation services really free?",
+          "answer": "Yes. Our 1-on-1 consultations, degree planning, university shortlisting, and application assistance are 100% free with no hidden charges. We are officially partnered with top global institutions."
+        },
+        "2": {
+          "question": "Which study abroad destinations do you cover?",
+          "answer": "We support university placements across 18 destinations, including Canada, New Zealand, Singapore, Switzerland, Ireland, Thailand, Malaysia, Germany, Hungary, Finland, China, Sweden, the UAE, Japan, Korea, Australia, the UK, and the USA, guiding you through academic requirements, visa pathways, and post-study opportunities."
+        },
+        "3": {
+          "question": "Can parents join the consultation session?",
+          "answer": "Absolutely. We strongly encourage parents to attend. Choosing a university abroad is a major family investment, and having everyone present helps align on safety, living budgets, and long-term career pathways."
+        },
+        "4": {
+          "question": "How does the student visa application process work?",
+          "answer": "Once your university offer is confirmed, our dedicated visa team guides you through every step, from gathering financial proofs and documentation to mock interview preparation, ensuring high approval confidence."
+        },
+        "5": {
+          "question": "Do you help with scholarships and financial aid?",
+          "answer": "Yes. We evaluate your academic profile, test scores, and achievements to identify merit-based scholarships, tuition bursaries, and partner fee discounts available at our partner institutions."
         }
       }
     },
@@ -296,8 +322,7 @@
       "reassurance": "100% confidential · Scientifically validated frameworks · In-depth comprehensive diagnostic",
       "coverCaption": "Get your full-spec analytics for career assessment",
       "coverAlt": "Career Assessment Report cover",
-      "resumeTitle": "Pick up where you left off",
-      "resumeBody": "{answered} of {total} questions answered. Your progress is saved on this device.",
+      "resumeProgress": "{answered} of {total} answered",
       "resumeCta": "Continue assessment",
       "resumeRestart": "Start over"
     },
@@ -406,16 +431,28 @@
       "riasecSubtitle": "Rate how much you would enjoy each activity. There are no right or wrong answers.",
       "bigfiveTitle": "Part 2 · How you work",
       "bigfiveSubtitle": "Tell us how much you agree with each statement about yourself.",
-      "aptitudeTitle": "Aptitude"
+      "aptitudeTitle": "Part 3 · Academic cognitive fit"
     },
     "transition": {
       "title": "Part 1 complete!",
-      "subtitle": "Now a short personality section — there are no right answers, just answer honestly.",
+      "subtitle": "Now a short personality section. There are no right answers, just answer honestly.",
       "continue": "Continue"
+    },
+    "chrome": {
+      "exitTest": "Exit test",
+      "exitTitle": "Exit assessment?",
+      "exitBody": "You will return to the overview page. Are you sure you want to stop?",
+      "exitCancel": "Continue test",
+      "exitConfirm": "Yes, exit",
+      "progressFraction": "{percent}% · {current} / {total}",
+      "share": "Share",
+      "sharePreparing": "Preparing…",
+      "finish": "Finish",
+      "shareRetry": "Try again"
     },
     "question": {
       "counter": "{current} of {total}",
-      "back": "Back",
+      "sectionOf": "Section {current} of {total}",
       "promptLike": "How much would you enjoy this?",
       "promptAgree": "How much does this sound like you?",
       "helper": "Tap one to continue — there are no right or wrong answers.",
@@ -435,7 +472,7 @@
     },
     "contact": {
       "title": "Almost done!",
-      "subtitle": "Enter your details so our counsellor can review your profile and guide your next steps — at no cost.",
+      "subtitle": "Enter your details so our counsellor can review your profile and guide your next steps, at no cost.",
       "fullName": "Full Name",
       "fullNamePlaceholder": "Your name",
       "email": "Email Address",
@@ -465,7 +502,7 @@
     },
     "submitting": {
       "title": "Analysing your profile…",
-      "subtitle": "Hang tight — this only takes a moment.",
+      "subtitle": "Hang tight, this only takes a moment.",
       "steps": {
         "step1": "Mapping your interests",
         "step2": "Reading your personality",
@@ -498,20 +535,27 @@
       "button": "Start free assessment"
     },
     "leaveConfirm": "You haven't finished the assessment yet. Your progress is saved on this device, so you can pick up where you left off.",
-    "preparing": {
-      "title": "Personalising your questions…",
-      "subtitle": "Setting up your assessment"
+    "beginModal": {
+      "title": "Before you begin",
+      "timeQuestions": "~20 mins · 150 questions",
+      "quietSetting": "Quiet, uninterrupted setting",
+      "autosaveNote": "Progress autosaves continuously",
+      "getTitle": "What you'll get",
+      "getProfile": "Your personalised interest and personality profile",
+      "getMatches": "Matched careers and a university shortlist",
+      "getCounsellor": "A senior counsellor reviews your results with you",
+      "submitCta": "Ready, Start Assessment",
+      "cancel": "Cancel",
+      "close": "Close"
     },
     "transitionAptitude": {
       "title": "Personality done!",
-      "subtitle": "Last part: a few aptitude questions. These DO have right answers — take your time, there's no timer.",
+      "subtitle": "Last part: a few aptitude questions. These do have right answers, but take your time, there's no timer.",
       "continue": "Start aptitude"
     },
     "dashboard": {
       "eyebrow": "Your snapshot",
       "writingSummary": "Writing your personal summary…",
-      "title": "Here's a glimpse of your profile",
-      "subtitle": "A quick preview — your full report is on its way to our counsellors.",
       "ctaConsult": "Book Free Consultation",
       "ctaHome": "Back to home",
       "interestsTitle": "Your interests",
@@ -534,7 +578,6 @@
     "studyDestination": "Destinations",
     "aboutUs": "About",
     "bookConsultation": "Book Free Consultation",
-    "language": "English",
     "openMenu": "Open menu",
     "closeMenu": "Close menu"
   },
@@ -553,7 +596,8 @@
     "messenger": "Messenger",
     "whatsapp": "WhatsApp",
     "imageAlt": "Saturday Education counsellor and students in conversation",
-    "imageCaption": "A Saturday Education counsellor walking students through their options."
+    "imageCaption": "A Saturday Education counsellor walking students through their options.",
+    "titleSuffix": ""
   },
   "consultation": {
     "title": "Book a Free Consultation",

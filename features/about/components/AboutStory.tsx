@@ -1,8 +1,14 @@
+'use client'
+
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 export function AboutStory() {
   const t = useTranslations('about')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="relative overflow-hidden border-t border-[#31144F] bg-[#0E0317] py-16 text-white max-tablet:py-12">
@@ -14,13 +20,22 @@ export function AboutStory() {
           alt=""
           aria-hidden="true"
           fill
+          unoptimized
           sizes="100vw"
           className="scale-125 object-cover object-center opacity-35 blur-2xl filter"
         />
         <div className="absolute inset-0 bg-gradient-to-r from-[#140524]/90 via-[#140524]/75 to-[#140524]/50" />
       </div>
 
-      <div className="relative z-10 mx-auto max-w-wrap px-6">
+      {/* Only this content fades/rises on scroll — the dark band and its
+          backdrop photo stay solid throughout. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="relative z-10 mx-auto max-w-wrap px-6"
+      >
         <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
           <div className="lg:col-span-6">
             <p className="mb-2 text-min font-medium tracking-[0.06em] text-purple-300 uppercase">
@@ -41,13 +56,14 @@ export function AboutStory() {
                 src="/images/about/counsellor-training.webp"
                 alt={t('storyImageAlt')}
                 fill
+                unoptimized
                 sizes="(max-width: 1024px) 100vw, 50vw"
                 className="object-cover object-top"
               />
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -109,7 +109,7 @@ export default function ChatWidget() {
 
                   <div className="relative flex items-center gap-3">
                     <div className="relative w-9 h-9 rounded-full bg-white shadow-[0_2px_12px_rgba(0,0,0,0.2)] overflow-hidden ring-2 ring-white/30">
-                      <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill sizes="36px" className="object-contain p-1" />
+                      <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill unoptimized sizes="36px" className="object-contain p-1" />
                     </div>
                     <div>
                       <p className="text-white font-semibold text-sm">{t('title')}</p>
@@ -222,7 +222,7 @@ export default function ChatWidget() {
             >
               {/* Logo */}
               <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-[0_2px_8px_rgba(89,13,130,0.2)]">
-                <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill sizes="40px" className="object-contain" />
+                <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill unoptimized sizes="40px" className="object-contain" />
               </div>
 
               {/* Text */}

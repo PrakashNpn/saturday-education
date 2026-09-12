@@ -3,7 +3,7 @@
 import { useState, useEffect } from 'react'
 import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { Sparkles, Check, Loader2 } from 'lucide-react'
+import { Sparkle, Check } from 'lucide-react'
 
 const STEP_KEYS = ['step1', 'step2', 'step3', 'step4', 'step5']
 // The submit used to take 30-90s, so the steps crawled. Now that the counsellor pipeline
@@ -32,93 +32,55 @@ export function SubmittingScreen() {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="mx-auto w-full max-w-sm"
+      className="mx-auto w-full max-w-lg rounded-md border border-stroke bg-white p-6 text-center shadow-xs sm:p-8"
     >
-      <div className="rounded-3xl border border-gray-100 bg-white/95 px-7 py-8 shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)] backdrop-blur-sm">
-        {/* Header */}
-        <div className="mb-7 flex flex-col items-center text-center">
-          <div className="relative mb-3 h-12 w-12">
-            <motion.div
-              className="absolute inset-0 rounded-2xl bg-brand-purple/30 blur-md"
-              animate={{ scale: [1, 1.18, 1], opacity: [0.5, 0.8, 0.5] }}
-              transition={{ duration: 1.8, repeat: Infinity, ease: 'easeInOut' }}
-            />
-            <div className="relative flex h-12 w-12 items-center justify-center rounded-2xl bg-gradient-to-br from-brand-purple-dark to-brand-purple-light text-white shadow-lg shadow-brand-purple/30">
-              <Sparkles size={22} />
+      <div className="mx-auto mb-3 flex size-10 items-center justify-center rounded-full bg-action text-white shadow-2xs">
+        <Sparkle size={22} />
+      </div>
+      <h2 className="mb-1 text-xl font-bold text-primary-text sm:text-2xl">{t('title')}</h2>
+      <p className="mb-8 text-label text-muted-text">{t('subtitle')}</p>
+
+      <div className="mx-auto mb-8 max-w-xs space-y-4 text-left">
+        {STEP_KEYS.map((key, idx) => {
+          const status = idx < active ? 'done' : idx === active ? 'active' : 'pending'
+          return (
+            <div key={key} className="flex items-center gap-3">
+              {status === 'done' ? (
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full bg-action text-white">
+                  <Check size={12} strokeWidth={3} />
+                </span>
+              ) : status === 'active' ? (
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-action/30 bg-tint">
+                  <span className="size-2 animate-ping rounded-full bg-action" />
+                </span>
+              ) : (
+                <span className="flex size-5 shrink-0 items-center justify-center rounded-full border border-stroke-strong bg-surface-0">
+                  <span className="size-1.5 rounded-full bg-disabled-text" />
+                </span>
+              )}
+              <span
+                className={
+                  status === 'active'
+                    ? 'text-label font-medium text-action'
+                    : status === 'done'
+                      ? 'text-label font-normal text-primary-text'
+                      : 'text-label font-light text-disabled-text'
+                }
+              >
+                {t(`steps.${key}`)}
+              </span>
             </div>
-          </div>
-          <h2 className="text-lg font-bold text-neutral-900">{t('title')}</h2>
-          <p className="mt-1 text-xs text-gray-400">{t('subtitle')}</p>
-        </div>
+          )
+        })}
+      </div>
 
-        {/* Steps */}
-        <ul className="relative">
-          {STEP_KEYS.map((key, idx) => {
-            const status = idx < active ? 'done' : idx === active ? 'active' : 'pending'
-            const isLast = idx === STEP_KEYS.length - 1
-            return (
-              <li key={key} className="relative flex items-start gap-3 pb-4 last:pb-0">
-                {/* connecting line */}
-                {!isLast && (
-                  <span
-                    className={[
-                      'absolute left-4 top-8 bottom-0 w-px -translate-x-1/2 transition-colors duration-300',
-                      idx < active ? 'bg-brand-purple' : 'bg-gray-200',
-                    ].join(' ')}
-                  />
-                )}
-                {/* status circle */}
-                <span
-                  className={[
-                    'relative z-10 flex h-8 w-8 flex-shrink-0 items-center justify-center rounded-full transition-colors duration-300',
-                    status === 'done'
-                      ? 'bg-brand-purple text-white'
-                      : status === 'active'
-                        ? 'bg-brand-purple-50 text-brand-purple'
-                        : 'bg-gray-100 text-gray-300',
-                  ].join(' ')}
-                >
-                  {status === 'done' ? (
-                    <motion.span
-                      initial={{ scale: 0 }}
-                      animate={{ scale: 1 }}
-                      transition={{ type: 'spring', stiffness: 500, damping: 18 }}
-                    >
-                      <Check size={15} strokeWidth={3} />
-                    </motion.span>
-                  ) : status === 'active' ? (
-                    <Loader2 size={15} className="animate-spin" />
-                  ) : (
-                    <span className="h-1.5 w-1.5 rounded-full bg-gray-300" />
-                  )}
-                </span>
-                {/* label */}
-                <span
-                  className={[
-                    'pt-1.5 text-sm transition-colors duration-300',
-                    status === 'active'
-                      ? 'font-semibold text-neutral-900'
-                      : status === 'done'
-                        ? 'text-gray-500'
-                        : 'text-gray-400',
-                  ].join(' ')}
-                >
-                  {t(`steps.${key}`)}
-                </span>
-              </li>
-            )
-          })}
-        </ul>
-
-        {/* Progress bar */}
-        <div className="mt-7 h-1.5 w-full overflow-hidden rounded-full bg-gray-100">
-          <motion.div
-            className="h-full rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light"
-            initial={{ width: '6%' }}
-            animate={{ width: `${progress}%` }}
-            transition={{ duration: 0.6, ease: 'easeOut' }}
-          />
-        </div>
+      <div className="h-1.5 w-full overflow-hidden rounded-full bg-surface-2">
+        <motion.div
+          className="h-full rounded-full bg-action"
+          initial={{ width: '6%' }}
+          animate={{ width: `${progress}%` }}
+          transition={{ duration: 0.5, ease: 'easeOut' }}
+        />
       </div>
     </motion.div>
   )

@@ -1,5 +1,6 @@
 import { notFound } from 'next/navigation'
 import { getTranslations } from 'next-intl/server'
+import { Reveal } from '@/shared/components/motion/Reveal'
 import { getCountryBySlug } from '../services/destinationService'
 import { REGION_DISPLAY } from '../utils/constants'
 import { DetailHero } from './DetailHero'
@@ -59,19 +60,26 @@ export async function DestinationDetailPage({ slug }: Props) {
 
           <div className="flex flex-col gap-16">
             <section id="overview" className={SECTION}>
-              <CountryOverview country={country} />
+              <Reveal>
+                <CountryOverview country={country} />
+              </Reveal>
             </section>
 
             <section id="why-study-here" className={SECTION}>
-              <CountryAdvantages
-                countryName={country.name}
-                advantages={country.advantages}
-                heroImageUrl={country.heroImageUrl ?? country.coverImageUrl}
-              />
+              <Reveal>
+                <CountryAdvantages
+                  countryName={country.name}
+                  advantages={country.advantages}
+                  heroImageUrl={country.heroImageUrl ?? country.coverImageUrl}
+                />
+              </Reveal>
             </section>
 
             {hasUniversities && (
               <section id="universities" className={SECTION}>
+                {/* Not wrapped in Reveal: its own logo grid already staggers
+                    each card in on scroll, so an outer fade would just delay
+                    that a second time. */}
                 <PartnerUniversities
                   universities={country.universities}
                   eyebrow={t('exploreUniversities')}
@@ -81,24 +89,33 @@ export async function DestinationDetailPage({ slug }: Props) {
             )}
 
             <section id="popular-fields" className={SECTION}>
-              <AcademicSpecialties specialties={country.academicSpecialties} />
+              <Reveal>
+                <AcademicSpecialties specialties={country.academicSpecialties} />
+              </Reveal>
             </section>
 
             <section id="process" className={SECTION}>
-              <StudentJourney steps={country.processSteps} />
+              <Reveal>
+                <StudentJourney steps={country.processSteps} />
+              </Reveal>
             </section>
 
             <section id="faqs" className={SECTION}>
-              <CountryFAQs
-                faqs={country.faqs}
-                eyebrow={t('faqsLabel')}
-                title={t('commonQuestions')}
-              />
+              <Reveal>
+                <CountryFAQs
+                  faqs={country.faqs}
+                  eyebrow={t('faqsLabel')}
+                  title={t('commonQuestions')}
+                />
+              </Reveal>
             </section>
           </div>
         </div>
       </section>
 
+      {/* Not wrapped in Reveal: DetailCta animates its own inner content, so
+          the black band + backdrop photo stay solid rather than fading in
+          along with the text. */}
       <DetailCta
         backdropUrl={country.cardImageUrl ?? country.heroImageUrl}
         title={t('readyToStudy', { country: country.name })}

@@ -116,6 +116,19 @@ export function clearProgress(): void {
   for (const listener of listeners) listener()
 }
 
+/** Exiting mid-run back to the intro is the one place the cache below goes
+ *  stale within a single page load: saveProgress deliberately does not keep
+ *  it live (see the note above getProgressSnapshot), because every other
+ *  consumer of it is off-screen while questions are being answered. But the
+ *  intro *is* back on screen the moment someone exits, so without this its
+ *  "no saved run" snapshot from page load would keep showing even though
+ *  localStorage now disagrees — fixed by dropping `loaded` so the next read
+ *  goes back to disk instead of the stale cache. */
+export function invalidateProgressSnapshot(): void {
+  loaded = false
+  for (const listener of listeners) listener()
+}
+
 // ── useSyncExternalStore adapter ──────────────────────────────────────────────
 // Components need this value after mount but never on the server. Reading it in
 // an effect and calling setState is the obvious approach and the wrong one: it

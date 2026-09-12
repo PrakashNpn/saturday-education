@@ -2,15 +2,30 @@
 
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface Props {
   searchValue: string
   onSearchChange: (value: string) => void
 }
 
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.09
+
 export function DestinationsHero({ searchValue, onSearchChange }: Props) {
   const t = useTranslations('destinations')
   const [draft, setDraft] = useState(searchValue)
+  const prefersReducedMotion = useReducedMotion()
+
+  // Above the fold, so this runs on mount rather than on scroll into view —
+  // same reasoning as the homepage's own HeroSection.
+  const rise = (step: number, distance = 14, duration = 0.5) => ({
+    initial: { opacity: 0, y: distance },
+    animate: { opacity: 1, y: 0 },
+    transition: prefersReducedMotion
+      ? { duration: 0 }
+      : { duration, delay: step * STAGGER, ease: EASE },
+  })
 
   return (
     // Same drifting dot texture as the homepage Course Finder, so the two dark
@@ -18,15 +33,22 @@ export function DestinationsHero({ searchValue, onSearchChange }: Props) {
     <section className="course-finder-texture relative overflow-hidden bg-[oklch(20%_0.10_307.4)] py-11 max-tablet:py-8">
       <div className="relative mx-auto max-w-wrap px-6">
         <div className="mx-auto max-w-4xl text-center">
-          <h1 className="text-title leading-tight font-medium text-white max-tablet:text-balance lg:whitespace-nowrap">
+          <motion.h1
+            {...rise(0)}
+            className="text-title leading-tight font-medium text-white max-tablet:text-balance lg:whitespace-nowrap"
+          >
             {t('heroTitle')}
-          </h1>
-          <p className="mx-auto mt-3 max-w-3xl text-balance text-body leading-relaxed font-light text-white/85">
+          </motion.h1>
+          <motion.p
+            {...rise(1)}
+            className="mx-auto mt-3 max-w-3xl text-balance text-body leading-relaxed font-light text-white/85"
+          >
             {t('heroSubtitle')}
-          </p>
+          </motion.p>
         </div>
 
-        <form
+        <motion.form
+          {...rise(2)}
           onSubmit={(event) => {
             event.preventDefault()
             onSearchChange(draft)
@@ -56,7 +78,7 @@ export function DestinationsHero({ searchValue, onSearchChange }: Props) {
           >
             {t('searchButton')}
           </button>
-        </form>
+        </motion.form>
       </div>
     </section>
   )

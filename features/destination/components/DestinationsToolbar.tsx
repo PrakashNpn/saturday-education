@@ -1,8 +1,11 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { REGIONS, REGION_TAB_LABELS } from '../utils/constants'
 import type { SortOption } from '../utils/constants'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 interface Props {
   region: string
@@ -22,10 +25,16 @@ export function DestinationsToolbar({
   resultCount,
 }: Props) {
   const t = useTranslations('destinations')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="border-t border-stroke pt-4 pb-3">
-      <div className="mx-auto max-w-wrap px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 12 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.45, delay: 0.18, ease: EASE }}
+        className="mx-auto max-w-wrap px-6"
+      >
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-stroke">
           <div className="flex flex-wrap gap-6">
             {REGIONS.map((r) => {
@@ -87,7 +96,7 @@ export function DestinationsToolbar({
         <p className="mt-3 text-label font-medium text-muted-text">
           {t('showingCount', { count: resultCount })}
         </p>
-      </div>
+      </motion.div>
     </section>
   )
 }

@@ -37,9 +37,11 @@ import GlobalLeadersSection from "@/features/landing/components/GlobalLeadersSec
 import ServicesSection from "@/features/landing/components/ServicesSection"
 import AdditionalServicesSection from "@/features/landing/components/AdditionalServicesSection"
 import TestimonialsSection from "@/features/landing/components/TestimonialsSection"
+import FaqSection from "@/features/landing/components/FaqSection"
 import CtaSection from "@/features/landing/components/CtaSection"
 import ConsultationSection from "@/features/landing/components/ConsultationSection"
 import { submitConsultation } from '@/features/consultation'
+import { Reveal } from '@/shared/components/motion/Reveal'
 
 export default async function HomePage() {
   const [comparisonUniversities, courseFinderOptions] = await Promise.all([
@@ -50,17 +52,28 @@ export default async function HomePage() {
   return (
     <main>
       <HeroSection />
-      <PartnerLogosSection />
+      <Reveal>
+        <PartnerLogosSection />
+      </Reveal>
       <WhySaturdaySection />
       <ServicesSection />
       <AdditionalServicesSection />
       {/* Dropped entirely when Firmli's option lists are unreachable, rather
-          than rendered with empty selects that would look broken. */}
+          than rendered with empty selects that would look broken. Not wrapped
+          in Reveal: its own dark textured band has to stay solid, so the fade
+          lives on its inner content instead. */}
       {courseFinderOptions && <CourseSearchSection options={courseFinderOptions} />}
-      <ComparisonToolSection universities={comparisonUniversities} />
+      <Reveal>
+        <ComparisonToolSection universities={comparisonUniversities} />
+      </Reveal>
       <GlobalLeadersSection />
+      {/* Not wrapped in Reveal, for the same reason as CourseSearchSection. */}
       <TestimonialsSection />
-      <ConsultationSection onSubmit={submitConsultation} />
+      <FaqSection />
+      <Reveal>
+        <ConsultationSection onSubmit={submitConsultation} />
+      </Reveal>
+      {/* Not wrapped in Reveal, for the same reason as CourseSearchSection. */}
       <CtaSection />
     </main>
   )

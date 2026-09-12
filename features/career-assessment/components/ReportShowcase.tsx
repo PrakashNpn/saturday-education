@@ -2,6 +2,9 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 interface Props {
   onStart: () => void
@@ -24,6 +27,7 @@ const SHEET =
 
 export function ReportShowcase({ onStart }: Props) {
   const t = useTranslations('careerAssessment.report')
+  const prefersReducedMotion = useReducedMotion()
 
   // The two columns are stacks of three, so the checklist reads down each
   // column rather than across the pair.
@@ -31,7 +35,14 @@ export function ReportShowcase({ onStart }: Props) {
 
   return (
     <section className="border-b border-white/10 bg-[#120D1B] py-16 text-white max-tablet:py-12">
-      <div className="mx-auto max-w-wrap px-6">
+      {/* Only the content fades/rises — the dark band stays solid. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="mx-auto max-w-wrap px-6"
+      >
         <div className="mb-10 max-w-2xl text-left">
           <h2 className="mb-2 text-section font-medium tracking-tight text-white">{t('title')}</h2>
           <p className="text-body leading-relaxed font-light text-white/80">{t('subtitle')}</p>
@@ -51,6 +62,7 @@ export function ReportShowcase({ onStart }: Props) {
                   src={`/images/career-assessment/report-page-${page}.webp`}
                   alt={t(`pages.p${page}`)}
                   fill
+                  unoptimized
                   sizes="(max-width: 640px) 50vw, (max-width: 768px) 33vw, 200px"
                   className="rounded-none object-cover object-top"
                 />
@@ -114,7 +126,7 @@ export function ReportShowcase({ onStart }: Props) {
             {t('cta')}
           </button>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

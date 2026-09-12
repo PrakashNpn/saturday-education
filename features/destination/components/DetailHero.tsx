@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from '@/i18n/navigation'
 import { FLAG_CODES, REGION_DISPLAY } from '../utils/constants'
 import { CountryBackdrop } from './CountryBackdrop'
@@ -12,6 +15,9 @@ interface Props {
   destinationsLabel: string
   regionLabel: string
 }
+
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.09
 
 /** The design sets the flag as an emoji, which Windows cannot draw: Segoe UI
  *  Emoji has the regional-indicator letters but none of the flag ligatures, so
@@ -58,28 +64,47 @@ export function DetailHero({
   destinationsLabel,
   regionLabel,
 }: Props) {
+  const prefersReducedMotion = useReducedMotion()
+
+  // Above the fold, so this runs on mount rather than on scroll into view —
+  // same reasoning as the homepage's own HeroSection and DestinationsHero.
+  const rise = (step: number, distance = 14, duration = 0.5) => ({
+    initial: { opacity: 0, y: distance },
+    animate: { opacity: 1, y: 0 },
+    transition: prefersReducedMotion
+      ? { duration: 0 }
+      : { duration, delay: step * STAGGER, ease: EASE },
+  })
+
   return (
     <section className="relative overflow-hidden bg-black py-12 max-tablet:py-9">
       <CountryBackdrop url={backdropUrl} priority />
 
       <div className="relative z-10 mx-auto max-w-wrap px-6 text-white">
-        <p className="mb-3 text-min font-normal text-white/80">
+        <motion.p {...rise(0)} className="mb-3 text-min font-normal text-white/80">
           <Link href="/destinations" className="transition-colors hover:text-white">
             {destinationsLabel}
           </Link>{' '}
           / {name}
-        </p>
+        </motion.p>
 
-        <span className="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-min font-medium text-white backdrop-blur-sm">
+        <motion.span
+          {...rise(1)}
+          className="mb-3 inline-block rounded-full bg-white/20 px-3 py-1 text-min font-medium text-white backdrop-blur-sm"
+        >
           {regionLabel || (REGION_DISPLAY[region] ?? region)}
-        </span>
+        </motion.span>
 
-        <h1 className="mb-2 text-title font-medium text-white">
+        <motion.h1 {...rise(2)} className="mb-2 text-title font-medium text-white">
           <Flag slug={slug} />
           {name}
-        </h1>
+        </motion.h1>
 
-        {tagline && <p className="max-w-[52ch] text-lede font-light text-white/90">{tagline}</p>}
+        {tagline && (
+          <motion.p {...rise(3)} className="max-w-[52ch] text-lede font-light text-white/90">
+            {tagline}
+          </motion.p>
+        )}
       </div>
     </section>
   )

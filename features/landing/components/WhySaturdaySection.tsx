@@ -53,6 +53,7 @@ export default function WhySaturdaySection() {
               alt={t('imageAlt')}
               width={1000}
               height={834}
+              unoptimized
               sizes="(max-width: 860px) 100vw, 500px"
               className="h-auto w-full"
             />

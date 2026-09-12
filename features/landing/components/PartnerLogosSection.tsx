@@ -101,6 +101,7 @@ export default function PartnerLogosSection() {
                           src={`/images/partners/${logo.file}`}
                           alt={isClone ? '' : logo.alt}
                           fill
+                          unoptimized
                           sizes="128px"
                           className="object-contain"
                         />

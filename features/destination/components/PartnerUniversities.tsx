@@ -1,4 +1,7 @@
+'use client'
+
 import Image from 'next/image'
+import { motion, useReducedMotion } from 'framer-motion'
 import type { UniversityCardData } from '../types'
 
 interface Props {
@@ -7,10 +10,16 @@ interface Props {
   title: string
 }
 
+const EASE = [0, 0, 0.2, 1] as const
+// Matches the grid's own lg:grid-cols-4 — the widest column count it reaches.
+const COLS = 4
+
 /** Logo wall of the partners we can currently place students with. The cards
  *  are deliberately not links, as in the design: there are no per-university
  *  pages, the course finder covers that ground instead. */
 export function PartnerUniversities({ universities, eyebrow, title }: Props) {
+  const prefersReducedMotion = useReducedMotion()
+
   if (universities.length === 0) return null
 
   return (
@@ -21,9 +30,17 @@ export function PartnerUniversities({ universities, eyebrow, title }: Props) {
       <p className="mb-6 max-w-[52ch] text-section font-medium">{title}</p>
 
       <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-        {universities.map((university) => (
-          <div
+        {universities.map((university, index) => (
+          <motion.div
             key={university.id}
+            initial={{ opacity: 0, y: 14 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={
+              prefersReducedMotion
+                ? { duration: 0 }
+                : { duration: 0.4, delay: (index % COLS) * 0.07, ease: EASE }
+            }
             className="flex flex-col items-center justify-between rounded-sm border border-stroke bg-surface p-4 text-center transition-colors hover:border-action/40"
           >
             {/* Fixed height whether or not a logo exists, so the cards in a row
@@ -42,7 +59,7 @@ export function PartnerUniversities({ universities, eyebrow, title }: Props) {
             <span className="line-clamp-2 text-label leading-snug font-medium text-primary-text">
               {university.name}
             </span>
-          </div>
+          </motion.div>
         ))}
       </div>
     </>

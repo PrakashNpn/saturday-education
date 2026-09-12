@@ -2,14 +2,18 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from '@/i18n/navigation'
 
 interface Props {
   onStart: () => void
 }
 
+const EASE = [0, 0, 0.2, 1] as const
+
 export function AssessmentFinalCta({ onStart }: Props) {
   const t = useTranslations('careerAssessment.finalCta')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="bg-canvas py-16 max-tablet:py-12">
@@ -19,12 +23,21 @@ export function AssessmentFinalCta({ onStart }: Props) {
             src="/images/landing/final-cta.webp"
             alt={t('imageAlt')}
             fill
+            unoptimized
             sizes="(max-width: 1080px) 100vw, 1032px"
             className="object-cover object-center"
           />
           <div aria-hidden="true" className="absolute inset-0 bg-primary-text/75" />
 
-          <div className="relative z-10 flex flex-col items-center px-6 py-20 text-center max-tablet:py-14">
+          {/* Only the content fades/rises — the card (photo + scrim) stays
+              solid throughout. */}
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            whileInView={{ opacity: 1, y: 0 }}
+            viewport={{ once: true, margin: '-80px' }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+            className="relative z-10 flex flex-col items-center px-6 py-20 text-center max-tablet:py-14"
+          >
             <h2 className="mb-8 text-section leading-snug font-medium tracking-tight text-white">
               {t('titleLine1')}
               <br />
@@ -46,7 +59,7 @@ export function AssessmentFinalCta({ onStart }: Props) {
                 {t('consultation')}
               </Link>
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

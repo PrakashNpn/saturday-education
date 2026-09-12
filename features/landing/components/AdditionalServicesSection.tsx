@@ -1,4 +1,7 @@
+'use client'
+
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const SERVICES = [
   { key: 'testPrep', tag: 'tagPaid' },
@@ -7,8 +10,13 @@ const SERVICES = [
   { key: 'loans', tag: 'tagPartner' },
 ] as const
 
+const EASE = [0, 0, 0.2, 1] as const
+// Matches the grid's own lg:grid-cols-4 — the widest column count it reaches.
+const COLS = 4
+
 export default function AdditionalServicesSection() {
   const t = useTranslations('Landing.additionalServices')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="bg-surface py-10 max-tablet:py-8">
@@ -22,8 +30,19 @@ export default function AdditionalServicesSection() {
             showing through a 1px grid gap, so there are no borders to double
             up where cards meet or to trim at the rounded corners. */}
         <div className="grid gap-px overflow-hidden rounded-md border border-stroke bg-stroke sm:grid-cols-2 lg:grid-cols-4">
-          {SERVICES.map((service) => (
-            <div key={service.key} className="bg-surface p-5">
+          {SERVICES.map((service, index) => (
+            <motion.div
+              key={service.key}
+              initial={{ opacity: 0, y: 14 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.4, delay: (index % COLS) * 0.08, ease: EASE }
+              }
+              className="bg-surface p-5"
+            >
               <b className="mb-1 block text-card font-medium">{t(`${service.key}Title`)}</b>
               <p className="mb-3 text-label font-normal text-secondary-text">
                 {t(`${service.key}Desc`)}
@@ -33,7 +52,7 @@ export default function AdditionalServicesSection() {
               <span className="inline-block rounded-full bg-surface-2 px-3 py-1 text-min font-medium text-primary-text">
                 {t(service.tag)}*
               </span>
-            </div>
+            </motion.div>
           ))}
         </div>
 

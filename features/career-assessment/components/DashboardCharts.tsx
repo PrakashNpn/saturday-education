@@ -5,10 +5,10 @@ import { aptitudeBandFor } from '../data/aptitudeBands'
 import type { DashboardData } from '../types'
 
 // ── Holland hexagon (radar) ──────────────────────────────────────────────────
-const SIZE = 200
-const CX = 100
-const CY = 100
-const MAXR = 70
+const SIZE = 260
+const CX = 130
+const CY = 130
+const MAXR = 90
 
 function point(i: number, r: number): [number, number] {
   const a = ((-90 + i * 60) * Math.PI) / 180 // R at top, clockwise
@@ -22,11 +22,12 @@ export function HollandHexagon({ interests }: { interests: DashboardData['intere
   const dataPts = interests.map((it, i) => point(i, (Math.max(0, Math.min(100, it.value)) / 100) * MAXR).join(',')).join(' ')
 
   return (
-    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="mx-auto h-auto w-full max-w-[220px]">
+    <svg viewBox={`0 0 ${SIZE} ${SIZE}`} className="mx-auto h-auto w-full max-w-[240px]">
       {/* grid rings + spokes */}
-      <polygon points={hexPoints(MAXR)} fill="none" stroke="#E5E7EB" strokeWidth="1" />
-      <polygon points={hexPoints(MAXR * 0.66)} fill="none" stroke="#EFEFF2" strokeWidth="1" />
-      <polygon points={hexPoints(MAXR * 0.33)} fill="none" stroke="#EFEFF2" strokeWidth="1" />
+      <polygon points={hexPoints(MAXR)} fill="none" stroke="#E5E5E5" strokeWidth="1" />
+      <polygon points={hexPoints(MAXR * 0.75)} fill="none" stroke="#EFEFF2" strokeWidth="1" />
+      <polygon points={hexPoints(MAXR * 0.5)} fill="none" stroke="#EFEFF2" strokeWidth="1" />
+      <polygon points={hexPoints(MAXR * 0.25)} fill="none" stroke="#EFEFF2" strokeWidth="1" />
       {interests.map((_, i) => {
         const [x, y] = point(i, MAXR)
         return <line key={i} x1={CX} y1={CY} x2={x} y2={y} stroke="#EFEFF2" strokeWidth="1" />
@@ -35,8 +36,8 @@ export function HollandHexagon({ interests }: { interests: DashboardData['intere
       {/* data polygon */}
       <motion.polygon
         points={dataPts}
-        fill="rgba(89,13,130,0.18)"
-        stroke="#590D82"
+        fill="rgba(99,45,139,0.16)"
+        stroke="#632D8B"
         strokeWidth="2"
         strokeLinejoin="round"
         initial={{ scale: 0, opacity: 0 }}
@@ -47,11 +48,11 @@ export function HollandHexagon({ interests }: { interests: DashboardData['intere
 
       {/* vertex letter badges */}
       {interests.map((it, i) => {
-        const [x, y] = point(i, MAXR + 15)
+        const [x, y] = point(i, MAXR + 18)
         return (
           <g key={it.category}>
-            <circle cx={x} cy={y} r="10" fill="#F5E6FF" stroke="#E8CCFF" strokeWidth="1" />
-            <text x={x} y={y} textAnchor="middle" dominantBaseline="central" fontSize="10" fontWeight="700" fill="#590D82">
+            <circle cx={x} cy={y} r="13" fill="#F3EDFA" stroke="#E5E5E5" strokeWidth="1" />
+            <text x={x} y={y + 1} textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="700" fill="#632D8B">
               {it.category}
             </text>
           </g>
@@ -78,25 +79,25 @@ export function BipolarBar({
   const pct = Math.max(0, Math.min(100, percentile))
   return (
     <div>
-      <div className="mb-1 flex items-baseline justify-between">
-        <span className="text-xs font-semibold text-neutral-800">{label}</span>
-        <span className="text-[11px] font-medium text-gray-400">{pct}%</span>
+      <div className="mb-1.5 flex items-baseline justify-between text-label">
+        <span className="font-bold text-primary-text">{label}</span>
+        <span className="text-min font-medium text-secondary-text">{pct}%</span>
       </div>
-      <div className="relative h-2 rounded-full bg-gray-100">
+      <div className="relative h-2 rounded-full bg-surface-2">
         <motion.div
-          className="absolute inset-y-0 left-0 rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light"
+          className="h-full rounded-full bg-action"
           initial={{ width: 0 }}
           animate={{ width: `${pct}%` }}
           transition={{ duration: 0.7, ease: 'easeOut', delay }}
         />
         <motion.div
-          className="absolute top-1/2 h-3.5 w-3.5 -translate-x-1/2 -translate-y-1/2 rounded-full border-2 border-white bg-brand-purple shadow"
+          className="absolute top-1/2 size-3.5 -translate-y-1/2 rounded-full border-2 border-white bg-action shadow-xs"
           initial={{ left: '0%' }}
-          animate={{ left: `${pct}%` }}
+          animate={{ left: `calc(${pct}% - 7px)` }}
           transition={{ duration: 0.7, ease: 'easeOut', delay }}
         />
       </div>
-      <div className="mt-1 flex justify-between text-[10px] text-gray-400">
+      <div className="mt-1 flex justify-between text-[11px] text-muted-text">
         <span>{low}</span>
         <span>{high}</span>
       </div>
@@ -127,7 +128,7 @@ export function ScoreRing({
     <div className="flex flex-col items-center gap-1.5">
       <div className="relative" style={{ width: size, height: size }}>
         <svg width={size} height={size} viewBox={`0 0 ${size} ${size}`}>
-          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#F1F1F4" strokeWidth={stroke} />
+          <circle cx={size / 2} cy={size / 2} r={r} fill="none" stroke="#E5E5E5" strokeWidth={stroke} />
           <motion.circle
             cx={size / 2}
             cy={size / 2}
@@ -144,13 +145,12 @@ export function ScoreRing({
           />
         </svg>
         <div className="absolute inset-0 flex items-center justify-center">
-          <span className="text-lg font-extrabold text-neutral-900">{pct}%</span>
+          <span className={size >= 100 ? 'text-section font-bold text-primary-text' : 'text-label font-bold text-primary-text'}>
+            {pct}%
+          </span>
         </div>
       </div>
-      {label && <span className="text-center text-[11px] font-medium text-gray-500">{label}</span>}
+      {label && <span className="max-w-[80px] text-center text-min leading-tight font-medium text-secondary-text">{label}</span>}
     </div>
   )
 }
-
-// OutlookChart + DemandGauge moved to shared/components/careers/OutlookCharts.tsx
-// (reused by the public Career Library, which cannot import from this feature).

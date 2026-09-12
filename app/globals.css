@@ -139,6 +139,22 @@
   --breakpoint-tablet: 860px;
 }
 
+/* Thai and Myanmar are complex scripts: consonants combine with reordered
+   medials and stacked vowel signs that the browser has to shape (position and
+   sometimes visually reorder) using the font's own logic. Several headings
+   carry a negative `tracking-*` for a tighter display look in Latin — but any
+   letter-spacing, positive or negative, makes Chrome/Firefox/Safari fall back
+   to naive per-character spacing instead of the font's shaping, so those
+   marks stop attaching to their base consonant and render as stray, detached
+   glyphs. This is a browser/text-layout limitation, not a font or content
+   bug, and it affects every current and future `tracking-*` utility, so it is
+   reset globally by the rendered language rather than patched per component.
+   Unlayered, so it wins over Tailwind's utility layer without needing
+   `!important` — kept anyway, defensively, in case that ever changes. */
+:lang(th), :lang(my) {
+  letter-spacing: normal !important;
+}
+
 /* Hero backdrop: a soft lift behind the headline so the page does not start on
    a flat grey. The globe behind it fades out before it reaches the copy. */
 .hero-lift {

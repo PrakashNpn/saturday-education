@@ -1,7 +1,10 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { cn } from '@/shared/utils/cn'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 export type AssessmentMode = 'outlook' | 'assessment'
 
@@ -23,6 +26,7 @@ const BADGE_OFF = 'bg-white/20 text-white'
  *  without a gap when the page scrolls. */
 export function AssessmentModeTabs({ mode, onChange }: Props) {
   const t = useTranslations('careerAssessment.modes')
+  const prefersReducedMotion = useReducedMotion()
 
   const tabs = [
     { id: 'outlook', short: t('outlookShort'), long: t('outlook'), badge: t('outlookBadge') },
@@ -31,7 +35,13 @@ export function AssessmentModeTabs({ mode, onChange }: Props) {
 
   return (
     <div className="sticky top-[62px] z-30 border-b border-white/10 bg-[oklch(20%_0.10_307.4)] py-2.5 text-white shadow-xs backdrop-blur-md">
-      <div className="mx-auto flex max-w-wrap items-center justify-center px-6">
+      {/* Only this row fades/rises on mount — the dark bar itself stays solid. */}
+      <motion.div
+        initial={{ opacity: 0, y: -8 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.4, ease: EASE }}
+        className="mx-auto flex max-w-wrap items-center justify-center px-6"
+      >
         <div className="inline-flex items-center gap-1 rounded-sm border border-white/20 bg-black/40 p-1 shadow-inner">
           {tabs.map((tab) => {
             const active = mode === tab.id
@@ -52,7 +62,7 @@ export function AssessmentModeTabs({ mode, onChange }: Props) {
             )
           })}
         </div>
-      </div>
+      </motion.div>
     </div>
   )
 }

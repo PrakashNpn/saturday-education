@@ -1,9 +1,12 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import type { OutlookView } from '@/shared/lib/careers/outlookMaster'
 import { Link } from '@/i18n/navigation'
 import { workStyleOf } from '../utils/workStyle'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 interface Props {
   career: OutlookView
@@ -47,6 +50,7 @@ function SkillList({ skills }: { skills: string[] }) {
 
 export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Props) {
   const t = useTranslations('careerAssessment.outlook')
+  const prefersReducedMotion = useReducedMotion()
 
   const trend = career.outlook.trend
   const startYear = new Date().getFullYear()
@@ -67,7 +71,13 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
     <section
       className={`scroll-mt-48 py-16 max-tablet:py-12 ${tone === 'surface' ? 'bg-surface' : 'bg-canvas'}`}
     >
-      <div className="mx-auto max-w-wrap space-y-6 px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.45, ease: EASE }}
+        className="mx-auto max-w-wrap space-y-6 px-6"
+      >
         <div>
           <h2 className="text-title leading-tight font-medium tracking-tight text-primary-text">
             {career.title}
@@ -224,7 +234,7 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
             </button>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

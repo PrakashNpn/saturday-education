@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { CAREERS, getCareerBySlug } from '@/shared/lib/careers/catalog'
 import { catalogCareerToMaster, deriveHorizonView } from '@/shared/lib/careers/outlookMaster'
 import { SearchableDropdown, CustomDropdown, type DropdownOption } from '@/shared/components/common'
@@ -24,8 +25,11 @@ const SAMPLE_SLUGS = ['software-engineer', 'data-scientist', 'marketing-manager'
 /** Past this the panel collapses to a single compact row, matching the design. */
 const COMPACT_AFTER = 60
 
+const EASE = [0, 0, 0.2, 1] as const
+
 export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
   const t = useTranslations('careerAssessment.outlook')
+  const prefersReducedMotion = useReducedMotion()
   const [query, setQuery] = useState(DEFAULT_CAREER)
   const [horizon, setHorizon] = useState<Horizon>('10')
   const [modalQuery, setModalQuery] = useState<string | null>(null)
@@ -78,7 +82,10 @@ export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
     <>
       <div className="pointer-events-none sticky top-[122px] z-20 pt-4 pb-3 sm:pt-5 sm:pb-3.5">
         <div className="pointer-events-auto mx-auto max-w-wrap px-6">
-          <div
+          <motion.div
+            initial={{ opacity: 0, y: 16 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
             className={`rounded-md border border-action/25 bg-tint/95 shadow-card backdrop-blur-md transition-all duration-300 ${
               compact ? 'p-3.5 shadow-md sm:px-6 sm:py-3.5' : 'p-4 sm:p-5'
             }`}
@@ -184,7 +191,7 @@ export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
                 </div>
               </>
             )}
-          </div>
+          </motion.div>
         </div>
       </div>
 

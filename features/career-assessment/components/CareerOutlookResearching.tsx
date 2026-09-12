@@ -54,7 +54,7 @@ export function CareerOutlookResearching({ query }: { query: string }) {
     <div className="relative overflow-hidden">
       {/* top progress bar — eases up and stalls near the end */}
       <motion.div
-        className="absolute top-0 left-0 z-20 h-0.5 bg-gradient-to-r from-action to-brand-purple-light"
+        className="absolute top-0 left-0 z-20 h-0.5 bg-action"
         initial={{ width: '6%' }}
         animate={{ width: '90%' }}
         transition={{ duration: 9, ease: 'easeOut' }}

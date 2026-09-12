@@ -47,9 +47,9 @@ Lives in app/[locale]/layout.tsx — NOT in page.tsx.
 Fixed floating position, renders on EVERY page.
 
 ## Features Map
-landing/     → 11 rendered sections, in page order: Hero, PartnerLogos, WhySaturday,
+landing/     → 12 rendered sections, in page order: Hero, PartnerLogos, WhySaturday,
                Services, AdditionalServices, CourseSearch, ComparisonTool,
-               GlobalLeaders, Testimonials, Consultation, Cta.
+               GlobalLeaders, Testimonials, Faq, Consultation, Cta.
                UniversityFinderSection also lives here but is commented out —
                see UNIVERSITIES_HIDDEN_RESTORE.md.
 destination/ → Listing + country detail pages. Real Prisma queries, redesigned.
@@ -124,9 +124,10 @@ look, `'field'` matches the new form controls) and `FallbackImage`.
 - Phase 3 ✅ Real data — destinations run on Prisma; course discovery is handled
   by the embedded Firmli course finder
 - Phase 4 🔄 Site-wide redesign — **CURRENT**. Done: home, about, destinations,
-  country detail, career assessment intro (both modes), the destinations
-  loading skeletons and the error page. Pending: the assessment flow past the
-  intro, cookie consent, chat widget, legal pages
+  country detail, career assessment (intro, the full in-depth flow past it,
+  and the Career Market Outlook instant mode), the destinations loading
+  skeletons, the error page, and cookie consent. Pending: chat widget, legal
+  pages
 - Phase 5 🔄 Admin dashboard — countries and universities CRUD, plus login
 - Phase 6 ⬜ Internationalization — routing and config are done, but roughly 73%
   of strings are still English in both `th` and `my`

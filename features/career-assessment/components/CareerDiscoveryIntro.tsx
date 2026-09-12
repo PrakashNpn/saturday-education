@@ -2,18 +2,42 @@
 
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
+import { TOTAL_QUESTIONS } from '../data/allQuestions'
 
 interface Props {
   onStart: () => void
   onAutofill?: () => void
+  /** Present only when there's a saved run to pick back up. Swaps the CTA
+   *  into a resume state instead of a banner stacked above the hero, so the
+   *  designed two-column layout never shifts down to make room for one. */
+  resumeCount?: number
+  onResume?: () => void
+  onRestart?: () => void
 }
 
 const CHIP =
   'inline-flex items-center rounded-full border border-stroke bg-surface-0 px-3.5 py-1.5 text-label font-medium text-primary-text shadow-2xs'
 
-export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.1
+
+export function CareerDiscoveryIntro({ onStart, onAutofill, resumeCount, onResume, onRestart }: Props) {
   const t = useTranslations('careerAssessment.intro')
   const isDev = process.env.NODE_ENV !== 'production'
+  const prefersReducedMotion = useReducedMotion()
+  const isResuming = resumeCount != null && !!onResume
+  const primaryAction = isResuming ? onResume! : onStart
+
+  // Above the fold, so this runs on mount rather than on scroll into view —
+  // same reasoning as the homepage's own HeroSection.
+  const rise = (step: number, distance = 16, duration = 0.5) => ({
+    initial: { opacity: 0, y: distance },
+    animate: { opacity: 1, y: 0 },
+    transition: prefersReducedMotion
+      ? { duration: 0 }
+      : { duration, delay: step * STAGGER, ease: EASE },
+  })
 
   return (
     <section className="relative overflow-hidden border-b border-stroke bg-surface py-20 max-tablet:py-12">
@@ -24,7 +48,12 @@ export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
 
       <div className="relative z-10 mx-auto max-w-wrap px-6">
         <div className="grid items-center gap-12 lg:grid-cols-[0.85fr_1.15fr] lg:gap-16">
-          {/* Report cover. Second on a phone so the headline leads. */}
+          {/* Report cover. Second on a phone so the headline leads.
+              Deliberately not animated: this image is the page's LCP element,
+              and even at zero stagger delay a framer-motion opacity fade
+              pushes back when Chrome counts it as painted — by roughly the
+              fade's full duration (measured empirically). Left permanently
+              visible; the heading column beside it still animates in. */}
           <div className="relative order-2 flex flex-col items-center justify-center lg:order-1">
             <div
               aria-hidden="true"
@@ -36,7 +65,7 @@ export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
                   edge, square on that side and rounded on the other three. */}
               <button
                 type="button"
-                onClick={onStart}
+                onClick={primaryAction}
                 className="group relative block cursor-pointer perspective-[1000px]"
               >
                 <div className="relative aspect-[1/1.414] w-[280px] rounded-l-xs rounded-r-md border-y border-r border-stroke bg-white shadow-[0_24px_48px_-12px_rgba(0,0,0,0.32),0_8px_18px_rgba(0,0,0,0.12)] transition-all duration-500 ease-out group-hover:-translate-y-1.5 group-hover:rotate-y-[-4deg] group-hover:scale-[1.02] group-hover:shadow-[0_32px_60px_-15px_rgba(0,0,0,0.4)] sm:w-[330px]">
@@ -50,6 +79,7 @@ export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
                       alt={t('coverAlt')}
                       fill
                       priority
+                      unoptimized
                       sizes="330px"
                       className="object-cover object-top"
                     />
@@ -61,7 +91,7 @@ export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
             <p className="mt-4 text-center text-min text-secondary-text">{t('coverCaption')}</p>
           </div>
 
-          <div className="order-1 lg:order-2">
+          <motion.div {...rise(1)} className="order-1 lg:order-2">
             <h1 className="mb-[44px] tracking-tight">
               <span className="block text-title leading-[1.18] font-medium text-primary-text">
                 {t('title')}
@@ -85,10 +115,10 @@ export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
               <div className="flex flex-wrap items-center gap-3">
                 <button
                   type="button"
-                  onClick={onStart}
+                  onClick={primaryAction}
                   className="inline-flex min-h-13 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-action px-16 text-body font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover sm:w-auto"
                 >
-                  {t('startButton')}
+                  {isResuming ? t('resumeCta') : t('startButton')}
                 </button>
 
                 {/* Dev-only shortcut that fills the whole questionnaire. */}
@@ -103,9 +133,27 @@ export function CareerDiscoveryIntro({ onStart, onAutofill }: Props) {
                 )}
               </div>
 
-              <p className="text-min text-muted-text">{t('reassurance')}</p>
+              {isResuming ? (
+                <p className="text-min text-muted-text">
+                  {t('resumeProgress', { answered: resumeCount, total: TOTAL_QUESTIONS })}
+                  {onRestart && (
+                    <>
+                      {' · '}
+                      <button
+                        type="button"
+                        onClick={onRestart}
+                        className="cursor-pointer underline underline-offset-2 hover:text-primary-text"
+                      >
+                        {t('resumeRestart')}
+                      </button>
+                    </>
+                  )}
+                </p>
+              ) : (
+                <p className="text-min text-muted-text">{t('reassurance')}</p>
+              )}
             </div>
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

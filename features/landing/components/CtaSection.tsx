@@ -1,9 +1,15 @@
+'use client'
+
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from '@/i18n/navigation'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 export default function CtaSection() {
   const t = useTranslations('Landing.statsCta')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="relative overflow-hidden bg-structure">
@@ -13,12 +19,21 @@ export default function CtaSection() {
         src="/images/landing/final-cta.webp"
         alt=""
         fill
+        unoptimized
         sizes="100vw"
         className="object-cover"
       />
       <div className="absolute inset-0 bg-primary-text/60" />
 
-      <div className="relative mx-auto flex max-w-wrap flex-col items-center px-6 py-28 text-center max-tablet:py-16">
+      {/* Only the content fades/rises — the photo + scrim stay solid
+          throughout, rather than materialising from transparent with it. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="relative mx-auto flex max-w-wrap flex-col items-center px-6 py-28 text-center max-tablet:py-16"
+      >
         <p className="mb-8 max-w-[20ch] text-display leading-[1.1] font-medium text-white">
           {t('heading')}
         </p>
@@ -30,7 +45,7 @@ export default function CtaSection() {
         >
           {t('button')}
         </Link>
-      </div>
+      </motion.div>
     </section>
   )
 }

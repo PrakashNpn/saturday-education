@@ -1,7 +1,10 @@
 'use client'
 
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { RIASEC_COUNT, PERSONALITY_END, TOTAL_QUESTIONS } from '../data/allQuestions'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 interface Props {
   onStart: () => void
@@ -29,6 +32,7 @@ function ClockIcon() {
 
 export function AssessmentMethod({ onStart }: Props) {
   const t = useTranslations('careerAssessment.method')
+  const prefersReducedMotion = useReducedMotion()
 
   // Read straight off the question banks so these can never drift from the
   // assessment people actually sit. The design's mock split them 60/60/30;
@@ -41,7 +45,13 @@ export function AssessmentMethod({ onStart }: Props) {
 
   return (
     <section className="relative z-0 overflow-hidden border-b border-stroke bg-surface-0 pt-16 pb-0 max-tablet:pt-12">
-      <div className="mx-auto mb-16 max-w-wrap px-6">
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="mx-auto mb-16 max-w-wrap px-6"
+      >
         <div className="grid items-center gap-12 lg:grid-cols-[1.15fr_1fr] lg:gap-16">
           {/* Second on a phone so the argument leads and the detail follows. */}
           <div className="order-2 lg:order-1">
@@ -135,7 +145,7 @@ export function AssessmentMethod({ onStart }: Props) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
 
       {/* Sits flush at the section's bottom edge, which is why the section has
           no bottom padding of its own. */}

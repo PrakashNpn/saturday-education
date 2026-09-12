@@ -366,7 +366,7 @@ export function CareerOutlookModal({
                   <button
                     type="button"
                     onClick={onClose}
-                    className="rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-purple/25 transition-all hover:-translate-y-0.5"
+                    className="cursor-pointer rounded-full bg-action px-6 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover"
                   >
                     Try another career
                   </button>
@@ -383,7 +383,7 @@ export function CareerOutlookModal({
                   <button
                     type="button"
                     onClick={() => setReloadKey((k) => k + 1)}
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-purple/25 transition-all hover:-translate-y-0.5"
+                    className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-action px-6 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover"
                   >
                     <RotateCw size={15} />
                     Try again
@@ -401,7 +401,7 @@ export function CareerOutlookModal({
                   <button
                     type="button"
                     onClick={() => setReloadKey((k) => k + 1)}
-                    className="inline-flex items-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light px-6 py-2.5 text-sm font-semibold text-white shadow-md shadow-brand-purple/25 transition-all hover:-translate-y-0.5"
+                    className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-action px-6 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover"
                   >
                     <RotateCw size={15} />
                     Retry

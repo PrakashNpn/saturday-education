@@ -197,6 +197,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
               src="/images/landing/counsellor-desk.webp"
               alt={t('form.imageAlt')}
               fill
+              unoptimized
               sizes="(max-width: 1024px) 100vw, 33vw"
               className="object-cover object-[80%_25%]"
             />

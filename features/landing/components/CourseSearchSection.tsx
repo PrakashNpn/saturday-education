@@ -3,7 +3,10 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { useRouter } from '@/i18n/navigation'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 // The lists come from the Course Finder feature and are passed in by the page,
 // so this component never reaches across features for them. The shapes are
@@ -103,6 +106,7 @@ function Chevron() {
 export default function CourseSearchSection({ options }: Props) {
   const t = useTranslations('Landing.courseSearch')
   const router = useRouter()
+  const prefersReducedMotion = useReducedMotion()
 
   const [country, setCountry] = useState('')
   const [level, setLevel] = useState('')
@@ -122,7 +126,15 @@ export default function CourseSearchSection({ options }: Props) {
     // The dotted texture drifts one tile over 30s. It stops entirely under
     // prefers-reduced-motion, which the rule in globals.css handles.
     <section className="course-finder-texture relative overflow-hidden border-t border-stroke bg-[oklch(20%_0.10_307.4)] py-14 max-tablet:py-10">
-      <div className="relative mx-auto max-w-wrap px-6">
+      {/* Only the content fades/rises — the dark textured band stays solid
+          throughout. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="relative mx-auto max-w-wrap px-6"
+      >
         <div className="mb-8 text-center">
           <h2 className="text-section font-medium text-white">{t('heading')}</h2>
           <p className="mx-auto mt-3 max-w-[52ch] text-lede font-light text-white/85">
@@ -176,6 +188,7 @@ export default function CourseSearchSection({ options }: Props) {
                                 alt=""
                                 width={40}
                                 height={40}
+                                unoptimized
                                 className="h-full w-full object-cover"
                               />
                             ) : (
@@ -247,6 +260,7 @@ export default function CourseSearchSection({ options }: Props) {
               src="/images/landing/desk-globe.webp"
               alt={t('imageAlt')}
               fill
+              unoptimized
               sizes="(max-width: 768px) 100vw, 50vw"
               className="-scale-x-100 object-cover"
             />
@@ -276,7 +290,7 @@ export default function CourseSearchSection({ options }: Props) {
             </div>
           </div>
         </div>
-      </div>
+      </motion.div>
     </section>
   )
 }

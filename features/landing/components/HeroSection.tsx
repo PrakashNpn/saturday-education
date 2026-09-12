@@ -1,10 +1,11 @@
 'use client'
 
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from '@/i18n/navigation'
 import { CONTACT_LINKS } from '@/shared/constants/social'
+import { cn } from '@/shared/utils/cn'
 
 // Measured off the design: each block starts about 84ms after the one above it
 // and takes a little over half a second, on a plain ease-out.
@@ -29,7 +30,14 @@ function WhatsAppIcon() {
 
 export default function HeroSection() {
   const t = useTranslations('hero')
+  const locale = useLocale()
   const prefersReducedMotion = useReducedMotion()
+
+  // "Saturday Education" stays on one line at any width. Burmese's highlight
+  // adds "Consulting" to match the sentence the client asked for, and that
+  // third word no longer fits unbroken on a phone screen — nowrap would just
+  // push it past the viewport edge instead of wrapping.
+  const highlightNoWrap = locale !== 'my'
 
   /**
    * The whole hero is above the fold, so this runs on mount, not on scroll.
@@ -70,9 +78,14 @@ export default function HeroSection() {
             {/* The company's own name set in running text is an identity
                 moment, so it takes the brand colour rather than the action
                 colour. Same value, different reason. */}
-            <span className="font-semibold whitespace-nowrap text-brand">
+            <span className={cn('font-semibold text-brand', highlightNoWrap && 'whitespace-nowrap')}>
               {t('titleHighlight')}
             </span>
+            {/* Burmese word order puts a verb after the brand name ("...with
+                Saturday Education, let's start") where English's does not, so
+                this only trails the highlight for locales that actually need
+                it — empty for English and Thai, so nothing renders there. */}
+            {t('titleSuffix') && ` ${t('titleSuffix')}`}
           </motion.h1>
 
           <motion.p
@@ -148,6 +161,7 @@ export default function HeroSection() {
             width={2160}
             height={973}
             priority
+            unoptimized
             sizes="(max-width: 1080px) 100vw, 1080px"
             className="h-auto w-full rounded-lg border border-stroke"
           />

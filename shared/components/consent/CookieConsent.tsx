@@ -8,9 +8,38 @@ import { Link } from '@/i18n/navigation'
 import { useConsent } from './useConsent'
 
 const primaryBtn =
-  'rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-purple/30 hover:brightness-105 active:translate-y-0 active:scale-[0.98]'
+  'flex-1 cursor-pointer rounded-full bg-action px-4 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover'
 const secondaryBtn =
-  'rounded-full border border-gray-200 bg-white/60 px-4 py-2.5 text-sm font-semibold text-gray-700 transition-all duration-200 hover:-translate-y-0.5 hover:border-brand-purple/40 hover:bg-white hover:text-brand-purple hover:shadow-sm active:translate-y-0 active:scale-[0.98]'
+  'flex-1 cursor-pointer rounded-full border border-stroke bg-surface-0 px-4 py-2.5 text-label font-medium text-secondary-text transition-colors hover:border-action/30 hover:bg-tint hover:text-action'
+
+function ToggleSwitch({
+  checked,
+  onChange,
+  label,
+}: {
+  checked: boolean
+  onChange: () => void
+  label: string
+}) {
+  return (
+    <button
+      type="button"
+      role="switch"
+      aria-checked={checked}
+      aria-label={label}
+      onClick={onChange}
+      className={`relative h-6 w-11 shrink-0 cursor-pointer rounded-full transition-colors ${
+        checked ? 'bg-action' : 'bg-surface-2'
+      }`}
+    >
+      <span
+        className={`absolute top-0.5 left-0.5 size-5 rounded-full bg-white shadow-xs transition-transform ${
+          checked ? 'translate-x-5' : ''
+        }`}
+      />
+    </button>
+  )
+}
 
 export function CookieConsent() {
   const t = useTranslations('cookieConsent')
@@ -45,24 +74,24 @@ export function CookieConsent() {
       initial={{ opacity: 0, y: 20, scale: 0.98 }}
       animate={{ opacity: 1, y: 0, scale: 1 }}
       transition={{ duration: 0.35, ease: 'easeOut' }}
-      className="fixed bottom-4 left-4 right-4 z-[60] sm:right-auto sm:max-w-sm"
+      className="fixed right-4 bottom-4 left-4 z-[60] sm:right-auto sm:max-w-sm"
       role="dialog"
       aria-live="polite"
       aria-label={t('title')}
     >
-      <div className="overflow-hidden rounded-2xl border border-white/50 bg-white/45 shadow-2xl ring-1 ring-black/5 backdrop-blur-2xl backdrop-saturate-150">
+      <div className="overflow-hidden rounded-md border border-stroke bg-surface shadow-xl">
         <div className="p-5">
           <div className="flex items-center gap-3">
-            <span className="grid h-9 w-9 shrink-0 place-items-center rounded-full bg-gradient-to-br from-brand-purple to-brand-purple-light text-white shadow-sm">
+            <span className="grid size-9 shrink-0 place-items-center rounded-full bg-action text-white">
               <Cookie size={17} />
             </span>
-            <h2 className="text-sm font-bold text-gray-900">{t('title')}</h2>
+            <h2 className="text-label font-bold text-primary-text">{t('title')}</h2>
           </div>
 
-          <p className="mt-2.5 text-[13px] leading-relaxed text-gray-500">
+          <p className="mt-2.5 text-label leading-relaxed font-light text-secondary-text">
             {t.rich('description', {
               link: (chunks) => (
-                <Link href="/privacy" target="_blank" className="font-medium text-brand-purple hover:underline">
+                <Link href="/privacy" target="_blank" className="font-medium text-action hover:underline">
                   {chunks}
                 </Link>
               ),
@@ -70,14 +99,14 @@ export function CookieConsent() {
           </p>
 
           {customizing && (
-            <div className="mt-4 space-y-3 rounded-xl bg-white/35 p-3.5">
+            <div className="mt-4 space-y-3 rounded-sm border border-stroke bg-surface-0 p-3.5">
               {/* Strictly necessary — always on */}
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold text-gray-800">{t('necessaryTitle')}</p>
-                  <p className="text-[11px] leading-snug text-gray-500">{t('necessaryDesc')}</p>
+                  <p className="text-min font-bold text-primary-text">{t('necessaryTitle')}</p>
+                  <p className="text-min leading-snug text-muted-text">{t('necessaryDesc')}</p>
                 </div>
-                <span className="shrink-0 rounded-full bg-gray-200 px-2 py-0.5 text-[10px] font-semibold uppercase tracking-wide text-gray-500">
+                <span className="shrink-0 rounded-full bg-surface-2 px-2 py-0.5 text-min font-semibold tracking-wide text-muted-text uppercase">
                   {t('alwaysOn')}
                 </span>
               </div>
@@ -85,55 +114,25 @@ export function CookieConsent() {
               {/* Analytics — optional toggle */}
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold text-gray-800">{t('analyticsTitle')}</p>
-                  <p className="text-[11px] leading-snug text-gray-500">{t('analyticsDesc')}</p>
+                  <p className="text-min font-bold text-primary-text">{t('analyticsTitle')}</p>
+                  <p className="text-min leading-snug text-muted-text">{t('analyticsDesc')}</p>
                 </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={analytics}
-                  aria-label={t('analyticsTitle')}
-                  onClick={() => setAnalytics((v) => !v)}
-                  className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
-                    analytics ? 'bg-brand-purple' : 'bg-gray-300'
-                  }`}
-                >
-                  <span
-                    className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                      analytics ? 'translate-x-5' : ''
-                    }`}
-                  />
-                </button>
+                <ToggleSwitch checked={analytics} onChange={() => setAnalytics((v) => !v)} label={t('analyticsTitle')} />
               </div>
 
               {/* Marketing — optional toggle (Meta Pixel) */}
               <div className="flex items-center justify-between gap-3">
                 <div className="min-w-0">
-                  <p className="text-xs font-semibold text-gray-800">{t('marketingTitle')}</p>
-                  <p className="text-[11px] leading-snug text-gray-500">{t('marketingDesc')}</p>
+                  <p className="text-min font-bold text-primary-text">{t('marketingTitle')}</p>
+                  <p className="text-min leading-snug text-muted-text">{t('marketingDesc')}</p>
                 </div>
-                <button
-                  type="button"
-                  role="switch"
-                  aria-checked={marketing}
-                  aria-label={t('marketingTitle')}
-                  onClick={() => setMarketing((v) => !v)}
-                  className={`relative h-6 w-11 shrink-0 rounded-full transition-colors ${
-                    marketing ? 'bg-brand-purple' : 'bg-gray-300'
-                  }`}
-                >
-                  <span
-                    className={`absolute left-0.5 top-0.5 h-5 w-5 rounded-full bg-white shadow transition-transform ${
-                      marketing ? 'translate-x-5' : ''
-                    }`}
-                  />
-                </button>
+                <ToggleSwitch checked={marketing} onChange={() => setMarketing((v) => !v)} label={t('marketingTitle')} />
               </div>
             </div>
           )}
 
           {/* Equal-prominence accept / reject */}
-          <div className="mt-4 grid grid-cols-2 gap-2.5">
+          <div className="mt-4 flex gap-2.5">
             <button type="button" onClick={handleReject} className={secondaryBtn}>
               {t('rejectAll')}
             </button>
@@ -145,7 +144,7 @@ export function CookieConsent() {
           <button
             type="button"
             onClick={customizing ? handleSave : handleCustomize}
-            className="mt-2.5 w-full text-center text-xs font-semibold text-brand-purple transition-colors hover:text-brand-purple-dark"
+            className="mt-2.5 w-full cursor-pointer py-1 text-center text-min font-semibold text-action transition-colors hover:text-action-hover"
           >
             {customizing ? t('save') : t('customize')}
           </button>

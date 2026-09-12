@@ -1,5 +1,8 @@
+'use client'
+
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 
 const MEMBERS = [
   { n: 1, file: 'david.webp' },
@@ -7,8 +10,13 @@ const MEMBERS = [
   { n: 3, file: 'raju-dhakal.webp' },
 ] as const
 
+const EASE = [0, 0, 0.2, 1] as const
+// Matches the grid's own sm:grid-cols-3.
+const COLS = 3
+
 export function AboutTeam() {
   const t = useTranslations('about')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
     <section className="border-t border-stroke bg-[#f0f0f0] py-16 max-tablet:py-12">
@@ -24,9 +32,17 @@ export function AboutTeam() {
         </div>
 
         <div className="grid grid-cols-1 gap-2 sm:grid-cols-3">
-          {MEMBERS.map(({ n, file }) => (
-            <div
+          {MEMBERS.map(({ n, file }, index) => (
+            <motion.div
               key={n}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.45, delay: (index % COLS) * 0.1, ease: EASE }
+              }
               className="flex flex-col overflow-hidden rounded-[6px] border border-stroke bg-surface"
             >
               {/* The pale ground behind the cut-out headshots, so the three
@@ -54,17 +70,24 @@ export function AboutTeam() {
                   {t(`team${n}Bio`)}
                 </p>
               </div>
-            </div>
+            </motion.div>
           ))}
         </div>
 
-        <div className="mt-10 overflow-hidden rounded-[6px] border border-stroke bg-surface">
+        <motion.div
+          initial={{ opacity: 0, y: 16 }}
+          whileInView={{ opacity: 1, y: 0 }}
+          viewport={{ once: true, margin: '-80px' }}
+          transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+          className="mt-10 overflow-hidden rounded-[6px] border border-stroke bg-surface"
+        >
           <div className="grid lg:grid-cols-3 lg:items-stretch">
             <div className="relative aspect-[16/10] w-full overflow-hidden bg-surface-2 lg:col-span-2 lg:aspect-auto lg:min-h-[320px]">
               <Image
                 src="/images/about/team-meeting.webp"
                 alt={t('reviewImageAlt')}
                 fill
+                unoptimized
                 sizes="(max-width: 1024px) 100vw, 66vw"
                 className="object-cover object-center"
               />
@@ -81,7 +104,7 @@ export function AboutTeam() {
               </p>
             </div>
           </div>
-        </div>
+        </motion.div>
       </div>
     </section>
   )

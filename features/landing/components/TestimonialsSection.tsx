@@ -1,5 +1,10 @@
+'use client'
+
 import Image from 'next/image'
 import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
+
+const EASE = [0, 0, 0.2, 1] as const
 
 /**
  * Photographs live in `public/images/testimonials/` as square WebP, 160x160 or
@@ -42,6 +47,7 @@ function QuoteMark() {
 
 export default function TestimonialsSection() {
   const t = useTranslations('Landing.testimonials')
+  const prefersReducedMotion = useReducedMotion()
 
   const reviews = REVIEWS.map(({ key, photo }) => ({
     key,
@@ -56,12 +62,21 @@ export default function TestimonialsSection() {
       id="testimonials"
       className="border-y border-stroke bg-structure py-14 text-white max-tablet:py-10"
     >
-      <div className="mx-auto mb-10 max-w-wrap px-6">
+      {/* Only the heading fades/rises — the dark band stays solid, and the
+          marquee below is already in constant motion so it doesn't need its
+          own entrance. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="mx-auto mb-10 max-w-wrap px-6"
+      >
         <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-white/60 uppercase">
           {t('eyebrow')}
         </h2>
         <p className="max-w-[46ch] text-section font-medium">{t('headline')}</p>
-      </div>
+      </motion.div>
 
       {/* One row, travelling left. Same seamless-loop mechanism as the partner
           wall: the list is rendered twice and the track slides by half. */}
@@ -96,6 +111,7 @@ export default function TestimonialsSection() {
                         alt=""
                         width={80}
                         height={80}
+                        unoptimized
                         className="size-10 shrink-0 rounded-full bg-white/10 object-cover"
                       />
                     ) : (
