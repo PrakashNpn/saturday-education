@@ -44,20 +44,6 @@ function AdvantagesSkeleton() {
   )
 }
 
-/** Mirrors PartnerUniversities' logo wall. */
-function UniversitiesSkeleton() {
-  return (
-    <div className="grid grid-cols-2 gap-3 sm:grid-cols-3 lg:grid-cols-4">
-      {Array.from({ length: 4 }).map((_, i) => (
-        <div key={i} className="flex flex-col items-center gap-3 rounded-sm border border-stroke bg-surface p-4">
-          <Skeleton className="h-10 w-full" />
-          <Skeleton className="h-4 w-3/4" />
-        </div>
-      ))}
-    </div>
-  )
-}
-
 /** Mirrors AcademicSpecialties' wrapped chip list, varied widths so the row
  *  doesn't read as a uniform grid. */
 function SpecialtiesSkeleton() {
@@ -125,9 +111,9 @@ export default function Loading() {
 
       <section className="py-14 max-tablet:py-10">
         <div className="mx-auto grid max-w-wrap gap-10 px-6 lg:grid-cols-[200px_1fr]">
-          {/* Nav rail — mirrors DetailNav's six section links */}
+          {/* Nav rail — mirrors DetailNav's five section links */}
           <nav className="flex gap-4 overflow-x-auto pb-2 max-tablet:-mx-6 max-tablet:px-6 lg:sticky lg:top-36 lg:flex-col lg:gap-3 lg:self-start lg:overflow-visible lg:pb-0">
-            {Array.from({ length: 6 }).map((_, i) => (
+            {Array.from({ length: 5 }).map((_, i) => (
               <Skeleton key={i} className="h-4 w-24 shrink-0" />
             ))}
           </nav>
@@ -148,12 +134,6 @@ export default function Loading() {
               <Eyebrow />
               <Heading wide />
               <AdvantagesSkeleton />
-            </section>
-
-            <section className={SECTION}>
-              <Eyebrow />
-              <Heading />
-              <UniversitiesSkeleton />
             </section>
 
             <section className={SECTION}>

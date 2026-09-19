@@ -8,8 +8,7 @@
 //
 // Firmli has not documented any of this, so every failure path returns null and
 // the caller drops the search rather than rendering an empty one.
-const FIRMLI_API = 'https://c191z26royal58-api.firmli.com/v1'
-const CLIENT_NUMBER = 'C191Z26ROYAL58'
+import { FIRMLI_API, CLIENT_NUMBER } from '@/shared/lib/courseFinder/firmliClient'
 
 // The lists change when Firmli signs a new country or discipline, which is rare.
 const REVALIDATE_SECONDS = 60 * 60 * 24

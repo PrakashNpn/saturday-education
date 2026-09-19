@@ -23,7 +23,7 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 export default async function DestinationsPage({ params }: Props) {
   const { locale } = await params
   const [countries, t] = await Promise.all([
-    getAllCountries(),
+    getAllCountries(locale),
     getTranslations({ locale, namespace: 'destinations' }),
   ])
 

@@ -33,7 +33,7 @@ export function CountryFAQs({ faqs, eyebrow, title }: Props) {
               </span>
             </summary>
             <div className="-mx-2.5 px-2.5 pt-1 pb-5">
-              <p className="max-w-[62ch] text-label leading-relaxed font-normal text-secondary-text">
+              <p className="text-label leading-relaxed font-normal text-secondary-text">
                 {faq.answer}
               </p>
             </div>

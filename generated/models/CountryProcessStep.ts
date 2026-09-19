@@ -39,6 +39,10 @@ export type CountryProcessStepMinAggregateOutputType = {
   stepNumber: number | null
   title: string | null
   description: string | null
+  titleTh: string | null
+  titleMy: string | null
+  descriptionTh: string | null
+  descriptionMy: string | null
   countryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -49,6 +53,10 @@ export type CountryProcessStepMaxAggregateOutputType = {
   stepNumber: number | null
   title: string | null
   description: string | null
+  titleTh: string | null
+  titleMy: string | null
+  descriptionTh: string | null
+  descriptionMy: string | null
   countryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -59,6 +67,10 @@ export type CountryProcessStepCountAggregateOutputType = {
   stepNumber: number
   title: number
   description: number
+  titleTh: number
+  titleMy: number
+  descriptionTh: number
+  descriptionMy: number
   countryId: number
   createdAt: number
   updatedAt: number
@@ -79,6 +91,10 @@ export type CountryProcessStepMinAggregateInputType = {
   stepNumber?: true
   title?: true
   description?: true
+  titleTh?: true
+  titleMy?: true
+  descriptionTh?: true
+  descriptionMy?: true
   countryId?: true
   createdAt?: true
   updatedAt?: true
@@ -89,6 +105,10 @@ export type CountryProcessStepMaxAggregateInputType = {
   stepNumber?: true
   title?: true
   description?: true
+  titleTh?: true
+  titleMy?: true
+  descriptionTh?: true
+  descriptionMy?: true
   countryId?: true
   createdAt?: true
   updatedAt?: true
@@ -99,6 +119,10 @@ export type CountryProcessStepCountAggregateInputType = {
   stepNumber?: true
   title?: true
   description?: true
+  titleTh?: true
+  titleMy?: true
+  descriptionTh?: true
+  descriptionMy?: true
   countryId?: true
   createdAt?: true
   updatedAt?: true
@@ -196,6 +220,10 @@ export type CountryProcessStepGroupByOutputType = {
   stepNumber: number
   title: string
   description: string | null
+  titleTh: string | null
+  titleMy: string | null
+  descriptionTh: string | null
+  descriptionMy: string | null
   countryId: string
   createdAt: Date
   updatedAt: Date
@@ -229,6 +257,10 @@ export type CountryProcessStepWhereInput = {
   stepNumber?: Prisma.IntFilter<"CountryProcessStep"> | number
   title?: Prisma.StringFilter<"CountryProcessStep"> | string
   description?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
@@ -240,6 +272,10 @@ export type CountryProcessStepOrderByWithRelationInput = {
   stepNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrderInput | Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -255,6 +291,10 @@ export type CountryProcessStepWhereUniqueInput = Prisma.AtLeast<{
   stepNumber?: Prisma.IntFilter<"CountryProcessStep"> | number
   title?: Prisma.StringFilter<"CountryProcessStep"> | string
   description?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
@@ -266,6 +306,10 @@ export type CountryProcessStepOrderByWithAggregationInput = {
   stepNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrderInput | Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -284,6 +328,10 @@ export type CountryProcessStepScalarWhereWithAggregatesInput = {
   stepNumber?: Prisma.IntWithAggregatesFilter<"CountryProcessStep"> | number
   title?: Prisma.StringWithAggregatesFilter<"CountryProcessStep"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  titleTh?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  titleMy?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  descriptionTh?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  descriptionMy?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringWithAggregatesFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CountryProcessStep"> | Date | string
@@ -294,6 +342,10 @@ export type CountryProcessStepCreateInput = {
   stepNumber: number
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   country: Prisma.CountryCreateNestedOneWithoutProcessStepsInput
@@ -304,6 +356,10 @@ export type CountryProcessStepUncheckedCreateInput = {
   stepNumber: number
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   countryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -314,6 +370,10 @@ export type CountryProcessStepUpdateInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   country?: Prisma.CountryUpdateOneRequiredWithoutProcessStepsNestedInput
@@ -324,6 +384,10 @@ export type CountryProcessStepUncheckedUpdateInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -334,6 +398,10 @@ export type CountryProcessStepCreateManyInput = {
   stepNumber: number
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   countryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -344,6 +412,10 @@ export type CountryProcessStepUpdateManyMutationInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -353,6 +425,10 @@ export type CountryProcessStepUncheckedUpdateManyInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -378,6 +454,10 @@ export type CountryProcessStepCountOrderByAggregateInput = {
   stepNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  titleTh?: Prisma.SortOrder
+  titleMy?: Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -392,6 +472,10 @@ export type CountryProcessStepMaxOrderByAggregateInput = {
   stepNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  titleTh?: Prisma.SortOrder
+  titleMy?: Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -402,6 +486,10 @@ export type CountryProcessStepMinOrderByAggregateInput = {
   stepNumber?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  titleTh?: Prisma.SortOrder
+  titleMy?: Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -458,6 +546,10 @@ export type CountryProcessStepCreateWithoutCountryInput = {
   stepNumber: number
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -467,6 +559,10 @@ export type CountryProcessStepUncheckedCreateWithoutCountryInput = {
   stepNumber: number
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -505,6 +601,10 @@ export type CountryProcessStepScalarWhereInput = {
   stepNumber?: Prisma.IntFilter<"CountryProcessStep"> | number
   title?: Prisma.StringFilter<"CountryProcessStep"> | string
   description?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
@@ -515,6 +615,10 @@ export type CountryProcessStepCreateManyCountryInput = {
   stepNumber: number
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -524,6 +628,10 @@ export type CountryProcessStepUpdateWithoutCountryInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -533,6 +641,10 @@ export type CountryProcessStepUncheckedUpdateWithoutCountryInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -542,6 +654,10 @@ export type CountryProcessStepUncheckedUpdateManyWithoutCountryInput = {
   stepNumber?: Prisma.IntFieldUpdateOperationsInput | number
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -553,6 +669,10 @@ export type CountryProcessStepSelect<ExtArgs extends runtime.Types.Extensions.In
   stepNumber?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -564,6 +684,10 @@ export type CountryProcessStepSelectCreateManyAndReturn<ExtArgs extends runtime.
   stepNumber?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -575,6 +699,10 @@ export type CountryProcessStepSelectUpdateManyAndReturn<ExtArgs extends runtime.
   stepNumber?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -586,12 +714,16 @@ export type CountryProcessStepSelectScalar = {
   stepNumber?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CountryProcessStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stepNumber" | "title" | "description" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryProcessStep"]>
+export type CountryProcessStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stepNumber" | "title" | "description" | "titleTh" | "titleMy" | "descriptionTh" | "descriptionMy" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryProcessStep"]>
 export type CountryProcessStepInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }
@@ -612,6 +744,10 @@ export type $CountryProcessStepPayload<ExtArgs extends runtime.Types.Extensions.
     stepNumber: number
     title: string
     description: string | null
+    titleTh: string | null
+    titleMy: string | null
+    descriptionTh: string | null
+    descriptionMy: string | null
     countryId: string
     createdAt: Date
     updatedAt: Date
@@ -1043,6 +1179,10 @@ export interface CountryProcessStepFieldRefs {
   readonly stepNumber: Prisma.FieldRef<"CountryProcessStep", 'Int'>
   readonly title: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly description: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly titleTh: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly titleMy: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly descriptionTh: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly descriptionMy: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly countryId: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly createdAt: Prisma.FieldRef<"CountryProcessStep", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CountryProcessStep", 'DateTime'>

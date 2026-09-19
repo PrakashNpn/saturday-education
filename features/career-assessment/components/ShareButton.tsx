@@ -3,6 +3,7 @@
 import { useState } from 'react'
 import { useTranslations } from 'next-intl'
 import { Share2, Loader2 } from 'lucide-react'
+import { ShareCardModal } from './ShareCardModal'
 import type { DashboardData } from '../types'
 
 interface Props {
@@ -15,14 +16,17 @@ type Status = 'idle' | 'loading' | 'error'
 /**
  * Generates the personal share card (server-side — see shareCard.ts) and
  * hands it to the device's native share sheet where that's available, which
- * is what lets it drop straight into Instagram/WhatsApp/etc. Desktop
- * browsers mostly don't support sharing a file that way, so those fall back
- * to just opening the image, which is not much of a demotion since the whole
- * point on desktop is usually "save it, then post it yourself" anyway.
+ * is what lets it drop straight into Instagram/WhatsApp/etc on mobile.
+ * Desktop mostly has no such share sheet at all, so that path falls back to
+ * an in-page modal (ShareCardModal) instead of dumping the student on a
+ * blank tab showing nothing but the raw image — download, copy-link, and
+ * one-click WhatsApp/Facebook/Telegram, the things a desktop browser can
+ * actually do.
  */
 export function ShareButton({ dashboard, leadId }: Props) {
   const t = useTranslations('careerAssessment.chrome')
   const [status, setStatus] = useState<Status>('idle')
+  const [modalUrls, setModalUrls] = useState<{ imageUrl: string; resultsUrl: string } | null>(null)
 
   async function handleShare() {
     if (status === 'loading') return
@@ -43,12 +47,12 @@ export function ShareButton({ dashboard, leadId }: Props) {
         }),
       })
       if (!res.ok) throw new Error('share card request failed')
-      const { url } = (await res.json()) as { url: string }
+      const { imageUrl, resultsUrl } = (await res.json()) as { imageUrl: string; resultsUrl: string }
 
       let shared = false
       if (typeof navigator.share === 'function') {
         try {
-          const imgRes = await fetch(url)
+          const imgRes = await fetch(imageUrl)
           const file = new File([await imgRes.blob()], 'career-profile.png', { type: 'image/png' })
           if (navigator.canShare?.({ files: [file] })) {
             await navigator.share({ files: [file] })
@@ -60,15 +64,15 @@ export function ShareButton({ dashboard, leadId }: Props) {
         }
         if (!shared) {
           try {
-            await navigator.share({ url })
+            await navigator.share({ url: resultsUrl })
             shared = true
           } catch {
-            /* falls through to opening the image directly */
+            /* falls through to the in-page modal */
           }
         }
       }
       if (!shared) {
-        window.open(url, '_blank', 'noopener,noreferrer')
+        setModalUrls({ imageUrl, resultsUrl })
       }
       setStatus('idle')
     } catch {
@@ -79,18 +83,28 @@ export function ShareButton({ dashboard, leadId }: Props) {
   const label = status === 'loading' ? t('sharePreparing') : status === 'error' ? t('shareRetry') : t('share')
 
   return (
-    <button
-      type="button"
-      onClick={handleShare}
-      disabled={status === 'loading'}
-      className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-stroke bg-surface-0 px-4 py-1.5 text-min font-medium whitespace-nowrap text-secondary-text transition-colors hover:border-action/30 hover:bg-tint hover:text-action disabled:cursor-not-allowed disabled:opacity-70 sm:text-label"
-    >
-      {status === 'loading' ? (
-        <Loader2 className="size-3.5 animate-spin sm:size-4" />
-      ) : (
-        <Share2 className="size-3.5 sm:size-4" />
+    <>
+      <button
+        type="button"
+        onClick={handleShare}
+        disabled={status === 'loading'}
+        className="inline-flex cursor-pointer items-center gap-1.5 rounded-full border border-stroke bg-surface-0 px-4 py-1.5 text-min font-medium whitespace-nowrap text-secondary-text transition-colors hover:border-action/30 hover:bg-tint hover:text-action disabled:cursor-not-allowed disabled:opacity-70 sm:text-label"
+      >
+        {status === 'loading' ? (
+          <Loader2 className="size-3.5 animate-spin sm:size-4" />
+        ) : (
+          <Share2 className="size-3.5 sm:size-4" />
+        )}
+        <span>{label}</span>
+      </button>
+
+      {modalUrls && (
+        <ShareCardModal
+          imageUrl={modalUrls.imageUrl}
+          resultsUrl={modalUrls.resultsUrl}
+          onClose={() => setModalUrls(null)}
+        />
       )}
-      <span>{label}</span>
-    </button>
+    </>
   )
 }

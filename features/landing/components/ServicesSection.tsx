@@ -70,7 +70,7 @@ export default function ServicesSection() {
                   ? { duration: 0 }
                   : { duration: 0.6, delay: index * STAGGER, ease: EASE }
               }
-              className={`row-span-4 grid grid-rows-subgrid gap-3 px-5 py-8 text-left max-tablet:row-span-1 max-tablet:grid-rows-none max-tablet:block max-tablet:p-6 ${TINTS[index]}`}
+              className={`row-span-4 grid grid-rows-subgrid gap-3 px-5 py-8 text-left max-tablet:row-span-1 max-tablet:grid-rows-none max-tablet:flex max-tablet:flex-col max-tablet:gap-4 max-tablet:p-6 ${TINTS[index]}`}
             >
               <span className="grid size-8 place-items-center rounded-full bg-structure text-label font-medium text-white">
                 {step.n}

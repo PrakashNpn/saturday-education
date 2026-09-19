@@ -48,7 +48,15 @@ function CountryLabel({ country }: { country: CountryCardData }) {
 
 export function DestinationCard({ country, viewDetailsLabel, index = 0 }: Props) {
   const t = useTranslations('destinations')
-  const count = t('cardPartnerCount', { count: country._count.universities })
+  // Sourced from Firmli's course-finder catalogue, shown as "partner
+  // universities" as a deliberate choice while real partnerships with that
+  // catalogue are being put in place — not a signed-partner count today.
+  // Null when Firmli has no match for this country, in which case the line
+  // is simply omitted rather than showing a zero that isn't really zero.
+  const count =
+    country.firmliInstitutionCount != null
+      ? t('cardInstitutionCount', { count: country.firmliInstitutionCount })
+      : null
   const prefersReducedMotion = useReducedMotion()
 
   // The first two rows sit inside the initial viewport on ordinary screen
@@ -92,16 +100,16 @@ export function DestinationCard({ country, viewDetailsLabel, index = 0 }: Props)
             {REGION_DISPLAY[country.region] ?? country.region}
           </span>
 
-          {/* Resting state: just the country and its partner count. */}
+          {/* Resting state: just the country and its institution count. */}
           <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-text/80 to-transparent p-4 pt-8 transition-opacity duration-200 group-hover:opacity-0">
             <CountryLabel country={country} />
-            <p className="text-label font-normal text-white/85">{count}</p>
+            {count && <p className="text-label font-normal text-white/85">{count}</p>}
           </div>
 
           {/* Hover: the tagline and the way in. */}
           <div className="absolute inset-0 flex flex-col justify-end bg-primary-text/80 p-4 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
             <CountryLabel country={country} />
-            <p className="mb-1 text-label font-normal text-white/85">{count}</p>
+            {count && <p className="mb-1 text-label font-normal text-white/85">{count}</p>}
             {country.tagline && (
               <p className="mb-2 line-clamp-2 text-label font-normal text-white">{country.tagline}</p>
             )}

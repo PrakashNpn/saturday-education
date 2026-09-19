@@ -18,11 +18,35 @@ function band(pct: number): string {
   return 'Low'
 }
 
+// The counselor-facing fields (read, careerDirections, suggestedFields, careerPaths,
+// careerFit) are written for Saturday's own staff and always stay in English regardless of
+// the student's locale. Only studentRead is ever shown to the student (dashboard, PDF-free
+// public results page), so it is the only field asked to switch language, and it needs to
+// match the same register the rest of the site already uses per locale: genuine Thai prose
+// for 'th', and heavy code-switch Burmese for 'my' (Burmese grammar/particles, with field
+// and career terms kept in English) rather than textbook Burmese, so it does not read as a
+// stylistic mismatch against the fully-translated UI around it.
+//
+// The language note is repeated three times (once as a standalone IMPORTANT paragraph,
+// once inline on the JSON schema's studentRead line, once again in the closing field-by-field
+// notes) rather than stated once. Testing this against the live model found Thai reliably
+// honoured a single instruction, but Burmese did not: the model fell back to English for
+// studentRead unless the requirement was restated right at the point it writes that field,
+// most likely because the JSON schema's own English example text for studentRead otherwise
+// anchors it. Repetition at the point of generation, not just once earlier, fixed it.
+function studentReadLanguage(locale?: string): string {
+  if (locale === 'th') return 'Thai'
+  if (locale === 'my')
+    return 'Burmese, using the heavy code-switch register common on Myanmar websites (Burmese grammar and sentence particles, with career/field/subject terms such as "Business", "Engineering", "Enterprising" kept in English rather than translated)'
+  return 'English'
+}
+
 export function buildCounselorPrompt(
   scores: AssessmentScores,
   tree: RecommendationTree,
   matched: MatchedCareer[],
   preferredCountry?: string,
+  locale?: string,
 ): string {
   const { riasec, bigFive, aptitude } = scores
 
@@ -73,7 +97,8 @@ CAREER MATCHES ALREADY SELECTED FOR THIS STUDENT (chosen from our catalog; write
 ${matchedLines}
 ${preferredCountry ? `\nThe student's preferred study destination is ${preferredCountry}. If it appears above, acknowledge it; if not, gently suggest the closest available alternatives.\n` : ''}
 Write for the counselor, not the student. Tie interests, personality and aptitude together (e.g. how their conscientiousness or extraversion shapes which version of a field would suit them, and whether their strongest ability area reinforces or stretches their interests). When you mention degree fields, countries, or study destinations, use ONLY the fields and countries from the list above; do not invent options we cannot offer.
-IMPORTANT writing style: write in plain, professional prose. Do NOT use em dashes ("—") or en dashes ("–") anywhere in any field of your output (read, careerDirections, careerPaths titles/roles, suggestedFields). Use commas, semicolons, full stops, parentheses or colons instead. Heavy dash use reads as machine-generated; avoid it.
+IMPORTANT writing style: write in plain, professional prose. Do NOT use em dashes ("—") or en dashes ("–") anywhere in any field of your output (read, careerDirections, careerPaths titles/roles, suggestedFields, studentRead, careerFit). Use commas, semicolons, full stops, parentheses or colons instead. Heavy dash use reads as machine-generated; avoid it.
+IMPORTANT language: every field below is written in English EXCEPT "studentRead", which must be written in ${studentReadLanguage(locale)}. This applies even though the rest of this prompt and the JSON schema below are themselves in English, including the schema's own example text for studentRead, which is only illustrating length and tone, not the language to actually write in.
 
 Return ONLY valid JSON, no markdown, in exactly this shape:
 {
@@ -85,7 +110,7 @@ Return ONLY valid JSON, no markdown, in exactly this shape:
   "careerPaths": [
     { "title": "Field or career area", "roles": "2-3 example job titles", "psychFit": 88, "skillsFit": 80 }
   ],
-  "studentRead": "A warm ~50-word summary written TO the student (second person).",
+  "studentRead": "A warm ~50-word summary written TO the student (second person), IN ${studentReadLanguage(locale).toUpperCase()}, NOT English translated from this example.",
   "careerFit": [
     { "id": "the-matched-career-id", "whyFit": "One encouraging sentence, second person, on why this path suits them." }
   ]
@@ -96,6 +121,6 @@ Provide exactly the 5 STRONGEST careerPaths, RANKED from best fit to least (high
 - "psychFit" (0-100) = how well it matches their interests + personality.
 - "skillsFit" (0-100) = how well it matches their aptitude strengths.
 Be realistic (a mix of strong and moderate fits); use whole numbers, mostly in the 55-95 range. Prefer careers connected to the fields we can offer.
-"studentRead": warm, encouraging, second person ("You..."), about 50 words; no raw scores, no jargon.
+"studentRead": warm, encouraging, second person ("You..."), about 50 words; no raw scores, no jargon; written in ${studentReadLanguage(locale)}, regardless of what language everything else in this prompt is written in.
 "careerFit": one object for EACH career in the matched list above, using its exact "id". "whyFit" is ONE encouraging second-person sentence connecting the student's strengths/interests to that specific career. Keep it specific, not generic.`
 }

@@ -265,7 +265,7 @@ export function ResultsDashboard({ dashboard, leadId }: Props) {
         </div>
       </Rise>
 
-      {/* Locked: career matches + university shortlist — one gated hook (unlocked in the consultation) */}
+      {/* Locked: career matches + university shortlist — the gated hook (unlocked in the consultation) */}
       <Rise delay={0.15}>
         <div className="rounded-md border border-action/25 bg-gradient-to-b from-tint/30 via-surface to-surface p-6 shadow-xs sm:p-10">
           <div className="mb-6">
@@ -284,6 +284,10 @@ export function ResultsDashboard({ dashboard, leadId }: Props) {
                   {t('lockedTeaser', { count: teaser.totalCount, countries: teaser.countries.join(', ') })}
                 </p>
               )}
+              <p className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="shrink-0 text-action" />
+                {t('lockedResearchNote')}
+              </p>
             </div>
           </div>
 

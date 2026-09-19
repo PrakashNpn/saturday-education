@@ -1,5 +1,5 @@
 import { notFound } from 'next/navigation'
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
 import { Reveal } from '@/shared/components/motion/Reveal'
 import { getCountryBySlug } from '../services/destinationService'
 import { REGION_DISPLAY } from '../utils/constants'
@@ -8,7 +8,6 @@ import { DetailNav } from './DetailNav'
 import { DetailCta } from './DetailCta'
 import { CountryOverview } from './CountryOverview'
 import { CountryAdvantages } from './CountryAdvantages'
-import { PartnerUniversities } from './PartnerUniversities'
 import { AcademicSpecialties } from './AcademicSpecialties'
 import { StudentJourney } from './StudentJourney'
 import { CountryFAQs } from './CountryFAQs'
@@ -22,19 +21,19 @@ interface Props {
 const SECTION = 'scroll-mt-36'
 
 export async function DestinationDetailPage({ slug }: Props) {
-  const country = await getCountryBySlug(slug)
+  const locale = await getLocale()
+  const country = await getCountryBySlug(slug, locale)
   if (!country) notFound()
 
   const t = await getTranslations('destinations')
 
-  // The universities section is dropped entirely when a country has no
-  // published partners yet, so the rail never points at a missing anchor.
-  const hasUniversities = country.universities.length > 0
-
+  // Partner Universities section is hidden for now — most countries have too
+  // few published partners to show as a section (several have zero). The
+  // component (PartnerUniversities.tsx) and its data are left intact so this
+  // is a straightforward restore once there are more per country.
   const sections = [
     { id: 'overview', label: t('overview') },
     { id: 'why-study-here', label: t('whyStudyHere') },
-    ...(hasUniversities ? [{ id: 'universities', label: t('exploreUniversities') }] : []),
     { id: 'popular-fields', label: t('popularFields') },
     { id: 'process', label: t('process') },
     { id: 'faqs', label: t('faqsLabel') },
@@ -74,19 +73,6 @@ export async function DestinationDetailPage({ slug }: Props) {
                 />
               </Reveal>
             </section>
-
-            {hasUniversities && (
-              <section id="universities" className={SECTION}>
-                {/* Not wrapped in Reveal: its own logo grid already staggers
-                    each card in on scroll, so an outer fade would just delay
-                    that a second time. */}
-                <PartnerUniversities
-                  universities={country.universities}
-                  eyebrow={t('exploreUniversities')}
-                  title={t('partnerInstitutions', { count: country.universities.length })}
-                />
-              </section>
-            )}
 
             <section id="popular-fields" className={SECTION}>
               <Reveal>

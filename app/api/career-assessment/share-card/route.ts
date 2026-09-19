@@ -29,7 +29,7 @@ export async function POST(req: NextRequest) {
   }
 
   try {
-    const url = await buildAndStoreShareCard(leadId, {
+    const result = await buildAndStoreShareCard(leadId, {
       fullName,
       archetype,
       interests,
@@ -37,7 +37,7 @@ export async function POST(req: NextRequest) {
       aptitude,
       aptitudeOverall,
     } as ShareCardInput)
-    return NextResponse.json({ url })
+    return NextResponse.json(result)
   } catch (error) {
     console.error('Share card generation failed:', error)
     return NextResponse.json({ error: 'Failed to generate share card' }, { status: 500 })

@@ -5,7 +5,7 @@ const EMAIL = 'info@saturdayeducation.com'
 
 function Mail() {
   return (
-    <a href={`mailto:${EMAIL}`} className="text-brand-purple hover:underline">
+    <a href={`mailto:${EMAIL}`} className="text-action hover:underline">
       {EMAIL}
     </a>
   )
@@ -13,7 +13,7 @@ function Mail() {
 
 function PrivacyLink() {
   return (
-    <Link href="/privacy" className="text-brand-purple hover:underline">
+    <Link href="/privacy" className="text-action hover:underline">
       Privacy Policy
     </Link>
   )

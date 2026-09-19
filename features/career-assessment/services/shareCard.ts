@@ -1,50 +1,51 @@
 import fs from 'node:fs'
 import path from 'node:path'
 import sharp from 'sharp'
+import QRCode from 'qrcode'
 import { supabaseAdmin, STORAGE_BUCKET, getPublicUrl } from '@/shared/lib/supabase'
 import type { DashboardData } from '../types'
 
 /**
  * Renders a single, personal results card the student can post to a Story or
- * Reel — their own name, archetype and the three charts, nothing else. No
- * branding, no call to action: this is deliberately just theirs to share, not
- * ours to promote with. The counsellor's full report is a completely separate
- * pipeline (careerLeadService's background PDF/email) and is untouched by
- * this — see the note there.
- *
- * Visual language is deliberately NOT a cropped copy of the dashboard: a flat
- * white page reads as an exported report, not something worth posting. This
- * leads with a full-bleed brand-gradient background and puts the archetype —
- * the actual payoff, "I'm The Independent Builder" — front and centre as the
- * hero, with the three charts living in floating white "stat cards" rather
- * than sitting flush on the page. Same real numbers throughout, just framed
- * the way a shareable result graphic actually looks.
+ * Reel — their name, archetype, the three charts, a QR back to their own
+ * results page, and a small logo mark. Visual language is deliberately NOT a
+ * cropped copy of the dashboard: floating "stat cards" with their own
+ * borders and shadow rather than sitting flush on the page, on white — the
+ * real brand tokens (app/globals.css), not a bespoke palette, so the purple
+ * logo mark in the footer reads clearly instead of fighting a tinted or
+ * gradient ground.
  */
 
 const CANVAS_W = 1080
 const CANVAS_H = 1920
 const MARGIN_X = 64
 const CONTENT_W = CANVAS_W - MARGIN_X * 2
-const CARD_PAD = 36
+const CARD_PAD = 32
 // Shared between the cursor math in buildSvg and personalityBars itself —
 // keeping this in one place was the fix for an earlier bug where the two
 // disagreed (a hardcoded row height inside personalityBars, independent of
 // the value buildSvg was reserving space for) and later sections quietly
 // overlapped each other.
-const PERSONALITY_ROW_H = 108
+const PERSONALITY_ROW_H = 112
+// Shared height for both footer marks (logo and QR) — declared once so the
+// QR is generated at this exact pixel size up front rather than guessed at
+// generation time and then displayed at a different size in the footer.
+const FOOTER_MARK_H = 100
 
 // Design tokens, inlined: raw SVG rasterization (sharp/librsvg) does not
 // resolve CSS custom properties, so these are copied from app/globals.css
-// rather than referenced.
+// rather than referenced. Matches the site's real tokens exactly (previously
+// secondaryText/mutedText/track carried a purple tint that no other on-brand
+// surface uses — AGENTS.md is explicit that neutrals stay true neutrals).
 const COLOR = {
   action: '#632D8B',
-  actionDeep: '#2B0F4A',
-  actionTint: '#F3EDFA',
+  actionHover: '#4C236C',
+  tint: '#F3EDFA',
   white: '#FFFFFF',
   primaryText: '#141414',
-  secondaryText: '#454045',
-  mutedText: '#8A7B95',
-  track: '#EEE6F5',
+  secondaryText: '#404040',
+  mutedText: '#737373',
+  stroke: '#E5E5E5',
 }
 
 const FONT = 'Noto Sans'
@@ -62,21 +63,37 @@ function truncate(s: string, max: number): string {
   return s.length > max ? `${s.slice(0, max - 1).trimEnd()}…` : s
 }
 
+// Rough average character width for bold Noto Sans at a given size — no
+// real text-measurement available in raw SVG. Used to decide where a line
+// actually needs to break (wrapLinesByWidth) and to place a leader line's
+// endpoint (interestsLegend); neither use is precision-critical; a few px
+// either way just shifts where a line breaks or a leader starts.
+function estimateTextWidth(s: string, fontSize: number): number {
+  return s.length * fontSize * 0.58
+}
+
 /**
- * Greedy word-wrap capped at `maxLines`. Unlike a naive version, overflow
- * past the line cap is merged into the last line and ellipsized rather than
- * silently dropped — the archetype is 60 possible noun/adjective
- * combinations (see archetype.ts) and the longest, "The Collaborative
- * Strategist" at 28 characters, has to come out looking right too, not lose
- * a word off the end.
+ * Greedy word-wrap capped at `maxLines`, breaking on estimated pixel width
+ * at the given font size rather than a hand-picked character count. The
+ * archetype title is always "The [Adjective] [Noun]" from archetype.ts's
+ * fixed catalog (60 combinations, longest 28 characters), and heroFontSize
+ * below is deliberately sized to fit that longest one on a single line — so
+ * in practice this never actually wraps today. Tying the decision to real
+ * width instead of a character count means it stays correct on its own if
+ * the font size, margins, or the catalog's word list ever change, rather
+ * than silently overflowing the canvas edge until someone re-tunes a magic
+ * number by hand.
+ *
+ * Unlike a naive version, overflow past the line cap is merged into the
+ * last line and ellipsized rather than silently dropped.
  */
-function wrapLines(s: string, maxCharsPerLine: number, maxLines: number): string[] {
+function wrapLinesByWidth(s: string, fontSize: number, maxWidth: number, maxLines: number): string[] {
   const words = s.split(' ')
   const allLines: string[] = []
   let cur = ''
   for (const w of words) {
     const test = cur ? `${cur} ${w}` : w
-    if (test.length > maxCharsPerLine && cur) {
+    if (estimateTextWidth(test, fontSize) > maxWidth && cur) {
       allLines.push(cur)
       cur = w
     } else {
@@ -88,7 +105,10 @@ function wrapLines(s: string, maxCharsPerLine: number, maxLines: number): string
   if (allLines.length <= maxLines) return allLines
   const kept = allLines.slice(0, maxLines - 1)
   const rest = allLines.slice(maxLines - 1).join(' ')
-  kept.push(truncate(rest, maxCharsPerLine))
+  // Char-count truncation is fine here: this only runs if wrapLinesByWidth's
+  // own fallback is exceeded, an already-defensive path with no live case.
+  const maxChars = Math.floor(maxWidth / (fontSize * 0.58))
+  kept.push(truncate(rest, maxChars))
   return kept
 }
 
@@ -110,40 +130,75 @@ function getFontFaceCss(): string {
   return fontFaceCss
 }
 
-// ── Background: full-bleed brand gradient with two soft light blobs for
-// texture, rather than a flat fill — this is what reads as "designed
-// graphic" instead of "plain page." ─────────────────────────────────────────
+// The real logo (public/images/logo/logo.webp), converted to PNG once and
+// cached as a data URI. Embedded SVG <image> support for WebP varies by
+// rasterizer backend; PNG inside SVG is universally supported, so this
+// re-encodes through sharp (already a dependency) rather than risk it.
+let logoDataUriPromise: Promise<string> | null = null
+function getLogoDataUri(): Promise<string> {
+  if (!logoDataUriPromise) {
+    logoDataUriPromise = (async () => {
+      const p = path.join(process.cwd(), 'public', 'images', 'logo', 'logo.webp')
+      const png = await sharp(fs.readFileSync(p)).png().toBuffer()
+      return `data:image/png;base64,${png.toString('base64')}`
+    })()
+  }
+  return logoDataUriPromise
+}
+// Real aspect ratio of logo.webp (2480×957) — used to size the footer mark
+// from a single height value without distorting it.
+const LOGO_ASPECT = 2480 / 957
+
+/** The public results page this card's QR code points to. No locale prefix
+ *  yet — the share-card pipeline doesn't currently thread the student's
+ *  locale through this far, so every QR opens the English results page
+ *  regardless of which locale the assessment was taken in. */
+function getResultsUrl(leadId: string): string {
+  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://saturdayeducation.com'
+  return `${base}/career-assessment/results/${leadId}`
+}
+
+/** A real, scannable QR — not a placeholder — encoding the student's public
+ *  results URL. Returns a self-contained `<svg width height viewBox>...`
+ *  string already sized to `size`, so the caller just positions it. */
+async function buildQrSnippet(url: string, size: number): Promise<string> {
+  return QRCode.toString(url, {
+    type: 'svg',
+    margin: 1,
+    width: size,
+    color: { dark: '#632D8Bff', light: '#FFFFFFff' },
+  })
+}
+
+// ── Background: plain white, with one very soft tint wash in the corner for
+// depth — the point of white is for the purple logo mark to read clearly, so
+// this stays subtle rather than competing with it. ──────────────────────────
 function background(): string {
   return `
     <defs>
-      <linearGradient id="bg" x1="0" y1="0" x2="0.15" y2="1">
-        <stop offset="0" stop-color="${COLOR.action}"/>
-        <stop offset="1" stop-color="${COLOR.actionDeep}"/>
-      </linearGradient>
-      <radialGradient id="blob" cx="0.5" cy="0.5" r="0.5">
-        <stop offset="0" stop-color="#FFFFFF" stop-opacity="0.10"/>
-        <stop offset="1" stop-color="#FFFFFF" stop-opacity="0"/>
+      <radialGradient id="wash" cx="0.5" cy="0.5" r="0.5">
+        <stop offset="0" stop-color="${COLOR.tint}" stop-opacity="0.7"/>
+        <stop offset="1" stop-color="${COLOR.tint}" stop-opacity="0"/>
       </radialGradient>
     </defs>
-    <rect width="${CANVAS_W}" height="${CANVAS_H}" fill="url(#bg)"/>
-    <circle cx="${CANVAS_W - 60}" cy="120" r="340" fill="url(#blob)"/>
-    <circle cx="40" cy="${CANVAS_H - 260}" r="300" fill="url(#blob)"/>
+    <rect width="${CANVAS_W}" height="${CANVAS_H}" fill="${COLOR.white}"/>
+    <circle cx="${CANVAS_W - 40}" cy="60" r="360" fill="url(#wash)"/>
   `
 }
 
-// ── Stat card shell: a white rounded panel with a soft fake shadow (a
-// second, darker, offset copy of the same rect behind it — cheap and
-// reliable across SVG rasterizers, rather than relying on feGaussianBlur
-// filter support). ────────────────────────────────────────────────────────
-function cardShell(x: number, y: number, w: number, h: number, r = 40): string {
+// ── Stat card shell: a white rounded panel with a hairline border and a
+// soft fake shadow (a second, lighter, offset copy of the same rect behind
+// it — cheap and reliable across SVG rasterizers, rather than relying on
+// feGaussianBlur filter support). ────────────────────────────────────────
+function cardShell(x: number, y: number, w: number, h: number, r = 32): string {
   return `
-    <rect x="${x}" y="${y + 10}" width="${w}" height="${h}" rx="${r}" fill="#000000" opacity="0.16"/>
-    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${COLOR.white}"/>
+    <rect x="${x}" y="${y + 6}" width="${w}" height="${h}" rx="${r}" fill="#141414" opacity="0.06"/>
+    <rect x="${x}" y="${y}" width="${w}" height="${h}" rx="${r}" fill="${COLOR.white}" stroke="${COLOR.stroke}" stroke-width="2"/>
   `
 }
 
 function cardLabel(text: string, x: number, y: number): string {
-  return `<text x="${x}" y="${y}" font-size="27" font-weight="700" letter-spacing="1.5" fill="${COLOR.action}" font-family="${FONT}">${escapeXml(text.toUpperCase())}</text>`
+  return `<text x="${x}" y="${y}" font-size="25" font-weight="700" letter-spacing="1.5" fill="${COLOR.action}" font-family="${FONT}">${escapeXml(text.toUpperCase())}</text>`
 }
 
 // ── Interests hexagon — same placement math as DashboardCharts' HollandHexagon. ──
@@ -160,28 +215,53 @@ function interestsHexagon(interests: DashboardData['interests'], cx: number, cy:
   const spokes = interests
     .map((_, i) => {
       const [x, y] = point(i, maxR)
-      return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="#EDEDED" stroke-width="2"/>`
+      return `<line x1="${cx}" y1="${cy}" x2="${x}" y2="${y}" stroke="${COLOR.stroke}" stroke-width="2"/>`
     })
     .join('')
 
   const badges = interests
     .map((it, i) => {
-      const [x, y] = point(i, maxR + 38)
+      const [x, y] = point(i, maxR + 32)
       return `
-        <circle cx="${x}" cy="${y}" r="25" fill="${COLOR.actionTint}"/>
-        <text x="${x}" y="${y + 1}" text-anchor="middle" dominant-baseline="central" font-size="28" font-weight="700" fill="${COLOR.action}" font-family="${FONT}">${escapeXml(it.category)}</text>
+        <circle cx="${x}" cy="${y}" r="22" fill="${COLOR.tint}"/>
+        <text x="${x}" y="${y + 1}" text-anchor="middle" dominant-baseline="central" font-size="24" font-weight="700" fill="${COLOR.action}" font-family="${FONT}">${escapeXml(it.category)}</text>
       `
     })
     .join('')
 
   return `
-    <polygon points="${ring(maxR)}" fill="none" stroke="#E5E5E5" stroke-width="2"/>
+    <polygon points="${ring(maxR)}" fill="none" stroke="${COLOR.stroke}" stroke-width="2"/>
     <polygon points="${ring(maxR * 0.66)}" fill="none" stroke="#F1F1F1" stroke-width="1.5"/>
     <polygon points="${ring(maxR * 0.33)}" fill="none" stroke="#F1F1F1" stroke-width="1.5"/>
     ${spokes}
-    <polygon points="${dataPts}" fill="${COLOR.action}33" stroke="${COLOR.action}" stroke-width="5" stroke-linejoin="round"/>
+    <polygon points="${dataPts}" fill="${COLOR.action}2E" stroke="${COLOR.action}" stroke-width="5" stroke-linejoin="round"/>
     ${badges}
   `
+}
+
+/** Names the top 3 interests in full, ranked — the hexagon alone only labels
+ *  its axes with single Holland-code letters (R/I/A/S/E/C), which means
+ *  nothing without already knowing that system. */
+function interestsLegend(interests: DashboardData['interests'], x: number, y: number, width: number, rowH: number): string {
+  const ranked = [...interests].sort((a, b) => b.value - a.value).slice(0, 3)
+  const valueColW = 56 // reserved for up to a 3-digit value, right-aligned
+  return ranked
+    .map((it, i) => {
+      const rowY = y + i * rowH
+      const label = `${i + 1}. ${it.label}`
+      const lineX1 = x + estimateTextWidth(label, 24) + 14
+      const lineX2 = x + width - valueColW
+      const lineY = rowY - 8
+      const leader = lineX2 > lineX1
+        ? `<line x1="${lineX1}" y1="${lineY}" x2="${lineX2}" y2="${lineY}" stroke="${COLOR.stroke}" stroke-width="2"/>`
+        : ''
+      return `
+        <text x="${x}" y="${rowY}" font-size="24" font-weight="700" fill="${COLOR.primaryText}" font-family="${FONT}">${escapeXml(label)}</text>
+        ${leader}
+        <text x="${x + width}" y="${rowY}" text-anchor="end" font-size="24" font-weight="700" fill="${COLOR.action}" font-family="${FONT}">${it.value}</text>
+      `
+    })
+    .join('')
 }
 
 // ── Personality bars — same shape as DashboardCharts' BipolarBar, static. ────
@@ -196,24 +276,24 @@ function personalityBars(
     .map((p, i) => {
       const rowY = y + i * rowH
       const pct = Math.max(0, Math.min(100, p.percentile))
-      const barY = rowY + 40
+      const barY = rowY + 26
       const barH = 16
       const fillW = Math.max(barH, (pct / 100) * width)
       return `
-        <text x="${x}" y="${rowY + 6}" font-size="29" font-weight="700" fill="${COLOR.primaryText}" font-family="${FONT}">${escapeXml(p.label)}</text>
-        <text x="${x + width}" y="${rowY + 6}" text-anchor="end" font-size="26" font-weight="700" fill="${COLOR.action}" font-family="${FONT}">${pct}%</text>
-        <rect x="${x}" y="${barY}" width="${width}" height="${barH}" rx="${barH / 2}" fill="${COLOR.track}"/>
+        <text x="${x}" y="${rowY + 4}" font-size="27" font-weight="700" fill="${COLOR.primaryText}" font-family="${FONT}">${escapeXml(p.label)}</text>
+        <text x="${x + width}" y="${rowY + 4}" text-anchor="end" font-size="24" font-weight="700" fill="${COLOR.action}" font-family="${FONT}">${pct}%</text>
+        <rect x="${x}" y="${barY}" width="${width}" height="${barH}" rx="${barH / 2}" fill="${COLOR.stroke}"/>
         <rect x="${x}" y="${barY}" width="${fillW}" height="${barH}" rx="${barH / 2}" fill="${COLOR.action}"/>
-        <text x="${x}" y="${barY + barH + 26}" font-size="21" fill="${COLOR.mutedText}" font-family="${FONT}">${escapeXml(p.low)}</text>
-        <text x="${x + width}" y="${barY + barH + 26}" text-anchor="end" font-size="21" fill="${COLOR.mutedText}" font-family="${FONT}">${escapeXml(p.high)}</text>
+        <text x="${x}" y="${barY + barH + 24}" font-size="20" fill="${COLOR.mutedText}" font-family="${FONT}">${escapeXml(p.low)}</text>
+        <text x="${x + width}" y="${barY + barH + 24}" text-anchor="end" font-size="20" fill="${COLOR.mutedText}" font-family="${FONT}">${escapeXml(p.high)}</text>
       `
     })
     .join('')
 }
 
 // ── Aptitude rings — same construction as DashboardCharts' ScoreRing, static,
-// with an on-brand purple ramp rather than the dashboard's own colour bands
-// (those are still on the pre-redesign palette). ─────────────────────────────
+// with an on-brand purple ramp (all four stops are the one action purple at
+// different tints, not a separate colour system). ───────────────────────────
 function ringColorFor(percent: number): string {
   if (percent >= 80) return '#632D8B'
   if (percent >= 60) return '#8B4FB8'
@@ -227,7 +307,7 @@ function scoreRing(cx: number, cy: number, size: number, stroke: number, percent
   const pct = Math.max(0, Math.min(100, percent))
   const offset = circ * (1 - pct / 100)
   const color = ringColorFor(pct)
-  const fontSize = size >= 200 ? 56 : 30
+  const fontSize = size >= 200 ? 52 : 28
 
   // Long two-word labels ("Numerical reasoning") wrap to two lines — the
   // same way ResultsDashboard's own ScoreRing wraps them in the dashboard —
@@ -239,14 +319,14 @@ function scoreRing(cx: number, cy: number, size: number, stroke: number, percent
   })() : []
   const labelSvg = labelLines
     .map((line, i) => {
-      const labelY = cy + size / 2 + 34 + i * 26
-      return `<text x="${cx}" y="${labelY}" text-anchor="middle" font-size="22" font-weight="500" fill="${COLOR.secondaryText}" font-family="${FONT}">${escapeXml(line)}</text>`
+      const labelY = cy + size / 2 + 32 + i * 24
+      return `<text x="${cx}" y="${labelY}" text-anchor="middle" font-size="20" font-weight="500" fill="${COLOR.secondaryText}" font-family="${FONT}">${escapeXml(line)}</text>`
     })
     .join('')
 
   return `
     <g>
-      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${COLOR.track}" stroke-width="${stroke}"/>
+      <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${COLOR.stroke}" stroke-width="${stroke}"/>
       <circle cx="${cx}" cy="${cy}" r="${r}" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round"
         stroke-dasharray="${circ}" stroke-dashoffset="${offset}" transform="rotate(-90 ${cx} ${cy})"/>
       <text x="${cx}" y="${cy + 1}" text-anchor="middle" dominant-baseline="central" font-size="${fontSize}" font-weight="700" fill="${COLOR.primaryText}" font-family="${FONT}">${pct}%</text>
@@ -262,105 +342,164 @@ export type ShareCardInput = Pick<
 
 /**
  * Stacked with a running cursor rather than hand-picked absolute Y values —
- * five sections of very different shapes (hero text, radar, five bars, a
- * ring cluster) are too easy to mis-space by eye, and a cursor makes each
- * section's height self-contained instead of a number that has to stay in
- * sync with its neighbours by hand.
+ * six sections of very different shapes (masthead, title, radar+legend, five
+ * bars, a ring cluster, footer) are too easy to mis-space by eye, and a
+ * cursor makes each section's height self-contained instead of a number
+ * that has to stay in sync with its neighbours by hand.
  */
-export function buildSvg(data: ShareCardInput): string {
+export async function buildSvg(data: ShareCardInput, leadId: string): Promise<string> {
   const name = truncate(data.fullName.trim(), 26)
-  const archetypeLines = wrapLines(data.archetype, 17, 2)
+  // Title font is fixed, not derived from whether the text wraps — verified
+  // by rendering all 60 real archetype combinations at this size, and the
+  // longest one on its own, that none of them actually need a second line.
+  // wrapLinesByWidth still estimates against this same size and the canvas's
+  // real content width, so if that ever stops being true (a longer word
+  // added to archetype.ts, say) this degrades to a second line instead of
+  // silently overflowing the canvas edge.
+  const TITLE_FONT_SIZE = 50
+  const TITLE_FONT_SIZE_WRAPPED = 42
+  const titleMaxWidth = CANVAS_W - MARGIN_X * 2
+  const archetypeLines = wrapLinesByWidth(data.archetype, TITLE_FONT_SIZE, titleMaxWidth, 2)
+  const [logoDataUri, qrSnippet] = await Promise.all([
+    getLogoDataUri(),
+    buildQrSnippet(getResultsUrl(leadId), FOOTER_MARK_H),
+  ])
   let cursor = 0
 
-  // ── Hero header on the gradient (no card — this is the moment, not a panel). ──
-  cursor += 60
-  const eyebrowY = cursor
-  cursor += 54
-  const nameY = cursor
-  cursor += 78
-  const heroFontSize = archetypeLines.length > 1 ? 78 : 92
+  // ── Masthead: one line, eyebrow left / name right, matching the dashboard's
+  // own "CAREER PROFILE ⟷ name" pairing rather than a centred stack — the
+  // stacked version spent nearly 200px just reaching the archetype text. ──────
+  cursor += 100
+  const mastheadY = cursor
+  cursor += 24
+  const mastheadRuleY = cursor
+  cursor += 44 // gap to title
+
+  const masthead = `
+    <text x="${MARGIN_X}" y="${mastheadY}" font-size="23" font-weight="700" letter-spacing="2.5" fill="${COLOR.mutedText}" font-family="${FONT}">CAREER PROFILE</text>
+    <text x="${CANVAS_W - MARGIN_X}" y="${mastheadY}" text-anchor="end" font-size="30" font-weight="700" letter-spacing="1" fill="${COLOR.action}" font-family="${FONT}">${escapeXml(name.toUpperCase())}</text>
+    <line x1="${MARGIN_X}" y1="${mastheadRuleY}" x2="${CANVAS_W - MARGIN_X}" y2="${mastheadRuleY}" stroke="${COLOR.stroke}" stroke-width="2"/>
+  `
+
+  // ── Archetype title, left-aligned under the masthead rather than centred —
+  // matches the masthead's own left edge instead of sitting on its own axis.
+  // Kept in one consistent colour rather than highlighting the final word
+  // (the mockup's italic-purple treatment): SVG text has no layout engine to
+  // measure a mixed-colour line against, and every one of the 60 archetype
+  // combinations has to render correctly, not just the one used while
+  // designing this. ────────────────────────────────────────────────────────
+  const heroFontSize = archetypeLines.length > 1 ? TITLE_FONT_SIZE_WRAPPED : TITLE_FONT_SIZE
   const heroLineH = heroFontSize + 8
   const archetypeStartY = cursor + heroFontSize * 0.8
   const archetypeText = archetypeLines
-    .map((line, i) => `<tspan x="${CANVAS_W / 2}" y="${archetypeStartY + i * heroLineH}">${escapeXml(line)}</tspan>`)
+    .map((line, i) => `<tspan x="${MARGIN_X}" y="${archetypeStartY + i * heroLineH}">${escapeXml(line)}</tspan>`)
     .join('')
   cursor += archetypeLines.length * heroLineH
   cursor += 34 // gap to first card
 
-  const header = `
-    <text x="${CANVAS_W / 2}" y="${eyebrowY}" text-anchor="middle" font-size="25" font-weight="700" letter-spacing="3" fill="#FFFFFFB3" font-family="${FONT}">CAREER PROFILE</text>
-    <text x="${CANVAS_W / 2}" y="${nameY}" text-anchor="middle" font-size="34" font-weight="400" fill="#FFFFFFE0" font-family="${FONT}">${escapeXml(name)}</text>
-    <text text-anchor="middle" font-size="${heroFontSize}" font-weight="700" fill="${COLOR.white}" font-family="${FONT}">${archetypeText}</text>
+  const title = `
+    <text text-anchor="start" font-size="${heroFontSize}" font-weight="700" fill="${COLOR.action}" font-family="${FONT}">${archetypeText}</text>
   `
 
-  // ── Card 1: interests. Vertical half-extent of the hexagon = ring radius +
-  // badge offset + badge radius (the vertices at top and bottom are the
-  // widest points). ──────────────────────────────────────────────────────────
+  // ── Card 1: interests. Hexagon on the left, the ranked top-3 legend on the
+  // right rather than stacked beneath it — side by side uses the card's full
+  // width instead of its full height, which is what actually saves space on
+  // a canvas this narrow. The hexagon's own axis labels are bare Holland-code
+  // letters, which mean nothing without the legend naming what they are. ─────
   const cardX = MARGIN_X
   const cardW = CONTENT_W
-  const hexR = 104
-  const hexHalfExtent = hexR + 38 + 25
-  const card1H = CARD_PAD + 30 + hexHalfExtent * 2 + CARD_PAD - 10
+  const card1InnerW = cardW - CARD_PAD * 2
+  const hexR = 78
+  const hexHalfExtent = hexR + 32 + 22
+  const hexColW = card1InnerW * 0.42
+  const legendRowH = 40
+  const legendRows = Math.min(3, data.interests.length)
+  const card1H = CARD_PAD + 28 + hexHalfExtent * 2 + CARD_PAD
   const card1Y = cursor
-  const hexCy = card1Y + CARD_PAD + 30 + hexHalfExtent
+  const hexCy = card1Y + CARD_PAD + 28 + hexHalfExtent
+  const hexCx = cardX + CARD_PAD + hexColW / 2
+  const legendX = cardX + CARD_PAD + hexColW + 32
+  const legendW = card1InnerW - hexColW - 32
+  const legendY = hexCy - ((legendRows - 1) * legendRowH) / 2
   const card1 = `
     ${cardShell(cardX, card1Y, cardW, card1H)}
-    ${cardLabel('Your interests', cardX + CARD_PAD, card1Y + CARD_PAD + 6)}
-    ${interestsHexagon(data.interests, CANVAS_W / 2, hexCy, hexR)}
+    ${cardLabel('Your interests', cardX + CARD_PAD, card1Y + CARD_PAD + 14)}
+    ${interestsHexagon(data.interests, hexCx, hexCy, hexR)}
+    ${interestsLegend(data.interests, legendX, legendY, legendW, legendRowH)}
   `
-  cursor += card1H + 20
+  cursor += card1H + 22
 
   // ── Card 2: personality. ────────────────────────────────────────────────
   const card2Y = cursor
-  const barsY = card2Y + CARD_PAD + 30
-  const card2H = CARD_PAD + 30 + data.personality.length * PERSONALITY_ROW_H + CARD_PAD - 24
+  const barsY = card2Y + CARD_PAD + 42
+  const card2H = CARD_PAD + 42 + data.personality.length * PERSONALITY_ROW_H + CARD_PAD - 22
   const card2 = `
     ${cardShell(cardX, card2Y, cardW, card2H)}
-    ${cardLabel('Your personality', cardX + CARD_PAD, card2Y + CARD_PAD + 6)}
+    ${cardLabel('Your personality', cardX + CARD_PAD, card2Y + CARD_PAD + 14)}
     ${personalityBars(data.personality, cardX + CARD_PAD, barsY, cardW - CARD_PAD * 2, PERSONALITY_ROW_H)}
   `
-  cursor += card2H + 20
+  cursor += card2H + 22
 
   // ── Card 3: aptitude — one big overall ring, then the four area rings in a
   // row, matching the dashboard's own overall-then-breakdown layout. ─────────
-  const overallSize = 140
-  const smallRingSize = 96
+  const overallSize = 124
+  const smallRingSize = 86
   const card3Y = cursor
-  const overallCy = card3Y + CARD_PAD + 30 + overallSize / 2
-  const smallRingsCy = overallCy + overallSize / 2 + 32 + smallRingSize / 2
-  const card3H = CARD_PAD + 30 + overallSize + 32 + smallRingSize + 80 + CARD_PAD - 20
+  const overallCy = card3Y + CARD_PAD + 26 + overallSize / 2
+  const smallRingsCy = overallCy + overallSize / 2 + 28 + smallRingSize / 2
+  const card3H = CARD_PAD + 26 + overallSize + 28 + smallRingSize + 72 + CARD_PAD - 16
   const innerW = cardW - CARD_PAD * 2
   const smallGap = (innerW - data.aptitude.length * smallRingSize) / (data.aptitude.length - 1)
   const smallRings = data.aptitude
     .map((a, i) => {
       const cx = cardX + CARD_PAD + smallRingSize / 2 + i * (smallRingSize + smallGap)
-      return scoreRing(cx, smallRingsCy, smallRingSize, 13, a.percent, a.label)
+      return scoreRing(cx, smallRingsCy, smallRingSize, 12, a.percent, a.label)
     })
     .join('')
 
   const aptitude = `
     ${cardShell(cardX, card3Y, cardW, card3H)}
-    ${cardLabel('Your aptitude', cardX + CARD_PAD, card3Y + CARD_PAD + 6)}
-    ${scoreRing(CANVAS_W / 2, overallCy, overallSize, 16, data.aptitudeOverall.percent)}
+    ${cardLabel('Your aptitude', cardX + CARD_PAD, card3Y + CARD_PAD + 14)}
+    ${scoreRing(CANVAS_W / 2, overallCy, overallSize, 15, data.aptitudeOverall.percent)}
     ${smallRings}
   `
-  cursor += card3H
+  cursor += card3H + 30
+
+  // ── Footer: the real logo pinned left, a QR back to the student's own
+  // public results page pinned right — no caption, just the two marks. Same
+  // height for both, so neither reads as an afterthought next to the other;
+  // previously the QR (130) was well over double the logo's height (58),
+  // which also pushed its vertical-centring offset enough to overlap the
+  // rule above it. ─────────────────────────────────────────────────────────
+  const footerRuleY = cursor
+  const footerContentY = footerRuleY + 48
+  const logoW = FOOTER_MARK_H * LOGO_ASPECT
+  const footer = `
+    <line x1="${MARGIN_X}" y1="${footerRuleY}" x2="${CANVAS_W - MARGIN_X}" y2="${footerRuleY}" stroke="${COLOR.stroke}" stroke-width="2"/>
+    <image href="${logoDataUri}" x="${MARGIN_X}" y="${footerContentY}" width="${logoW}" height="${FOOTER_MARK_H}"/>
+    <g transform="translate(${CANVAS_W - MARGIN_X - FOOTER_MARK_H}, ${footerContentY})">${qrSnippet}</g>
+  `
+  cursor = footerContentY + FOOTER_MARK_H
 
   return `
 <svg width="${CANVAS_W}" height="${CANVAS_H}" viewBox="0 0 ${CANVAS_W} ${CANVAS_H}" xmlns="http://www.w3.org/2000/svg">
   <defs><style>${getFontFaceCss()}</style></defs>
   ${background()}
-  ${header}
+  ${masthead}
+  ${title}
   ${card1}
   ${card2}
   ${aptitude}
+  ${footer}
 </svg>
   `.trim()
 }
 
 /** Deterministic per-lead path, so repeat clicks reuse the same public URL
- *  instead of minting a new one every time. */
-function storagePath(leadId: string): string {
+ *  instead of minting a new one every time. Exported so the public results
+ *  page can point its Open Graph image at the same PNG without duplicating
+ *  the path string. */
+export function storagePath(leadId: string): string {
   return `career-assessment/share/${leadId}.png`
 }
 
@@ -369,8 +508,17 @@ function storagePath(leadId: string): string {
  *  the render itself is cheap (no AI calls, no network I/O beyond the
  *  upload), so the simplicity is worth the small redundant re-encode on a
  *  repeat click. */
-export async function buildAndStoreShareCard(leadId: string, data: ShareCardInput): Promise<string> {
-  const svg = buildSvg(data)
+export interface ShareCardResult {
+  imageUrl: string
+  /** The same public results page the card's own QR code points to — reused
+   *  here so the share modal's "copy link" and social buttons send people to
+   *  the page with a real Open Graph preview, not a bare image file, and so
+   *  there is exactly one place (getResultsUrl) that builds this URL. */
+  resultsUrl: string
+}
+
+export async function buildAndStoreShareCard(leadId: string, data: ShareCardInput): Promise<ShareCardResult> {
+  const svg = await buildSvg(data, leadId)
   const png = await sharp(Buffer.from(svg)).png().toBuffer()
 
   const targetPath = storagePath(leadId)
@@ -380,5 +528,5 @@ export async function buildAndStoreShareCard(leadId: string, data: ShareCardInpu
   })
   if (error) throw new Error(`Share card upload failed: ${error.message}`)
 
-  return getPublicUrl(targetPath)
+  return { imageUrl: getPublicUrl(targetPath), resultsUrl: getResultsUrl(leadId) }
 }

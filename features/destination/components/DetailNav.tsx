@@ -20,8 +20,12 @@ const IDLE =
   'text-muted-text hover:text-primary-text lg:border-stroke max-tablet:border-transparent hover:lg:border-stroke-strong'
 
 /** Vertical rail beside the content on desktop, horizontal scroller above it on
- *  tablet and below. The anchors are plain fragment links, so they still work
- *  before hydration and the highlight is only ever a progressive enhancement. */
+ *  tablet. Dropped below tablet entirely — on a phone this sat above the
+ *  content eating vertical space for a jump-list nobody asked for; the
+ *  sections it links to are unaffected; a deep link to `#process` etc. still
+ *  lands correctly with the nav gone. The anchors are plain fragment links,
+ *  so they still work before hydration and the highlight is only ever a
+ *  progressive enhancement. */
 export function DetailNav({ sections }: { sections: Section[] }) {
   const [activeId, setActiveId] = useState(sections[0]?.id ?? '')
 
@@ -55,7 +59,7 @@ export function DetailNav({ sections }: { sections: Section[] }) {
   }, [sections])
 
   return (
-    <nav className="flex gap-4 overflow-x-auto pb-2 max-tablet:-mx-6 max-tablet:px-6 lg:sticky lg:top-36 lg:flex-col lg:gap-1 lg:self-start lg:overflow-visible lg:pb-0">
+    <nav className="flex gap-4 overflow-x-auto pb-2 max-tablet:hidden lg:sticky lg:top-36 lg:flex-col lg:gap-1 lg:self-start lg:overflow-visible lg:pb-0">
       {sections.map(({ id, label }) => (
         <a
           key={id}

@@ -56,8 +56,12 @@ export default function HeroSection() {
       : { duration, delay: step * STAGGER, ease: EASE },
   })
 
+  // max-tablet:pb-0: the image further down is full-bleed at that width, so
+  // the section's own bottom padding was just leaving a blank gap under it
+  // before the next section starts. Top padding is untouched — that spaces
+  // the nav from the stats line, nothing to do with the image.
   return (
-    <section className="hero-lift relative overflow-hidden py-16 pb-10 max-tablet:py-10">
+    <section className="hero-lift relative overflow-hidden py-16 pb-10 max-tablet:py-10 max-tablet:pb-0">
       {/* Wireframe globe, barely there at 4% and masked away before it reaches
           the headline. Loaded as a file rather than inlined so 27KB of path
           data stays out of the client bundle. */}
@@ -153,7 +157,9 @@ export default function HeroSection() {
 
         <motion.figure
           {...rise(1, 16, 0.75)}
-          className="relative mx-auto mt-12 max-w-wrap max-tablet:mt-8"
+          // -mx-6 cancels the section's own px-6 below tablet, so the photo
+          // runs to the true screen edges instead of sitting inset.
+          className="relative mx-auto mt-12 max-w-wrap max-tablet:mt-8 max-tablet:-mx-6"
         >
           <Image
             src="/images/hero/hero-counsellor.webp"
@@ -163,9 +169,18 @@ export default function HeroSection() {
             priority
             unoptimized
             sizes="(max-width: 1080px) 100vw, 1080px"
-            className="h-auto w-full rounded-lg border border-stroke"
+            // h-auto everywhere: the file is a fixed 2160x973 shape, so full
+            // width plus full un-cropped content only has one possible
+            // height (~176px on a typical phone) — a taller fixed height
+            // would need object-cover to crop the sides to fill it, which is
+            // exactly what this is deliberately not doing. No rounded
+            // corner/border below tablet since it's flush with the true
+            // screen edge there.
+            className="h-auto w-full rounded-lg border border-stroke max-tablet:rounded-none max-tablet:border-none"
           />
-          <figcaption className="mt-3 text-center text-min text-muted-text">
+          {/* Reclaimed on mobile: the extra width from going full-bleed
+              matters more here than the caption did. */}
+          <figcaption className="mt-3 text-center text-min text-muted-text max-tablet:hidden">
             {t('imageCaption')}
           </figcaption>
         </motion.figure>

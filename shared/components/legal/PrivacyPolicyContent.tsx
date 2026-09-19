@@ -4,7 +4,7 @@ const EMAIL = 'info@saturdayeducation.com'
 
 function Mail() {
   return (
-    <a href={`mailto:${EMAIL}`} className="text-brand-purple hover:underline">
+    <a href={`mailto:${EMAIL}`} className="text-action hover:underline">
       {EMAIL}
     </a>
   )
@@ -273,7 +273,7 @@ export default function PrivacyPolicyContent() {
                   href="https://www.facebook.com/adpreferences"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="font-medium text-brand-purple hover:underline"
+                  className="font-medium text-action hover:underline"
                 >
                   Facebook ad preferences
                 </a>
@@ -311,7 +311,7 @@ export default function PrivacyPolicyContent() {
                   href="https://ico.org.uk"
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="text-brand-purple hover:underline"
+                  className="text-action hover:underline"
                 >
                   ico.org.uk
                 </a>{' '}

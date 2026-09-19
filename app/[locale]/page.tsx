@@ -34,6 +34,7 @@ import { getCourseFinderOptions } from '@/features/course-finder'
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
 import { getComparisonUniversities } from '@/features/landing/services/comparison-service'
 import GlobalLeadersSection from "@/features/landing/components/GlobalLeadersSection"
+import { getGlobalLeadersDestinations } from '@/features/landing/services/globalLeadersService'
 import ServicesSection from "@/features/landing/components/ServicesSection"
 import AdditionalServicesSection from "@/features/landing/components/AdditionalServicesSection"
 import TestimonialsSection from "@/features/landing/components/TestimonialsSection"
@@ -44,9 +45,10 @@ import { submitConsultation } from '@/features/consultation'
 import { Reveal } from '@/shared/components/motion/Reveal'
 
 export default async function HomePage() {
-  const [comparisonUniversities, courseFinderOptions] = await Promise.all([
+  const [comparisonUniversities, courseFinderOptions, globalLeadersDestinations] = await Promise.all([
     getComparisonUniversities(),
     getCourseFinderOptions(),
+    getGlobalLeadersDestinations(),
   ])
 
   return (
@@ -66,7 +68,7 @@ export default async function HomePage() {
       <Reveal>
         <ComparisonToolSection universities={comparisonUniversities} />
       </Reveal>
-      <GlobalLeadersSection />
+      <GlobalLeadersSection destinations={globalLeadersDestinations} />
       {/* Not wrapped in Reveal, for the same reason as CourseSearchSection. */}
       <TestimonialsSection />
       <FaqSection />

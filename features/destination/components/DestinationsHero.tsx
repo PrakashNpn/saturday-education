@@ -70,7 +70,12 @@ export function DestinationsHero({ searchValue, onSearchChange }: Props) {
             onChange={(event) => setDraft(event.target.value)}
             placeholder={t('searchPlaceholder')}
             aria-label={t('searchPlaceholder')}
-            className="flex-1 border-0 bg-transparent text-body font-light text-primary-text placeholder:text-muted-text focus:outline-none"
+            // min-w-0: a flex item's default min-width is auto, which for a
+            // text input means it won't shrink past its own intrinsic width
+            // (~196px here) no matter what flex-1 says — on mobile that was
+            // exactly enough to push the button past the pill's own right
+            // edge instead of leaving it room.
+            className="min-w-0 flex-1 border-0 bg-transparent text-body font-light text-primary-text placeholder:text-muted-text focus:outline-none"
           />
           <button
             type="submit"

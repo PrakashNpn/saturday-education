@@ -18,14 +18,13 @@ const NAV_LINKS: NavItem[] = [
 
 // Names, not translations: a switcher has to show every language's own name
 // regardless of which locale is currently active, so these can't come from
-// the message files the way the rest of the nav's labels do. Thai is a real
-// routed locale but isn't offered here yet — most of its content is still
-// English placeholder copy, and pointing someone at that from a language
-// picker would read as broken rather than unfinished. Add it back here the
-// day it's actually translated.
+// the message files the way the rest of the nav's labels do. Myanmar is a
+// real routed locale but isn't offered here yet — its translations (UI
+// strings and the destination detail pages' database content) are drafted
+// but awaiting team review. Add it back once that review is done.
 const LANGUAGE_OPTIONS = [
   { code: 'en', label: 'English' },
-  { code: 'my', label: 'Myanmar' },
+  { code: 'th', label: 'ไทย' },
 ] as const
 
 /** The design's own globe, not the lucide one — thinner stroke, and it has to
@@ -138,11 +137,17 @@ export default function Navbar() {
       {!hideUtilityBar && (
         <div className="relative z-30 bg-structure text-white text-min">
           <div className="mx-auto flex min-h-[34px] max-w-wrap flex-wrap items-center justify-between gap-6 px-6 max-tablet:min-h-0 max-tablet:py-1.5">
-            <div className="flex items-center gap-2 font-normal opacity-80">
+            {/* Locations and the phone+language cluster together measure wider
+                than the content area on almost any phone (confirmed: ~378px
+                needed against ~342px available at 390px wide), so this wraps
+                to two lines on real devices. Locations is the least essential
+                of the three on a phone — it's still in the footer — so it
+                drops first rather than everything shrinking to fit. */}
+            <div className="flex items-center gap-2 font-normal opacity-80 max-tablet:hidden">
               <span>{tBar('locations')}</span>
             </div>
 
-            <span className="flex items-center gap-6 font-normal">
+            <span className="flex items-center gap-6 font-normal max-tablet:w-full max-tablet:justify-between max-tablet:gap-3">
               <a
                 href={tBar('phoneHref')}
                 className="hover:underline hover:underline-offset-2"

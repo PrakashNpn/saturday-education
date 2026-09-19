@@ -9,7 +9,10 @@ export type CountryCardData = {
   institutionCount: string | null
   isFeatured: boolean
   isPublished: boolean
-  _count: { universities: number }
+  /** Institution count sourced from Firmli's course-finder catalogue, not our
+   *  own signed partner list — null when Firmli has no match for this
+   *  country, or the lookup failed. */
+  firmliInstitutionCount: number | null
 }
 
 export type DestinationTranslations = {
@@ -77,5 +80,4 @@ export type CountryDetailData = {
   advantages: CountryAdvantageData[]
   processSteps: CountryProcessStepData[]
   faqs: CountryFAQData[]
-  universities: UniversityCardData[]
 }

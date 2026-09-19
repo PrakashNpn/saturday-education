@@ -49,15 +49,14 @@
       "eyebrow": "Study destinations",
       "headline": "Global destinations, backed by real partnerships.",
       "viewAll": "View all destinations",
-      "partnerCount": "{count} partner universities",
       "canadaName": "Canada",
       "canadaTagline": "World-Class Education, Permanent Residency Pathways, and an Unmatched Quality of Life",
-      "unitedkingdomName": "United Kingdom",
-      "unitedkingdomTagline": "World-Class Degrees in 3 Years, with a Post-Study Work Visa",
       "malaysiaName": "Malaysia",
       "malaysiaTagline": "Asia's Education Hub at Half the Price",
-      "unitedstatesName": "United States",
-      "unitedstatesTagline": "Land of Global Reach",
+      "singaporeName": "Singapore",
+      "singaporeTagline": "Asia's Global Campus, World Standards, Asian Heart",
+      "uaeName": "United Arab Emirates",
+      "uaeTagline": "Global Degrees in the Heart of the Middle East",
       "thailandName": "Thailand",
       "thailandTagline": "Southeast Asia's Most Affordable English Study Hub",
       "irelandName": "Ireland",
@@ -269,29 +268,32 @@
       "searchButton": "Find Universities"
     },
     "courseSearch": {
-      "heading": "Course Finder",
-      "subtitle": "{programs} courses across {institutions} institutions in {countries} countries. Filter by destination, level and field to find the ones that actually fit you.",
-      "subtitleNoCounts": "Filter by destination, level and field to find the courses that actually fit you.",
+      "statBanner": "{programs} courses across {institutions} institutions in {countries} countries.",
+      "statBannerNoCounts": "Explore courses across our partner destinations.",
       "countryLabel": "Where do you want to go?",
       "levelLabel": "Study level",
       "fieldLabel": "Field of study",
+      "anyCountry": "Any destination",
       "anyLevel": "Any level",
+      "anyLevelPill": "Any",
       "anyField": "Any field",
-      "searchButton": "Find programmes",
-      "imageAlt": "A desk globe",
-      "creditBy": "Photo by",
-      "creditOn": "on"
+      "searchButton": "Find Programmes",
+      "pillBachelor": "Bachelor's",
+      "pillMaster": "Master's",
+      "pillDiploma": "Diploma",
+      "pillCertificate": "Certificate",
+      "consultationPrompt": "Prefer to talk it through first? <link>Book a free consultation</link> instead."
     },
     "partners": {
       "eyebrow": "Partner universities",
-      "headline": "100+ direct relationships, worldwide."
+      "headline": "700+ direct relationships, worldwide."
     },
     "whySaturday": {
       "eyebrow": "Why Saturday Education",
       "headline": "We care about your journey, and know how to guide it.",
       "body": "Every counsellor brings years of hands-on experience placing students, with a clear read on what your grades and budget can actually get you. It's the same team behind every placement below.",
       "statCount": "3,000+",
-      "statLabel": "students placed since 2016",
+      "statLabel": "students placed since 2019",
       "imageAlt": "A Saturday Education counsellor in a one-on-one consultation with a student",
       "supportTitle": "Post-admission support",
       "supportBody": "We stay involved through housing, arrival and the first term, not just the offer.",
@@ -567,7 +569,22 @@
       "lockedNote": "Book a free consultation and your counsellor will walk you through your career matches and build your university shortlist and application plan.",
       "lockedTeaser": "We matched you to {count} universities across {countries}.",
       "preparedFor": "Prepared for",
-      "careerLockedNote": "Your matched careers with a 10-year job-market outlook and the skills each needs"
+      "careerLockedNote": "Your matched careers with a 10-year job-market outlook and the skills each needs",
+      "lockedResearchNote": "A research-based explanation of why these results fit you"
+    },
+    "publicResults": {
+      "eyebrow": "{name}'s Career Profile",
+      "ctaTitle": "Want to discover your own path?",
+      "ctaBody": "Take the same free Career Assessment {name} just completed.",
+      "ctaButton": "Take the free assessment"
+    },
+    "shareModal": {
+      "title": "Your sharable career profile is ready",
+      "download": "Download",
+      "downloading": "Downloading…",
+      "copyLink": "Copy link",
+      "copied": "Copied!",
+      "orShareVia": "Or share via"
     }
   },
   "nav": {
@@ -584,13 +601,13 @@
   "hero": {
     "titleLine1": "Your Global Education Journey",
     "titleLine2": "Begins with",
-    "titleHighlight": "Saturday Education",
+    "titleHighlight": "Saturday Education Consulting",
     "ledeLine1": "Thousands of courses. One right path.",
     "ledeLine2": "A counsellor who knows how to find yours.",
     "visaCount": "95%",
     "visaLabel": "visa success rate",
     "studentsCount": "3,000+",
-    "studentsLabel": "students placed since 2016",
+    "studentsLabel": "students placed since 2019",
     "bookConsultation": "Book 30min Free Consultation",
     "messagePrefix": "or message us on",
     "messenger": "Messenger",
@@ -756,7 +773,7 @@
     "seeLess": "See less",
     "sortPopular": "Most popular",
     "sortName": "Name (A-Z)",
-    "cardPartnerCount": "{count, plural, one {# partner university} other {# partner universities}}",
+    "cardInstitutionCount": "{count, plural, one {# partner university} other {# partner universities}}",
     "partnerInstitutions": "{count, plural, one {# partner institution} other {# partner institutions}}",
     "ctaButton": "Book Free Consultation"
   },

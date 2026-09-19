@@ -1,3 +1,6 @@
+'use client'
+
+import { useEffect, useState } from 'react'
 import { buildEmbedUrl, type CourseFinderFilters } from '../utils/embed-url'
 
 // The chrome-less build of the finder: it renders no header or footer of its
@@ -14,8 +17,37 @@ interface Props {
   }
 }
 
+// Firmli's own internal padding around their content, measured directly
+// against their page (left edge against "Filters", right edge against the
+// "Sort" dropdown). Fixed and the same for every visitor — unlike the
+// scrollbar width below, which is not.
+const FIRMLI_CONTENT_PADDING_PX = 24
+
 export function CourseFinderPage({ filters, translations: t }: Props) {
   const embedUrl = buildEmbedUrl(filters)
+
+  // The right edge needs to cancel out both Firmli's own padding AND the
+  // width their content loses to the iframe's own scrollbar track, which
+  // only docks on the right. That track's width isn't fixed — it depends on
+  // the visitor's OS and browser (native, thin, or an invisible overlay on
+  // Mac and mobile) — so a hardcoded guess would overcorrect for some
+  // visitors and undercorrect for others. Measured directly instead: a
+  // throwaway scrollable div's own offsetWidth minus its clientWidth is
+  // exactly the width the browser reserves for a scrollbar track, and since
+  // the same browser/OS renders both that div and the iframe's own
+  // scrollbar, measuring it here gives the exact number the iframe needs too.
+  const [scrollbarWidth, setScrollbarWidth] = useState(0)
+  useEffect(() => {
+    const probe = document.createElement('div')
+    probe.style.cssText = 'position:absolute;top:-9999px;width:100px;height:100px;overflow:scroll;'
+    document.body.appendChild(probe)
+    // A one-time client-only DOM measurement after mount, not state derived
+    // from props/other state — the standard shape for this, same as
+    // measuring window size or a media query match.
+    // eslint-disable-next-line react-hooks/set-state-in-effect
+    setScrollbarWidth(probe.offsetWidth - probe.clientWidth)
+    document.body.removeChild(probe)
+  }, [])
 
   return (
     <main>
@@ -23,27 +55,67 @@ export function CourseFinderPage({ filters, translations: t }: Props) {
           search engines. Nothing is rendered above the frame. */}
       <h1 className="sr-only">{t.frameTitle}</h1>
 
-      {/* Aligned with the navbar's container from xl up, and edge to edge below
-          it. That is deliberate rather than untidy. Media queries inside a frame
-          measure the frame, not the window, and the tool's filter panel is set
-          to display {base:'none', lg:'block'} where Mantine's lg is 1200px. Any
-          horizontal padding therefore comes straight off the width the tool has
-          to work with, and pushing it under 1200px hides the filters outright.
-          Padding only starts at xl (1280px), where 64px still leaves 1216px.
+      {/* max-w-wrap with an unconditional px-6, matching the navbar's own
+          container exactly (same max-width, same padding at every width, no
+          xl: prefix) rather than only above one breakpoint — verified the
+          frame's own edge lines up with the logo at every width tested.
+          No top padding, on purpose: Firmli's own page already has ~32px of
+          space above "Filters" (measured directly against their page,
+          same way as the left/right padding below), so adding our own on
+          top of that stacked into a ~70px gap under the navbar, doubled and
+          too large — the pb-6 below is bottom spacing only.
 
-          Below 1200px the tool has no reachable filters at all. It does build a
-          filter Drawer for narrow screens, but the Burger that opens it lives in
-          the Mantine AppShell.Header, and this embeddable build is the one that
-          switches the header off. That one is Firmli's to fix, and it is the
-          reason the homepage search matters: on a phone it is the only way to
-          narrow the catalogue at all. */}
-      <div className="max-w-7xl mx-auto px-0 xl:px-8 py-6">
+          That still isn't the same as the tool's actual content lining up,
+          though: Firmli's page has its own padding around its content (see
+          FIRMLI_CONTENT_PADDING_PX above), so content sitting flush with our
+          frame edge would land inset from the logo on the left and from the
+          navbar's own right edge on the right. The wrapper below shifts the
+          frame itself outward on both sides to cancel that out, so what a
+          visitor actually sees lines up with the navbar, not just the
+          invisible iframe boundary around it. Nothing marks that boundary
+          (no border, see below), so shifting it is harmless.
 
-        {/* Card view sits at two programs per row: the grid is a SimpleGrid set
-            to cols={base:1, sm:2, lg:2, xl:3} and Mantine's xl is 1408px, which
-            this container does not reach. The tool's list view suits this width
-            better anyway, via the toggle above the results. */}
-        <div className="overflow-hidden border-y border-gray-200 xl:rounded-2xl xl:border-x h-[calc(100dvh-7.5rem)] min-h-[640px]">
+          The right side needs more than the left: the iframe keeps its own
+          internal scrollbar (see below), which only docks on the right and
+          eats into Firmli's usable width there. Its size isn't fixed — native
+          on Windows/Linux, thin or an invisible overlay on Mac and mobile —
+          so it's measured per visitor (see scrollbarWidth above) rather than
+          guessed, and added on top of the padding compensation for the right
+          margin specifically. Tried hiding the iframe's own scrollbar first
+          (scrollbar-width:none, ::-webkit-scrollbar{display:none}) to avoid
+          needing this at all — both are accepted by the browser
+          (getComputedStyle confirms it) but neither actually hides an
+          iframe's own scrollbar in testing; it isn't a normal CSS overflow
+          scrollbar a content-level style can suppress, it's tied to how the
+          browser renders the embedded document itself. Measuring and
+          compensating for the real width was the only approach that actually
+          worked. If Firmli ever changes their own internal padding this
+          silently drifts out of alignment again; there's no way to detect
+          that from our side since it's cross-origin. */}
+      <div className="max-w-wrap mx-auto px-6 pb-6">
+
+        {/* Fixed to roughly one viewport rather than sized to the tool's real
+            content, and deliberately kept scrolling internally (its own
+            scrollbar) rather than removed — tried removing it once, and it
+            broke the filter sidebar's sticky behaviour, not just the visual.
+            CSS position:sticky inside the iframe can only pin to scrolling
+            that happens INSIDE the iframe's own document; it has no way to
+            see or respond to our outer page's scroll. Make the iframe tall
+            enough to show all its content with no internal scroll, and
+            nothing is scrolling inside it anymore, so the sidebar has
+            nothing left to stick to and just gets carried off-screen as the
+            outer page scrolls past it. A second scrollbar is the visible
+            cost of keeping a working, always-reachable filter panel; that
+            trade is worth it. The only real fix is Firmli reporting content
+            height so the iframe can be resized while still scrolling
+            internally at a size that fits — not something to solve here. */}
+        <div
+          className="h-[calc(100dvh-6rem)] min-h-[640px]"
+          style={{
+            marginLeft: `-${FIRMLI_CONTENT_PADDING_PX}px`,
+            marginRight: `-${FIRMLI_CONTENT_PADDING_PX + scrollbarWidth}px`,
+          }}
+        >
           <iframe
             // Keyed on the URL so a student who changes their homepage search
             // and comes back gets a reloaded frame rather than a stale one.

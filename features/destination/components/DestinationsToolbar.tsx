@@ -36,7 +36,13 @@ export function DestinationsToolbar({
         className="mx-auto max-w-wrap px-6"
       >
         <div className="flex flex-wrap items-end justify-between gap-4 border-b border-stroke">
-          <div className="flex flex-wrap gap-6">
+          {/* Five tabs plus count pills don't fit one row under ~640px, so
+              flex-wrap was dropping the last two onto a second line. Below
+              tablet this scrolls horizontally instead — shrink-0 so a tab
+              never gets squeezed, scrollbar-hide (already used for the
+              marquee carousels) so the scroll affordance is the swipe
+              itself, not a visible scrollbar. */}
+          <div className="flex gap-6 max-tablet:flex-nowrap max-tablet:overflow-x-auto max-tablet:scrollbar-hide">
             {REGIONS.map((r) => {
               const count = r === 'All' ? counts._total : (counts[r] ?? 0)
               // A region with nothing published would be a dead tab.
@@ -48,7 +54,7 @@ export function DestinationsToolbar({
                   type="button"
                   onClick={() => onRegionChange(r)}
                   aria-pressed={active}
-                  className={`-mb-px flex cursor-pointer items-center gap-2 border-b-2 pb-2.5 text-label font-medium transition-colors ${
+                  className={`-mb-px flex shrink-0 cursor-pointer items-center gap-2 border-b-2 pb-2.5 text-label font-medium transition-colors ${
                     active
                       ? 'border-action text-action'
                       : 'border-transparent text-secondary-text hover:text-primary-text'

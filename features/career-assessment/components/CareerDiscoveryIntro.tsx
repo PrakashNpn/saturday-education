@@ -40,7 +40,7 @@ export function CareerDiscoveryIntro({ onStart, onAutofill, resumeCount, onResum
   })
 
   return (
-    <section className="relative overflow-hidden border-b border-stroke bg-surface py-20 max-tablet:py-12">
+    <section className="relative overflow-hidden border-b border-stroke bg-surface py-20 max-tablet:py-10">
       <div
         aria-hidden="true"
         className="assessment-hero-texture pointer-events-none absolute inset-0 z-0"
@@ -92,7 +92,11 @@ export function CareerDiscoveryIntro({ onStart, onAutofill, resumeCount, onResum
           </div>
 
           <motion.div {...rise(1)} className="order-1 lg:order-2">
-            <h1 className="mb-[44px] tracking-tight">
+            {/* Below tablet these gaps are trimmed to a tighter mobile
+                rhythm — the values above were desktop's, unmodified, on
+                every screen, which read as bloated once this column is the
+                full-width stack rather than half a 1080px row. */}
+            <h1 className="mb-[44px] tracking-tight max-tablet:mb-6">
               <span className="block text-title leading-[1.18] font-medium text-primary-text">
                 {t('title')}
               </span>
@@ -101,11 +105,11 @@ export function CareerDiscoveryIntro({ onStart, onAutofill, resumeCount, onResum
               </span>
             </h1>
 
-            <p className="mb-6 max-w-[54ch] text-body leading-relaxed font-normal text-secondary-text">
+            <p className="mb-6 max-w-[54ch] text-body leading-relaxed font-normal text-secondary-text max-tablet:mb-4">
               {t('subtitle')}
             </p>
 
-            <div className="mb-14 flex flex-wrap items-center gap-2.5">
+            <div className="mb-14 flex flex-wrap items-center gap-2.5 max-tablet:mb-8">
               <span className={CHIP}>{t('metaQuestions')}</span>
               <span className={CHIP}>{t('metaParts')}</span>
               <span className={CHIP}>{t('metaTime')}</span>

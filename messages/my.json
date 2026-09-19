@@ -49,15 +49,14 @@
       "eyebrow": "Study Destinations",
       "headline": "Global Destinations တွေ, စစ်မှန်တဲ့ Partnership တွေနဲ့။",
       "viewAll": "Destination အားလုံးကို ကြည့်ရန်",
-      "partnerCount": "Partner University {count} ခု",
       "canadaName": "Canada",
       "canadaTagline": "World-Class Education, PR ရဖို့ Pathway တွေနဲ့ အနှိုင်းမဲ့ Quality of Life",
-      "unitedkingdomName": "United Kingdom",
-      "unitedkingdomTagline": "3 နှစ်အတွင်း World-Class Degree ရနိုင်ပြီး Post-Study Work Visa ပါ ပါတယ်",
       "malaysiaName": "Malaysia",
       "malaysiaTagline": "Price တစ်ဝက်နဲ့ Asia ရဲ့ Education Hub",
-      "unitedstatesName": "United States",
-      "unitedstatesTagline": "Global Reach ရှိတဲ့ နိုင်ငံ",
+      "singaporeName": "Singapore",
+      "singaporeTagline": "World Standard နဲ့ Asian Heart ပါတဲ့ Asia ရဲ့ Global Campus",
+      "uaeName": "United Arab Emirates",
+      "uaeTagline": "Middle East ရဲ့ နှလုံးသားထဲက Global Degree များ",
       "thailandName": "Thailand",
       "thailandTagline": "Southeast Asia ထဲမှာ အသက်သာဆုံး English Study Hub",
       "irelandName": "Ireland",
@@ -269,29 +268,32 @@
       "searchButton": "University တွေ ရှာရန်"
     },
     "courseSearch": {
-      "heading": "Course Finder",
-      "subtitle": "{countries} နိုင်ငံက {institutions} Institution ကနေ Course {programs} ခု။ သင့်နဲ့ တကယ် Fit တာတွေကို ရှာဖို့ Destination, Level, Field အလိုက် Filter လုပ်ပါ။",
-      "subtitleNoCounts": "သင့်နဲ့ တကယ် Fit တဲ့ Course တွေကို ရှာဖို့ Destination, Level, Field အလိုက် Filter လုပ်ပါ။",
+      "statBanner": "{countries} နိုင်ငံက {institutions} Institution ကနေ Course {programs} ခု။",
+      "statBannerNoCounts": "ကျွန်တော်တို့ရဲ့ Partner Destination တွေက Course တွေကို ရှာကြည့်ပါ။",
       "countryLabel": "ဘယ်နေရာ သွားချင်လဲ?",
       "levelLabel": "Study Level",
       "fieldLabel": "Field of Study",
+      "anyCountry": "Destination မရွေး",
       "anyLevel": "Level မရွေး",
+      "anyLevelPill": "မရွေး",
       "anyField": "Field မရွေး",
       "searchButton": "Programme တွေ ရှာရန်",
-      "imageAlt": "Desk ပေါ်က Globe",
-      "creditBy": "Photo by",
-      "creditOn": "on"
+      "pillBachelor": "Bachelor's",
+      "pillMaster": "Master's",
+      "pillDiploma": "Diploma",
+      "pillCertificate": "Certificate",
+      "consultationPrompt": "အရင်ဆုံး တိုက်ရိုက် ဆွေးနွေးချင်ပါသလား? <link>Free Consultation တစ်ခု Book လုပ်ပါ</link>။"
     },
     "partners": {
       "eyebrow": "Partner Universities",
-      "headline": "Worldwide မှာ Direct Relationship 100+ ။"
+      "headline": "Worldwide မှာ Direct Relationship 700+ ။"
     },
     "whySaturday": {
       "eyebrow": "ဘာကြောင့် Saturday Education လဲ",
       "headline": "ကျွန်ုပ်တို့က သင့် Journey ကို Care လုပ်ပြီး ဘယ်လို Guide လုပ်ရမလဲ သိပါတယ်။",
       "body": "Counsellor တိုင်းမှာ Student တွေ Place လုပ်ပေးတဲ့ Hands-on Experience နှစ်ပေါင်းများစွာ ရှိပြီး၊ သင့် Grades နဲ့ Budget က ဘာရနိုင်မလဲဆိုတာ ရှင်းရှင်းလင်းလင်း သိပါတယ်။ အောက်က Placement တိုင်းနောက်မှာ Team တစ်ခုတည်းပါပဲ။",
       "statCount": "3,000+",
-      "statLabel": "2016 ကတည်းက Place လုပ်ပေးထားတဲ့ Student",
+      "statLabel": "2019 ကတည်းက Place လုပ်ပေးထားတဲ့ Student",
       "imageAlt": "Saturday Education Counsellor တစ်ယောက် Student နဲ့ One-on-One Consultation လုပ်နေစဉ်",
       "supportTitle": "Post-Admission Support",
       "supportBody": "Offer တစ်ခုတည်းမက Housing, Arrival နဲ့ ပထမ Term အထိ ကျွန်ုပ်တို့ ပါဝင်နေပါတယ်။",
@@ -401,7 +403,7 @@
     "visaCount": "95%",
     "visaLabel": "Visa Success Rate",
     "studentsCount": "3,000+",
-    "studentsLabel": "2016 ကတည်းက Place လုပ်ပေးထားတဲ့ Student",
+    "studentsLabel": "2019 ကတည်းက Place လုပ်ပေးထားတဲ့ Student",
     "bookConsultation": "30min Free Consultation ကို Book လုပ်ရန်",
     "messagePrefix": "ဒါမှမဟုတ် ဒီမှာ Message ပို့ရန်",
     "messenger": "Messenger",
@@ -679,7 +681,22 @@
       "lockedNote": "Free Consultation ကို Book လုပ်ပါ၊ သင့် Counsellor က သင့် Career Match တွေကို လမ်းညွှန်ပြီး University Shortlist နဲ့ Application Plan ကို တည်ဆောက်ပေးပါမယ်။",
       "lockedTeaser": "{countries} က University {count} ခုနဲ့ သင့်ကို Match လုပ်ထားပါတယ်။",
       "preparedFor": "Prepared For",
-      "careerLockedNote": "သင့်နဲ့ Match ဖြစ်တဲ့ Career တွေ 10-Year Job-Market Outlook နဲ့ Skill တွေနဲ့အတူ"
+      "careerLockedNote": "သင့်နဲ့ Match ဖြစ်တဲ့ Career တွေ 10-Year Job-Market Outlook နဲ့ Skill တွေနဲ့အတူ",
+      "lockedResearchNote": "ဒီရလဒ်တွေက ဘာကြောင့် သင့်နဲ့ ကိုက်ညီတယ်ဆိုတာကို Research-Based Explanation နဲ့ ရှင်းပြထားပါတယ်"
+    },
+    "publicResults": {
+      "eyebrow": "{name} ရဲ့ Career Profile",
+      "ctaTitle": "သင့်ရဲ့ Career Path ကို ရှာဖွေချင်ပါသလား",
+      "ctaBody": "{name} လုပ်ပြီးသွားတဲ့ Free Career Assessment အတူတူကို စမ်းလုပ်ကြည့်ပါ။",
+      "ctaButton": "Free Assessment စလုပ်ရန်"
+    },
+    "shareModal": {
+      "title": "သင့် Share လုပ်နိုင်တဲ့ Career Profile ပြင်ဆင်ပြီးပါပြီ",
+      "download": "Download လုပ်ရန်",
+      "downloading": "Download လုပ်နေပါတယ်…",
+      "copyLink": "Link ကို Copy ကူးရန်",
+      "copied": "ကူးပြီးပါပြီ!",
+      "orShareVia": "ဒါမှမဟုတ် ဒီနေရာကနေ Share လုပ်ပါ"
     }
   },
   "nav": {
@@ -756,7 +773,7 @@
     "seeLess": "See Less",
     "sortPopular": "Most Popular",
     "sortName": "Name (A-Z)",
-    "cardPartnerCount": "Partner University {count} ခု",
+    "cardInstitutionCount": "Partner University {count} ခု",
     "partnerInstitutions": "Partner Institution {count} ခု",
     "ctaButton": "Free Consultation ကို Book လုပ်ရန်"
   },

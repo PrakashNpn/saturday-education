@@ -49,7 +49,7 @@ export default function WhySaturdaySection() {
 
           <div className="overflow-hidden rounded-sm">
             <Image
-              src="/images/landing/counsellor-consultation.webp"
+              src="/images/landing/counselling.webp"
               alt={t('imageAlt')}
               width={1000}
               height={834}

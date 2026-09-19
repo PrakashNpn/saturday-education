@@ -43,7 +43,7 @@ export default async function LocaleLayout({
     >
       <body className={`bg-canvas text-primary-text ${scriptFontClass} text-body font-light leading-[1.65] antialiased flex flex-col min-h-screen`}>
         <NextIntlClientProvider messages={messages}>
-          <NextTopLoader color="linear-gradient(to right, #3D0A5A, #590D82, #7B1FA2)" height={3} showSpinner={false} shadow="none" />
+          <NextTopLoader color="linear-gradient(to right, var(--color-action-hover), var(--color-action))" height={3} showSpinner={false} shadow="none" />
           <Navbar />
           <div className="flex-1 flex flex-col">
             {children}

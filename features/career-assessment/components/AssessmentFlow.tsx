@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from 'react'
 import { AnimatePresence } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { RIASEC_COUNT, PERSONALITY_END, TOTAL_QUESTIONS } from '../data/allQuestions'
 import { APTITUDE_AREA_LABELS } from '../data/aptitudeQuestions'
 import { useAssessment } from '../hooks/useAssessment'
@@ -70,13 +70,17 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
  * within seconds. A resolved `{ success: false }` is a real validation failure from the
  * server, so it is returned immediately rather than retried.
  */
-async function submitWithRetry(contact: ContactDetails, answers: AnswerMap): Promise<SubmitResult> {
+async function submitWithRetry(
+  contact: ContactDetails,
+  answers: AnswerMap,
+  locale: string,
+): Promise<SubmitResult> {
   let lastError: unknown = null
 
   for (const delay of RETRY_DELAYS_MS) {
     if (delay) await sleep(delay)
     try {
-      return await submitAssessment(contact, answers)
+      return await submitAssessment(contact, answers, locale)
     } catch (error) {
       lastError = error
       console.error('Assessment submit attempt failed, will retry if attempts remain:', error)
@@ -90,6 +94,7 @@ async function submitWithRetry(contact: ContactDetails, answers: AnswerMap): Pro
 export function AssessmentFlow() {
   const t = useTranslations('careerAssessment.sections')
   const tc = useTranslations('careerAssessment')
+  const locale = useLocale()
   const { questions, answers, index, setAnswer, goNext, goBack, reset, start, resume, autofill } =
     useAssessment()
 
@@ -163,7 +168,7 @@ export function AssessmentFlow() {
       // Hold the submitting screen for at least MIN_SUBMITTING_MS so its steps play out,
       // without adding any delay when the request genuinely takes longer than that.
       const [result] = await Promise.all([
-        submitWithRetry(contact, submissionAnswers),
+        submitWithRetry(contact, submissionAnswers, locale),
         sleep(MIN_SUBMITTING_MS),
       ])
 
@@ -188,7 +193,7 @@ export function AssessmentFlow() {
       setServerError(result.error ?? tc('submitError'))
       setPhase('contact')
     },
-    [reset, tc],
+    [reset, tc, locale],
   )
 
   const handleSubmit = useCallback(

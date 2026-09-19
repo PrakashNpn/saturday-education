@@ -47,13 +47,17 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
     })
   }, [countries, search, region])
 
-  // "Most popular" is partner count descending, with an alphabetical
-  // tie-break so equal counts keep a stable, predictable order.
+  // "Most popular" is institution count descending, with an alphabetical
+  // tie-break so equal counts keep a stable, predictable order. Countries
+  // Firmli has no count for sort as 0, landing them at the end rather than
+  // the front (null would otherwise sort before a real 0).
   const visible = useMemo(() => {
     const rows = [...filtered]
     if (sort === 'name') return rows.sort((a, b) => a.name.localeCompare(b.name))
     return rows.sort(
-      (a, b) => b._count.universities - a._count.universities || a.name.localeCompare(b.name),
+      (a, b) =>
+        (b.firmliInstitutionCount ?? 0) - (a.firmliInstitutionCount ?? 0) ||
+        a.name.localeCompare(b.name),
     )
   }, [filtered, sort])
 
