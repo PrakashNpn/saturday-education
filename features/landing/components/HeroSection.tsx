@@ -162,7 +162,7 @@ export default function HeroSection() {
           className="relative mx-auto mt-12 max-w-wrap max-tablet:mt-8 max-tablet:-mx-6"
         >
           <Image
-            src="/images/hero/hero-counsellor.webp"
+            src="/images/hero/hero-counselling-image.webp"
             alt={t('imageAlt')}
             width={2160}
             height={973}
