@@ -194,7 +194,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
               sits right of the form on desktop and above it on a phone. */}
           <div className="relative mb-6 h-56 overflow-hidden rounded-md lg:order-2 lg:mb-0 lg:h-auto lg:min-h-full lg:rounded-none">
             <Image
-              src="/images/landing/david.webp"
+              src="/images/landing/david-consultation.webp"
               alt={t('form.imageAlt')}
               fill
               unoptimized
