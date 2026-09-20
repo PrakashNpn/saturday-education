@@ -1,144 +1,69 @@
-interface Milestone {
-  year: string
-  label: string
-}
+'use client'
 
-interface Props {
-  translations: {
-    storyLabel: string
-    storyTitle: string
-    storyBody1: string
-    storyBody2: string
-    storyHighlight: string
-    storyHighlightSub: string
-    milestone1Year: string
-    milestone1Label: string
-    milestone2Year: string
-    milestone2Label: string
-    milestone3Year: string
-    milestone3Label: string
-  }
-}
+import Image from 'next/image'
+import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 
-export function AboutStory({ translations: t }: Props) {
-  const milestones: Milestone[] = [
-    { year: t.milestone1Year, label: t.milestone1Label },
-    { year: t.milestone2Year, label: t.milestone2Label },
-    { year: t.milestone3Year, label: t.milestone3Label },
-  ]
+const EASE = [0, 0, 0.2, 1] as const
 
-  const cardStats = [
-    { value: '2', label: 'Operating Countries' },
-    { value: '17+', label: 'Years of Combined Staff Experience' },
-    { value: 'Aug 2026', label: 'Launch Date' },
-    { value: 'Asia', label: 'Expansion Vision' },
-  ]
+export function AboutStory() {
+  const t = useTranslations('about')
+  const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section className="pt-12 pb-16 md:pb-20">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
-        <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 lg:gap-20 items-start">
-
-          {/* Left: narrative + milestones */}
-          <div>
-            <div className="inline-flex items-center bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
-              {t.storyLabel}
-            </div>
-            <h2 className="text-3xl md:text-4xl font-bold text-brand-purple mb-6 leading-tight">
-              {t.storyTitle}
-            </h2>
-            <p className="text-gray-600 leading-relaxed mb-4">
-              {t.storyBody1}
-            </p>
-            <p className="text-gray-600 leading-relaxed mb-10">
-              {t.storyBody2}
-            </p>
-
-            {/* Milestone timeline */}
-            <div className="space-y-0">
-              {milestones.map((m, i) => (
-                <div key={i} className="flex gap-4">
-                  <div className="flex flex-col items-center">
-                    <div className="w-2.5 h-2.5 rounded-full bg-brand-purple mt-1 flex-shrink-0" />
-                    {i < milestones.length - 1 && (
-                      <div className="w-px flex-1 bg-brand-purple-100 my-1.5" />
-                    )}
-                  </div>
-                  <div className={`${i < milestones.length - 1 ? 'pb-6' : ''}`}>
-                    <span className="text-[11px] font-bold uppercase tracking-widest text-brand-purple">
-                      {m.year}
-                    </span>
-                    <p className="text-sm text-gray-600 leading-relaxed mt-0.5">
-                      {m.label}
-                    </p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-
-          {/* Right: decorative highlight card */}
-          <div className="relative">
-            <div className="absolute -top-6 -right-6 w-40 h-40 bg-brand-purple-50 rounded-full opacity-60" />
-            <div className="absolute -bottom-4 -left-4 w-24 h-24 bg-purple-100 rounded-full opacity-40" />
-
-            <div className="relative bg-gradient-to-b from-brand-purple to-purple-900 rounded-2xl p-8 md:p-10 text-center overflow-hidden">
-              {/* Decorative rings */}
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-48 h-48 rounded-full border border-white/10" />
-              <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 w-28 h-28 rounded-full border border-white/10" />
-
-              {/* Dot grid */}
-              <div
-                className="absolute inset-0 pointer-events-none"
-                style={{
-                  backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.08) 1px, transparent 1px)',
-                  backgroundSize: '22px 22px',
-                }}
-              />
-
-              <div className="relative z-10">
-                {/* Eyebrow */}
-                <p className="text-purple-300 text-xs font-semibold uppercase tracking-widest mb-3">
-                  {t.storyHighlightSub}
-                </p>
-
-                {/* Hero year */}
-                <div className="text-6xl md:text-7xl font-black text-white mb-4 leading-none">
-                  2026
-                </div>
-
-                <div className="w-10 h-px bg-white/30 mx-auto mb-4" />
-
-                {/* Tagline */}
-                <p className="text-white/90 font-semibold text-base leading-snug max-w-xs mx-auto mb-8">
-                  {t.storyHighlight}
-                </p>
-
-                {/* 2×2 stats grid */}
-                <div className="grid grid-cols-2 gap-3 mb-8">
-                  {cardStats.map(({ value, label }) => (
-                    <div
-                      key={label}
-                      className="bg-white/10 border border-white/15 rounded-xl py-4 px-3"
-                    >
-                      <p className="text-white font-bold text-2xl leading-none">{value}</p>
-                      <p className="text-purple-200 text-[10px] uppercase tracking-wider mt-1.5">{label}</p>
-                    </div>
-                  ))}
-                </div>
-
-                {/* Bottom mission quote */}
-                <div className="border-t border-white/15 pt-6">
-                  <p className="text-white/70 text-sm leading-relaxed italic">
-                    "Honest guidance from people who have been there."
-                  </p>
-                </div>
-              </div>
-            </div>
-          </div>
-
-        </div>
+    <section className="relative overflow-hidden border-t border-[#31144F] bg-[#0E0317] py-16 text-white max-tablet:py-12">
+      {/* The same photograph twice: blurred and dimmed here as an ambient
+          backdrop, sharp in the frame on the right. */}
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <Image
+          src="/images/about/counsellor-training.webp"
+          alt=""
+          aria-hidden="true"
+          fill
+          unoptimized
+          sizes="100vw"
+          className="scale-125 object-cover object-center opacity-35 blur-2xl filter"
+        />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#140524]/90 via-[#140524]/75 to-[#140524]/50" />
       </div>
+
+      {/* Only this content fades/rises on scroll — the dark band and its
+          backdrop photo stay solid throughout. */}
+      <motion.div
+        initial={{ opacity: 0, y: 16 }}
+        whileInView={{ opacity: 1, y: 0 }}
+        viewport={{ once: true, margin: '-80px' }}
+        transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
+        className="relative z-10 mx-auto max-w-wrap px-6"
+      >
+        <div className="grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="lg:col-span-6">
+            <p className="mb-2 text-min font-medium tracking-[0.06em] text-purple-300 uppercase">
+              {t('storyLabel')}
+            </p>
+            <h2 className="mb-4 text-section font-medium leading-[1.2] text-white">
+              {t('storyTitle')}
+            </h2>
+            <div className="space-y-4 text-body font-light leading-[1.65] text-white/85">
+              <p>{t('storyBody1')}</p>
+              <p>{t('storyBody2')}</p>
+            </div>
+          </div>
+
+          <div className="lg:col-span-6">
+            <div className="relative aspect-[4/3] w-full overflow-hidden rounded-[14px] border border-white/20 bg-white/5 shadow-[0_20px_40px_rgba(0,0,0,0.35)]">
+              <Image
+                src="/images/about/counsellor-training.webp"
+                alt={t('storyImageAlt')}
+                fill
+                unoptimized
+                sizes="(max-width: 1024px) 100vw, 50vw"
+                className="object-cover object-top"
+              />
+            </div>
+          </div>
+        </div>
+      </motion.div>
     </section>
   )
 }

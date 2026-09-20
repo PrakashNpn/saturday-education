@@ -163,7 +163,7 @@ export interface RecommendationTree {
 
 // ── Dashboard data shown to the student (visual profile) ─────────────────────
 // The student's SCORES (for the charts) — but NOT the interpretation (career
-// directions, university matches, counselor read), which stays gated server-side.
+// matches, university matches, counselor read), which stays gated server-side.
 
 export interface DashboardData {
   fullName: string
@@ -177,8 +177,9 @@ export interface DashboardData {
   aptitude: { area: string; label: string; percent: number; band: AptitudeBandLabel }[] // 4
   aptitudeOverall: { percent: number; band: AptitudeBandLabel }
   studentRead?: string // a warm, student-facing summary (AI, falls back to archetypeSummary)
-  // NOTE: career matches (outlook/skills/fit/skill-gap) are intentionally NOT sent to the
-  // client — they're gated to the counsellor PDF. See buildAssessmentPdf.
+  // NOTE: career matches (outlook/skills/fit/skill-gap) and the AI's per-career
+  // whyFit are intentionally NOT sent to the client — they're gated to the
+  // counsellor PDF. See buildAssessmentPdf.
   universityTeaser?: UniversityTeaser // personalised gated hook (undefined if no matches in DB)
 }
 

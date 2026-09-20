@@ -26,12 +26,33 @@ export const REGION_TAB_LABELS: Record<string, string> = {
   AFRICA: 'regionAfrica',
 }
 
+// The design offers two orders: partner count descending, or alphabetical.
 export const SORT_OPTIONS = [
-  { value: 'ranking', label: 'sortHighestRanking' },
-  { value: 'az', label: 'sortAZ' },
-  { value: 'za', label: 'sortZA' },
+  { value: 'popular', label: 'sortPopular' },
+  { value: 'name', label: 'sortName' },
 ] as const
 
 export type SortOption = (typeof SORT_OPTIONS)[number]['value']
 
 export const PAGE_SIZE = 6
+
+/** Country slug to ISO 3166-1 alpha-2, which is how the flag files are named.
+ *  The design pulls these from flagcdn; ours are the local copies already
+ *  bundled for the Course Finder. */
+export const FLAG_CODES: Record<string, string> = {
+  australia: 'au',
+  canada: 'ca',
+  germany: 'de',
+  grenada: 'gd',
+  ireland: 'ie',
+  malaysia: 'my',
+  netherlands: 'nl',
+  'new-zealand': 'nz',
+  singapore: 'sg',
+  spain: 'es',
+  switzerland: 'ch',
+  thailand: 'th',
+  uae: 'ae',
+  'united-kingdom': 'gb',
+  'united-states': 'us',
+}

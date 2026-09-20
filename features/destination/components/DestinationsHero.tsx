@@ -1,85 +1,90 @@
 'use client'
+
 import { useState } from 'react'
-import { Globe } from 'lucide-react'
+import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 
 interface Props {
   searchValue: string
-  onSearchChange: (v: string) => void
-  translations: {
-    heroLabel: string
-    heroTitle: string
-    heroSubtitle: string
-    searchPlaceholder: string
-    searchButton: string
-  }
+  onSearchChange: (value: string) => void
 }
 
-export function DestinationsHero({ searchValue, onSearchChange, translations: t }: Props) {
-  const [draft, setDraft] = useState(searchValue)
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.09
 
-  const submit = () => onSearchChange(draft)
+export function DestinationsHero({ searchValue, onSearchChange }: Props) {
+  const t = useTranslations('destinations')
+  const [draft, setDraft] = useState(searchValue)
+  const prefersReducedMotion = useReducedMotion()
+
+  // Above the fold, so this runs on mount rather than on scroll into view —
+  // same reasoning as the homepage's own HeroSection.
+  const rise = (step: number, distance = 14, duration = 0.5) => ({
+    initial: { opacity: 0, y: distance },
+    animate: { opacity: 1, y: 0 },
+    transition: prefersReducedMotion
+      ? { duration: 0 }
+      : { duration, delay: step * STAGGER, ease: EASE },
+  })
 
   return (
-    <div className="relative bg-gradient-to-b from-brand-purple via-purple-800 to-purple-900 pt-16 pb-8 md:pb-14 px-4 text-center overflow-visible">
-
-      {/* Dot grid texture */}
-      <div
-        className="absolute inset-0 pointer-events-none"
-        style={{
-          backgroundImage: 'radial-gradient(circle, rgba(255,255,255,0.12) 1px, transparent 1px)',
-          backgroundSize: '28px 28px',
-        }}
-      />
-
-      {/* Centered radial glow */}
-      <div className="absolute inset-0 pointer-events-none overflow-hidden">
-        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-[900px] h-[500px] bg-white/5 rounded-full blur-3xl" />
-      </div>
-
-      {/* Decorative rings — clipped to prevent horizontal scroll */}
-      <div className="absolute inset-0 overflow-hidden pointer-events-none">
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-80 h-80 rounded-full border border-white/10" />
-        <div className="absolute left-0 top-1/2 -translate-y-1/2 -translate-x-1/2 w-52 h-52 rounded-full border border-white/10" />
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-80 h-80 rounded-full border border-white/10" />
-        <div className="absolute right-0 top-1/2 -translate-y-1/2 translate-x-1/2 w-52 h-52 rounded-full border border-white/10" />
-      </div>
-
-      {/* Content */}
-      <div className="relative z-10 max-w-3xl mx-auto mb-6 md:mb-10">
-        <div className="flex items-center justify-center gap-2 w-fit mx-auto bg-white/20 backdrop-blur-sm text-white text-xs font-semibold uppercase tracking-widest px-4 py-1.5 rounded-full mb-5">
-          <Globe className="w-3.5 h-3.5" />
-          {t.heroLabel}
+    // Same drifting dot texture as the homepage Course Finder, so the two dark
+    // purple bands on the site read as the same surface.
+    <section className="course-finder-texture relative overflow-hidden bg-[oklch(20%_0.10_307.4)] py-11 max-tablet:py-8">
+      <div className="relative mx-auto max-w-wrap px-6">
+        <div className="mx-auto max-w-4xl text-center">
+          <motion.h1
+            {...rise(0)}
+            className="text-title leading-tight font-medium text-white max-tablet:text-balance lg:whitespace-nowrap"
+          >
+            {t('heroTitle')}
+          </motion.h1>
+          <motion.p
+            {...rise(1)}
+            className="mx-auto mt-3 max-w-3xl text-balance text-body leading-relaxed font-light text-white/85"
+          >
+            {t('heroSubtitle')}
+          </motion.p>
         </div>
-        <h1 className="text-3xl md:text-4xl lg:text-5xl font-bold text-white mb-4 leading-tight">
-          {t.heroTitle}
-        </h1>
-        <p className="text-white/80 text-base md:text-lg max-w-2xl mx-auto">
-          {t.heroSubtitle}
-        </p>
-      </div>
 
-      {/* Search bar — inline on mobile, overlaps on desktop */}
-      <div className="relative z-20 px-0 md:absolute md:bottom-0 md:translate-y-1/2 md:left-0 md:right-0 md:px-4">
-        <form
-          onSubmit={(e) => { e.preventDefault(); submit() }}
-          className="flex items-center bg-white rounded-2xl shadow-xl max-w-5xl mx-auto p-4 md:p-5 gap-3"
+        <motion.form
+          {...rise(2)}
+          onSubmit={(event) => {
+            event.preventDefault()
+            onSearchChange(draft)
+          }}
+          className="mx-auto mt-5 flex max-w-2xl items-center gap-3 rounded-full bg-surface p-2 pl-5 shadow-[0_8px_24px_rgba(0,0,0,0.18)]"
         >
-          <Globe className="w-5 h-5 text-gray-400 flex-shrink-0" />
+          <svg
+            viewBox="0 0 20 20"
+            fill="none"
+            aria-hidden="true"
+            className="size-5 shrink-0 text-muted-text"
+          >
+            <circle cx="9" cy="9" r="6.5" stroke="currentColor" strokeWidth="1.6" />
+            <path d="M17 17l-3.8-3.8" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
+          </svg>
           <input
             type="text"
             value={draft}
-            onChange={(e) => setDraft(e.target.value)}
-            placeholder={t.searchPlaceholder}
-            className="flex-1 py-1.5 text-gray-700 bg-transparent focus:outline-none text-sm min-w-0"
+            onChange={(event) => setDraft(event.target.value)}
+            placeholder={t('searchPlaceholder')}
+            aria-label={t('searchPlaceholder')}
+            // min-w-0: a flex item's default min-width is auto, which for a
+            // text input means it won't shrink past its own intrinsic width
+            // (~196px here) no matter what flex-1 says — on mobile that was
+            // exactly enough to push the button past the pill's own right
+            // edge instead of leaving it room.
+            className="min-w-0 flex-1 border-0 bg-transparent text-body font-light text-primary-text placeholder:text-muted-text focus:outline-none"
           />
           <button
             type="submit"
-            className="bg-brand-purple text-white text-sm font-medium px-5 py-2 rounded-full hover:bg-brand-purple-dark transition-colors flex-shrink-0 whitespace-nowrap"
+            className="inline-flex min-h-10 cursor-pointer items-center justify-center rounded-full bg-action px-6 text-label font-medium text-white transition-colors hover:bg-action-hover"
           >
-            ✦ {t.searchButton}
+            {t('searchButton')}
           </button>
-        </form>
+        </motion.form>
       </div>
-    </div>
+    </section>
   )
 }

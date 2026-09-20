@@ -1,227 +1,189 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
-import { motion, useInView } from 'framer-motion'
-import { ShieldCheck, GraduationCap, BadgeDollarSign, Building2 } from 'lucide-react'
+import { useLocale, useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 import { Link } from '@/i18n/navigation'
+import { CONTACT_LINKS } from '@/shared/constants/social'
+import { cn } from '@/shared/utils/cn'
 
-// ── Count-up helper ───────────────────────────────────────────────────────────
+// Measured off the design: each block starts about 84ms after the one above it
+// and takes a little over half a second, on a plain ease-out.
+const EASE = [0, 0, 0.2, 1] as const
+const STAGGER = 0.084
 
-function CountUp({
-  target,
-  duration = 1.5,
-  prefix = '',
-  suffix = '',
-}: {
-  target: number
-  duration?: number
-  prefix?: string
-  suffix?: string
-}) {
-  const ref = useRef<HTMLSpanElement>(null)
-  const isInView = useInView(ref, { once: true })
-  const [count, setCount] = useState(0)
-
-  useEffect(() => {
-    if (!isInView) return
-
-    const startTime = Date.now()
-
-    const tick = () => {
-      const progress = Math.min((Date.now() - startTime) / (duration * 1000), 1)
-      const eased = 1 - Math.pow(1 - progress, 3) // ease-out cubic
-      setCount(Math.floor(eased * target))
-      if (progress < 1) requestAnimationFrame(tick)
-      else setCount(target)
-    }
-
-    const timer = setTimeout(() => requestAnimationFrame(tick), 800)
-    return () => clearTimeout(timer)
-  }, [isInView, target, duration])
-
+function MessengerIcon() {
   return (
-    <span ref={ref}>
-      {prefix}
-      {count.toLocaleString()}
-      {suffix}
-    </span>
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4 shrink-0">
+      <path d="M12 2C6.5 2 2 6.1 2 11.2c0 2.9 1.5 5.5 3.8 7.2V22l3.5-1.9c.9.2 1.8.4 2.7.4 5.5 0 10-4.1 10-9.3S17.5 2 12 2zm1 12.5-2.6-2.7-5 2.7 5.5-5.8 2.6 2.7 4.9-2.7-5.4 5.8z" />
+    </svg>
   )
 }
 
-// ── Main component ────────────────────────────────────────────────────────────
+function WhatsAppIcon() {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4 shrink-0">
+      <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.548 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z" />
+    </svg>
+  )
+}
 
 export default function HeroSection() {
   const t = useTranslations('hero')
+  const locale = useLocale()
+  const prefersReducedMotion = useReducedMotion()
 
-  const prefersReducedMotion =
-    typeof window !== 'undefined'
-      ? window.matchMedia('(prefers-reduced-motion: reduce)').matches
-      : false
+  // "Saturday Education" stays on one line at any width. Burmese's highlight
+  // adds "Consulting" to match the sentence the client asked for, and that
+  // third word no longer fits unbroken on a phone screen — nowrap would just
+  // push it past the viewport edge instead of wrapping.
+  const highlightNoWrap = locale !== 'my'
 
-  const fadeInUp = (delay: number) => ({
-    initial: prefersReducedMotion ? {} : { opacity: 0, y: 15 },
+  /**
+   * The whole hero is above the fold, so this runs on mount, not on scroll.
+   *
+   * `initial` deliberately does not branch on prefersReducedMotion.
+   * useReducedMotion() is null during SSR and only resolves on the client, so
+   * branching there renders opacity:0 on the server and no initial state on the
+   * client, which leaves nothing to bring the content back and hides the whole
+   * hero. The preference is honoured by the zero-duration transition instead.
+   */
+  const rise = (step: number, distance = 14, duration = 0.55) => ({
+    initial: { opacity: 0, y: distance },
     animate: { opacity: 1, y: 0 },
     transition: prefersReducedMotion
       ? { duration: 0 }
-      : { duration: 0.5, delay, ease: [0.25, 0.1, 0.25, 1] as const },
+      : { duration, delay: step * STAGGER, ease: EASE },
   })
 
-  const statsData = [
-    { icon: GraduationCap,   target: 3000, prefix: '',  suffix: '+', label: t('stats.studentsLabel') },
-    { icon: ShieldCheck,     target: 95,   prefix: '',  suffix: '%', label: t('stats.visaLabel') },
-    { icon: BadgeDollarSign, target: 3,    prefix: '$', suffix: 'M', label: t('stats.scholarshipsLabel') },
-    { icon: Building2,       target: 100,  prefix: '',  suffix: '+', label: t('stats.partnersLabel') },
-  ]
-
+  // max-tablet:pb-0: the image further down is full-bleed at that width, so
+  // the section's own bottom padding was just leaving a blank gap under it
+  // before the next section starts. Top padding is untouched — that spaces
+  // the nav from the stats line, nothing to do with the image.
   return (
-    <section
-      aria-label="Hero"
-      className="relative bg-gradient-to-b from-brand-purple-50/50 to-neutral-100 md:min-h-[min(calc(100dvh-72px),900px)]"
-    >
-      <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-8 sm:py-8 md:pt-0 md:pb-12 md:flex md:flex-col md:justify-between md:h-[min(calc(100dvh-72px),900px)]">
+    <section className="hero-lift relative overflow-hidden py-16 pb-10 max-tablet:py-10 max-tablet:pb-0">
+      {/* Wireframe globe, barely there at 4% and masked away before it reaches
+          the headline. Loaded as a file rather than inlined so 27KB of path
+          data stays out of the client bundle. */}
+      <div
+        aria-hidden="true"
+        className="hero-globe-fade pointer-events-none absolute top-[calc(9%-120px)] left-1/2 aspect-square w-[130vw] -translate-x-1/2 bg-[url('/images/hero/globe.svg')] bg-contain bg-center bg-no-repeat opacity-[0.04]"
+      />
 
-        {/* ── Part 1: Content — sits near the top ── */}
-        <div className="md:pt-10 lg:pt-4">
-          <div className="grid grid-cols-1 md:grid-cols-[1.3fr_1fr] lg:grid-cols-[1.15fr_1fr] gap-6 items-center lg:items-start w-full">
+      <div className="relative mx-auto max-w-wrap px-6">
+        <div className="mx-auto max-w-[84ch] text-center">
+          <motion.h1
+            {...rise(0)}
+            className="mx-auto mb-5 text-display font-medium leading-[1.08] tracking-[-0.03em]"
+          >
+            {t('titleLine1')}
+            <br />
+            {t('titleLine2')}{' '}
+            {/* The company's own name set in running text is an identity
+                moment, so it takes the brand colour rather than the action
+                colour. Same value, different reason. */}
+            <span className={cn('font-semibold text-brand', highlightNoWrap && 'whitespace-nowrap')}>
+              {t('titleHighlight')}
+            </span>
+            {/* Burmese word order puts a verb after the brand name ("...with
+                Saturday Education, let's start") where English's does not, so
+                this only trails the highlight for locales that actually need
+                it — empty for English and Thai, so nothing renders there. */}
+            {t('titleSuffix') && ` ${t('titleSuffix')}`}
+          </motion.h1>
 
-            {/* ── Left: Text Content ─────────────────────────────── */}
-            <div>
-              {/* Badge */}
-              <motion.div {...fadeInUp(0)}>
-                <motion.div
-                  animate={prefersReducedMotion ? {} : { y: [0, -3, 0] }}
-                  transition={{ duration: 3, repeat: Infinity, repeatType: 'loop', ease: 'easeInOut', delay: 0.8 }}
-                >
-                  <div className="mb-4 lg:my-4 md:mb-5 inline-flex items-center gap-2 px-2 py-1 rounded-full bg-[#EDE0F5] border border-[#D8C4E8]">
-                    <ShieldCheck size={16} className="text-brand-purple" />
-                    <span
-                      className="text-brand-purple font-semibold tracking-wider uppercase"
-                      style={{ fontSize: 'clamp(0.625rem, 0.2rem + 0.3vw, 0.75rem)', fontWeight: 'bolder' }}
-                    >
-                      {t('badge')}
-                    </span>
-                  </div>
-                </motion.div>
-              </motion.div>
+          <motion.p
+            {...rise(1)}
+            className="mx-auto mb-8 max-w-[52ch] text-lede font-light leading-[1.55] text-secondary-text"
+          >
+            {t('ledeLine1')}
+            <br className="max-tablet:hidden" /> {t('ledeLine2')}
+          </motion.p>
 
-              {/* Headline */}
-              <motion.div {...fadeInUp(0.15)}>
-                <h1
-                  className="font-black leading-[1.1] text-neutral-900 mb-4 md:mb-5"
-                  style={{ fontSize: 'clamp(1.5rem, 0.25rem + 3.5vw, 3.25rem)' }}
-                >
-                  {t('titleLine1')}
-                  <br />
-                  {t('titleLine2')}
-                  <br />
-                  <span className="text-brand-purple">{t('titleHighlight')}</span>
-                </h1>
-              </motion.div>
+          <motion.div {...rise(2)} className="mx-auto mb-8 max-w-[64ch] border-t border-stroke pt-6">
+            <p className="flex flex-wrap items-baseline justify-center gap-x-7 gap-y-2">
+              {/* tabular-nums so the two figures do not shift width against
+                  each other, and accent-ink because gold has to be read here
+                  rather than just seen. */}
+              <span className="flex items-baseline gap-x-2.5">
+                <span className="text-section leading-none font-medium tracking-[-0.01em] text-accent-ink tabular-nums">
+                  {t('visaCount')}
+                </span>
+                <span className="text-lede font-medium text-primary-text">{t('visaLabel')}</span>
+              </span>
+              <span className="flex items-baseline gap-x-2.5">
+                <span className="text-section leading-none font-medium tracking-[-0.01em] text-accent-ink tabular-nums">
+                  {t('studentsCount')}
+                </span>
+                <span className="text-lede font-medium text-primary-text">
+                  {t('studentsLabel')}
+                </span>
+              </span>
+            </p>
+          </motion.div>
 
-              {/* Description */}
-              <motion.div {...fadeInUp(0.3)}>
-                <p
-                  className="text-gray-600 leading-relaxed max-w-md mb-5 md:mb-6"
-                  style={{ fontSize: 'clamp(0.8125rem, 0.6rem + 0.5vw, 1.0625rem)' }}
-                >
-                  {t('description')}
-                </p>
-              </motion.div>
-
-              {/* CTA Buttons */}
-              <motion.div {...fadeInUp(0.45)}>
-                <div className="flex flex-col sm:flex-row items-start sm:items-center gap-3">
-                  {/* HIDDEN: universities feature temporarily disabled — uncomment to restore
-                  <Link
-                    href="/universities"
-                    className="px-6 py-2.5 rounded-full bg-brand-purple text-white font-semibold hover:bg-brand-purple-dark hover:shadow-lg transition-all duration-200"
-                    style={{ fontSize: 'clamp(0.8125rem, 0.75rem + 0.2vw, 0.9375rem)' }}
-                  >
-                    {t('exploreUniversities')}
-                  </Link>
-                  */}
-                  <Link
-                    href="/#consultation"
-                    className="px-6 py-2.5 rounded-full border-2 border-brand-purple text-brand-purple font-semibold bg-white hover:bg-brand-purple-50 transition-all duration-200"
-                    style={{ fontSize: 'clamp(0.8125rem, 0.75rem + 0.2vw, 0.9375rem)' }}
-                  >
-                    {t('bookConsultation')}
-                  </Link>
-                </div>
-              </motion.div>
-            </div>
-
-            {/* ── Right: Illustration — entrance + continuous float ── */}
-            <motion.div
-              className="w-full flex items-center justify-center md:justify-end"
-              initial={prefersReducedMotion ? {} : { opacity: 0, x: 30 }}
-              animate={{ opacity: 1, x: 0 }}
-              transition={
-                prefersReducedMotion
-                  ? { duration: 0 }
-                  : { duration: 0.7, delay: 0.2, ease: [0.25, 0.1, 0.25, 1] as const }
-              }
+          <motion.div {...rise(3)} className="flex flex-col items-center gap-4">
+            <Link
+              href="/#consultation"
+              className="inline-flex min-h-13 items-center justify-center gap-2 whitespace-nowrap rounded-full bg-action px-16 text-body font-medium text-white transition-colors hover:bg-action-hover max-tablet:w-full"
             >
-              <motion.div
-                className="w-full"
-                animate={prefersReducedMotion ? {} : { y: [0, -12, 0] }}
-                transition={{
-                  duration: 4,
-                  repeat: Infinity,
-                  repeatType: 'loop',
-                  ease: 'easeInOut',
-                  delay: 1,
-                }}
-              >
-                <Image
-                  src="/images/hero/updated-hero.webp"
-                  alt={t('heroImageAlt')}
-                  width={550}
-                  height={550}
-                  className="w-full h-auto max-w-[400px] md:max-w-[90%] lg:max-w-none"
-                  priority
-                />
-              </motion.div>
-            </motion.div>
+              {t('bookConsultation')}
+            </Link>
 
-          </div>
+            {/* The alternative to the primary ask, not a second one. */}
+            <p className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 text-label font-normal text-muted-text">
+              {t('messagePrefix')}
+              <a
+                href={CONTACT_LINKS.messenger}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-label font-medium text-action"
+              >
+                <MessengerIcon />
+                <span className="underline underline-offset-[3px]">{t('messenger')}</span>
+              </a>
+              <a
+                href={CONTACT_LINKS.whatsapp}
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-label font-medium text-action"
+              >
+                <WhatsAppIcon />
+                <span className="underline underline-offset-[3px]">{t('whatsapp')}</span>
+              </a>
+            </p>
+          </motion.div>
         </div>
 
-        {/* ── Part 2: Stats bar — sits at the bottom of the viewport ── */}
-        <div className="mt-8 md:-mt-8 md:pb-8 lg:pb-10">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-6">
-            {statsData.map(({ icon: Icon, target, prefix, suffix, label }, index) => (
-              <motion.div
-                key={label}
-                initial={prefersReducedMotion ? {} : { opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={
-                  prefersReducedMotion
-                    ? { duration: 0 }
-                    : { duration: 0.5, delay: 0.8 + index * 0.15, ease: [0.25, 0.1, 0.25, 1] as const }
-                }
-                className="bg-white rounded-xl border border-gray-100 shadow-sm px-4 py-4 lg:py-5 flex flex-col items-center text-center"
-              >
-                <Icon size={24} className="text-brand-purple" />
-                <p
-                  className="font-extrabold text-brand-purple mt-1.5 leading-none"
-                  style={{ fontSize: 'clamp(1.25rem, 0.5rem + 2.2vw, 2.25rem)' }}
-                >
-                  <CountUp target={target} prefix={prefix} suffix={suffix} duration={3} />
-                </p>
-                <p
-                  className="uppercase tracking-wider font-medium text-gray-500 mt-1"
-                  style={{ fontSize: 'clamp(0.5rem, 0.35rem + 0.3vw, 0.75rem)' }}
-                >
-                  {label}
-                </p>
-              </motion.div>
-            ))}
-          </div>
-        </div>
-
+        <motion.figure
+          {...rise(1, 16, 0.75)}
+          // -mx-6 cancels the section's own px-6 below tablet, so the photo
+          // runs to the true screen edges instead of sitting inset.
+          className="relative mx-auto mt-12 max-w-wrap max-tablet:mt-8 max-tablet:-mx-6"
+        >
+          <Image
+            src="/images/hero/hero-counselling-image.webp"
+            alt={t('imageAlt')}
+            width={2160}
+            height={973}
+            priority
+            unoptimized
+            sizes="(max-width: 1080px) 100vw, 1080px"
+            // h-auto everywhere: the file is a fixed 2160x973 shape, so full
+            // width plus full un-cropped content only has one possible
+            // height (~176px on a typical phone) — a taller fixed height
+            // would need object-cover to crop the sides to fill it, which is
+            // exactly what this is deliberately not doing. No rounded
+            // corner/border below tablet since it's flush with the true
+            // screen edge there.
+            className="h-auto w-full rounded-lg border border-stroke max-tablet:rounded-none max-tablet:border-none"
+          />
+          {/* Reclaimed on mobile: the extra width from going full-bleed
+              matters more here than the caption did. */}
+          <figcaption className="mt-3 text-center text-min text-muted-text max-tablet:hidden">
+            {t('imageCaption')}
+          </figcaption>
+        </motion.figure>
       </div>
     </section>
   )

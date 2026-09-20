@@ -8,8 +8,7 @@
 //
 // Firmli has not documented any of this, so every failure path returns null and
 // the caller drops the search rather than rendering an empty one.
-const FIRMLI_API = 'https://c191z26royal58-api.firmli.com/v1'
-const CLIENT_NUMBER = 'C191Z26ROYAL58'
+import { FIRMLI_API, CLIENT_NUMBER } from '@/shared/lib/courseFinder/firmliClient'
 
 // The lists change when Firmli signs a new country or discipline, which is rare.
 const REVALIDATE_SECONDS = 60 * 60 * 24
@@ -120,6 +119,14 @@ export async function getCourseFinderOptions(): Promise<CourseFinderOptions | nu
 
   if (!countries || !studyLevels || !fieldsOfStudy) return null
 
+  // Firmli's discipline list carries its own "All Subjects" row. Left in, the
+  // field dropdown offers two ways to say the same thing, and they are not
+  // equivalent: the placeholder sends no filter at all while "All Subjects"
+  // sends discipline 18. The placeholder is the one that belongs to us.
+  const fields = fieldsOfStudy.filter(
+    (option) => option.label.trim().toLowerCase() !== 'all subjects',
+  )
+
   // counts is allowed to be null: the line beside the search is simply omitted.
-  return { countries, studyLevels, fieldsOfStudy, counts }
+  return { countries, studyLevels, fieldsOfStudy: fields, counts }
 }

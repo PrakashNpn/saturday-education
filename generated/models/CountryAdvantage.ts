@@ -38,6 +38,10 @@ export type CountryAdvantageMinAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  titleTh: string | null
+  titleMy: string | null
+  descriptionTh: string | null
+  descriptionMy: string | null
   imageUrl: string | null
   order: number | null
   countryId: string | null
@@ -49,6 +53,10 @@ export type CountryAdvantageMaxAggregateOutputType = {
   id: string | null
   title: string | null
   description: string | null
+  titleTh: string | null
+  titleMy: string | null
+  descriptionTh: string | null
+  descriptionMy: string | null
   imageUrl: string | null
   order: number | null
   countryId: string | null
@@ -60,6 +68,10 @@ export type CountryAdvantageCountAggregateOutputType = {
   id: number
   title: number
   description: number
+  titleTh: number
+  titleMy: number
+  descriptionTh: number
+  descriptionMy: number
   imageUrl: number
   order: number
   countryId: number
@@ -81,6 +93,10 @@ export type CountryAdvantageMinAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  titleTh?: true
+  titleMy?: true
+  descriptionTh?: true
+  descriptionMy?: true
   imageUrl?: true
   order?: true
   countryId?: true
@@ -92,6 +108,10 @@ export type CountryAdvantageMaxAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  titleTh?: true
+  titleMy?: true
+  descriptionTh?: true
+  descriptionMy?: true
   imageUrl?: true
   order?: true
   countryId?: true
@@ -103,6 +123,10 @@ export type CountryAdvantageCountAggregateInputType = {
   id?: true
   title?: true
   description?: true
+  titleTh?: true
+  titleMy?: true
+  descriptionTh?: true
+  descriptionMy?: true
   imageUrl?: true
   order?: true
   countryId?: true
@@ -201,6 +225,10 @@ export type CountryAdvantageGroupByOutputType = {
   id: string
   title: string
   description: string | null
+  titleTh: string | null
+  titleMy: string | null
+  descriptionTh: string | null
+  descriptionMy: string | null
   imageUrl: string | null
   order: number
   countryId: string
@@ -235,6 +263,10 @@ export type CountryAdvantageWhereInput = {
   id?: Prisma.StringFilter<"CountryAdvantage"> | string
   title?: Prisma.StringFilter<"CountryAdvantage"> | string
   description?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  titleTh?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  titleMy?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  descriptionTh?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  descriptionMy?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
   order?: Prisma.IntFilter<"CountryAdvantage"> | number
   countryId?: Prisma.StringFilter<"CountryAdvantage"> | string
@@ -247,6 +279,10 @@ export type CountryAdvantageOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
@@ -262,6 +298,10 @@ export type CountryAdvantageWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CountryAdvantageWhereInput | Prisma.CountryAdvantageWhereInput[]
   title?: Prisma.StringFilter<"CountryAdvantage"> | string
   description?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  titleTh?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  titleMy?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  descriptionTh?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  descriptionMy?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
   order?: Prisma.IntFilter<"CountryAdvantage"> | number
   countryId?: Prisma.StringFilter<"CountryAdvantage"> | string
@@ -274,6 +314,10 @@ export type CountryAdvantageOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrderInput | Prisma.SortOrder
   imageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
@@ -293,6 +337,10 @@ export type CountryAdvantageScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CountryAdvantage"> | string
   title?: Prisma.StringWithAggregatesFilter<"CountryAdvantage"> | string
   description?: Prisma.StringNullableWithAggregatesFilter<"CountryAdvantage"> | string | null
+  titleTh?: Prisma.StringNullableWithAggregatesFilter<"CountryAdvantage"> | string | null
+  titleMy?: Prisma.StringNullableWithAggregatesFilter<"CountryAdvantage"> | string | null
+  descriptionTh?: Prisma.StringNullableWithAggregatesFilter<"CountryAdvantage"> | string | null
+  descriptionMy?: Prisma.StringNullableWithAggregatesFilter<"CountryAdvantage"> | string | null
   imageUrl?: Prisma.StringNullableWithAggregatesFilter<"CountryAdvantage"> | string | null
   order?: Prisma.IntWithAggregatesFilter<"CountryAdvantage"> | number
   countryId?: Prisma.StringWithAggregatesFilter<"CountryAdvantage"> | string
@@ -304,6 +352,10 @@ export type CountryAdvantageCreateInput = {
   id?: string
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   imageUrl?: string | null
   order?: number
   createdAt?: Date | string
@@ -315,6 +367,10 @@ export type CountryAdvantageUncheckedCreateInput = {
   id?: string
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   imageUrl?: string | null
   order?: number
   countryId: string
@@ -326,6 +382,10 @@ export type CountryAdvantageUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -337,6 +397,10 @@ export type CountryAdvantageUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -348,6 +412,10 @@ export type CountryAdvantageCreateManyInput = {
   id?: string
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   imageUrl?: string | null
   order?: number
   countryId: string
@@ -359,6 +427,10 @@ export type CountryAdvantageUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -369,6 +441,10 @@ export type CountryAdvantageUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
@@ -390,6 +466,10 @@ export type CountryAdvantageCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  titleTh?: Prisma.SortOrder
+  titleMy?: Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
@@ -405,6 +485,10 @@ export type CountryAdvantageMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  titleTh?: Prisma.SortOrder
+  titleMy?: Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
@@ -416,6 +500,10 @@ export type CountryAdvantageMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   title?: Prisma.SortOrder
   description?: Prisma.SortOrder
+  titleTh?: Prisma.SortOrder
+  titleMy?: Prisma.SortOrder
+  descriptionTh?: Prisma.SortOrder
+  descriptionMy?: Prisma.SortOrder
   imageUrl?: Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
@@ -481,6 +569,10 @@ export type CountryAdvantageCreateWithoutCountryInput = {
   id?: string
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   imageUrl?: string | null
   order?: number
   createdAt?: Date | string
@@ -491,6 +583,10 @@ export type CountryAdvantageUncheckedCreateWithoutCountryInput = {
   id?: string
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   imageUrl?: string | null
   order?: number
   createdAt?: Date | string
@@ -530,6 +626,10 @@ export type CountryAdvantageScalarWhereInput = {
   id?: Prisma.StringFilter<"CountryAdvantage"> | string
   title?: Prisma.StringFilter<"CountryAdvantage"> | string
   description?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  titleTh?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  titleMy?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  descriptionTh?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
+  descriptionMy?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
   imageUrl?: Prisma.StringNullableFilter<"CountryAdvantage"> | string | null
   order?: Prisma.IntFilter<"CountryAdvantage"> | number
   countryId?: Prisma.StringFilter<"CountryAdvantage"> | string
@@ -541,6 +641,10 @@ export type CountryAdvantageCreateManyCountryInput = {
   id?: string
   title: string
   description?: string | null
+  titleTh?: string | null
+  titleMy?: string | null
+  descriptionTh?: string | null
+  descriptionMy?: string | null
   imageUrl?: string | null
   order?: number
   createdAt?: Date | string
@@ -551,6 +655,10 @@ export type CountryAdvantageUpdateWithoutCountryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -561,6 +669,10 @@ export type CountryAdvantageUncheckedUpdateWithoutCountryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -571,6 +683,10 @@ export type CountryAdvantageUncheckedUpdateManyWithoutCountryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   title?: Prisma.StringFieldUpdateOperationsInput | string
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   imageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -583,6 +699,10 @@ export type CountryAdvantageSelect<ExtArgs extends runtime.Types.Extensions.Inte
   id?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   imageUrl?: boolean
   order?: boolean
   countryId?: boolean
@@ -595,6 +715,10 @@ export type CountryAdvantageSelectCreateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   imageUrl?: boolean
   order?: boolean
   countryId?: boolean
@@ -607,6 +731,10 @@ export type CountryAdvantageSelectUpdateManyAndReturn<ExtArgs extends runtime.Ty
   id?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   imageUrl?: boolean
   order?: boolean
   countryId?: boolean
@@ -619,6 +747,10 @@ export type CountryAdvantageSelectScalar = {
   id?: boolean
   title?: boolean
   description?: boolean
+  titleTh?: boolean
+  titleMy?: boolean
+  descriptionTh?: boolean
+  descriptionMy?: boolean
   imageUrl?: boolean
   order?: boolean
   countryId?: boolean
@@ -626,7 +758,7 @@ export type CountryAdvantageSelectScalar = {
   updatedAt?: boolean
 }
 
-export type CountryAdvantageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "imageUrl" | "order" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryAdvantage"]>
+export type CountryAdvantageOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "title" | "description" | "titleTh" | "titleMy" | "descriptionTh" | "descriptionMy" | "imageUrl" | "order" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryAdvantage"]>
 export type CountryAdvantageInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }
@@ -646,6 +778,10 @@ export type $CountryAdvantagePayload<ExtArgs extends runtime.Types.Extensions.In
     id: string
     title: string
     description: string | null
+    titleTh: string | null
+    titleMy: string | null
+    descriptionTh: string | null
+    descriptionMy: string | null
     imageUrl: string | null
     order: number
     countryId: string
@@ -1078,6 +1214,10 @@ export interface CountryAdvantageFieldRefs {
   readonly id: Prisma.FieldRef<"CountryAdvantage", 'String'>
   readonly title: Prisma.FieldRef<"CountryAdvantage", 'String'>
   readonly description: Prisma.FieldRef<"CountryAdvantage", 'String'>
+  readonly titleTh: Prisma.FieldRef<"CountryAdvantage", 'String'>
+  readonly titleMy: Prisma.FieldRef<"CountryAdvantage", 'String'>
+  readonly descriptionTh: Prisma.FieldRef<"CountryAdvantage", 'String'>
+  readonly descriptionMy: Prisma.FieldRef<"CountryAdvantage", 'String'>
   readonly imageUrl: Prisma.FieldRef<"CountryAdvantage", 'String'>
   readonly order: Prisma.FieldRef<"CountryAdvantage", 'Int'>
   readonly countryId: Prisma.FieldRef<"CountryAdvantage", 'String'>

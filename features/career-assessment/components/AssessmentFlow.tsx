@@ -1,21 +1,35 @@
 'use client'
 
-import { useState, useEffect, useCallback, useRef } from 'react'
-import { AnimatePresence, motion } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useState, useEffect, useCallback, useRef, useSyncExternalStore } from 'react'
+import { AnimatePresence } from 'framer-motion'
+import { useLocale, useTranslations } from 'next-intl'
 import { RIASEC_COUNT, PERSONALITY_END, TOTAL_QUESTIONS } from '../data/allQuestions'
 import { APTITUDE_AREA_LABELS } from '../data/aptitudeQuestions'
 import { useAssessment } from '../hooks/useAssessment'
 import { useNavigationGuard } from '../hooks/useNavigationGuard'
 import { submitAssessment } from '../services/careerLeadService'
 import { savePending, readPending, clearPending } from '../services/pendingSubmission'
+import {
+  clearProgress,
+  invalidateProgressSnapshot,
+  subscribeProgress,
+  getProgressSnapshot,
+  getProgressServerSnapshot,
+} from '../services/assessmentProgress'
 import type { AnswerMap, ContactDetails, DashboardData, SubmitResult } from '../types'
 import { CareerDiscoveryIntro } from './CareerDiscoveryIntro'
 import { CareerOutlookExplorer } from './CareerOutlookExplorer'
-import { PreparingScreen } from './PreparingScreen'
+import { AssessmentModeTabs, type AssessmentMode } from './AssessmentModeTabs'
+import { ReportShowcase } from './ReportShowcase'
+import { AssessmentMethod } from './AssessmentMethod'
+import { AssessmentFinalCta } from './AssessmentFinalCta'
+import { BeforeYouBeginModal } from './BeforeYouBeginModal'
+import { AssessmentChrome } from './AssessmentChrome'
+import { ExitTestButton } from './ExitTestButton'
+import { ShareButton } from './ShareButton'
+import { SegmentedProgressBar } from './SegmentedProgressBar'
 import { QuestionScreen } from './QuestionScreen'
 import { AptitudeQuestionCard } from './AptitudeQuestionCard'
-import { ProgressBar } from './ProgressBar'
 import { SectionTransition } from './SectionTransition'
 import { ContactForm } from './ContactForm'
 import { SubmittingScreen } from './SubmittingScreen'
@@ -24,7 +38,6 @@ import { ResultsDashboard } from './ResultsDashboard'
 
 type Phase =
   | 'intro'
-  | 'preparing'
   | 'questions'
   | 'transition'
   | 'contact'
@@ -34,7 +47,9 @@ type Phase =
 type NextSection = 'personality' | 'aptitude'
 
 const ADVANCE_DELAY = 220
-const PREPARE_MS = 2000
+
+/** Question count per part, for the segmented progress bar. */
+const SECTION_SIZES = [RIASEC_COUNT, PERSONALITY_END - RIASEC_COUNT, TOTAL_QUESTIONS - PERSONALITY_END] as const
 
 /** Wait before each attempt. The first is immediate; the rest give a flaky mobile
  *  connection time to come back before we give up on it. */
@@ -55,13 +70,17 @@ const sleep = (ms: number) => new Promise((r) => setTimeout(r, ms))
  * within seconds. A resolved `{ success: false }` is a real validation failure from the
  * server, so it is returned immediately rather than retried.
  */
-async function submitWithRetry(contact: ContactDetails, answers: AnswerMap): Promise<SubmitResult> {
+async function submitWithRetry(
+  contact: ContactDetails,
+  answers: AnswerMap,
+  locale: string,
+): Promise<SubmitResult> {
   let lastError: unknown = null
 
   for (const delay of RETRY_DELAYS_MS) {
     if (delay) await sleep(delay)
     try {
-      return await submitAssessment(contact, answers)
+      return await submitAssessment(contact, answers, locale)
     } catch (error) {
       lastError = error
       console.error('Assessment submit attempt failed, will retry if attempts remain:', error)
@@ -75,38 +94,38 @@ async function submitWithRetry(contact: ContactDetails, answers: AnswerMap): Pro
 export function AssessmentFlow() {
   const t = useTranslations('careerAssessment.sections')
   const tc = useTranslations('careerAssessment')
-  const { questions, answers, index, setAnswer, goNext, goBack, reset, start, autofill } = useAssessment()
+  const locale = useLocale()
+  const { questions, answers, index, setAnswer, goNext, goBack, reset, start, resume, autofill } =
+    useAssessment()
 
   const [phase, setPhase] = useState<Phase>('intro')
+  // Which of the two landing modes the tabs are showing. Only meaningful while
+  // the flow is on the intro; once the questions start there is one path.
+  const [mode, setMode] = useState<AssessmentMode>('assessment')
+
+  // localStorage is not available on the server, so the store hands React a
+  // null server snapshot and the real value after hydration.
+  const saved = useSyncExternalStore(
+    subscribeProgress,
+    getProgressSnapshot,
+    getProgressServerSnapshot,
+  )
   const [transitionTo, setTransitionTo] = useState<NextSection>('personality')
   const [shown, setShown] = useState<Set<NextSection>>(new Set())
   const [serverError, setServerError] = useState<string | null>(null)
   const [dashboard, setDashboard] = useState<DashboardData | null>(null)
   const [leadId, setLeadId] = useState<string | null>(null)
+  const [beginModalOpen, setBeginModalOpen] = useState(false)
   // Guards the resume-on-mount effect so it can only fire once per page load.
   const resumedRef = useRef(false)
 
   const inProgress = phase === 'questions' || phase === 'transition' || phase === 'contact'
 
-  // Warn before leaving while in progress: refresh / tab close…
-  useEffect(() => {
-    if (!inProgress) return
-    const handler = (e: BeforeUnloadEvent) => {
-      e.preventDefault()
-      e.returnValue = ''
-    }
-    window.addEventListener('beforeunload', handler)
-    return () => window.removeEventListener('beforeunload', handler)
-  }, [inProgress])
-
+  // No beforeunload prompt any more: a refresh or a closed tab costs nothing now
+  // that answers autosave, and warning about a loss that cannot happen is worse
+  // than not warning at all. The in-app guard stays, because clicking a nav link
+  // still drops you out of the flow, even though the answers survive.
   useNavigationGuard(inProgress, tc('leaveConfirm'))
-
-  // "Preparing" → first question after a short beat.
-  useEffect(() => {
-    if (phase !== 'preparing') return
-    const id = window.setTimeout(() => setPhase('questions'), PREPARE_MS)
-    return () => window.clearTimeout(id)
-  }, [phase])
 
   const openTransition = useCallback((to: NextSection) => {
     setTransitionTo(to)
@@ -149,12 +168,13 @@ export function AssessmentFlow() {
       // Hold the submitting screen for at least MIN_SUBMITTING_MS so its steps play out,
       // without adding any delay when the request genuinely takes longer than that.
       const [result] = await Promise.all([
-        submitWithRetry(contact, submissionAnswers),
+        submitWithRetry(contact, submissionAnswers, locale),
         sleep(MIN_SUBMITTING_MS),
       ])
 
       if (result.success) {
         clearPending()
+        clearProgress()
         setDashboard(result.dashboard ?? null)
         setLeadId(result.leadId ?? null)
         reset()
@@ -173,7 +193,7 @@ export function AssessmentFlow() {
       setServerError(result.error ?? tc('submitError'))
       setPhase('contact')
     },
-    [reset, tc],
+    [reset, tc, locale],
   )
 
   const handleSubmit = useCallback(
@@ -203,11 +223,28 @@ export function AssessmentFlow() {
     return () => window.clearTimeout(id)
   }, [runSubmit])
 
+  // Every "Start Assessment" button opens the gate rather than starting
+  // directly; the real start happens in handleConfirmStart.
   const handleStart = useCallback(() => {
-    start() // fresh shuffled order + cleared answers
-    setShown(new Set())
-    setPhase('preparing')
-  }, [start])
+    setBeginModalOpen(true)
+  }, [])
+
+  // Memoized rather than inline: the modal's Escape-key listener is keyed to
+  // this reference in a useEffect, and an inline arrow here would give it a
+  // new identity on every AssessmentFlow render — tearing down and
+  // re-attaching a document-level listener that often, and dropping an
+  // Escape press that happens to land in that gap.
+  const closeBeginModal = useCallback(() => setBeginModalOpen(false), [])
+
+  const handleConfirmStart = useCallback(
+    () => {
+      setBeginModalOpen(false)
+      start() // fresh shuffled order + cleared answers
+      setShown(new Set())
+      setPhase('questions')
+    },
+    [start],
+  )
 
   const handleAutofill = useCallback(() => {
     autofill()
@@ -223,65 +260,110 @@ export function AssessmentFlow() {
         ? t('bigfiveTitle')
         : t('aptitudeTitle')
     : ''
+  const sectionNumber = question ? (question.section === 'riasec' ? 1 : question.section === 'bigfive' ? 2 : 3) : 1
   const showHeader = phase === 'questions' || phase === 'transition'
 
-  return (
-    <section className="relative flex min-h-[calc(100dvh-72px)] flex-col bg-gradient-to-b from-white via-neutral-50 to-neutral-100">
-      {/* Ambient background (shared by all phases) */}
-      <div aria-hidden className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="absolute -left-20 top-8 h-72 w-72 rounded-full bg-brand-purple/10 blur-3xl" />
-        <div className="absolute -right-16 top-1/3 h-64 w-64 rounded-full bg-accent-gold/10 blur-3xl" />
-        <div className="absolute -bottom-10 left-1/3 h-72 w-72 rounded-full bg-brand-purple-light/10 blur-3xl" />
-        <div
-          className="absolute inset-0 opacity-[0.035]"
-          style={{ backgroundImage: 'radial-gradient(#590D82 1px, transparent 1px)', backgroundSize: '24px 24px' }}
+  // Exiting deliberately (the header button) is different from navigating
+  // away by accident: it always returns to the intro rather than closing the
+  // tab, and the run is already autosaved, so there is nothing to clear. The
+  // intro's `saved` value is still the page-load snapshot from before any of
+  // this run's answers existed, though, so without invalidating it here the
+  // CTA would keep showing "Start Assessment Now" until an actual reload.
+  const handleExit = useCallback(() => {
+    invalidateProgressSnapshot()
+    setPhase('intro')
+  }, [])
+
+  // The landing is full-bleed and sits on its own sections, so it returns
+  // before the centred shell the answering phases use. No entrance animation:
+  // this is the page's main content, and an opacity-0 initial would leave it
+  // invisible if the JS never arrives.
+  const handleResume = () => {
+    if (!saved) return
+    resume(saved)
+    setPhase('questions')
+  }
+
+  const handleRestart = () => {
+    clearProgress()
+  }
+
+  if (phase === 'intro') {
+    return (
+      <div className="bg-canvas">
+        <AssessmentModeTabs mode={mode} onChange={setMode} />
+
+        {mode === 'assessment' ? (
+          <>
+            {/* A saved run swaps the hero's own CTA into a resume state
+                (see CareerDiscoveryIntro) rather than a banner stacked above
+                it, so the designed layout never shifts down for it. */}
+            <CareerDiscoveryIntro
+              onStart={handleStart}
+              onAutofill={handleAutofill}
+              resumeCount={saved?.answeredCount}
+              onResume={handleResume}
+              onRestart={handleRestart}
+            />
+            <ReportShowcase onStart={handleStart} />
+            <AssessmentMethod onStart={handleStart} />
+            <AssessmentFinalCta onStart={handleStart} />
+          </>
+        ) : (
+          <CareerOutlookExplorer onStart={handleStart} />
+        )}
+
+        <BeforeYouBeginModal
+          open={beginModalOpen}
+          onClose={closeBeginModal}
+          onStart={handleConfirmStart}
         />
       </div>
+    )
+  }
 
-      {/* Sticky progress header (only while answering) */}
+  return (
+    <AssessmentChrome
+      headerRight={
+        phase === 'dashboard' ? (
+          dashboard &&
+          leadId && (
+            <div className="flex items-center gap-2">
+              <ShareButton dashboard={dashboard} leadId={leadId} />
+              <button
+                type="button"
+                onClick={handleExit}
+                className="inline-flex cursor-pointer items-center gap-1.5 rounded-full bg-action px-4 py-1.5 text-min font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover sm:text-label"
+              >
+                {tc('chrome.finish')}
+              </button>
+            </div>
+          )
+        ) : (
+          <ExitTestButton onExit={handleExit} />
+        )
+      }
+    >
+      {/* Progress header (only while answering) */}
       {showHeader && (
-        <div className="sticky top-[72px] z-30 border-b border-gray-100 bg-white/80 backdrop-blur">
-          <div className="mx-auto w-full max-w-2xl px-4 py-3">
-            <ProgressBar
-              current={Math.min(index + 1, TOTAL_QUESTIONS)}
-              total={TOTAL_QUESTIONS}
-              sectionLabel={sectionLabel}
-              boundaries={[RIASEC_COUNT / TOTAL_QUESTIONS, PERSONALITY_END / TOTAL_QUESTIONS]}
-            />
-          </div>
-        </div>
+        <SegmentedProgressBar
+          current={Math.min(index + 1, TOTAL_QUESTIONS)}
+          total={TOTAL_QUESTIONS}
+          sectionLabel={sectionLabel}
+          sectionSizes={SECTION_SIZES}
+        />
       )}
 
       {/* Phase content */}
-      <div className={`relative flex flex-1 ${phase === 'dashboard' ? 'items-start' : 'items-center'} justify-center px-4 py-6`}>
-        <div className={`mx-auto w-full ${phase === 'dashboard' ? 'max-w-6xl' : phase === 'intro' ? 'max-w-5xl' : 'max-w-3xl'}`}>
+      <div className={`flex flex-1 justify-center px-4 pt-10 pb-12`}>
+        <div className={`w-full ${phase === 'dashboard' ? 'max-w-wrap px-6' : 'max-w-3xl'}`}>
           <AnimatePresence mode="wait">
-            {phase === 'intro' && (
-              <motion.div
-                key="intro"
-                initial={{ opacity: 0, y: 20 }}
-                animate={{ opacity: 1, y: 0 }}
-                transition={{ duration: 0.45, ease: 'easeOut' }}
-                className="overflow-hidden rounded-3xl border border-gray-100 bg-white shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)]"
-              >
-                <div className="grid lg:grid-cols-2">
-                  <div className="p-5 sm:p-7">
-                    <CareerDiscoveryIntro bare onStart={handleStart} onAutofill={handleAutofill} />
-                  </div>
-                  <div className="border-t border-gray-100 bg-gradient-to-br from-brand-purple-50/80 via-brand-purple-50/30 to-white p-5 sm:p-7 lg:border-l lg:border-t-0">
-                    <CareerOutlookExplorer bare />
-                  </div>
-                </div>
-              </motion.div>
-            )}
-
-            {phase === 'preparing' && <PreparingScreen key="preparing" />}
-
             {phase === 'questions' && question && question.kind === 'likert' && (
               <QuestionScreen
                 key={`q-${question.id}`}
                 question={question}
                 questionNumber={index + 1}
+                sectionNumber={sectionNumber}
                 value={answers[question.id]}
                 canGoBack={index > 0}
                 onSelect={handleSelect}
@@ -327,6 +409,6 @@ export function AssessmentFlow() {
           </AnimatePresence>
         </div>
       </div>
-    </section>
+    </AssessmentChrome>
   )
 }

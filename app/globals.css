@@ -40,23 +40,235 @@
 }
 
 @theme {
-  --color-brand-purple: #590D82;
+  /* ── Brand ────────────────────────────────────────────────────────────────
+     #632D8B is sampled from logo.webp, where it is the dominant purple by a
+     factor of nine. The previous #590D82 came from an older stylesheet and
+     never appeared in the mark it sat above. */
+  --color-brand: #632D8B;
+  --color-action: #632D8B;
+  --color-action-hover: #4C236C;
+  --color-tint: #F3EDFA;
+  --color-link: var(--color-action);
+
+  /* Legacy aliases. Existing sections still reference these; they resolve to
+     the corrected values so nothing has to change until each section is
+     rebuilt against the new tokens. */
+  --color-brand-purple: #632D8B;
+  --color-brand-purple-dark: #4C236C;
   --color-brand-purple-light: #7B1FA2;
-  --color-brand-purple-dark: #3D0A5A;
   --color-brand-purple-50: #F5E6FF;
   --color-brand-purple-100: #E8CCFF;
+
+  /* ── Structure ────────────────────────────────────────────────────────────
+     Black carries the full-width furniture (utility bar, footer) so the brand
+     colour is not spent on wallpaper. */
+  --color-structure: #171717;
+  --color-pill: #171717;
+
+  /* ── Surfaces ─────────────────────────────────────────────────────────────
+     True neutrals, no violet cast. A tinted grey reads as one more shade of
+     purple, which is the thing being removed. */
+  --color-canvas: #FAFAFA;
+  --color-surface: #FFFFFF;
+  --color-surface-0: #F5F5F5;
+  --color-surface-1: #F0F0F0;
+  --color-surface-2: #E3E3E3;
+
+  /* ── Text and lines ───────────────────────────────────────────────────── */
+  --color-primary-text: #141414;
+  --color-secondary-text: #404040;
+  --color-muted-text: #737373;
+  --color-disabled-text: #A3A3A3;
+  --color-stroke: #E5E5E5;
+  --color-stroke-strong: #C4C4C4;
+
+  /* ── Utility ──────────────────────────────────────────────────────────── */
+  --color-error: #B42318;
+  --color-warning: #B54708;
+  --color-success: #067647;
+
+  /* Gold is information, never something you click. --color-accent measures
+     2.15:1 on white so it is fills and rules only; --color-accent-ink is the
+     5.0:1 value to use when it has to be read. */
+  --color-accent: #F59E0B;
+  --color-accent-ink: #B45309;
   --color-accent-gold: #F59E0B;
+
   --color-neutral-50: #FAFAFA;
   --color-neutral-900: #18181B;
+
+  /* ── Type ─────────────────────────────────────────────────────────────────
+     Scales with the container via clamp(), never in breakpoint jumps.
+     300 weight only at 17px and up; 400 below it. Nothing below 12px. */
+  --text-display: clamp(2.25rem, 1.55rem + 2.9vw, 3.25rem);
+  --text-title: clamp(1.75rem, 1.15rem + 2.4vw, 2.5rem);
+  --text-section: clamp(1.25rem, 1rem + 1.1vw, 1.625rem);
+  --text-lede: clamp(1.0625rem, 1rem + 0.4vw, 1.1875rem);
+  --text-card: clamp(1.0625rem, 1rem + 0.3vw, 1.1875rem);
+  --text-body: 1.0625rem;
+  --text-label: 0.875rem;
+  --text-min: 0.75rem;
 
   --font-sans: "Noto Sans", system-ui, sans-serif;
   --font-thai: "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
   --font-myanmar: "Noto Sans Myanmar", "Noto Sans", system-ui, sans-serif;
 
-  --radius-sm: 0.375rem;
-  --radius-md: 0.5rem;
-  --radius-lg: 0.75rem;
+  /* ── Shape ────────────────────────────────────────────────────────────────
+     Buttons stay a full pill. Everything else is a restrained 8px: never
+     sharp, never a squircle. */
+  --radius-sm: 8px;
+  --radius-md: 14px;
+  --radius-lg: 18px;
   --radius-xl: 1rem;
   --radius-2xl: 1.5rem;
-  --radius-full: 9999px;
+  /* Tailwind's own value for rounded-full, so pills match the design exactly. */
+  --radius-full: calc(infinity * 1px);
+
+  /* The one green in the palette: the reassurance bar under the assessment
+     steps, never anything interactive. Named as the design names it. */
+  --color-dark-green: #044E2B;
+
+  /* Lifts a panel off the page without reading as a drop shadow: a hairline
+     contact shadow plus a wide, tightly-spread ambient one. */
+  --shadow-card: 0 1px 2px 0 rgb(0 0 0 / 0.06), 0 8px 24px -12px rgb(0 0 0 / 0.18);
+
+  /* Content column. Narrower than the 80rem this site used before. */
+  --container-wrap: 1080px;
+
+  /* The point the desktop nav collapses. Sits between md and lg. */
+  --breakpoint-tablet: 860px;
+}
+
+/* Thai and Myanmar are complex scripts: consonants combine with reordered
+   medials and stacked vowel signs that the browser has to shape (position and
+   sometimes visually reorder) using the font's own logic. Several headings
+   carry a negative `tracking-*` for a tighter display look in Latin — but any
+   letter-spacing, positive or negative, makes Chrome/Firefox/Safari fall back
+   to naive per-character spacing instead of the font's shaping, so those
+   marks stop attaching to their base consonant and render as stray, detached
+   glyphs. This is a browser/text-layout limitation, not a font or content
+   bug, and it affects every current and future `tracking-*` utility, so it is
+   reset globally by the rendered language rather than patched per component.
+   Unlayered, so it wins over Tailwind's utility layer without needing
+   `!important` — kept anyway, defensively, in case that ever changes. */
+:lang(th), :lang(my) {
+  letter-spacing: normal !important;
+}
+
+/* Hero backdrop: a soft lift behind the headline so the page does not start on
+   a flat grey. The globe behind it fades out before it reaches the copy. */
+.hero-lift {
+  background-image: radial-gradient(
+    ellipse 68% 56% at 50% 34%,
+    #fff 0%,
+    #fcfcfc 30%,
+    var(--color-canvas) 56%,
+    #ebeaec 100%
+  );
+}
+.hero-globe-fade {
+  -webkit-mask-image: linear-gradient(#000 0% 25%, #0000 45%);
+  mask-image: linear-gradient(#000 0% 25%, #0000 45%);
+}
+
+/* Logo marquee. Two identical lists sit side by side and the track slides by
+   exactly half its width, so the loop is seamless with no JS measuring
+   anything. --marquee-duration is set per row. */
+@keyframes marquee-travel-left {
+  0% { transform: translateX(0); }
+  100% { transform: translateX(-50%); }
+}
+@keyframes marquee-travel-right {
+  0% { transform: translateX(-50%); }
+  100% { transform: translateX(0); }
+}
+.marquee {
+  overflow: hidden;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 7% 93%, transparent);
+  mask-image: linear-gradient(90deg, transparent, #000 7% 93%, transparent);
+}
+.marquee-track {
+  display: flex;
+  width: max-content;
+  will-change: transform;
+}
+.marquee-track--left {
+  animation: marquee-travel-left var(--marquee-duration, 70s) linear infinite;
+}
+.marquee-track--right {
+  animation: marquee-travel-right var(--marquee-duration, 70s) linear infinite;
+}
+.marquee:hover .marquee-track {
+  animation-play-state: paused;
+}
+
+/* With motion turned down the rows stop and become a plain horizontal scroll,
+   so every logo is still reachable. */
+@media (prefers-reduced-motion: reduce) {
+  .marquee-track { animation: none; }
+  .marquee {
+    overflow-x: auto;
+    -webkit-mask-image: none;
+    mask-image: none;
+  }
+}
+
+/* Course Finder backdrop: a dot grid that drifts exactly one tile over 30s, so
+   the loop is seamless. Held still when motion is turned down. */
+@keyframes course-finder-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 26px 26px; }
+}
+.course-finder-texture {
+  background-image: radial-gradient(circle, #ffffff29 1px, #0000 1px);
+  background-size: 26px 26px;
+  animation: course-finder-drift 30s linear infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .course-finder-texture { animation: none; }
+}
+
+/* About page, "What We Stand For": a purple dot grid faded out towards the
+   edges by its own mask, so the texture never reaches the section border. */
+.values-section-texture {
+  background-image: radial-gradient(circle, #632d8b1f 1.5px, #0000 1.5px);
+  background-size: 24px 24px;
+  -webkit-mask-image: radial-gradient(85% 70%, #000 35%, #0000 100%);
+  mask-image: radial-gradient(85% 70%, #000 35%, #0000 100%);
+}
+
+/* A light sweep across each value card. The cycle is 12s and the four cards are
+   delayed 0/3/6/9s, so exactly one is sweeping at any moment. */
+@keyframes card-shimmer-sweep {
+  0% { opacity: 0; transform: translateX(-150%) skew(-20deg); }
+  3% { opacity: 1; }
+  15% { opacity: 1; }
+  18%, 100% { opacity: 0; transform: translateX(250%) skew(-20deg); }
+}
+.animate-shimmer-seq {
+  animation: card-shimmer-sweep 12s cubic-bezier(0.4, 0, 0.2, 1) infinite;
+}
+@media (prefers-reduced-motion: reduce) {
+  .animate-shimmer-seq {
+    animation: none;
+    display: none;
+  }
+}
+
+/* Career Assessment hero: the same dot grid as the Course Finder, drifting one
+   tile over 28s so the loop is seamless, and masked so it fades out before it
+   reaches the section edges. */
+@keyframes assessment-grid-drift {
+  0% { background-position: 0 0; }
+  100% { background-position: 16px 16px; }
+}
+.assessment-hero-texture {
+  background-image: radial-gradient(circle, #632d8b38 1.25px, #0000 1.25px);
+  background-size: 16px 16px;
+  animation: assessment-grid-drift 28s linear infinite;
+  -webkit-mask-image: radial-gradient(92% 88%, #000 45%, #0000 100%);
+  mask-image: radial-gradient(92% 88%, #000 45%, #0000 100%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .assessment-hero-texture { animation: none; }
 }

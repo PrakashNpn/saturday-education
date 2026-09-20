@@ -1,100 +1,117 @@
-import { Heart, Eye, GraduationCap, Users } from 'lucide-react'
+'use client'
 
-interface Props {
-  translations: {
-    valuesLabel: string
-    valuesTitle: string
-    valuesSubtitle: string
-    value1Title: string
-    value1Desc: string
-    value2Title: string
-    value2Desc: string
-    value3Title: string
-    value3Desc: string
-    value4Title: string
-    value4Desc: string
-  }
-}
+import { useTranslations } from 'next-intl'
+import { motion, useReducedMotion } from 'framer-motion'
 
-export function AboutValues({ translations: t }: Props) {
+const EASE = [0, 0, 0.2, 1] as const
+// Matches the grid's own md:grid-cols-2.
+const COLS = 2
+
+/**
+ * The design inlines these rather than importing them, and the version of
+ * lucide-react installed here draws three of the four differently: its Compass
+ * uses a path where the design has a polygon, and GraduationCap and Users have
+ * newer geometry. Inlined to match the design exactly.
+ */
+const ICONS = {
+  eye: (
+    <>
+      <path d="M2 12s3-7 10-7 10 7 10 7-3 7-10 7-10-7-10-7Z" />
+      <circle cx="12" cy="12" r="3" />
+    </>
+  ),
+  compass: (
+    <>
+      <circle cx="12" cy="12" r="10" />
+      <polygon points="16.24 7.76 14.12 14.12 7.76 16.24 9.88 9.88 16.24 7.76" />
+    </>
+  ),
+  graduation: (
+    <>
+      <path d="M22 10v6M2 10l10-5 10 5-10 5z" />
+      <path d="M6 12v5c3 3 9 3 12 0v-5" />
+    </>
+  ),
+  users: (
+    <>
+      <path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" />
+      <circle cx="9" cy="7" r="4" />
+      <path d="M22 21v-2a4 4 0 0 0-3-3.87" />
+      <path d="M16 3.13a4 4 0 0 1 0 7.75" />
+    </>
+  ),
+} as const
+
+// One card sweeps every three seconds, in order, on a twelve-second cycle.
+const VALUES = [
+  { n: 1, icon: 'eye', delay: '0s' },
+  { n: 2, icon: 'compass', delay: '3s' },
+  { n: 3, icon: 'graduation', delay: '6s' },
+  { n: 4, icon: 'users', delay: '9s' },
+] as const
+
+export function AboutValues() {
+  const t = useTranslations('about')
+  const prefersReducedMotion = useReducedMotion()
+
   return (
-    <section className="py-20">
-      <div className="max-w-7xl mx-auto px-4 md:px-8">
+    <section className="relative overflow-hidden border-t border-purple-200/60 bg-[#F7F2FA] py-16 max-tablet:py-12">
+      <div className="values-section-texture pointer-events-none absolute inset-0" />
 
-        {/* Header */}
-        <div className="text-center mb-12">
-          <div className="inline-flex items-center bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-5">
-            {t.valuesLabel}
-          </div>
-          <h2 className="text-3xl md:text-4xl font-bold text-brand-purple mb-4">
-            {t.valuesTitle}
-          </h2>
-          <p className="text-gray-500 max-w-xl mx-auto leading-relaxed">
-            {t.valuesSubtitle}
+      <div className="relative mx-auto max-w-wrap px-6">
+        <div className="mx-auto mb-10 max-w-[46ch] text-center">
+          <p className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
+            {t('valuesLabel')}
           </p>
+          <h2 className="text-section font-medium">{t('valuesTitle')}</h2>
         </div>
 
-        {/* Bento grid */}
-        <div className="grid grid-cols-1 md:grid-cols-5 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 gap-6 md:grid-cols-2">
+          {VALUES.map(({ n, icon, delay }, index) => (
+            <motion.div
+              key={n}
+              initial={{ opacity: 0, y: 16 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              viewport={{ once: true, margin: '-80px' }}
+              transition={
+                prefersReducedMotion
+                  ? { duration: 0 }
+                  : { duration: 0.45, delay: (index % COLS) * 0.1, ease: EASE }
+              }
+              className="relative overflow-hidden rounded-[6px] border border-purple-500/20 bg-gradient-to-br from-[#240B3E] via-[#170528] to-[#0E0219] p-8 text-center max-tablet:p-6"
+            >
+              <span className="absolute top-5 right-5 font-mono text-sm font-medium text-purple-300/40">
+                {String(n).padStart(2, '0')}
+              </span>
 
-          {/* Card 1 — Student-First: wide top-left, white */}
-          <div className="md:col-span-3 bg-white rounded-2xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[220px] shadow-sm">
-            <div className="absolute top-6 right-6 text-gray-100">
-              <Heart className="w-16 h-16" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-full bg-brand-purple-50 flex items-center justify-center mb-4">
-                <Heart className="w-5 h-5 text-brand-purple" />
+              <div
+                className="animate-shimmer-seq pointer-events-none absolute inset-y-0 w-1/2 bg-gradient-to-r from-transparent via-white/10 to-transparent"
+                style={{ animationDelay: delay }}
+              />
+
+              <div className="mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-full border border-white/15 bg-white/20 backdrop-blur-xs">
+                <svg
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  stroke="currentColor"
+                  strokeWidth="1.75"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                  aria-hidden="true"
+                  className="h-10 w-10 text-white"
+                >
+                  {ICONS[icon]}
+                </svg>
               </div>
-              <h3 className="text-xl font-bold text-gray-900 mb-3">{t.value1Title}</h3>
-              <p className="text-gray-600 leading-relaxed max-w-sm">{t.value1Desc}</p>
-            </div>
-          </div>
 
-          {/* Card 2 — Radical Transparency: narrow top-right, purple */}
-          <div className="md:col-span-2 bg-brand-purple rounded-2xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[220px]">
-            <div className="absolute top-6 right-6 text-white/20">
-              <Eye className="w-14 h-14" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-full bg-white/15 flex items-center justify-center mb-4">
-                <Eye className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3">{t.value2Title}</h3>
-              <p className="text-white/80 leading-relaxed">{t.value2Desc}</p>
-            </div>
-          </div>
-
-          {/* Card 3 — Proven Expertise: narrow bottom-left, white */}
-          <div className="md:col-span-2 bg-white rounded-2xl p-8 relative overflow-hidden flex flex-col justify-between min-h-[200px] shadow-sm">
-            <div className="absolute top-6 right-6 text-brand-purple/10">
-              <GraduationCap className="w-14 h-14" />
-            </div>
-            <div>
-              <div className="w-10 h-10 rounded-full bg-brand-purple-50 flex items-center justify-center mb-4">
-                <GraduationCap className="w-5 h-5 text-brand-purple" />
-              </div>
-              <h3 className="text-lg font-bold text-gray-900 mb-2">{t.value3Title}</h3>
-              <p className="text-gray-600 text-sm leading-relaxed">{t.value3Desc}</p>
-            </div>
-          </div>
-
-          {/* Card 4 — Long-term Partnership: wide bottom-right, dark gradient */}
-          <div className="md:col-span-3 relative rounded-2xl overflow-hidden flex flex-col justify-end min-h-[200px] bg-gradient-to-br from-brand-purple-dark via-purple-900 to-purple-800">
-            {/* Decorative circles */}
-            <div className="absolute top-4 right-4 w-32 h-32 bg-white/5 rounded-full" />
-            <div className="absolute top-12 right-14 w-20 h-20 bg-white/5 rounded-full" />
-            <div className="absolute top-0 left-0 w-24 h-24 bg-white/5 rounded-full -translate-x-6 -translate-y-6" />
-
-            <div className="relative z-10 p-8">
-              <div className="w-10 h-10 rounded-full bg-white/10 flex items-center justify-center mb-4">
-                <Users className="w-5 h-5 text-white" />
-              </div>
-              <h3 className="text-xl font-bold text-white mb-2">{t.value4Title}</h3>
-              <p className="text-white/75 text-sm leading-relaxed max-w-xs">{t.value4Desc}</p>
-            </div>
-          </div>
-
+              <h3 className="mb-2 text-xl font-medium tracking-tight text-white">
+                {t(`value${n}Title`)}
+              </h3>
+              <p className="mx-auto max-w-[38ch] text-body leading-[1.6] font-light text-purple-100/85">
+                {t(`value${n}Desc`)}
+              </p>
+            </motion.div>
+          ))}
         </div>
       </div>
     </section>

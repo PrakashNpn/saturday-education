@@ -9,11 +9,10 @@ import { scoreAptitude } from './aptitudeScoring'
 import { getRecommendationTree } from './universityRecs'
 import { matchCareers } from './careerMatch'
 import { extractInterestEvidence, buildCounselorEmailHtml } from './brief'
-import { buildArchetype } from './archetype'
 import { buildAssessmentPdf } from './pdf/ReportDocument'
+import { buildDashboard } from './dashboardBuilder'
 import { buildCounselorPrompt } from '../prompts/counselorBrief'
 import { candidateBuckets } from '../data/fieldTaxonomy'
-import { RIASEC_INFO } from '../data/riasecFieldMap'
 import type {
   AnswerMap,
   ContactDetails,
@@ -21,11 +20,7 @@ import type {
   AssessmentScores,
   RecommendationTree,
   SubmitResult,
-  DashboardData,
   MatchedCareer,
-  UniversityTeaser,
-  RiasecCategory,
-  BigFiveTrait,
 } from '../types'
 
 const LEADS_EMAIL =
@@ -35,30 +30,13 @@ const LEADS_EMAIL =
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
-const RIASEC_ORDER: RiasecCategory[] = ['R', 'I', 'A', 'S', 'E', 'C']
-const RIASEC_SHORT: Record<RiasecCategory, string> = {
-  R: 'Realistic',
-  I: 'Investigative',
-  A: 'Artistic',
-  S: 'Social',
-  E: 'Enterprising',
-  C: 'Conventional',
-}
-// Bipolar pole labels for the personality bars (low ↔ high of each trait).
-const BIG_FIVE_BARS: { trait: BigFiveTrait; label: string; low: string; high: string }[] = [
-  { trait: 'O', label: 'Openness', low: 'Practical', high: 'Curious' },
-  { trait: 'C', label: 'Conscientiousness', low: 'Flexible', high: 'Organised' },
-  { trait: 'E', label: 'Extraversion', low: 'Reserved', high: 'Outgoing' },
-  { trait: 'A', label: 'Agreeableness', low: 'Direct', high: 'Compassionate' },
-  { trait: 'N', label: 'Emotional sensitivity', low: 'Calm', high: 'Sensitive' },
-]
-
 /** Calls Claude for a counselor-facing synthesis. Returns null on any failure. */
 async function generateSynthesis(
   scores: AssessmentScores,
   tree: RecommendationTree,
   matched: MatchedCareer[],
   preferredCountry?: string,
+  locale?: string,
 ): Promise<CounselorSynthesis | null> {
   if (!process.env.ANTHROPIC_API_KEY) return null
   try {
@@ -76,7 +54,7 @@ async function generateSynthesis(
       // response is ~1.5k tokens. Keep generous headroom so the JSON is never
       // truncated (truncation breaks JSON.parse and nulls the synthesis).
       max_tokens: 3200,
-      messages: [{ role: 'user', content: buildCounselorPrompt(scores, tree, matched, preferredCountry) }],
+      messages: [{ role: 'user', content: buildCounselorPrompt(scores, tree, matched, preferredCountry, locale) }],
     })
     const text = res.content
       .filter((b): b is Anthropic.TextBlock => b.type === 'text')
@@ -134,73 +112,11 @@ async function generateSynthesis(
   }
 }
 
-/** The student's visual profile (scores) for the dashboard charts. Deliberately
- *  excludes the interpretation (career directions / university matches / AI read),
- *  which stays gated in the counselor email/report. */
-/** A real, personalised teaser of the recommendation tree (counts + countries +
- *  a few blurred sample rows). The full shortlist stays gated. */
-function buildUniversityTeaser(tree: RecommendationTree): UniversityTeaser | undefined {
-  const countries = new Set<string>()
-  const sample: string[] = []
-  let totalCount = 0
-
-  for (const bucket of tree.buckets) {
-    for (const c of bucket.countries) {
-      countries.add(c.country)
-      totalCount += c.universities.length + (c.moreCount ?? 0)
-      for (const u of c.universities) {
-        if (sample.length < 3) sample.push(`${u.program} · ${c.country} · ${u.name}`)
-      }
-    }
-  }
-
-  if (totalCount === 0) return undefined
-  return {
-    totalCount,
-    countries: Array.from(countries).slice(0, 4),
-    fields: tree.fields.slice(0, 3),
-    sample,
-  }
-}
-
-function buildDashboard(
-  scores: AssessmentScores,
-  synthesis: CounselorSynthesis | null,
-  tree: RecommendationTree,
-): Omit<DashboardData, 'fullName' | 'email' | 'phone'> {
-  const { riasec, bigFive, aptitude } = scores
-
-  const mainLabel = (c: RiasecCategory) => RIASEC_INFO[c].label.replace(/\s*\(.*\)\s*/, '').trim()
-
-  const top2 = riasec.ranked.slice(0, 2)
-  const archetype = buildArchetype(scores)
-  const archetypeSummary =
-    top2.length > 1
-      ? `You're drawn most to ${mainLabel(top2[0])} and ${mainLabel(top2[1])} activities.`
-      : `You're drawn most to ${mainLabel(top2[0])} activities.`
-
-  return {
-    archetype,
-    archetypeSummary,
-    // Left undefined when the AI has not run yet, so the dashboard knows to go and fetch it
-    // via getStudentRead(). The UI renders `studentRead ?? archetypeSummary`, so the student
-    // sees the deterministic summary in the meantime either way. Do NOT default it here:
-    // a truthy value makes the dashboard think the AI text already arrived and stop polling.
-    studentRead: synthesis?.studentRead,
-    hollandCode: riasec.hollandCode,
-    interests: RIASEC_ORDER.map((c) => ({
-      category: c,
-      label: RIASEC_SHORT[c],
-      value: Math.round((riasec.scores[c] / 50) * 100),
-    })),
-    personality: BIG_FIVE_BARS.map((b) => ({ ...b, percentile: bigFive.percentile[b.trait] })),
-    aptitude: aptitude.areas.map((a) => ({ area: a.area, label: a.label, percent: a.percent, band: a.band })),
-    aptitudeOverall: { percent: aptitude.overallPercent, band: aptitude.overallBand },
-    universityTeaser: buildUniversityTeaser(tree),
-  }
-}
-
-export async function submitAssessment(contact: ContactDetails, answers: AnswerMap): Promise<SubmitResult> {
+export async function submitAssessment(
+  contact: ContactDetails,
+  answers: AnswerMap,
+  locale?: string,
+): Promise<SubmitResult> {
   if (!contact?.fullName?.trim() || !contact?.email?.trim()) {
     return { success: false, error: 'Name and email are required.' }
   }
@@ -263,7 +179,7 @@ export async function submitAssessment(contact: ContactDetails, answers: AnswerM
     //    their dashboard, so it no longer blocks them.
     after(async () => {
       try {
-        const synthesis = await generateSynthesis(scores, tree, matched, cleanContact.preferredCountry)
+        const synthesis = await generateSynthesis(scores, tree, matched, cleanContact.preferredCountry, locale)
         if (synthesis) {
           try {
             await prisma.assessmentLead.update({

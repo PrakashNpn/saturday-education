@@ -4,7 +4,7 @@ export type ComparisonUniversity = {
   id: string
   name: string
   country: string
-  tuition: { min: number; max: number; currency: string; scale: number } | null
+  tuition: { min: number; max: number; currency: string; currencyCode: string; scale: number } | null
   visaProcessing: string
   workRights: string
   scholarships: string
@@ -81,7 +81,15 @@ export async function getComparisonUniversities(): Promise<ComparisonUniversity[
       country: u.country.name,
       tuition:
         u.tuitionFeeMin != null && u.tuitionFeeMax != null
-          ? { min: u.tuitionFeeMin, max: u.tuitionFeeMax, currency: currencySymbol, scale: getScale(currencyCode) }
+          ? {
+              min: u.tuitionFeeMin,
+              max: u.tuitionFeeMax,
+              currency: currencySymbol,
+              // The code as well as the symbol: the comparison card converts to
+              // approximate USD and cannot do that from "RM " alone.
+              currencyCode,
+              scale: getScale(currencyCode),
+            }
           : null,
       visaProcessing: (u.country.visaProcessingTime ?? 'N/A').split('(')[0].trim(),
       workRights: workRights.split(';')[0].split('.')[0].trim(),

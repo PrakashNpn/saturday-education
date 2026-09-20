@@ -51,7 +51,11 @@ export type CountryMinAggregateOutputType = {
   heroImageUrl: string | null
   shortDescription: string | null
   tagline: string | null
+  taglineTh: string | null
+  taglineMy: string | null
   overview: string | null
+  overviewTh: string | null
+  overviewMy: string | null
   institutionCount: string | null
   tuitionFeeRange: string | null
   postStudyWorkVisa: string | null
@@ -78,7 +82,11 @@ export type CountryMaxAggregateOutputType = {
   heroImageUrl: string | null
   shortDescription: string | null
   tagline: string | null
+  taglineTh: string | null
+  taglineMy: string | null
   overview: string | null
+  overviewTh: string | null
+  overviewMy: string | null
   institutionCount: string | null
   tuitionFeeRange: string | null
   postStudyWorkVisa: string | null
@@ -105,7 +113,11 @@ export type CountryCountAggregateOutputType = {
   heroImageUrl: number
   shortDescription: number
   tagline: number
+  taglineTh: number
+  taglineMy: number
   overview: number
+  overviewTh: number
+  overviewMy: number
   institutionCount: number
   tuitionFeeRange: number
   postStudyWorkVisa: number
@@ -151,7 +163,11 @@ export type CountryMinAggregateInputType = {
   heroImageUrl?: true
   shortDescription?: true
   tagline?: true
+  taglineTh?: true
+  taglineMy?: true
   overview?: true
+  overviewTh?: true
+  overviewMy?: true
   institutionCount?: true
   tuitionFeeRange?: true
   postStudyWorkVisa?: true
@@ -178,7 +194,11 @@ export type CountryMaxAggregateInputType = {
   heroImageUrl?: true
   shortDescription?: true
   tagline?: true
+  taglineTh?: true
+  taglineMy?: true
   overview?: true
+  overviewTh?: true
+  overviewMy?: true
   institutionCount?: true
   tuitionFeeRange?: true
   postStudyWorkVisa?: true
@@ -205,7 +225,11 @@ export type CountryCountAggregateInputType = {
   heroImageUrl?: true
   shortDescription?: true
   tagline?: true
+  taglineTh?: true
+  taglineMy?: true
   overview?: true
+  overviewTh?: true
+  overviewMy?: true
   institutionCount?: true
   tuitionFeeRange?: true
   postStudyWorkVisa?: true
@@ -320,7 +344,11 @@ export type CountryGroupByOutputType = {
   heroImageUrl: string | null
   shortDescription: string | null
   tagline: string | null
+  taglineTh: string | null
+  taglineMy: string | null
   overview: string | null
+  overviewTh: string | null
+  overviewMy: string | null
   institutionCount: string | null
   tuitionFeeRange: string | null
   postStudyWorkVisa: string | null
@@ -371,7 +399,11 @@ export type CountryWhereInput = {
   heroImageUrl?: Prisma.StringNullableFilter<"Country"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"Country"> | string | null
   tagline?: Prisma.StringNullableFilter<"Country"> | string | null
+  taglineTh?: Prisma.StringNullableFilter<"Country"> | string | null
+  taglineMy?: Prisma.StringNullableFilter<"Country"> | string | null
   overview?: Prisma.StringNullableFilter<"Country"> | string | null
+  overviewTh?: Prisma.StringNullableFilter<"Country"> | string | null
+  overviewMy?: Prisma.StringNullableFilter<"Country"> | string | null
   institutionCount?: Prisma.StringNullableFilter<"Country"> | string | null
   tuitionFeeRange?: Prisma.StringNullableFilter<"Country"> | string | null
   postStudyWorkVisa?: Prisma.StringNullableFilter<"Country"> | string | null
@@ -403,7 +435,11 @@ export type CountryOrderByWithRelationInput = {
   heroImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   tagline?: Prisma.SortOrderInput | Prisma.SortOrder
+  taglineTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  taglineMy?: Prisma.SortOrderInput | Prisma.SortOrder
   overview?: Prisma.SortOrderInput | Prisma.SortOrder
+  overviewTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  overviewMy?: Prisma.SortOrderInput | Prisma.SortOrder
   institutionCount?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionFeeRange?: Prisma.SortOrderInput | Prisma.SortOrder
   postStudyWorkVisa?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -438,7 +474,11 @@ export type CountryWhereUniqueInput = Prisma.AtLeast<{
   heroImageUrl?: Prisma.StringNullableFilter<"Country"> | string | null
   shortDescription?: Prisma.StringNullableFilter<"Country"> | string | null
   tagline?: Prisma.StringNullableFilter<"Country"> | string | null
+  taglineTh?: Prisma.StringNullableFilter<"Country"> | string | null
+  taglineMy?: Prisma.StringNullableFilter<"Country"> | string | null
   overview?: Prisma.StringNullableFilter<"Country"> | string | null
+  overviewTh?: Prisma.StringNullableFilter<"Country"> | string | null
+  overviewMy?: Prisma.StringNullableFilter<"Country"> | string | null
   institutionCount?: Prisma.StringNullableFilter<"Country"> | string | null
   tuitionFeeRange?: Prisma.StringNullableFilter<"Country"> | string | null
   postStudyWorkVisa?: Prisma.StringNullableFilter<"Country"> | string | null
@@ -470,7 +510,11 @@ export type CountryOrderByWithAggregationInput = {
   heroImageUrl?: Prisma.SortOrderInput | Prisma.SortOrder
   shortDescription?: Prisma.SortOrderInput | Prisma.SortOrder
   tagline?: Prisma.SortOrderInput | Prisma.SortOrder
+  taglineTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  taglineMy?: Prisma.SortOrderInput | Prisma.SortOrder
   overview?: Prisma.SortOrderInput | Prisma.SortOrder
+  overviewTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  overviewMy?: Prisma.SortOrderInput | Prisma.SortOrder
   institutionCount?: Prisma.SortOrderInput | Prisma.SortOrder
   tuitionFeeRange?: Prisma.SortOrderInput | Prisma.SortOrder
   postStudyWorkVisa?: Prisma.SortOrderInput | Prisma.SortOrder
@@ -506,7 +550,11 @@ export type CountryScalarWhereWithAggregatesInput = {
   heroImageUrl?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
   shortDescription?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
   tagline?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
+  taglineTh?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
+  taglineMy?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
   overview?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
+  overviewTh?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
+  overviewMy?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
   institutionCount?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
   tuitionFeeRange?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
   postStudyWorkVisa?: Prisma.StringNullableWithAggregatesFilter<"Country"> | string | null
@@ -534,7 +582,11 @@ export type CountryCreateInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -566,7 +618,11 @@ export type CountryUncheckedCreateInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -598,7 +654,11 @@ export type CountryUpdateInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -630,7 +690,11 @@ export type CountryUncheckedUpdateInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -662,7 +726,11 @@ export type CountryCreateManyInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -690,7 +758,11 @@ export type CountryUpdateManyMutationInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -718,7 +790,11 @@ export type CountryUncheckedUpdateManyInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -754,7 +830,11 @@ export type CountryCountOrderByAggregateInput = {
   heroImageUrl?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
   tagline?: Prisma.SortOrder
+  taglineTh?: Prisma.SortOrder
+  taglineMy?: Prisma.SortOrder
   overview?: Prisma.SortOrder
+  overviewTh?: Prisma.SortOrder
+  overviewMy?: Prisma.SortOrder
   institutionCount?: Prisma.SortOrder
   tuitionFeeRange?: Prisma.SortOrder
   postStudyWorkVisa?: Prisma.SortOrder
@@ -790,7 +870,11 @@ export type CountryMaxOrderByAggregateInput = {
   heroImageUrl?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
   tagline?: Prisma.SortOrder
+  taglineTh?: Prisma.SortOrder
+  taglineMy?: Prisma.SortOrder
   overview?: Prisma.SortOrder
+  overviewTh?: Prisma.SortOrder
+  overviewMy?: Prisma.SortOrder
   institutionCount?: Prisma.SortOrder
   tuitionFeeRange?: Prisma.SortOrder
   postStudyWorkVisa?: Prisma.SortOrder
@@ -817,7 +901,11 @@ export type CountryMinOrderByAggregateInput = {
   heroImageUrl?: Prisma.SortOrder
   shortDescription?: Prisma.SortOrder
   tagline?: Prisma.SortOrder
+  taglineTh?: Prisma.SortOrder
+  taglineMy?: Prisma.SortOrder
   overview?: Prisma.SortOrder
+  overviewTh?: Prisma.SortOrder
+  overviewMy?: Prisma.SortOrder
   institutionCount?: Prisma.SortOrder
   tuitionFeeRange?: Prisma.SortOrder
   postStudyWorkVisa?: Prisma.SortOrder
@@ -958,7 +1046,11 @@ export type CountryCreateWithoutAdvantagesInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -989,7 +1081,11 @@ export type CountryUncheckedCreateWithoutAdvantagesInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1036,7 +1132,11 @@ export type CountryUpdateWithoutAdvantagesInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1067,7 +1167,11 @@ export type CountryUncheckedUpdateWithoutAdvantagesInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1098,7 +1202,11 @@ export type CountryCreateWithoutProcessStepsInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1129,7 +1237,11 @@ export type CountryUncheckedCreateWithoutProcessStepsInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1176,7 +1288,11 @@ export type CountryUpdateWithoutProcessStepsInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1207,7 +1323,11 @@ export type CountryUncheckedUpdateWithoutProcessStepsInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1238,7 +1358,11 @@ export type CountryCreateWithoutFaqsInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1269,7 +1393,11 @@ export type CountryUncheckedCreateWithoutFaqsInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1316,7 +1444,11 @@ export type CountryUpdateWithoutFaqsInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1347,7 +1479,11 @@ export type CountryUncheckedUpdateWithoutFaqsInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1378,7 +1514,11 @@ export type CountryCreateWithoutUniversitiesInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1409,7 +1549,11 @@ export type CountryUncheckedCreateWithoutUniversitiesInput = {
   heroImageUrl?: string | null
   shortDescription?: string | null
   tagline?: string | null
+  taglineTh?: string | null
+  taglineMy?: string | null
   overview?: string | null
+  overviewTh?: string | null
+  overviewMy?: string | null
   institutionCount?: string | null
   tuitionFeeRange?: string | null
   postStudyWorkVisa?: string | null
@@ -1456,7 +1600,11 @@ export type CountryUpdateWithoutUniversitiesInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1487,7 +1635,11 @@ export type CountryUncheckedUpdateWithoutUniversitiesInput = {
   heroImageUrl?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   shortDescription?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tagline?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  taglineMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   overview?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  overviewMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   institutionCount?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   tuitionFeeRange?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   postStudyWorkVisa?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
@@ -1576,7 +1728,11 @@ export type CountrySelect<ExtArgs extends runtime.Types.Extensions.InternalArgs 
   heroImageUrl?: boolean
   shortDescription?: boolean
   tagline?: boolean
+  taglineTh?: boolean
+  taglineMy?: boolean
   overview?: boolean
+  overviewTh?: boolean
+  overviewMy?: boolean
   institutionCount?: boolean
   tuitionFeeRange?: boolean
   postStudyWorkVisa?: boolean
@@ -1609,7 +1765,11 @@ export type CountrySelectCreateManyAndReturn<ExtArgs extends runtime.Types.Exten
   heroImageUrl?: boolean
   shortDescription?: boolean
   tagline?: boolean
+  taglineTh?: boolean
+  taglineMy?: boolean
   overview?: boolean
+  overviewTh?: boolean
+  overviewMy?: boolean
   institutionCount?: boolean
   tuitionFeeRange?: boolean
   postStudyWorkVisa?: boolean
@@ -1637,7 +1797,11 @@ export type CountrySelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Exten
   heroImageUrl?: boolean
   shortDescription?: boolean
   tagline?: boolean
+  taglineTh?: boolean
+  taglineMy?: boolean
   overview?: boolean
+  overviewTh?: boolean
+  overviewMy?: boolean
   institutionCount?: boolean
   tuitionFeeRange?: boolean
   postStudyWorkVisa?: boolean
@@ -1665,7 +1829,11 @@ export type CountrySelectScalar = {
   heroImageUrl?: boolean
   shortDescription?: boolean
   tagline?: boolean
+  taglineTh?: boolean
+  taglineMy?: boolean
   overview?: boolean
+  overviewTh?: boolean
+  overviewMy?: boolean
   institutionCount?: boolean
   tuitionFeeRange?: boolean
   postStudyWorkVisa?: boolean
@@ -1684,7 +1852,7 @@ export type CountrySelectScalar = {
   updatedAt?: boolean
 }
 
-export type CountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "region" | "cardImageUrl" | "heroImageUrl" | "shortDescription" | "tagline" | "overview" | "institutionCount" | "tuitionFeeRange" | "postStudyWorkVisa" | "studentSatisfaction" | "internationalStudents" | "graduateEmployability" | "visaProcessingTime" | "workRights" | "costOfLivingMinUSD" | "costOfLivingMaxUSD" | "currencyCode" | "academicSpecialties" | "isFeatured" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["country"]>
+export type CountryOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "name" | "slug" | "region" | "cardImageUrl" | "heroImageUrl" | "shortDescription" | "tagline" | "taglineTh" | "taglineMy" | "overview" | "overviewTh" | "overviewMy" | "institutionCount" | "tuitionFeeRange" | "postStudyWorkVisa" | "studentSatisfaction" | "internationalStudents" | "graduateEmployability" | "visaProcessingTime" | "workRights" | "costOfLivingMinUSD" | "costOfLivingMaxUSD" | "currencyCode" | "academicSpecialties" | "isFeatured" | "isPublished" | "createdAt" | "updatedAt", ExtArgs["result"]["country"]>
 export type CountryInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   universities?: boolean | Prisma.Country$universitiesArgs<ExtArgs>
   advantages?: boolean | Prisma.Country$advantagesArgs<ExtArgs>
@@ -1712,7 +1880,11 @@ export type $CountryPayload<ExtArgs extends runtime.Types.Extensions.InternalArg
     heroImageUrl: string | null
     shortDescription: string | null
     tagline: string | null
+    taglineTh: string | null
+    taglineMy: string | null
     overview: string | null
+    overviewTh: string | null
+    overviewMy: string | null
     institutionCount: string | null
     tuitionFeeRange: string | null
     postStudyWorkVisa: string | null
@@ -2164,7 +2336,11 @@ export interface CountryFieldRefs {
   readonly heroImageUrl: Prisma.FieldRef<"Country", 'String'>
   readonly shortDescription: Prisma.FieldRef<"Country", 'String'>
   readonly tagline: Prisma.FieldRef<"Country", 'String'>
+  readonly taglineTh: Prisma.FieldRef<"Country", 'String'>
+  readonly taglineMy: Prisma.FieldRef<"Country", 'String'>
   readonly overview: Prisma.FieldRef<"Country", 'String'>
+  readonly overviewTh: Prisma.FieldRef<"Country", 'String'>
+  readonly overviewMy: Prisma.FieldRef<"Country", 'String'>
   readonly institutionCount: Prisma.FieldRef<"Country", 'String'>
   readonly tuitionFeeRange: Prisma.FieldRef<"Country", 'String'>
   readonly postStudyWorkVisa: Prisma.FieldRef<"Country", 'String'>

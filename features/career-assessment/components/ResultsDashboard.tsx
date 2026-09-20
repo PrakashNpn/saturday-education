@@ -4,7 +4,7 @@ import { useState, useEffect } from 'react'
 import Image from 'next/image'
 import { AnimatePresence, motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { Compass, Heart, Award, Lock, ArrowRight, Home, CheckCircle2, Sparkles } from 'lucide-react'
+import { Clock, Heart, BadgeCheck, Lock, Home, CheckCircle2, Sparkle } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { Skeleton } from '@/shared/components/ui/skeleton'
 import { getStudentRead } from '../services/careerLeadService'
@@ -99,16 +99,15 @@ function StudentReadSkeleton({ label }: { label: string }) {
         <Skeleton className="h-3.5 w-[95%]" />
         <Skeleton className="h-3.5 w-[62%]" />
       </div>
-      <p className="mt-3 flex items-center gap-1.5 text-xs font-medium text-brand-purple/70">
-        <Sparkles size={13} className="animate-pulse" />
+      <p className="mt-3 flex items-center gap-1.5 text-min font-medium text-action/70">
+        <Sparkle size={13} className="animate-pulse" />
         {label}
       </p>
     </motion.div>
   )
 }
 
-const panel = 'rounded-2xl border border-gray-100 bg-white/95 p-5 shadow-[0_18px_50px_-24px_rgba(89,13,130,0.22)] backdrop-blur-sm'
-const panelTitle = 'mb-3 flex items-center gap-1.5 text-xs font-semibold uppercase tracking-wider text-brand-purple'
+const sectionHeading = 'mb-6 flex items-center gap-2 text-label font-bold tracking-wider text-action uppercase'
 
 function Rise({ children, delay = 0, className }: { children: React.ReactNode; delay?: number; className?: string }) {
   return (
@@ -142,188 +141,204 @@ export function ResultsDashboard({ dashboard, leadId }: Props) {
   ]
 
   return (
-    <div className="mx-auto w-full space-y-4">
-      {/* Hero — letterhead banner */}
+    <div className="w-full">
+      {/* Letterhead + snapshot + the three chart panels, one card. */}
       <Rise>
-        <div className="rounded-3xl border border-gray-100 bg-white/95 px-6 py-6 shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)] backdrop-blur-sm sm:px-8">
-          {/* top row: identity (left) + logo (right) */}
-          <div className="flex flex-col gap-5 sm:flex-row sm:items-center sm:justify-between">
-            <div className="inline-flex max-w-full items-center gap-3 rounded-2xl border border-gray-100 bg-gray-50/70 px-4 py-2.5">
-              <span className="flex h-10 w-10 flex-shrink-0 items-center justify-center rounded-full bg-gradient-to-br from-brand-purple to-brand-purple-light text-sm font-bold text-white">
-                {initials(dashboard.fullName)}
-              </span>
-              <div className="min-w-0">
-                <p className="text-[10px] font-semibold uppercase tracking-wider text-gray-400">{t('preparedFor')}</p>
-                <p className="truncate text-sm font-bold text-neutral-900">{dashboard.fullName}</p>
-                <p className="truncate text-xs text-gray-400">
-                  {dashboard.email}
-                  {dashboard.phone ? ` · ${dashboard.phone}` : ''}
-                </p>
-              </div>
-            </div>
-
-            <Image
-              src="/images/logo/logo.webp"
-              alt="Saturday Education Consulting"
-              width={300}
-              height={84}
-              priority
-              className="h-16 w-auto self-start sm:h-20 sm:self-auto"
-            />
-          </div>
-
-          {/* full-width snapshot — spans the whole card so the read reads in fewer lines */}
-          <div className="mt-7">
-            <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple-50 px-3 py-1 text-[11px] font-semibold uppercase tracking-wider text-brand-purple">
-              {t('eyebrow')}
-            </span>
-            <h2 className="mt-2.5 text-3xl font-extrabold text-neutral-900 sm:text-4xl">{dashboard.archetype}</h2>
-            <AnimatePresence mode="wait" initial={false}>
-              {readWaiting ? (
-                <StudentReadSkeleton key="skeleton" label={t('writingSummary')} />
-              ) : (
-                <motion.p
-                  key="read"
-                  initial={{ opacity: 0, y: 4 }}
-                  animate={{ opacity: 1, y: 0 }}
-                  exit={{ opacity: 0 }}
-                  transition={{ duration: 0.45 }}
-                  className="mt-3 text-[15px] leading-relaxed text-gray-600"
-                >
-                  {studentRead ?? dashboard.archetypeSummary}
-                </motion.p>
-              )}
-            </AnimatePresence>
-          </div>
-        </div>
-      </Rise>
-
-      {/* Chart panels — 3-up dashboard grid */}
-      <div className="grid items-start gap-4 md:grid-cols-2 lg:grid-cols-3">
-        <Rise delay={0.05}>
-          <div className={panel}>
-            <p className={panelTitle}>
-              <Compass size={14} />
-              {t('interestsTitle')}
-            </p>
-            <HollandHexagon interests={dashboard.interests} />
-            <ul className="mt-3 space-y-1.5">
-              {rankedInterests.map((it, i) => (
-                <li key={it.category} className="flex items-center justify-between text-sm">
-                  <span className="text-neutral-800">
-                    <span className="mr-1.5 font-bold text-brand-purple">{i + 1}.</span>
-                    {it.label}
+        <div className="mb-8 overflow-hidden rounded-md border border-stroke bg-surface shadow-xs">
+          <div className="p-6 sm:p-8">
+            <div className="flex flex-col items-start justify-between gap-4 border-b border-stroke/60 pb-6 sm:flex-row sm:items-center">
+              <div className="flex items-center gap-3.5 rounded-xl border border-stroke bg-surface-0 px-4 py-2.5">
+                <span className="flex size-10 shrink-0 items-center justify-center rounded-full bg-action text-label font-bold text-white shadow-2xs">
+                  {initials(dashboard.fullName)}
+                </span>
+                <div className="min-w-0">
+                  <span className="block text-min font-bold tracking-widest text-muted-text uppercase">
+                    {t('preparedFor')}
                   </span>
-                  <span className="text-xs font-semibold text-gray-400">{it.value}%</span>
-                </li>
-              ))}
-            </ul>
-          </div>
-        </Rise>
+                  <span className="block truncate text-label font-bold leading-tight text-primary-text">
+                    {dashboard.fullName}
+                  </span>
+                  <span className="block truncate text-min text-secondary-text">
+                    {dashboard.email}
+                    {dashboard.phone ? ` · ${dashboard.phone}` : ''}
+                  </span>
+                </div>
+              </div>
 
-        <Rise delay={0.1}>
-          <div className={panel}>
-            <p className={panelTitle}>
-              <Heart size={14} />
-              {t('personalityTitle')}
-            </p>
-            <div className="space-y-3.5 pt-1">
-              {dashboard.personality.map((p, i) => (
-                <BipolarBar key={p.trait} label={p.label} low={p.low} high={p.high} percentile={p.percentile} delay={0.2 + i * 0.06} />
-              ))}
+              <Image
+                src="/images/logo/logo.webp"
+                alt="Saturday Education Consulting"
+                width={300}
+                height={84}
+                priority
+                unoptimized
+                className="h-10 w-auto shrink-0 self-start sm:self-auto"
+              />
+            </div>
+
+            <div className="pt-6">
+              <span className="mb-3 inline-block rounded-full bg-tint px-3 py-1 text-min font-semibold tracking-wider text-action uppercase">
+                {t('eyebrow')}
+              </span>
+              <h1 className="mb-3 text-2xl font-bold tracking-tight text-primary-text sm:text-3xl">
+                {dashboard.archetype}
+              </h1>
+              <AnimatePresence mode="wait" initial={false}>
+                {readWaiting ? (
+                  <StudentReadSkeleton key="skeleton" label={t('writingSummary')} />
+                ) : (
+                  <motion.p
+                    key="read"
+                    initial={{ opacity: 0, y: 4 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    exit={{ opacity: 0 }}
+                    transition={{ duration: 0.45 }}
+                    className="max-w-4xl text-body font-normal leading-relaxed text-secondary-text"
+                  >
+                    {studentRead ?? dashboard.archetypeSummary}
+                  </motion.p>
+                )}
+              </AnimatePresence>
             </div>
           </div>
-        </Rise>
 
-        <Rise delay={0.15} className="md:col-span-2 lg:col-span-1">
-          <div className={panel}>
-            <p className={panelTitle}>
-              <Award size={14} />
-              {t('aptitudeTitle')}
-            </p>
-            <div className="flex flex-col items-center gap-5 pt-2">
-              <div className="flex flex-col items-center">
-                <ScoreRing percent={dashboard.aptitudeOverall.percent} size={124} stroke={10} />
-                <span className="mt-1.5 text-[11px] font-semibold uppercase tracking-wider text-gray-400">{t('overallLabel')}</span>
+          <div className="border-b border-stroke" />
+
+          <div className="grid grid-cols-1 divide-y divide-stroke bg-surface lg:grid-cols-3 lg:divide-x lg:divide-y-0">
+            <div className="flex flex-col justify-between p-6 sm:p-7">
+              <div>
+                <p className={sectionHeading}>
+                  <Clock size={18} />
+                  {t('interestsTitle')}
+                </p>
+                <HollandHexagon interests={dashboard.interests} />
               </div>
-              <div className="grid w-full max-w-[260px] grid-cols-2 gap-x-2 gap-y-5">
+              <ul className="mt-4 space-y-2 border-t border-stroke/60 pt-2 text-label">
+                {rankedInterests.map((it, i) => (
+                  <li key={it.category} className="flex items-center justify-between">
+                    <span className="font-semibold text-primary-text">
+                      {i + 1}. {it.label}
+                    </span>
+                    <span className="font-medium text-secondary-text">{it.value}%</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="p-6 sm:p-7">
+              <p className={sectionHeading}>
+                <Heart size={18} />
+                {t('personalityTitle')}
+              </p>
+              <div className="space-y-6">
+                {dashboard.personality.map((p, i) => (
+                  <BipolarBar
+                    key={p.trait}
+                    label={p.label}
+                    low={p.low}
+                    high={p.high}
+                    percentile={p.percentile}
+                    delay={0.2 + i * 0.06}
+                  />
+                ))}
+              </div>
+            </div>
+
+            <div className="p-6 sm:p-7">
+              <p className={sectionHeading}>
+                <BadgeCheck size={18} />
+                {t('aptitudeTitle')}
+              </p>
+              <div className="my-4 flex flex-col items-center justify-center">
+                <ScoreRing percent={dashboard.aptitudeOverall.percent} size={116} stroke={9} />
+                <span className="mt-2 text-min font-bold tracking-widest text-muted-text uppercase">
+                  {t('overallLabel')}
+                </span>
+              </div>
+              <div className="grid grid-cols-2 gap-4 border-t border-stroke/60 pt-4 text-center">
                 {dashboard.aptitude.map((a, i) => (
-                  <ScoreRing key={a.area} percent={a.percent} label={a.label} size={74} stroke={7} delay={0.3 + i * 0.08} />
+                  <ScoreRing key={a.area} percent={a.percent} label={a.label} size={68} stroke={6} delay={0.3 + i * 0.08} />
                 ))}
               </div>
             </div>
           </div>
-        </Rise>
-      </div>
+        </div>
+      </Rise>
 
-      {/* Locked: career matches + university shortlist — one gated hook (unlocked in the consultation) */}
-      <Rise delay={0.18}>
-        <div className="relative overflow-hidden rounded-2xl border border-brand-purple-100 bg-gradient-to-br from-brand-purple-50/70 to-white p-5">
-          <p className={panelTitle}>
-            <Lock size={14} />
-            {t('lockedTitle')}
-          </p>
-
-          <div className="mt-1 space-y-1.5">
-            <p className="flex items-start gap-2 text-sm leading-relaxed text-neutral-700">
-              <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0 text-brand-purple" />
-              {t('careerLockedNote')}
+      {/* Locked: career matches + university shortlist — the gated hook (unlocked in the consultation) */}
+      <Rise delay={0.15}>
+        <div className="rounded-md border border-action/25 bg-gradient-to-b from-tint/30 via-surface to-surface p-6 shadow-xs sm:p-10">
+          <div className="mb-6">
+            <p className={`${sectionHeading} mb-3`}>
+              <Lock size={18} />
+              {t('lockedTitle')}
             </p>
-            {teaser && (
-              <p className="flex items-start gap-2 text-sm leading-relaxed text-neutral-700">
-                <CheckCircle2 size={15} className="mt-0.5 flex-shrink-0 text-brand-purple" />
-                {t('lockedTeaser', { count: teaser.totalCount, countries: teaser.countries.join(', ') })}
+            <div className="space-y-1.5 text-label text-secondary-text">
+              <p className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="shrink-0 text-action" />
+                {t('careerLockedNote')}
               </p>
-            )}
+              {teaser && (
+                <p className="flex items-center gap-2">
+                  <CheckCircle2 size={16} className="shrink-0 text-action" />
+                  {t('lockedTeaser', { count: teaser.totalCount, countries: teaser.countries.join(', ') })}
+                </p>
+              )}
+              <p className="flex items-center gap-2">
+                <CheckCircle2 size={16} className="shrink-0 text-action" />
+                {t('lockedResearchNote')}
+              </p>
+            </div>
           </div>
 
           {teaser && teaser.fields.length > 0 && (
-            <div className="mt-2.5 flex flex-wrap gap-1.5">
+            <div className="mb-6 flex flex-wrap items-center gap-2.5">
               {teaser.fields.map((f) => (
-                <span key={f} className="rounded-full border border-brand-purple-100 bg-white px-2.5 py-1 text-[11px] font-medium text-brand-purple">
+                <span
+                  key={f}
+                  className="rounded-full border border-stroke bg-white px-4 py-1.5 text-label font-medium text-primary-text shadow-2xs"
+                >
                   {f}
                 </span>
               ))}
             </div>
           )}
 
-          <div className="relative mt-3">
-            <div aria-hidden className="grid gap-2 select-none blur-[5px] sm:grid-cols-3">
+          <div className="relative overflow-hidden rounded-xl border border-stroke/70 bg-surface-0/40 p-4 sm:p-6">
+            <div aria-hidden className="grid grid-cols-1 gap-4 opacity-40 blur-[5px] select-none md:grid-cols-3">
               {sampleRows.map((row, i) => (
-                <div key={i} className="rounded-lg border border-gray-100 bg-white px-3 py-2 text-sm text-gray-700">
-                  {row}
+                <div key={i} className="rounded-xl border border-stroke bg-white p-5 shadow-xs">
+                  <p className="text-label font-bold text-primary-text">{row}</p>
                 </div>
               ))}
             </div>
             <div className="pointer-events-none absolute inset-0 flex items-center justify-center">
-              <span className="inline-flex items-center gap-1.5 rounded-full bg-brand-purple px-3 py-1 text-[11px] font-semibold text-white shadow">
-                <Lock size={12} />
+              <span className="inline-flex items-center gap-2 rounded-full bg-structure px-5 py-2 text-label font-semibold text-white shadow-xl">
+                <Lock size={16} />
                 {t('lockedBadge')}
               </span>
             </div>
           </div>
 
-          <p className="mt-3 text-center text-[13px] leading-relaxed text-gray-600">{t('lockedNote')}</p>
-          <Link
-            href="/#consultation"
-            className="group mt-4 flex w-full items-center justify-center gap-2 rounded-full bg-brand-purple px-7 py-3 font-semibold text-white shadow-md shadow-brand-purple/25 transition-colors hover:bg-brand-purple-dark"
-          >
-            {t('ctaConsult')}
-            <ArrowRight size={18} className="transition-transform group-hover:translate-x-0.5" />
-          </Link>
-        </div>
-      </Rise>
-
-      {/* Secondary action */}
-      <Rise delay={0.25}>
-        <div className="mx-auto max-w-lg">
-          <Link
-            href="/"
-            className="flex w-full items-center justify-center gap-2 rounded-full border border-gray-200 px-5 py-2.5 text-sm font-semibold text-gray-600 transition-colors hover:bg-gray-50"
-          >
-            <Home size={16} />
-            {t('ctaHome')}
-          </Link>
+          <div className="mt-8 text-center">
+            <p className="mx-auto mb-6 max-w-xl text-label leading-relaxed text-secondary-text">{t('lockedNote')}</p>
+            <div className="flex flex-col items-center gap-3">
+              <Link
+                href="/#consultation"
+                className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-action px-12 text-body font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover sm:w-auto"
+              >
+                <span>{t('ctaConsult')}</span>
+                <span aria-hidden="true">→</span>
+              </Link>
+              <Link
+                href="/"
+                className="mt-2 inline-flex cursor-pointer items-center gap-1.5 text-label font-medium text-secondary-text transition-colors hover:text-action"
+              >
+                <Home size={16} />
+                {t('ctaHome')}
+              </Link>
+            </div>
+          </div>
         </div>
       </Rise>
     </div>

@@ -38,6 +38,10 @@ export type CountryFAQMinAggregateOutputType = {
   id: string | null
   question: string | null
   answer: string | null
+  questionTh: string | null
+  questionMy: string | null
+  answerTh: string | null
+  answerMy: string | null
   order: number | null
   countryId: string | null
   createdAt: Date | null
@@ -48,6 +52,10 @@ export type CountryFAQMaxAggregateOutputType = {
   id: string | null
   question: string | null
   answer: string | null
+  questionTh: string | null
+  questionMy: string | null
+  answerTh: string | null
+  answerMy: string | null
   order: number | null
   countryId: string | null
   createdAt: Date | null
@@ -58,6 +66,10 @@ export type CountryFAQCountAggregateOutputType = {
   id: number
   question: number
   answer: number
+  questionTh: number
+  questionMy: number
+  answerTh: number
+  answerMy: number
   order: number
   countryId: number
   createdAt: number
@@ -78,6 +90,10 @@ export type CountryFAQMinAggregateInputType = {
   id?: true
   question?: true
   answer?: true
+  questionTh?: true
+  questionMy?: true
+  answerTh?: true
+  answerMy?: true
   order?: true
   countryId?: true
   createdAt?: true
@@ -88,6 +104,10 @@ export type CountryFAQMaxAggregateInputType = {
   id?: true
   question?: true
   answer?: true
+  questionTh?: true
+  questionMy?: true
+  answerTh?: true
+  answerMy?: true
   order?: true
   countryId?: true
   createdAt?: true
@@ -98,6 +118,10 @@ export type CountryFAQCountAggregateInputType = {
   id?: true
   question?: true
   answer?: true
+  questionTh?: true
+  questionMy?: true
+  answerTh?: true
+  answerMy?: true
   order?: true
   countryId?: true
   createdAt?: true
@@ -195,6 +219,10 @@ export type CountryFAQGroupByOutputType = {
   id: string
   question: string
   answer: string
+  questionTh: string | null
+  questionMy: string | null
+  answerTh: string | null
+  answerMy: string | null
   order: number
   countryId: string
   createdAt: Date
@@ -228,6 +256,10 @@ export type CountryFAQWhereInput = {
   id?: Prisma.StringFilter<"CountryFAQ"> | string
   question?: Prisma.StringFilter<"CountryFAQ"> | string
   answer?: Prisma.StringFilter<"CountryFAQ"> | string
+  questionTh?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  questionMy?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  answerTh?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  answerMy?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
   order?: Prisma.IntFilter<"CountryFAQ"> | number
   countryId?: Prisma.StringFilter<"CountryFAQ"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryFAQ"> | Date | string
@@ -239,6 +271,10 @@ export type CountryFAQOrderByWithRelationInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  questionTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  questionMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  answerTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  answerMy?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -253,6 +289,10 @@ export type CountryFAQWhereUniqueInput = Prisma.AtLeast<{
   NOT?: Prisma.CountryFAQWhereInput | Prisma.CountryFAQWhereInput[]
   question?: Prisma.StringFilter<"CountryFAQ"> | string
   answer?: Prisma.StringFilter<"CountryFAQ"> | string
+  questionTh?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  questionMy?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  answerTh?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  answerMy?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
   order?: Prisma.IntFilter<"CountryFAQ"> | number
   countryId?: Prisma.StringFilter<"CountryFAQ"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryFAQ"> | Date | string
@@ -264,6 +304,10 @@ export type CountryFAQOrderByWithAggregationInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  questionTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  questionMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  answerTh?: Prisma.SortOrderInput | Prisma.SortOrder
+  answerMy?: Prisma.SortOrderInput | Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -282,6 +326,10 @@ export type CountryFAQScalarWhereWithAggregatesInput = {
   id?: Prisma.StringWithAggregatesFilter<"CountryFAQ"> | string
   question?: Prisma.StringWithAggregatesFilter<"CountryFAQ"> | string
   answer?: Prisma.StringWithAggregatesFilter<"CountryFAQ"> | string
+  questionTh?: Prisma.StringNullableWithAggregatesFilter<"CountryFAQ"> | string | null
+  questionMy?: Prisma.StringNullableWithAggregatesFilter<"CountryFAQ"> | string | null
+  answerTh?: Prisma.StringNullableWithAggregatesFilter<"CountryFAQ"> | string | null
+  answerMy?: Prisma.StringNullableWithAggregatesFilter<"CountryFAQ"> | string | null
   order?: Prisma.IntWithAggregatesFilter<"CountryFAQ"> | number
   countryId?: Prisma.StringWithAggregatesFilter<"CountryFAQ"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CountryFAQ"> | Date | string
@@ -292,6 +340,10 @@ export type CountryFAQCreateInput = {
   id?: string
   question: string
   answer: string
+  questionTh?: string | null
+  questionMy?: string | null
+  answerTh?: string | null
+  answerMy?: string | null
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -302,6 +354,10 @@ export type CountryFAQUncheckedCreateInput = {
   id?: string
   question: string
   answer: string
+  questionTh?: string | null
+  questionMy?: string | null
+  answerTh?: string | null
+  answerMy?: string | null
   order?: number
   countryId: string
   createdAt?: Date | string
@@ -312,6 +368,10 @@ export type CountryFAQUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -322,6 +382,10 @@ export type CountryFAQUncheckedUpdateInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -332,6 +396,10 @@ export type CountryFAQCreateManyInput = {
   id?: string
   question: string
   answer: string
+  questionTh?: string | null
+  questionMy?: string | null
+  answerTh?: string | null
+  answerMy?: string | null
   order?: number
   countryId: string
   createdAt?: Date | string
@@ -342,6 +410,10 @@ export type CountryFAQUpdateManyMutationInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -351,6 +423,10 @@ export type CountryFAQUncheckedUpdateManyInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -371,6 +447,10 @@ export type CountryFAQCountOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  questionTh?: Prisma.SortOrder
+  questionMy?: Prisma.SortOrder
+  answerTh?: Prisma.SortOrder
+  answerMy?: Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -385,6 +465,10 @@ export type CountryFAQMaxOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  questionTh?: Prisma.SortOrder
+  questionMy?: Prisma.SortOrder
+  answerTh?: Prisma.SortOrder
+  answerMy?: Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -395,6 +479,10 @@ export type CountryFAQMinOrderByAggregateInput = {
   id?: Prisma.SortOrder
   question?: Prisma.SortOrder
   answer?: Prisma.SortOrder
+  questionTh?: Prisma.SortOrder
+  questionMy?: Prisma.SortOrder
+  answerTh?: Prisma.SortOrder
+  answerMy?: Prisma.SortOrder
   order?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
@@ -451,6 +539,10 @@ export type CountryFAQCreateWithoutCountryInput = {
   id?: string
   question: string
   answer: string
+  questionTh?: string | null
+  questionMy?: string | null
+  answerTh?: string | null
+  answerMy?: string | null
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -460,6 +552,10 @@ export type CountryFAQUncheckedCreateWithoutCountryInput = {
   id?: string
   question: string
   answer: string
+  questionTh?: string | null
+  questionMy?: string | null
+  answerTh?: string | null
+  answerMy?: string | null
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -498,6 +594,10 @@ export type CountryFAQScalarWhereInput = {
   id?: Prisma.StringFilter<"CountryFAQ"> | string
   question?: Prisma.StringFilter<"CountryFAQ"> | string
   answer?: Prisma.StringFilter<"CountryFAQ"> | string
+  questionTh?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  questionMy?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  answerTh?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
+  answerMy?: Prisma.StringNullableFilter<"CountryFAQ"> | string | null
   order?: Prisma.IntFilter<"CountryFAQ"> | number
   countryId?: Prisma.StringFilter<"CountryFAQ"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryFAQ"> | Date | string
@@ -508,6 +608,10 @@ export type CountryFAQCreateManyCountryInput = {
   id?: string
   question: string
   answer: string
+  questionTh?: string | null
+  questionMy?: string | null
+  answerTh?: string | null
+  answerMy?: string | null
   order?: number
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -517,6 +621,10 @@ export type CountryFAQUpdateWithoutCountryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -526,6 +634,10 @@ export type CountryFAQUncheckedUpdateWithoutCountryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -535,6 +647,10 @@ export type CountryFAQUncheckedUpdateManyWithoutCountryInput = {
   id?: Prisma.StringFieldUpdateOperationsInput | string
   question?: Prisma.StringFieldUpdateOperationsInput | string
   answer?: Prisma.StringFieldUpdateOperationsInput | string
+  questionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  questionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  answerMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   order?: Prisma.IntFieldUpdateOperationsInput | number
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -546,6 +662,10 @@ export type CountryFAQSelect<ExtArgs extends runtime.Types.Extensions.InternalAr
   id?: boolean
   question?: boolean
   answer?: boolean
+  questionTh?: boolean
+  questionMy?: boolean
+  answerTh?: boolean
+  answerMy?: boolean
   order?: boolean
   countryId?: boolean
   createdAt?: boolean
@@ -557,6 +677,10 @@ export type CountryFAQSelectCreateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   question?: boolean
   answer?: boolean
+  questionTh?: boolean
+  questionMy?: boolean
+  answerTh?: boolean
+  answerMy?: boolean
   order?: boolean
   countryId?: boolean
   createdAt?: boolean
@@ -568,6 +692,10 @@ export type CountryFAQSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.Ex
   id?: boolean
   question?: boolean
   answer?: boolean
+  questionTh?: boolean
+  questionMy?: boolean
+  answerTh?: boolean
+  answerMy?: boolean
   order?: boolean
   countryId?: boolean
   createdAt?: boolean
@@ -579,13 +707,17 @@ export type CountryFAQSelectScalar = {
   id?: boolean
   question?: boolean
   answer?: boolean
+  questionTh?: boolean
+  questionMy?: boolean
+  answerTh?: boolean
+  answerMy?: boolean
   order?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CountryFAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "order" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryFAQ"]>
+export type CountryFAQOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "question" | "answer" | "questionTh" | "questionMy" | "answerTh" | "answerMy" | "order" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryFAQ"]>
 export type CountryFAQInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }
@@ -605,6 +737,10 @@ export type $CountryFAQPayload<ExtArgs extends runtime.Types.Extensions.Internal
     id: string
     question: string
     answer: string
+    questionTh: string | null
+    questionMy: string | null
+    answerTh: string | null
+    answerMy: string | null
     order: number
     countryId: string
     createdAt: Date
@@ -1036,6 +1172,10 @@ export interface CountryFAQFieldRefs {
   readonly id: Prisma.FieldRef<"CountryFAQ", 'String'>
   readonly question: Prisma.FieldRef<"CountryFAQ", 'String'>
   readonly answer: Prisma.FieldRef<"CountryFAQ", 'String'>
+  readonly questionTh: Prisma.FieldRef<"CountryFAQ", 'String'>
+  readonly questionMy: Prisma.FieldRef<"CountryFAQ", 'String'>
+  readonly answerTh: Prisma.FieldRef<"CountryFAQ", 'String'>
+  readonly answerMy: Prisma.FieldRef<"CountryFAQ", 'String'>
   readonly order: Prisma.FieldRef<"CountryFAQ", 'Int'>
   readonly countryId: Prisma.FieldRef<"CountryFAQ", 'String'>
   readonly createdAt: Prisma.FieldRef<"CountryFAQ", 'DateTime'>

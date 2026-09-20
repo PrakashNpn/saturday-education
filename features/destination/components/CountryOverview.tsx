@@ -1,99 +1,104 @@
 import { getTranslations } from 'next-intl/server'
-import { GraduationCap, Banknote, BadgeCheck, Star, Users, TrendingUp } from 'lucide-react'
-import type { ComponentType } from 'react'
 import type { CountryDetailData } from '../types'
-import { ExpandableOverviewText } from './ExpandableOverviewText'
 
 interface Props {
   country: CountryDetailData
 }
 
-type StatItem = {
-  label: string
-  value: string
-  Icon: ComponentType<{ className?: string }>
-}
+/** Fixed grouping rather than the server's default locale, so the number a
+ *  visitor sees does not depend on which machine rendered the page. */
+const groupDigits = (n: number) => n.toLocaleString('en-US')
 
-function extractDuration(visa: string | null): string | null {
-  if (!visa) return null
-  const parts = visa.split(/\s[–—]\s/)
-  if (parts.length > 1) return parts[parts.length - 1].split(',')[0].split('(')[0].trim()
-  return visa
+/** Splits a work-rights sentence into short bullet points at its natural
+ *  clause breaks (";" and ". ") instead of showing it as one dense run-on
+ *  sentence. Every country's value follows this pattern (hours during study;
+ *  then a post-study clause), so this holds up across all of them rather
+ *  than being tuned to one example. Also strips any stray em dash a clause
+ *  slipped in with — left distinct from en dashes, which this same data
+ *  legitimately uses for numeric ranges ("2–4 years") elsewhere. */
+function splitWorkRights(text: string): string[] {
+  return text
+    .split(/[;.]\s+/)
+    .map((s) => s.trim().replace(/[.;]+$/, '').replace(/\s*—\s*/g, ', '))
+    .filter(Boolean)
 }
 
 export async function CountryOverview({ country }: Props) {
   const t = await getTranslations('destinations')
 
-  const stats: StatItem[] = []
+  // Six facts in the design's order. Anything the country has no data for is
+  // dropped rather than shown blank.
+  const stats = [
+    [t('institutions'), country.institutionCount],
+    [t('tuitionFees'), country.tuitionFeeRange],
+    [t('studentLife'), country.studentSatisfaction != null && `${country.studentSatisfaction}%`],
+    [
+      t('internationalStudents'),
+      country.internationalStudents != null && `${groupDigits(country.internationalStudents)}+`,
+    ],
+    [
+      t('employability'),
+      country.graduateEmployability != null && `${country.graduateEmployability}%`,
+    ],
+  ].filter((entry): entry is [string, string] => Boolean(entry[1]))
 
-  if (country.institutionCount)
-    stats.push({ label: t('institutions'), value: country.institutionCount, Icon: GraduationCap })
+  const workRights = country.workRights ?? country.postStudyWorkVisa
+  const workRightsBullets = workRights ? splitWorkRights(workRights) : []
 
-  if (country.tuitionFeeRange)
-    stats.push({ label: t('tuitionFees'), value: country.tuitionFeeRange, Icon: Banknote })
-
-  const duration = extractDuration(country.postStudyWorkVisa)
-  if (duration)
-    stats.push({ label: t('workRightsLabel'), value: duration, Icon: BadgeCheck })
-
-  if (country.studentSatisfaction !== null && country.studentSatisfaction !== undefined)
-    stats.push({ label: t('studentLife'), value: `${country.studentSatisfaction}%`, Icon: Star })
-
-  if (country.internationalStudents !== null && country.internationalStudents !== undefined)
-    stats.push({ label: t('internationalStudents').toUpperCase(), value: `${country.internationalStudents.toLocaleString()}+`, Icon: Users })
-
-  if (country.graduateEmployability !== null && country.graduateEmployability !== undefined)
-    stats.push({ label: t('employability'), value: `${country.graduateEmployability}%`, Icon: TrendingUp })
+  // The hairlines are the container showing through a 1px gap, so a part-filled
+  // last row would leave a grey block. These fill it back in. Work rights
+  // counts as one cell here too, so a full house of stats plus work rights
+  // still lands on a clean multiple of three instead of leaving a gap.
+  const cellCount = stats.length + (workRightsBullets.length > 0 ? 1 : 0)
+  const fillers = (3 - (cellCount % 3)) % 3
 
   return (
-    <div>
-      {/* Section header */}
-      <div className="mb-6">
-        <div className="inline-flex items-center gap-1.5 bg-brand-purple-50 text-brand-purple text-xs font-semibold uppercase tracking-widest px-3 py-1 rounded-full mb-3">
-          {t('overviewEyebrow')}
-        </div>
-        <h2 className="text-2xl md:text-3xl font-bold text-neutral-900">
-          {t('about')} {country.name}
-        </h2>
-      </div>
+    <>
+      <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
+        {t('overviewEyebrow')}
+      </h2>
+      <p className="mb-2 text-section font-medium">
+        {t('aboutCountry', { country: country.name })}
+      </p>
 
       {country.overview && (
-        <ExpandableOverviewText
-          text={country.overview}
-          wordLimit={100}
-          seeMoreLabel={t('seeMore')}
-          seeLessLabel={t('seeLess')}
-        />
+        <p className="mb-8 text-label leading-relaxed font-normal text-secondary-text">
+          {country.overview}
+        </p>
       )}
 
-      {stats.length > 0 && (
-        <div className="grid grid-cols-2 md:grid-cols-3 gap-3">
-          {stats.map(({ label, value, Icon }) => (
-            <div
-              key={label}
-              className="relative rounded-2xl p-[1px] bg-gradient-to-br from-purple-200/70 via-white/20 to-purple-300/50
-                shadow-[0_2px_16px_rgba(89,13,130,0.08)] hover:shadow-[0_8px_32px_rgba(89,13,130,0.16)]
-                hover:-translate-y-0.5 transition-all duration-300"
-            >
-              <div className="relative rounded-[calc(1rem-1px)] bg-gradient-to-br from-purple-50/80 to-white px-4 py-4 h-full overflow-hidden">
-                {/* Shine line */}
-                <div className="absolute top-0 left-0 right-0 h-px bg-gradient-to-r from-transparent via-white to-transparent" />
-
-                <p className="text-[9px] uppercase tracking-widest text-purple-400/80 font-semibold mb-2.5 whitespace-nowrap">
-                  {label}
-                </p>
-                <div className="flex items-center gap-2.5">
-                  <div className="w-8 h-8 rounded-xl bg-gradient-to-br from-[#590D82] to-[#8B2FC9]
-                    flex items-center justify-center flex-shrink-0 shadow-[0_2px_8px_rgba(89,13,130,0.35)]">
-                    <Icon className="w-3.5 h-3.5 text-white" />
-                  </div>
-                  <p className="text-base md:text-lg font-bold text-brand-purple leading-none truncate">{value}</p>
-                </div>
-              </div>
+      {cellCount > 0 && (
+        <div className="grid gap-px overflow-hidden rounded-sm border border-stroke bg-stroke sm:grid-cols-3">
+          {stats.map(([label, value]) => (
+            <div key={label} className="bg-surface p-5">
+              <p className="mb-1 text-min font-medium text-muted-text uppercase">{label}</p>
+              <p className="text-card font-medium text-primary-text">{value}</p>
             </div>
+          ))}
+
+          {workRightsBullets.length > 0 && (
+            <div className="bg-surface p-5">
+              <p className="mb-1 text-min font-medium text-muted-text uppercase">
+                {t('workRightsLabel')}
+              </p>
+              <ul className="space-y-1">
+                {workRightsBullets.map((bullet, i) => (
+                  <li key={i} className="flex gap-1.5 text-label leading-snug font-normal text-primary-text">
+                    <span aria-hidden="true" className="text-muted-text">
+                      &bull;
+                    </span>
+                    <span>{bullet}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          )}
+
+          {Array.from({ length: fillers }, (_, i) => (
+            <div key={`filler-${i}`} aria-hidden="true" className="hidden bg-surface sm:block" />
           ))}
         </div>
       )}
-    </div>
+    </>
   )
 }

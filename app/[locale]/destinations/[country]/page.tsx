@@ -1,4 +1,3 @@
-import { notFound } from 'next/navigation'
 import { setRequestLocale } from 'next-intl/server'
 import { DestinationDetailPage, getAllCountrySlugs, getCountryBySlug } from '@/features/destination'
 
@@ -12,7 +11,7 @@ export async function generateStaticParams() {
 export async function generateMetadata({ params }: Props) {
   const { locale, country: slug } = await params
   setRequestLocale(locale)
-  const country = await getCountryBySlug(slug)
+  const country = await getCountryBySlug(slug, locale)
   if (!country) return {}
   return {
     title: `Study in ${country.name} | Saturday Education`,

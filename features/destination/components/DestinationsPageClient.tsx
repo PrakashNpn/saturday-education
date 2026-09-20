@@ -1,11 +1,10 @@
 'use client'
 import { useState, useMemo, useRef } from 'react'
 import { DestinationsHero } from './DestinationsHero'
-import { RegionFilter } from './RegionFilter'
+import { DestinationsToolbar } from './DestinationsToolbar'
 import { DestinationGrid } from './DestinationGrid'
-import { WhyStudyAbroad } from './WhyStudyAbroad'
-import { DestinationsCTA } from './DestinationsCTA'
 import { REGION_DISPLAY } from '../utils/constants'
+import type { SortOption } from '../utils/constants'
 import type { CountryCardData, DestinationTranslations } from '../types'
 
 interface Props {
@@ -16,7 +15,8 @@ interface Props {
 export function DestinationsPageClient({ countries, translations: t }: Props) {
   const [search, setSearch] = useState('')
   const [region, setRegion] = useState('All')
-  const resultsRef = useRef<HTMLDivElement>(null)
+  const [sort, setSort] = useState<SortOption>('popular')
+  const resultsRef = useRef<HTMLElement>(null)
 
   const handleSearchSubmit = (value: string) => {
     setSearch(value)
@@ -47,79 +47,39 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
     })
   }, [countries, search, region])
 
+  // "Most popular" is institution count descending, with an alphabetical
+  // tie-break so equal counts keep a stable, predictable order. Countries
+  // Firmli has no count for sort as 0, landing them at the end rather than
+  // the front (null would otherwise sort before a real 0).
+  const visible = useMemo(() => {
+    const rows = [...filtered]
+    if (sort === 'name') return rows.sort((a, b) => a.name.localeCompare(b.name))
+    return rows.sort(
+      (a, b) =>
+        (b.firmliInstitutionCount ?? 0) - (a.firmliInstitutionCount ?? 0) ||
+        a.name.localeCompare(b.name),
+    )
+  }, [filtered, sort])
+
   return (
     <main>
-      <DestinationsHero
-        searchValue={search}
-        onSearchChange={handleSearchSubmit}
-        translations={{
-          heroLabel: t.heroLabel,
-          heroTitle: t.heroTitle,
-          heroSubtitle: t.heroSubtitle,
-          searchPlaceholder: t.searchPlaceholder,
-          searchButton: t.searchButton,
-        }}
+      <DestinationsHero searchValue={search} onSearchChange={handleSearchSubmit} />
+
+      <DestinationsToolbar
+        region={region}
+        onRegionChange={setRegion}
+        sort={sort}
+        onSortChange={setSort}
+        counts={regionCounts}
+        resultCount={visible.length}
       />
 
-      <div className="bg-neutral-50">
-      <div ref={resultsRef} className="max-w-7xl mx-auto px-4 md:px-8 pt-16 pb-12">
-        <div className="mb-8">
-          <RegionFilter
-            selected={region}
-            onChange={setRegion}
-            counts={regionCounts}
-            translations={{
-              popularRegions: t.popularRegions,
-              regionAll: t.regionAll,
-              regionEurope: t.regionEurope,
-              regionAsia: t.regionAsia,
-              regionAmericas: t.regionAmericas,
-              regionOceania: t.regionOceania,
-              regionAfrica: t.regionAfrica,
-            }}
-          />
+      <section ref={resultsRef} className="pt-2 pb-12 max-tablet:pt-2 max-tablet:pb-8">
+        <div className="mx-auto max-w-wrap px-6">
+          <DestinationGrid countries={visible} viewDetailsLabel={t.viewDetails} />
         </div>
+      </section>
 
-        <DestinationGrid
-          countries={filtered}
-          translations={{
-            showingCount: t.showingCount,
-            sortBy: t.sortBy,
-            sortHighestRanking: t.sortHighestRanking,
-            sortAZ: t.sortAZ,
-            sortZA: t.sortZA,
-            loadMore: t.loadMore,
-            viewDetails: t.viewDetails,
-          }}
-        />
-      </div>
-      </div>
-
-      <WhyStudyAbroad
-        translations={{
-          whyStudyAbroadLabel: t.whyStudyAbroadLabel,
-          whyStudyAbroadTitle: t.whyStudyAbroadTitle,
-          whyStudyAbroadSubtitle: t.whyStudyAbroadSubtitle,
-          globalExposure: t.globalExposure,
-          globalExposureDesc: t.globalExposureDesc,
-          careerEdge: t.careerEdge,
-          careerEdgeDesc: t.careerEdgeDesc,
-          personalGrowth: t.personalGrowth,
-          personalGrowthDesc: t.personalGrowthDesc,
-          lifetimeMemories: t.lifetimeMemories,
-          lifetimeMemoriesDesc: t.lifetimeMemoriesDesc,
-        }}
-      />
-
-      <div className="max-w-7xl mx-auto px-4 md:px-8 py-16">
-        <DestinationsCTA
-          translations={{
-            ctaTitle: t.ctaTitle,
-            ctaSubtitle: t.ctaSubtitle,
-            ctaButton: t.ctaButton,
-          }}
-        />
-      </div>
     </main>
   )
 }

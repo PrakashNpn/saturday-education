@@ -17,27 +17,25 @@ export function SubmissionSavedScreen({ onRetry }: { onRetry: () => void }) {
       initial={{ opacity: 0, y: 14 }}
       animate={{ opacity: 1, y: 0 }}
       transition={{ duration: 0.35 }}
-      className="mx-auto w-full max-w-sm"
+      className="mx-auto w-full max-w-sm rounded-md border border-stroke bg-surface p-6 text-center shadow-xs sm:p-8"
     >
-      <div className="rounded-3xl border border-gray-100 bg-white/95 px-7 py-8 text-center shadow-[0_24px_70px_-20px_rgba(89,13,130,0.22)] backdrop-blur-sm">
-        <div className="mx-auto mb-4 flex h-12 w-12 items-center justify-center rounded-2xl bg-brand-purple-50 text-brand-purple">
-          <CloudOff size={22} />
-        </div>
-
-        <h2 className="text-lg font-bold text-neutral-900">{t('title')}</h2>
-        <p className="mt-2 text-sm leading-relaxed text-gray-500">{t('body')}</p>
-
-        <button
-          type="button"
-          onClick={onRetry}
-          className="mt-6 inline-flex w-full items-center justify-center gap-2 rounded-full bg-gradient-to-r from-brand-purple to-brand-purple-light px-6 py-3 text-sm font-semibold text-white shadow-sm transition-all duration-200 hover:-translate-y-0.5 hover:shadow-lg hover:shadow-brand-purple/30 active:translate-y-0 active:scale-[0.98]"
-        >
-          <RefreshCw size={15} />
-          {t('retry')}
-        </button>
-
-        <p className="mt-3 text-xs text-gray-400">{t('hint')}</p>
+      <div className="mx-auto mb-4 flex size-12 items-center justify-center rounded-full bg-tint text-action">
+        <CloudOff size={22} />
       </div>
+
+      <h2 className="text-xl font-bold text-primary-text sm:text-2xl">{t('title')}</h2>
+      <p className="mt-2 text-label leading-relaxed text-muted-text">{t('body')}</p>
+
+      <button
+        type="button"
+        onClick={onRetry}
+        className="mt-6 inline-flex min-h-12 w-full cursor-pointer items-center justify-center gap-2 rounded-full bg-action text-body font-medium text-white transition-colors hover:bg-action-hover"
+      >
+        <RefreshCw size={15} />
+        {t('retry')}
+      </button>
+
+      <p className="mt-3 text-min text-muted-text">{t('hint')}</p>
     </motion.div>
   )
 }

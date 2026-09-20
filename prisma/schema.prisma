@@ -63,7 +63,15 @@ model Country {
   heroImageUrl          String?  @map("hero_image_url")
   shortDescription      String?  @map("short_description")
   tagline               String?
+  // Translated prose. Null until translated for that locale — the read path
+  // falls back to the English `tagline` when so.
+  taglineTh             String?  @map("tagline_th")
+  taglineMy             String?  @map("tagline_my")
   overview              String?  @db.Text
+  // Translated prose. Null until a country's overview has been translated for
+  // that locale — the read path falls back to `overview` (English) when so.
+  overviewTh            String?  @map("overview_th") @db.Text
+  overviewMy            String?  @map("overview_my") @db.Text
 
   // Key Stats
   institutionCount      String?  @map("institution_count")
@@ -105,17 +113,23 @@ model Country {
 // ─────────────────────────────────────────────────────────────────────────────
 
 model CountryAdvantage {
-  id          String  @id @default(cuid())
-  title       String
-  description String? @db.Text
-  imageUrl    String? @map("image_url")
-  order       Int     @default(0)
+  id            String  @id @default(cuid())
+  title         String
+  description   String? @db.Text
+  // Translated prose. Null until translated for that locale — the read path
+  // falls back to the English `title`/`description` when so.
+  titleTh       String? @map("title_th")
+  titleMy       String? @map("title_my")
+  descriptionTh String? @map("description_th") @db.Text
+  descriptionMy String? @map("description_my") @db.Text
+  imageUrl      String? @map("image_url")
+  order         Int     @default(0)
 
-  countryId   String  @map("country_id")
-  country     Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId     String  @map("country_id")
+  country       Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt      @map("updated_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt      @map("updated_at")
 
   @@index([countryId])
   @@map("country_advantages")
@@ -126,16 +140,22 @@ model CountryAdvantage {
 // ─────────────────────────────────────────────────────────────────────────────
 
 model CountryProcessStep {
-  id          String  @id @default(cuid())
-  stepNumber  Int     @map("step_number")
-  title       String
-  description String? @db.Text
+  id            String  @id @default(cuid())
+  stepNumber    Int     @map("step_number")
+  title         String
+  description   String? @db.Text
+  // Translated prose. Null until translated for that locale — the read path
+  // falls back to the English `title`/`description` when so.
+  titleTh       String? @map("title_th")
+  titleMy       String? @map("title_my")
+  descriptionTh String? @map("description_th") @db.Text
+  descriptionMy String? @map("description_my") @db.Text
 
-  countryId   String  @map("country_id")
-  country     Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId     String  @map("country_id")
+  country       Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
 
-  createdAt   DateTime @default(now()) @map("created_at")
-  updatedAt   DateTime @updatedAt      @map("updated_at")
+  createdAt     DateTime @default(now()) @map("created_at")
+  updatedAt     DateTime @updatedAt      @map("updated_at")
 
   @@unique([countryId, stepNumber])
   @@index([countryId])
@@ -147,16 +167,22 @@ model CountryProcessStep {
 // ─────────────────────────────────────────────────────────────────────────────
 
 model CountryFAQ {
-  id        String  @id @default(cuid())
-  question  String
-  answer    String  @db.Text
-  order     Int     @default(0)
+  id          String  @id @default(cuid())
+  question    String
+  answer      String  @db.Text
+  // Translated prose. Null until translated for that locale — the read path
+  // falls back to the English `question`/`answer` when so.
+  questionTh  String? @map("question_th")
+  questionMy  String? @map("question_my")
+  answerTh    String? @map("answer_th") @db.Text
+  answerMy    String? @map("answer_my") @db.Text
+  order       Int     @default(0)
 
-  countryId String  @map("country_id")
-  country   Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
+  countryId   String  @map("country_id")
+  country     Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
 
-  createdAt DateTime @default(now()) @map("created_at")
-  updatedAt DateTime @updatedAt      @map("updated_at")
+  createdAt   DateTime @default(now()) @map("created_at")
+  updatedAt   DateTime @updatedAt      @map("updated_at")
 
   @@index([countryId])
   @@map("country_faqs")

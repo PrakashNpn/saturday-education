@@ -1,63 +1,32 @@
-'use client'
-
-import Image from 'next/image'
-import { motion } from 'framer-motion'
 import { useTranslations } from 'next-intl'
-import { MapPin, Phone, Mail, ArrowRight } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
-import { CookieSettingsButton } from '@/shared/components/consent'
 import { SOCIAL_LINKS } from '@/shared/constants/social'
+import { CookieSettingsButton } from '@/shared/components/consent'
 
-// ── Column heading class ──────────────────────────────────────────────────────
+const COLUMN_HEADING = 'mb-3 text-label font-medium tracking-[0.06em] text-white/50 uppercase'
+const LINK = 'text-label font-normal text-white/70 transition-colors hover:text-white hover:underline'
 
-const headingCls = 'text-xs font-bold uppercase tracking-widest text-[#590D82] mb-5'
-const linkCls = 'text-sm text-gray-500 hover:text-[#590D82] transition-colors duration-200 block'
-
-// ── Study Abroad links ────────────────────────────────────────────────────────
-
-const STUDY_LINKS = [
-  { key: 'germany', href: '/destinations/germany' },
-  { key: 'ireland', href: '/destinations/ireland' },
-  { key: 'malaysia', href: '/destinations/malaysia' },
-  { key: 'singapore', href: '/destinations/singapore' },
-  { key: 'dubai', href: '/destinations/uae' },
-  { key: 'canada', href: '/destinations/canada' },
-  { key: 'thailand', href: '/destinations/thailand' },
-  { key: 'newZealand', href: '/destinations/new-zealand' },
-  { key: 'usa', href: '/destinations/united-states' },
-  { key: 'uk', href: '/destinations/united-kingdom' },
-  { key: 'australia', href: '/destinations/australia' },
+/** Message key paired with the real destination slug. The design renders these
+ *  as plain spans because none of its routes existed; every one of ours does. */
+const DESTINATIONS = [
+  { key: 'germany', slug: 'germany' },
+  { key: 'ireland', slug: 'ireland' },
+  { key: 'malaysia', slug: 'malaysia' },
+  { key: 'singapore', slug: 'singapore' },
+  { key: 'dubai', slug: 'uae' },
+  { key: 'canada', slug: 'canada' },
+  { key: 'thailand', slug: 'thailand' },
+  { key: 'newZealand', slug: 'new-zealand' },
+  { key: 'usa', slug: 'united-states' },
+  { key: 'uk', slug: 'united-kingdom' },
+  { key: 'australia', slug: 'australia' },
 ] as const
 
-const SERVICE_LINKS = [
-  { key: 'counseling', href: '/services/counseling' },
-  { key: 'application', href: '/services/application' },
-  { key: 'visa', href: '/services/visa' },
-  { key: 'scholarships', href: '/services/scholarships' },
-  { key: 'predeparture', href: '/services/predeparture' },
-  { key: 'arrival', href: '/services/arrival' },
+const SERVICES = [
+  'counseling', 'application', 'visa', 'scholarships', 'predeparture', 'arrival',
 ] as const
 
-// Each office lists its own numbers, so a student calls the right country.
-const OFFICES = [
-  {
-    key: 'thailand',
-    officeKey: 'contactUs.thailandOffice',
-    addressKey: 'contactUs.addressThailand',
-    phones: [{ tel: '+66823288445', labelKey: 'contactUs.phone' }],
-  },
-  {
-    key: 'myanmar',
-    officeKey: 'contactUs.myanmarOffice',
-    addressKey: 'contactUs.addressMyanmar',
-    phones: [
-      { tel: '+959765929492', labelKey: 'contactUs.phoneMyanmar1' },
-      { tel: '+959790839290', labelKey: 'contactUs.phoneMyanmar2' },
-    ],
-  },
-] as const
-
-const COMPANY_LINKS = [
+const COMPANY = [
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
   { key: 'testimonials', href: '/#testimonials' },
@@ -66,203 +35,180 @@ const COMPANY_LINKS = [
   { key: 'terms', href: '/terms' },
 ] as const
 
-// ── Footer ────────────────────────────────────────────────────────────────────
+const SOCIALS = [
+  {
+    label: 'LinkedIn',
+    href: SOCIAL_LINKS.linkedin,
+    path: 'M4.98 3.5a2.5 2.5 0 1 0-.02 5 2.5 2.5 0 0 0 .02-5ZM3 9.5h4V21H3V9.5Zm7 0h3.8v1.57h.05c.53-1 1.83-2.06 3.77-2.06 4.03 0 4.78 2.65 4.78 6.1V21h-4v-5.4c0-1.29-.02-2.94-1.8-2.94-1.8 0-2.08 1.4-2.08 2.85V21h-4V9.5Z',
+  },
+  {
+    label: 'TikTok',
+    href: SOCIAL_LINKS.tiktok,
+    path: 'M14.5 3h2.9c.2 1.9 1.36 3.53 3.1 4.24v2.94a7.6 7.6 0 0 1-3.06-.9v6.4a5.9 5.9 0 1 1-5.9-5.9c.2 0 .4 0 .6.03v3.03a2.9 2.9 0 1 0 2.36 2.85V3Z',
+  },
+] as const
+
+const SOCIAL_CIRCLE =
+  'flex size-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/40 hover:text-white'
 
 export default function Footer() {
   const t = useTranslations('footer')
 
   return (
-    <motion.footer
-      initial={{ opacity: 0 }}
-      whileInView={{ opacity: 1 }}
-      viewport={{ once: true, margin: '-50px' }}
-      transition={{ duration: 0.5 }}
-      className="bg-white pt-16 md:pt-20 pb-6"
-    >
-      <div className="max-w-7xl mx-auto px-4 md:px-6">
+    <footer className="bg-structure py-14 text-white max-tablet:py-10">
+      <div className="mx-auto max-w-wrap px-6">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.2fr]">
+          {/* Identity, ask, and social. Full width until the five-column layout
+              kicks in at lg. */}
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+            <p className="mb-3 text-card font-medium">{t('companyName')}</p>
+            <p className="mb-6 max-w-[36ch] text-label font-normal text-white/70">{t('tagline')}</p>
 
-        {/* ── Main Grid ──────────────────────────────────────────────────────── */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.3fr] gap-10 lg:gap-8 pb-12">
-
-          {/* Column 1 — Brand */}
-          <div className="md:col-span-2 lg:col-span-1 flex flex-col">
-            {/* Logo row */}
-            <Link href="/" className="flex items-center">
-              <Image
-                src="/images/logo/logo.webp"
-                alt="Saturday Education"
-                width={217}
-                height={80}
-                className="h-16 w-auto"
-              />
+            <Link
+              href="/#consultation"
+              className="mb-6 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-action px-6 text-label font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover"
+            >
+              {t('contactUs.bookConsultation')}
+              <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className="size-4 shrink-0">
+                <path
+                  d="M3.5 8h9m0 0L8.5 4m4 4-4 4"
+                  stroke="currentColor"
+                  strokeWidth="1.6"
+                  strokeLinecap="round"
+                  strokeLinejoin="round"
+                />
+              </svg>
             </Link>
 
-            {/* Tagline */}
-            <p className="mt-5 mb-6 text-gray-500 text-sm leading-relaxed max-w-[300px]">
-              {t('tagline')}
-            </p>
-
-            {/* Book Consultation button */}
-            <div className="mb-6">
-              <Link
-                href="/#consultation"
-                className="inline-flex items-center gap-2 bg-[#590D82] hover:bg-[#4A0A6E] text-white font-bold px-6 py-3 rounded-full text-sm transition-colors duration-300"
-              >
-                {t('contactUs.bookConsultation')}
-                <ArrowRight size={16} />
-              </Link>
-            </div>
-
-            {/* Social icons */}
-            <div className="flex items-center gap-3 mt-auto">
+            <div className="flex gap-3">
               <a
                 href={SOCIAL_LINKS.facebook}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 aria-label="Facebook"
-                className="w-10 h-10 rounded-full border-2 border-[#590D82] flex items-center justify-center text-[#590D82] hover:bg-[#590D82] hover:text-white transition-colors duration-300"
+                className={SOCIAL_CIRCLE}
               >
-                {/* Facebook */}
-              <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-                <path d="M18 2h-3a5 5 0 00-5 5v3H7v4h3v8h4v-8h3l1-4h-4V7a1 1 0 011-1h3z" />
-              </svg>
+                <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4">
+                  <path d="M22 12a10 10 0 1 0-11.5 9.95v-7.04H7.9V12h2.6V9.8c0-2.6 1.55-4.03 3.92-4.03 1.13 0 2.32.2 2.32.2v2.55h-1.3c-1.28 0-1.68.8-1.68 1.62V12h2.86l-.46 2.91h-2.4v7.04A10 10 0 0 0 22 12Z" />
+                </svg>
               </a>
               <a
                 href={SOCIAL_LINKS.instagram}
                 target="_blank"
-                rel="noopener noreferrer"
+                rel="noreferrer"
                 aria-label="Instagram"
-                className="w-10 h-10 rounded-full border-2 border-[#590D82] flex items-center justify-center text-[#590D82] hover:bg-[#590D82] hover:text-white transition-colors duration-300"
+                className={SOCIAL_CIRCLE}
               >
-                {/* Instagram */}
-                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5" />
-                  <circle cx="12" cy="12" r="4" />
-                  <circle cx="17.5" cy="6.5" r="0.5" fill="currentColor" stroke="none" />
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-4">
+                  <rect x="2.5" y="2.5" width="19" height="19" rx="5" stroke="currentColor" strokeWidth="1.8" />
+                  <circle cx="12" cy="12" r="4.6" stroke="currentColor" strokeWidth="1.8" />
+                  <circle cx="17.6" cy="6.4" r="1.1" fill="currentColor" />
                 </svg>
               </a>
-              <a
-                href={SOCIAL_LINKS.linkedin}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="LinkedIn"
-                className="w-10 h-10 rounded-full border-2 border-[#590D82] flex items-center justify-center text-[#590D82] hover:bg-[#590D82] hover:text-white transition-colors duration-300"
-              >
-                {/* LinkedIn */}
-                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-                  <path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z" />
-                  <circle cx="4" cy="4" r="2" />
-                </svg>
-              </a>
-              <a
-                href={SOCIAL_LINKS.tiktok}
-                target="_blank"
-                rel="noopener noreferrer"
-                aria-label="TikTok"
-                className="w-10 h-10 rounded-full border-2 border-[#590D82] flex items-center justify-center text-[#590D82] hover:bg-[#590D82] hover:text-white transition-colors duration-300"
-              >
-                <svg viewBox="0 0 24 24" className="w-4 h-4" fill="currentColor">
-                  <path d="M19.59 6.69a4.83 4.83 0 01-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 01-2.88 2.5 2.89 2.89 0 01-2.89-2.89 2.89 2.89 0 012.89-2.89c.28 0 .54.04.79.1v-3.5a6.37 6.37 0 00-.79-.05A6.34 6.34 0 003.15 15.2a6.34 6.34 0 006.34 6.34 6.34 6.34 0 006.34-6.34V8.73a8.19 8.19 0 004.76 1.52V6.8a4.84 4.84 0 01-1-.11z" />
-                </svg>
-              </a>
+              {SOCIALS.map((social) => (
+                <a
+                  key={social.label}
+                  href={social.href}
+                  target="_blank"
+                  rel="noreferrer"
+                  aria-label={social.label}
+                  className={SOCIAL_CIRCLE}
+                >
+                  <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true" className="size-4">
+                    <path d={social.path} />
+                  </svg>
+                </a>
+              ))}
             </div>
           </div>
 
-          {/* Column 2 — Study Abroad */}
           <div>
-            <h3 className={headingCls}>{t('studyAbroad.heading')}</h3>
-            <ul className="space-y-3">
-              {STUDY_LINKS.map(({ key, href }) => (
-                <li key={key}>
-                  <Link href={href} className={linkCls}>
-                    {t(`studyAbroad.${key}`)}
+            <p className={COLUMN_HEADING}>{t('studyAbroad.heading')}</p>
+            <ul className="flex flex-col gap-2">
+              {DESTINATIONS.map((destination) => (
+                <li key={destination.key}>
+                  <Link href={`/destinations/${destination.slug}`} className={LINK}>
+                    {t(`studyAbroad.${destination.key}`)}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 3 — Our Services */}
           <div>
-            <h3 className={headingCls}>{t('services.heading')}</h3>
-            <ul className="space-y-3">
-              {SERVICE_LINKS.map(({ key }) => (
-                <li key={key}>
-                  <span className="text-sm text-gray-500 cursor-default block">
-                    {t(`services.${key}`)}
-                  </span>
+            <p className={COLUMN_HEADING}>{t('services.heading')}</p>
+            {/* Plain text in the design too: these are not pages. */}
+            <ul className="flex flex-col gap-2">
+              {SERVICES.map((service) => (
+                <li key={service} className="text-label font-normal text-white/60">
+                  {t(`services.${service}`)}
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 4 — Company */}
           <div>
-            <h3 className={headingCls}>{t('company.heading')}</h3>
-            <ul className="space-y-3">
-              {COMPANY_LINKS.map(({ key, href }) => (
-                <li key={key}>
-                  <Link href={href} className={linkCls}>
-                    {t(`company.${key}`)}
+            <p className={COLUMN_HEADING}>{t('company.heading')}</p>
+            <ul className="flex flex-col gap-2">
+              {COMPANY.map((item) => (
+                <li key={item.key}>
+                  <Link href={item.href} className={LINK}>
+                    {t(`company.${item.key}`)}
                   </Link>
                 </li>
               ))}
             </ul>
           </div>
 
-          {/* Column 5 — Contact Us */}
-          <div>
-            <h3 className={headingCls}>{t('contactUs.heading')}</h3>
-            <div className="space-y-4">
-
-              {/* Offices, each with its own address and phone numbers */}
-              {OFFICES.map(({ key, officeKey, addressKey, phones }) => (
-                <div key={key} className="flex items-start gap-3">
-                  <MapPin size={18} className="text-[#590D82] flex-shrink-0 mt-0.5" />
-                  <div className="text-sm text-gray-500 leading-relaxed">
-                    <span className="block font-semibold text-gray-700">{t(officeKey)}</span>
-                    {t(addressKey)}
-                    <span className="flex flex-col items-start gap-1 mt-1.5">
-                      {phones.map(({ tel, labelKey }) => (
-                        <a
-                          key={tel}
-                          href={`tel:${tel}`}
-                          className="inline-flex items-center gap-1.5 text-[#590D82] hover:underline"
-                        >
-                          <Phone size={14} className="flex-shrink-0" />
-                          {t(labelKey)}
-                        </a>
-                      ))}
-                    </span>
-                  </div>
-                </div>
-              ))}
-
-              {/* Email */}
-              <div className="flex items-center gap-3">
-                <Mail size={18} className="text-[#590D82] flex-shrink-0" />
-                <a
-                  href="mailto:info@saturdayeducation.com"
-                  className="text-sm text-[#590D82] hover:underline break-all"
-                >
-                  {t('contactUs.email')}
+          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+            <p className={COLUMN_HEADING}>{t('contactUs.heading')}</p>
+            <div className="flex flex-col gap-5">
+              <div>
+                <p className="mb-1 text-label font-medium text-white">
+                  {t('contactUs.thailandOffice')}
+                </p>
+                <p className="mb-2 max-w-[34ch] text-label font-normal text-white/70">
+                  {t('contactUs.addressThailand')}
+                </p>
+                <a href="tel:+66823288445" className="text-label font-medium hover:underline">
+                  {t('contactUs.phone')}
                 </a>
               </div>
+
+              <div>
+                <p className="mb-1 text-label font-medium text-white">
+                  {t('contactUs.myanmarOffice')}
+                </p>
+                <p className="mb-2 max-w-[34ch] text-label font-normal text-white/70">
+                  {t('contactUs.addressMyanmar')}
+                </p>
+                <a
+                  href="tel:+959765929492"
+                  className="block text-label font-medium hover:underline"
+                >
+                  {t('contactUs.phoneMyanmar1')}
+                </a>
+                <a href="tel:+959790839290" className="text-label font-medium hover:underline">
+                  {t('contactUs.phoneMyanmar2')}
+                </a>
+              </div>
+
+              <a
+                href={`mailto:${t('contactUs.email')}`}
+                className="text-label font-medium hover:underline"
+              >
+                {t('contactUs.email')}
+              </a>
             </div>
           </div>
-
         </div>
 
-        {/* ── Bottom Bar ─────────────────────────────────────────────────────── */}
-        <div className="border-t border-gray-200 pt-6 mt-4 flex flex-col items-center gap-2 sm:flex-row sm:justify-center sm:gap-3">
-          <p className="text-gray-400 text-sm">
-            {t('copyright', { year: new Date().getFullYear() })}
-          </p>
-          <span className="hidden sm:inline text-gray-300" aria-hidden="true">·</span>
-          <CookieSettingsButton className="text-sm text-gray-400 hover:text-[#590D82] transition-colors" />
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-white/15 pt-6 text-min text-white/60">
+          {/* Year comes from the clock, not a literal, so it cannot go stale. */}
+          <span>{t('copyright', { year: String(new Date().getFullYear()) })}</span>
+          <CookieSettingsButton className="cursor-pointer hover:underline" />
         </div>
-
       </div>
-    </motion.footer>
+    </footer>
   )
 }
