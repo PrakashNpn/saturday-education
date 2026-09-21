@@ -8,7 +8,10 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'metadata' })
   return {
-    title: t('home.title'),
+    // absolute, not a plain string: the root layout's title template would
+    // otherwise append "| Saturday Education" a second time onto a title
+    // that already opens with the brand name.
+    title: { absolute: t('home.title') },
     description: t('home.description'),
     openGraph: {
       title: t('home.title'),

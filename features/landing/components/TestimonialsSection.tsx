@@ -24,7 +24,8 @@ const REVIEWS = [
   { key: '1', photo: 'ye-naing' },
   { key: '2', photo: 'thi-han' },
   { key: '3', photo: 'akar-kyaw' },
-  { key: '4', photo: 'may-thazin' }
+  { key: '4', photo: 'may-thazin' },
+  { key: '5', photo: 'htin-aung-kyaw' }
 ] as const satisfies readonly { key: string; photo: string | null }[]
 
 /** First letter of the first two words, which is enough for these names. */
@@ -96,9 +97,21 @@ export default function TestimonialsSection() {
                     <QuoteMark />
                   </span>
 
-                  <blockquote className="mb-6 text-label font-light text-white/80">
-                    {review.quote}
-                  </blockquote>
+                  {/* flex-1 + min-h-0 lets this fill exactly the space
+                      between the quote mark and the pinned-to-bottom
+                      figcaption, no more — a short quote just sits there like
+                      before, a long one scrolls internally instead of
+                      overflowing the card. The fade hints there's more below
+                      without a "read more" link breaking the quoted-text feel. */}
+                  <div className="relative mb-6 min-h-0 flex-1">
+                    <blockquote className="h-full overflow-y-auto scrollbar-thin-dark pr-2 text-label font-light text-white/80">
+                      {review.quote}
+                    </blockquote>
+                    <div
+                      aria-hidden="true"
+                      className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-structure to-transparent"
+                    />
+                  </div>
 
                   <figcaption className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4 text-label">
                     {/* A real photograph when we have one. The design fills

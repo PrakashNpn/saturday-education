@@ -33,11 +33,7 @@ export default function HeroSection() {
   const locale = useLocale()
   const prefersReducedMotion = useReducedMotion()
 
-  // "Saturday Education" stays on one line at any width. Burmese's highlight
-  // adds "Consulting" to match the sentence the client asked for, and that
-  // third word no longer fits unbroken on a phone screen — nowrap would just
-  // push it past the viewport edge instead of wrapping.
-  const highlightNoWrap = locale !== 'my'
+
 
   /**
    * The whole hero is above the fold, so this runs on mount, not on scroll.
@@ -71,25 +67,39 @@ export default function HeroSection() {
       />
 
       <div className="relative mx-auto max-w-wrap px-6">
-        <div className="mx-auto max-w-[84ch] text-center">
+        <div className="mx-auto text-center">
           <motion.h1
             {...rise(0)}
-            className="mx-auto mb-5 text-display font-medium leading-[1.08] tracking-[-0.03em]"
+            // English-only: ~2px off the shared text-display token's 52px
+            // desktop cap, same clamp shape otherwise. Scoped to 'en' per the
+            // same trial-before-applying-everywhere pattern as before.
+            className={cn(
+              'mx-auto mb-5 font-medium tracking-[-0.03em]',
+              locale === 'en' ? 'text-[clamp(2.25rem,1.55rem+2.9vw,3.1rem)]' : 'text-display',
+              'leading-[1.08]',
+            )}
           >
             {t('titleLine1')}
+            {t('titleLine2') && ` ${t('titleLine2')}`}
             <br />
-            {t('titleLine2')}{' '}
             {/* The company's own name set in running text is an identity
                 moment, so it takes the brand colour rather than the action
                 colour. Same value, different reason. */}
-            <span className={cn('font-semibold text-brand', highlightNoWrap && 'whitespace-nowrap')}>
+            <span className="font-semibold text-brand">
               {t('titleHighlight')}
             </span>
             {/* Burmese word order puts a verb after the brand name ("...with
                 Saturday Education, let's start") where English's does not, so
                 this only trails the highlight for locales that actually need
-                it — empty for English and Thai, so nothing renders there. */}
-            {t('titleSuffix') && ` ${t('titleSuffix')}`}
+                it — empty for English and Thai, so nothing renders there. Its
+                own forced line break keeps it off the brand-name line
+                regardless of container width, since Burmese runs long here. */}
+            {t('titleSuffix') && (
+              <>
+                <br />
+                {t('titleSuffix')}
+              </>
+            )}
           </motion.h1>
 
           <motion.p

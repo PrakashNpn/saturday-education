@@ -17,9 +17,9 @@ const DESTINATIONS = [
   { key: 'canada', slug: 'canada' },
   { key: 'thailand', slug: 'thailand' },
   { key: 'newZealand', slug: 'new-zealand' },
-  { key: 'usa', slug: 'united-states' },
-  { key: 'uk', slug: 'united-kingdom' },
-  { key: 'australia', slug: 'australia' },
+  { key: 'hungary', slug: 'hungary' },
+  { key: 'switzerland', slug: 'switzerland' },
+  { key: 'spain', slug: 'spain' },
 ] as const
 
 const SERVICES = [

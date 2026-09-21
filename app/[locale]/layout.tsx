@@ -6,6 +6,7 @@ import Navbar from "@/shared/components/layout/Navbar"
 import Footer from "@/shared/components/layout/Footer"
 import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
 import { Analytics } from "@vercel/analytics/next"
+import { SpeedInsights } from "@vercel/speed-insights/next"
 import { CookieConsent, GoogleAnalytics, MetaPixel } from "@/shared/components/consent"
 
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
@@ -55,6 +56,7 @@ export default async function LocaleLayout({
           <MetaPixel />
         </NextIntlClientProvider>
         <Analytics />
+        <SpeedInsights />
       </body>
     </html>
   )
