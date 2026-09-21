@@ -91,6 +91,11 @@
           "quote": "Advisor တွေက ကျွန်မ ဘာလိုချင်လဲဆိုတာ အချိန်ယူ နားလည်ပေးပြီး UK က Data Science Master's Programme နဲ့ Right Fit ဖြစ်အောင် Match လုပ်ပေးခဲ့ပါတယ်။",
           "name": "မေသဇင်",
           "program": "MSc Data Science, UK"
+        },
+        "5": {
+          "quote": "အားလုံးသိတဲ့အတိုင်း Ako David ဟာ အရမ်း မြန်ပြီး ယုံကြည်စိတ်ချရပါတယ်။ အစကတည်းက Ako David နဲ့ Ama Zoey ဆီကနေ SMS နဲ့ လမ်းညွှန်မှု ရယူတာဟာ အရမ်း မြန်ပြီး ယုံကြည်စိတ်ချရကာ အထောက်အကူဖြစ်ခဲ့ပါတယ်။ သူတို့ဟာ အမြဲတမ်း Support ပေးဖို့နဲ့ လမ်းညွှန်ပေးဖို့ အသင့်ရှိနေတဲ့အတွက် စိတ်ပူစရာ မလိုပါဘူး။ Visa Process နဲ့ ပတ်သက်လာရင် သင် Apply လုပ်မယ့် နိုင်ငံအလိုက် သင့်တော်တဲ့ လမ်းညွှန်မှုနဲ့ Support ကို ပေးအပ်ပါတယ်။ ပညာသင်ဖို့ ရေရှည် ယုံကြည်စိတ်ချရတဲ့ လမ်းညွှန်မှု ရှာနေတဲ့ Student တွေနဲ့ မိဘတွေအတွက် Saturday Education Consulting ကို အထူး Recommend ပြုလိုပါတယ်။",
+          "name": "ထင်အောင်ကျော်",
+          "program": "BSc Artificial Intelligence, Germany"
         }
       }
     },
@@ -309,17 +314,17 @@
     "tagline": "International Education အတွက် သင့်ရဲ့ Trusted Partner။ Myanmar Student တွေရဲ့ Study Abroad Dream ကို Achieve ဖြစ်အောင် Guide ပေးနေပါတယ်။",
     "studyAbroad": {
       "heading": "Study Abroad",
-      "uk": "Study in UK",
-      "usa": "Study in USA",
       "canada": "Study in Canada",
-      "australia": "Study in Australia",
       "singapore": "Study in Singapore",
       "thailand": "Study in Thailand",
       "ireland": "Study in Ireland",
       "newZealand": "Study in New Zealand",
       "germany": "Study in Germany",
       "malaysia": "Study in Malaysia",
-      "dubai": "Study in Dubai"
+      "dubai": "Study in Dubai",
+      "hungary": "Study in Hungary",
+      "switzerland": "Study in Switzerland",
+      "spain": "Study in Spain"
     },
     "services": {
       "heading": "ကျွန်ုပ်တို့ရဲ့ Services",
@@ -773,7 +778,7 @@
     "seeLess": "See Less",
     "sortPopular": "Most Popular",
     "sortName": "Name (A-Z)",
-    "cardInstitutionCount": "Partner University {count} ခု",
+    "cardInstitutionCount": "Partner Institution {count} ခု",
     "partnerInstitutions": "Partner Institution {count} ခု",
     "ctaButton": "Free Consultation ကို Book လုပ်ရန်"
   },

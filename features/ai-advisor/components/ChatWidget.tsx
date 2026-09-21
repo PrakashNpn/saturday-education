@@ -21,21 +21,35 @@ export default function ChatWidget() {
     return () => clearTimeout(t)
   }, [])
 
-  // Collapses the closed widget to just its logo while the page is actively
-  // scrolling, so it stays out of the way of whatever's being read. "Paused"
-  // is inferred from a gap in scroll events, not a separate scroll-end
-  // signal — simpler, and works the same everywhere.
+  // Collapses the closed widget to just its logo, but only once scrolling
+  // has been going on for a while — a quick flick past one section never
+  // collapses it at all. Two timers: collapseTimer arms once per burst and
+  // only actually collapses the widget if scrolling is still happening
+  // SUSTAINED_SCROLL_MS later; stopTimer refreshes on every scroll event and,
+  // once scrolling has gone quiet for STOP_GAP_MS, cancels collapseTimer
+  // (covers a short burst that never collapsed) and re-expands the widget
+  // (covers a long scroll that did).
   useEffect(() => {
-    let pauseTimer: ReturnType<typeof setTimeout>
+    const SUSTAINED_SCROLL_MS = 2000
+    const STOP_GAP_MS = 1000
+    let collapseTimer: ReturnType<typeof setTimeout> | undefined
+    let stopTimer: ReturnType<typeof setTimeout>
     const handleScroll = () => {
-      setIsScrolling(true)
-      clearTimeout(pauseTimer)
-      pauseTimer = setTimeout(() => setIsScrolling(false), 250)
+      if (!collapseTimer) {
+        collapseTimer = setTimeout(() => setIsScrolling(true), SUSTAINED_SCROLL_MS)
+      }
+      clearTimeout(stopTimer)
+      stopTimer = setTimeout(() => {
+        clearTimeout(collapseTimer)
+        collapseTimer = undefined
+        setIsScrolling(false)
+      }, STOP_GAP_MS)
     }
     window.addEventListener('scroll', handleScroll, { passive: true })
     return () => {
       window.removeEventListener('scroll', handleScroll)
-      clearTimeout(pauseTimer)
+      clearTimeout(collapseTimer)
+      clearTimeout(stopTimer)
     }
   }, [])
 
@@ -264,12 +278,21 @@ export default function ChatWidget() {
               // the brief moment both this and the X button exist together
               // (now that they cross-fade instead of waiting their turn)
               // would stack them in normal flow instead of overlapping.
+              //
+              // Padding and border-radius change together as plain CSS
+              // classes on one transition (not framer-motion) deliberately —
+              // the browser guarantees they stay in perfect sync since it's
+              // one native transition, not two independently-animated values
+              // that can drift apart mid-morph (tried that, got uneven
+              // corners; tried framer's `layout` prop instead, which fixed
+              // the corners but fought the scale() from the entrance
+              // animation above and threw off the final size).
               className={`absolute right-0 bottom-0 flex items-center cursor-pointer
                 bg-gradient-to-br from-white/55 via-white/40 to-tint/40 backdrop-blur-xl
                 border border-white/50
                 shadow-[0_8px_40px_rgba(99,45,139,0.28),0_2px_16px_rgba(99,45,139,0.12),inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(99,45,139,0.04)]
                 hover:shadow-[0_12px_52px_rgba(99,45,139,0.38),0_2px_16px_rgba(99,45,139,0.16)]
-                hover:from-white/65 hover:to-tint/60 active:scale-95 transition-all duration-200
+                hover:from-white/65 hover:to-tint/60 active:scale-95 transition-all duration-300 ease-out
                 ${showCollapsed ? (isMobile ? 'rounded-full p-2' : 'rounded-full p-3') : 'rounded-2xl px-4 py-3'}`}
             >
               {/* Logo, plus a small pulsing green status dot while
@@ -301,7 +324,7 @@ export default function ChatWidget() {
                     initial={{ opacity: 0, width: 0, marginLeft: 0 }}
                     animate={{ opacity: 1, width: 'auto', marginLeft: 12 }}
                     exit={{ opacity: 0, width: 0, marginLeft: 0 }}
-                    transition={{ duration: 0.2 }}
+                    transition={{ type: 'spring', stiffness: 380, damping: 28 }}
                     className="overflow-hidden text-left whitespace-nowrap"
                   >
                     <p className="text-primary-text font-semibold text-sm leading-tight">Let&apos;s Chat</p>
@@ -311,7 +334,7 @@ export default function ChatWidget() {
                         transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
                         className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"
                       />
-                      <span className="text-muted-text text-xs">Online</span>
+                      <span className="text-secondary-text text-xs">Online</span>
                     </div>
                   </motion.div>
                 )}

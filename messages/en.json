@@ -91,6 +91,11 @@
           "quote": "The advisors took the time to understand what I wanted and matched me with a Data Science Master's programme in the UK that was the right fit.",
           "name": "May Thazin",
           "program": "MSc Data Science, UK"
+        },
+        "5": {
+          "quote": "As you all know, Ako David is very fast and trustworthy. From the beginning, getting guidance through SMS from Ako David and Ama Zoey was very fast, reliable, and helpful. You don't need to worry because they are always ready to support and guide you. When it comes to the visa process, they provide proper guidance and support based on the country you are applying to. I highly recommend Saturday Education Consulting to students and their parents who are looking for reliable guidance for studying abroad.",
+          "name": "Htin Aung Kyaw",
+          "program": "BSc Artificial Intelligence, Germany"
         }
       }
     },
@@ -625,17 +630,17 @@
     "tagline": "Your trusted partner for international education. Guiding Myanmar students to achieve their dreams of studying abroad.",
     "studyAbroad": {
       "heading": "Study Abroad",
-      "uk": "Study in UK",
-      "usa": "Study in USA",
       "canada": "Study in Canada",
-      "australia": "Study in Australia",
       "singapore": "Study in Singapore",
       "thailand": "Study in Thailand",
       "ireland": "Study in Ireland",
       "newZealand": "Study in New Zealand",
       "germany": "Study in Germany",
       "malaysia": "Study in Malaysia",
-      "dubai": "Study in Dubai"
+      "dubai": "Study in Dubai",
+      "hungary": "Study in Hungary",
+      "switzerland": "Study in Switzerland",
+      "spain": "Study in Spain"
     },
     "services": {
       "heading": "Our Services",
@@ -671,7 +676,7 @@
   },
   "metadata": {
     "home": {
-      "title": "Saturday Education — Your Global Education Journey Starts Here",
+      "title": "Saturday Education Consulting - Making Study Abroad Meaningful",
       "description": "We've helped 3,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
     },
     "universities": {
@@ -773,7 +778,7 @@
     "seeLess": "See less",
     "sortPopular": "Most popular",
     "sortName": "Name (A-Z)",
-    "cardInstitutionCount": "{count, plural, one {# partner university} other {# partner universities}}",
+    "cardInstitutionCount": "{count, plural, one {# partner institution} other {# partner institutions}}",
     "partnerInstitutions": "{count, plural, one {# partner institution} other {# partner institutions}}",
     "ctaButton": "Book Free Consultation"
   },

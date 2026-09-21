@@ -2,6 +2,7 @@
 
 import { useTranslations } from 'next-intl'
 import { motion, useReducedMotion } from 'framer-motion'
+import { CustomDropdown } from '@/shared/components/common'
 import { REGIONS, REGION_TAB_LABELS } from '../utils/constants'
 import type { SortOption } from '../utils/constants'
 
@@ -71,31 +72,18 @@ export function DestinationsToolbar({
 
           <div className="flex items-center gap-2 pb-2 max-tablet:w-full max-tablet:justify-between">
             <span className="text-label font-normal text-muted-text">{t('sortBy')}</span>
-            <div className="relative">
-              <select
-                value={sort}
-                onChange={(event) => onSortChange(event.target.value as SortOption)}
-                aria-label={t('sortBy')}
-                className="h-8 cursor-pointer appearance-none rounded-[6px] border border-stroke bg-surface pr-8 pl-3 text-label font-medium text-primary-text transition-colors hover:border-muted-text/50 focus:border-action focus:outline-none"
-              >
-                <option value="popular">{t('sortPopular')}</option>
-                <option value="name">{t('sortName')}</option>
-              </select>
-              <svg
-                viewBox="0 0 20 20"
-                fill="none"
-                aria-hidden="true"
-                className="pointer-events-none absolute top-1/2 right-2.5 size-3.5 -translate-y-1/2 text-muted-text"
-              >
-                <path
-                  d="M5 7.5L10 12.5L15 7.5"
-                  stroke="currentColor"
-                  strokeWidth="1.6"
-                  strokeLinecap="round"
-                  strokeLinejoin="round"
-                />
-              </svg>
-            </div>
+            <CustomDropdown
+              variant="field"
+              size="compact"
+              value={sort}
+              onChange={(value) => onSortChange(value as SortOption)}
+              options={[
+                { value: 'popular', label: t('sortPopular') },
+                { value: 'name', label: t('sortName') },
+              ]}
+              showPlaceholderOption={false}
+              className="w-40"
+            />
           </div>
         </div>
 
