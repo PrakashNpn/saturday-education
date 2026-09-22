@@ -42,6 +42,14 @@ export function AboutCertifications() {
         <h2 className="mx-auto max-w-[54ch] text-section font-medium text-white">
           {t('certsTitle')}
         </h2>
+        {/* States the core business activity explicitly (student recruitment)
+            for partner universities' due-diligence checks, right next to the
+            accreditations that back it up. No max-w here (unlike certsTitle
+            above) — this one line reads better staying on one line at
+            desktop widths than wrapped for a shorter measure. */}
+        <p className="mt-3 text-label font-light text-white/70">
+          {t('certsSubtitle')}
+        </p>
       </motion.div>
 
       {/* Same marquee as the partner wall and the testimonials, so it also

@@ -2,6 +2,7 @@
 
 import { prisma } from '@/shared/lib/db/prisma'
 import { resend } from '@/shared/lib/email'
+import { createFirmliLead } from '@/shared/lib/crm/firmli'
 
 const NOTIFICATION_EMAIL = process.env.CONSULTATION_NOTIFICATION_EMAIL ?? 'saturdayeducationconsulting@gmail.com'
 
@@ -62,12 +63,30 @@ export async function submitConsultation(data: ConsultationInput) {
       },
     })
 
-    await sendNotificationEmail(data)
+    // Both are best-effort side effects of a successful booking — neither
+    // should ever fail the submission itself, so each catches its own
+    // errors internally. Run together rather than one after the other so a
+    // slow CRM call doesn't add to how long the user waits.
+    await Promise.all([sendNotificationEmail(data), syncToFirmliCRM(data)])
 
     return { success: true }
   } catch (error) {
     console.error('Consultation submission error:', error)
     return { success: false, error: 'Something went wrong. Please try again.' }
+  }
+}
+
+async function syncToFirmliCRM(data: ConsultationInput) {
+  try {
+    await createFirmliLead({
+      fullName: data.fullName.trim(),
+      email: data.email.trim(),
+      phone: data.phone?.trim() || null,
+      targetCountry: data.targetCountry || null,
+      message: data.message?.trim() || null,
+    })
+  } catch (error) {
+    console.error('Firmli CRM sync error:', error)
   }
 }
 

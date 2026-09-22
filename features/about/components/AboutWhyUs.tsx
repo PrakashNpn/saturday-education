@@ -1,6 +1,6 @@
 import { useTranslations } from 'next-intl'
 
-const REASONS = [1, 2, 3] as const
+const REASONS = [1, 2, 3, 4] as const
 const STATS = [1, 2, 3, 4] as const
 
 export function AboutWhyUs() {
@@ -9,11 +9,19 @@ export function AboutWhyUs() {
   return (
     <section className="border-t border-stroke py-16 max-tablet:py-12">
       <div className="mx-auto max-w-wrap px-6">
-        <div className="grid gap-10 lg:grid-cols-12 lg:items-stretch">
-          <div className="flex flex-col lg:col-span-6">
-            <h2 className="text-section font-medium leading-[1.2]">{t('whyTitle')}</h2>
+        <h2 className="text-section font-medium leading-[1.2]">{t('whyTitle')}</h2>
 
-            <div className="mt-6 space-y-5 border-t border-stroke pt-6">
+        {/* items-center, not items-stretch: with 4 reasons now instead of 3,
+            stretching the stats box to match the text column's height just
+            padded the stat cells out with empty space instead of growing
+            their content. Not items-start either — that left the (now
+            shorter) box pinned to the top with an orphaned gap underneath
+            it. The heading lives outside this grid (above) so centering
+            lines the stats box up against just the 4 bullets, not the
+            heading too — otherwise the box reads as sitting too high. */}
+        <div className="mt-6 grid gap-10 lg:grid-cols-12 lg:items-center">
+          <div className="flex flex-col border-t border-stroke pt-6 lg:col-span-6">
+            <div className="space-y-5">
               {REASONS.map((n) => (
                 <div key={n} className="flex items-start gap-3.5">
                   <span className="mt-2 h-1.5 w-1.5 shrink-0 rounded-full bg-action" />
@@ -38,7 +46,7 @@ export function AboutWhyUs() {
                 {STATS.map((n) => (
                   <div
                     key={n}
-                    className="flex flex-col items-center justify-center p-6 text-center sm:p-7"
+                    className="flex flex-col items-center justify-center p-8 text-center sm:p-10"
                   >
                     {/* The visa figure is the one people remember, so it is the
                         only cell that takes the action colour. */}
