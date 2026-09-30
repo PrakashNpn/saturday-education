@@ -3,8 +3,13 @@
 // never runs in the browser, unlike Firmli's own embeddable widget):
 //   FIRMLI_CLIENT_NUMBER = c191z26royal58
 //   FIRMLI_FORM_NUMBER   = FRM1790061849437W26JWECS31
+//   FIRMLI_UTM_NUMBER    = UTM1790583080779Q26HZFCX32
 const FIRMLI_CLIENT_NUMBER = process.env.FIRMLI_CLIENT_NUMBER
 const FIRMLI_FORM_NUMBER = process.env.FIRMLI_FORM_NUMBER
+// Optional, like Firmli's own widget treats it — tags the lead's UTM source
+// in their CRM (this specific value maps to "Website" on their end; leads
+// sent without it were showing up there as "Email").
+const FIRMLI_UTM_NUMBER = process.env.FIRMLI_UTM_NUMBER
 
 const apiBase = () => `https://${FIRMLI_CLIENT_NUMBER}-api.firmli.com/v1`
 
@@ -70,6 +75,7 @@ export async function createFirmliLead(data: FirmliLeadInput): Promise<void> {
   const payload = {
     data: submittedData,
     form_identifier: FIRMLI_FORM_NUMBER,
+    ...(FIRMLI_UTM_NUMBER && { utm_identifier: FIRMLI_UTM_NUMBER }),
   }
 
   const encryptRes = await fetch(`${apiBase()}/test-path/encrypt-data`, {

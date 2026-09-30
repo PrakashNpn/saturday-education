@@ -52,7 +52,7 @@ export function PublicResultsView({ data }: Props) {
             <h1 className="mb-3 text-2xl font-bold tracking-tight text-primary-text sm:text-3xl">
               {data.archetype}
             </h1>
-            <p className="max-w-4xl text-body font-normal leading-relaxed text-secondary-text">
+            <p className="max-w-4xl text-label font-normal leading-relaxed text-secondary-text sm:text-body">
               {data.studentRead ?? data.archetypeSummary}
             </p>
           </div>
@@ -127,7 +127,7 @@ export function PublicResultsView({ data }: Props) {
         </p>
         <Link
           href="/career-assessment"
-          className="inline-flex min-h-13 items-center justify-center gap-2 rounded-full bg-action px-12 text-body font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover"
+          className="inline-flex min-h-13 w-full items-center justify-center gap-2 rounded-full bg-action px-6 text-center text-label font-medium text-white transition-colors hover:bg-action-hover sm:w-auto sm:px-12 sm:text-body sm:whitespace-nowrap"
         >
           <span>{tp('ctaButton')}</span>
           <span aria-hidden="true">→</span>

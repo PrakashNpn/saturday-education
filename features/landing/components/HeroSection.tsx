@@ -73,8 +73,16 @@ export default function HeroSection() {
             // English-only: ~2px off the shared text-display token's 52px
             // desktop cap, same clamp shape otherwise. Scoped to 'en' per the
             // same trial-before-applying-everywhere pattern as before.
+            //
+            // max-[374px]: both clamps floor at the same 36px regardless of
+            // locale, which is fine down to ~375px but leaves no room for
+            // "Saturday Education" (held together as one unit below, so it
+            // reads as two lines instead of three) to fit an even narrower
+            // phone without overflowing the viewport — confirmed at 320 and
+            // 360px, where only a smaller floor here fixes it.
             className={cn(
               'mx-auto mb-5 font-medium tracking-[-0.03em]',
+              'max-[374px]:text-[1.75rem]',
               locale === 'en' ? 'text-[clamp(2.25rem,1.55rem+2.9vw,3.1rem)]' : 'text-display',
               'leading-[1.08]',
             )}
@@ -86,7 +94,13 @@ export default function HeroSection() {
                 moment, so it takes the brand colour rather than the action
                 colour. Same value, different reason. */}
             <span className="font-semibold text-brand">
-              {t('titleHighlight')}
+              {/* Non-breaking space between the first two words only: at the
+                  narrowest phone widths (320px) the plain string wraps three
+                  ways ("Saturday" / "Education" / "Consulting") because the
+                  first line break lands wherever it fits, not where it reads
+                  best. Pinning "Saturday Education" together forces the one
+                  remaining break to fall before "Consulting" instead. */}
+              {t('titleHighlight').replace(' ', ' ')}
             </span>
             {/* Burmese word order puts a verb after the brand name ("...with
                 Saturday Education, let's start") where English's does not, so

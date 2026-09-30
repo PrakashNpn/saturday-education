@@ -22,7 +22,7 @@ function BeginIllustration() {
       viewBox="0 0 220 110"
       fill="none"
       aria-hidden="true"
-      className="h-auto w-full max-w-[290px] shrink-0"
+      className="h-auto w-full max-w-[190px] shrink-0 sm:max-w-[290px]"
     >
       <circle cx="165" cy="35" r="30" fill="#FBBF24" fillOpacity="0.12" />
       <rect x="15" y="90" width="190" height="4" rx="2" fill="#3D3935" />
@@ -113,7 +113,7 @@ export function BeforeYouBeginModal({ open, onClose, onStart }: Props) {
     <AnimatePresence>
       {open && (
         <motion.div
-          className="fixed inset-0 z-[100] flex items-center justify-center bg-black/60 p-4 backdrop-blur-xs"
+          className="fixed inset-0 z-[100] flex items-center justify-center overflow-y-auto bg-black/60 p-4 backdrop-blur-xs"
           initial={{ opacity: 0 }}
           animate={{ opacity: 1 }}
           exit={{ opacity: 0 }}
@@ -141,10 +141,14 @@ export function BeforeYouBeginModal({ open, onClose, onStart }: Props) {
               </svg>
             </button>
 
-            <div className="grid min-h-[420px] grid-cols-1 sm:min-h-[450px] md:grid-cols-2">
+            {/* No min-h below sm: on a phone the two sections stack, so a
+                forced floor here was just adding empty space on top of
+                content that's already tall enough on its own — the main
+                reason this didn't fit on a phone screen at all. */}
+            <div className="grid grid-cols-1 sm:min-h-[450px] md:grid-cols-2">
               {/* Left: what to expect during the run. */}
-              <div className="flex flex-col items-start justify-center border-b border-stroke bg-surface-0 p-8 text-left sm:p-10 md:border-r md:border-b-0">
-                <div className="mb-6 flex w-full justify-center">
+              <div className="flex flex-col items-start justify-center border-b border-stroke bg-surface-0 p-6 text-left sm:p-8 md:border-r md:border-b-0 lg:p-10">
+                <div className="mb-4 flex w-full justify-center sm:mb-6">
                   <BeginIllustration />
                 </div>
                 <div className="w-full space-y-3">
@@ -160,7 +164,7 @@ export function BeforeYouBeginModal({ open, onClose, onStart }: Props) {
               </div>
 
               {/* Right: what the run is for. */}
-              <div className="flex flex-col justify-center bg-surface p-8 sm:p-10">
+              <div className="flex flex-col justify-center bg-surface p-6 sm:p-8 lg:p-10">
                 <div className="w-full space-y-3">
                   <h2 className="text-body font-semibold text-primary-text">{t('getTitle')}</h2>
                   <div className="space-y-2.5">
@@ -170,7 +174,12 @@ export function BeforeYouBeginModal({ open, onClose, onStart }: Props) {
                   </div>
                 </div>
 
-                <div className="mt-16 flex flex-col gap-2.5 border-t border-stroke pt-4">
+                {/* mt-16 (used from md: up, where this column sits beside
+                    the left one and needs to push the buttons down to align
+                    with its bottom) was also applying on a phone, where the
+                    columns stack and there's nothing to align with — just
+                    dead space. A small fixed gap instead below md:. */}
+                <div className="mt-6 flex flex-col gap-2.5 border-t border-stroke pt-4 md:mt-16">
                   <button
                     type="button"
                     onClick={onStart}

@@ -1,4 +1,5 @@
 import fs from 'node:fs'
+import os from 'node:os'
 import path from 'node:path'
 import sharp from 'sharp'
 import QRCode from 'qrcode'
@@ -112,9 +113,11 @@ function wrapLinesByWidth(s: string, fontSize: number, maxWidth: number, maxLine
   return kept
 }
 
-// Fonts embedded as base64 data URIs directly in the SVG, so rendering never
-// depends on the host having Noto Sans installed — a bare serverless
-// container will not. Same OFL font already used site-wide via
+// Fonts embedded as base64 data URIs directly in the SVG. Kept even though it
+// does nothing for librsvg (see ensureFontconfig below) — real browsers (a
+// share-card SVG opened directly, or any other consumer that isn't this
+// sharp/librsvg pipeline) do honour @font-face data URIs, so this keeps the
+// SVG correct on its own terms. Same OFL font already used site-wide via
 // next/font/google, vendored as raw files (public/fonts/) for this one
 // server-side path. Read once per server lifetime, not per request.
 let fontFaceCss: string | null = null
@@ -128,6 +131,44 @@ function getFontFaceCss(): string {
     @font-face { font-family: '${FONT}'; font-weight: 700; src: url(data:font/ttf;base64,${bold}) format('truetype'); }
   `
   return fontFaceCss
+}
+
+// librsvg renders <text> through Pango, and Pango resolves a font-family
+// NAME through fontconfig — it does not read @font-face src: url(data:...)
+// at all (that's a browser-only CSS feature). So the embedding above never
+// actually supplied the font to librsvg; every deploy has silently depended
+// on "Noto Sans" already being installed as a system font. That happens to
+// be true on a full desktop/dev Linux box, which is why this worked in
+// local testing, but Vercel's serverless container ships with no system
+// fonts at all — fontconfig can't resolve "Noto Sans" to anything there, so
+// every glyph rasterizes as empty (confirmed by reproducing this locally
+// with fontconfig pointed at an empty font directory: same tofu-box output
+// as the broken production image).
+//
+// Fix: register the already-vendored public/fonts/ directory with
+// fontconfig at runtime via FONTCONFIG_PATH, pointed at a small generated
+// fonts.conf, before the first sharp() call each cold start. /tmp is the
+// one writable path in a serverless function. Own cachedir for the same
+// reason — the default cache location may not be writable there either.
+let fontconfigReady = false
+function ensureFontconfig(): void {
+  if (fontconfigReady) return
+  const confDir = path.join(os.tmpdir(), 'share-card-fontconfig')
+  const cacheDir = path.join(confDir, 'cache')
+  fs.mkdirSync(cacheDir, { recursive: true })
+  const fontsDir = path.join(process.cwd(), 'public', 'fonts')
+  fs.writeFileSync(
+    path.join(confDir, 'fonts.conf'),
+    `<?xml version="1.0"?>
+<!DOCTYPE fontconfig SYSTEM "fonts.dtd">
+<fontconfig>
+  <dir>${fontsDir}</dir>
+  <cachedir>${cacheDir}</cachedir>
+</fontconfig>
+`,
+  )
+  process.env.FONTCONFIG_PATH = confDir
+  fontconfigReady = true
 }
 
 // The real logo (public/images/logo/logo.webp), converted to PNG once and
@@ -518,6 +559,7 @@ export interface ShareCardResult {
 }
 
 export async function buildAndStoreShareCard(leadId: string, data: ShareCardInput): Promise<ShareCardResult> {
+  ensureFontconfig()
   const svg = await buildSvg(data, leadId)
   const png = await sharp(Buffer.from(svg)).png().toBuffer()
 
