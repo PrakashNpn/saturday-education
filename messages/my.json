@@ -227,7 +227,8 @@
         "whatsapp": "WhatsApp",
         "imageAlt": "Saturday Education Counsellor တစ်ယောက် သူ့ Desk မှာ",
         "errorName": "သင့် Full Name ကို ထည့်ပါ။",
-        "errorEmail": "Valid Email Address ကို ထည့်ပါ။"
+        "errorEmail": "Valid Email Address ကို ထည့်ပါ။",
+        "errorPhone": "Valid Phone Number ကို ထည့်ပါ။"
       },
       "success": {
         "title": "Request ရရှိပါပြီ!",

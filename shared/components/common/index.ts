@@ -1,4 +1,5 @@
 export { FallbackImage } from './FallbackImage'
 export { CustomDropdown } from './CustomDropdown'
 export { SearchableDropdown } from './SearchableDropdown'
+export { PhoneCountrySelect } from './PhoneCountrySelect'
 export type { DropdownOption } from './CustomDropdown'

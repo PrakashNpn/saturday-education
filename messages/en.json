@@ -227,7 +227,8 @@
         "whatsapp": "WhatsApp",
         "imageAlt": "A Saturday Education counsellor at his desk",
         "errorName": "Please enter your full name.",
-        "errorEmail": "Please enter a valid email address."
+        "errorEmail": "Please enter a valid email address.",
+        "errorPhone": "Please enter a valid phone number."
       },
       "success": {
         "title": "Request Received!",

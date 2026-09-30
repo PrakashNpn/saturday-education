@@ -193,7 +193,7 @@ export function ResultsDashboard({ dashboard, leadId }: Props) {
                     animate={{ opacity: 1, y: 0 }}
                     exit={{ opacity: 0 }}
                     transition={{ duration: 0.45 }}
-                    className="max-w-4xl text-body font-normal leading-relaxed text-secondary-text"
+                    className="max-w-4xl text-label font-normal leading-relaxed text-secondary-text sm:text-body"
                   >
                     {studentRead ?? dashboard.archetypeSummary}
                   </motion.p>
