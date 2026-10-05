@@ -11,8 +11,8 @@ type NavItem = { labelKey: string; href: string }
 
 const NAV_LINKS: NavItem[] = [
   { labelKey: 'home', href: '/' },
-  { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'courseFinder', href: '/course-finder' },
+  { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'careerAssessment', href: '/career-assessment' },
   { labelKey: 'aboutUs', href: '/about' },
 ]

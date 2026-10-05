@@ -56,29 +56,29 @@ export default async function HomePage() {
 
   return (
     <main>
-      <HeroSection />
+      {/* The finder is dropped entirely when Firmli's option lists are
+          unreachable, rather than rendered with empty selects that would look
+          broken. */}
+      <HeroSection
+        courseFinder={courseFinderOptions ? <CourseSearchSection options={courseFinderOptions} /> : undefined}
+      />
       <Reveal>
         <PartnerLogosSection />
       </Reveal>
       <WhySaturdaySection />
       <ServicesSection />
       <AdditionalServicesSection />
-      {/* Dropped entirely when Firmli's option lists are unreachable, rather
-          than rendered with empty selects that would look broken. Not wrapped
-          in Reveal: its own dark textured band has to stay solid, so the fade
-          lives on its inner content instead. */}
-      {courseFinderOptions && <CourseSearchSection options={courseFinderOptions} />}
       <Reveal>
         <ComparisonToolSection universities={comparisonUniversities} />
       </Reveal>
       <GlobalLeadersSection destinations={globalLeadersDestinations} />
-      {/* Not wrapped in Reveal, for the same reason as CourseSearchSection. */}
+      {/* Not wrapped in Reveal: its own dark band has to stay solid, so the fade lives on its inner content instead. */}
       <TestimonialsSection />
       <FaqSection />
       <Reveal>
         <ConsultationSection onSubmit={submitConsultation} />
       </Reveal>
-      {/* Not wrapped in Reveal, for the same reason as CourseSearchSection. */}
+      {/* Not wrapped in Reveal: its own dark band has to stay solid, so the fade lives on its inner content instead. */}
       <CtaSection />
     </main>
   )
