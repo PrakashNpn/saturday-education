@@ -34,14 +34,21 @@ export default function HeroSection({ courseFinder }: { courseFinder?: ReactNode
   })
 
   return (
-    <section className="hero-lift relative overflow-hidden pt-12 pb-10 max-tablet:py-10">
-      {/* Wireframe globe, barely there at 4% and masked away before it reaches
-          the headline. Loaded as a file rather than inlined so 27KB of path
-          data stays out of the client bundle. */}
+    <section className="hero-lift relative overflow-hidden pt-8 pb-10 max-tablet:py-10">
+      {/* Wireframe globe: turned off for now, not working visually, but kept
+          here rather than deleted. The asset (public/images/hero/globe.svg),
+          the .hero-globe-fade mask and the opacity/position tuning are all
+          still in place, uncomment to bring it back.
       <div
         aria-hidden="true"
-        className="hero-globe-fade pointer-events-none absolute top-[calc(9%-120px)] left-1/2 aspect-square w-[130vw] -translate-x-1/2 bg-[url('/images/hero/globe.svg')] bg-contain bg-center bg-no-repeat opacity-[0.04]"
+        className="hero-globe-fade pointer-events-none absolute top-[calc(9%-120px)] left-1/2 aspect-square w-[130vw] -translate-x-1/2 bg-[url('/images/hero/globe.svg')] bg-contain bg-center bg-no-repeat opacity-[0.14]"
       />
+      */}
+
+      {/* Side glows: light brand-purple, fading from each edge and from top
+          to bottom, behind the globe and the copy. */}
+      <div aria-hidden="true" className="hero-glow hero-glow-l" />
+      <div aria-hidden="true" className="hero-glow hero-glow-r" />
 
       <div className="relative mx-auto max-w-wrap px-6">
         <div className="mx-auto text-center">
@@ -56,8 +63,8 @@ export default function HeroSection({ courseFinder }: { courseFinder?: ReactNode
             className={cn(
               'mx-auto mb-4 font-medium tracking-[-0.03em]',
               'max-[374px]:text-[1.75rem]',
-              'text-[clamp(2.25rem,1.55rem+2.9vw,2.5rem)]',
-              'leading-[1.15]',
+              'text-[clamp(2.25rem,1.55rem+2.9vw,2.75rem)]',
+              'leading-[1.1]',
             )}
           >
             {t('titleLine1')}
@@ -89,35 +96,38 @@ export default function HeroSection({ courseFinder }: { courseFinder?: ReactNode
             )}
           </motion.h1>
 
-          <motion.div {...rise(1)} className="mx-auto mb-8">
-            <p className="flex flex-wrap items-baseline justify-center gap-x-7 gap-y-2">
-              {/* tabular-nums so the two figures do not shift width against
-                  each other, and accent-ink because gold has to be read here
-                  rather than just seen. */}
-              <span className="flex items-baseline gap-x-2.5">
-                <span className="text-lede leading-none font-medium tracking-[-0.01em] text-accent-ink tabular-nums">
+          <motion.p {...rise(1)} className="mx-auto mb-4 text-[18px] font-light leading-[1.5] text-secondary-text">
+            {t('ledeLine1')}
+            {" "}{t('ledeLine2')}
+          </motion.p>
+
+          {/* tabular-nums so the two figures do not shift width against
+              each other, and accent-ink because gold has to be read here
+              rather than just seen. */}
+          <motion.div {...rise(2)} className="mx-auto mb-4">
+            <div className="flex flex-wrap items-start justify-center gap-x-14 gap-y-6">
+              <div className="text-center">
+                <div className="text-[30px] leading-none font-medium text-accent-ink tabular-nums tablet:text-[34px]">
                   {t('visaCount')}
-                </span>
-                <span className="text-body font-medium text-primary-text">{t('visaLabel')}</span>
-              </span>
-              <span className="flex items-baseline gap-x-2.5">
-                <span className="text-lede leading-none font-medium tracking-[-0.01em] text-accent-ink tabular-nums">
+                </div>
+                <div className="mt-1.5 text-[15px] font-medium text-primary-text">{t('visaLabel')}</div>
+              </div>
+              <div className="text-center">
+                <div className="text-[30px] leading-none font-medium text-accent-ink tabular-nums tablet:text-[34px]">
                   {t('studentsCount')}
-                </span>
-                <span className="text-body font-medium text-primary-text">
-                  {t('studentsLabel')}
-                </span>
-              </span>
-            </p>
+                </div>
+                <div className="mt-1.5 text-[15px] font-medium text-primary-text">{t('studentsLabel')}</div>
+              </div>
+            </div>
           </motion.div>
 
           {courseFinder && (
-            <motion.div {...rise(2)} className="mx-auto mb-4">
+            <motion.div {...rise(3)} className="mx-auto mb-4">
               {courseFinder}
             </motion.div>
           )}
 
-          <motion.p {...rise(3)} className="text-label font-normal text-muted-text">
+          <motion.p {...rise(4)} className="text-label font-normal text-muted-text">
             {tc.rich('consultationPrompt', {
               link: (chunks) => (
                 <Link href="/#consultation" className="text-action underline underline-offset-4 hover:text-action-hover">

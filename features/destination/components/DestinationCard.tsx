@@ -83,7 +83,7 @@ export function DestinationCard({ country, viewDetailsLabel, index = 0 }: Props)
     >
       <Link
         href={`/destinations/${country.slug}`}
-        className="group relative block overflow-hidden rounded-sm border border-stroke bg-surface-1"
+        className="group relative block overflow-hidden rounded-[28px] border border-stroke bg-surface-1 shadow-[0_1px_2px_rgba(20,10,43,0.04)] transition-shadow duration-300 ease-out hover:shadow-[0_24px_48px_-24px_rgba(127,2,235,0.4)]"
       >
         <div className="relative aspect-[16/10] overflow-hidden">
           {country.cardImageUrl && (
@@ -96,18 +96,23 @@ export function DestinationCard({ country, viewDetailsLabel, index = 0 }: Props)
             />
           )}
 
-          <span className="absolute top-3 left-3 rounded-full bg-primary-text/70 px-2.5 py-1 text-min font-medium tracking-[0.04em] text-white uppercase">
+          {/* Frosted glass pill rather than a flat dark chip, same liquid
+              material the rest of the site uses now. */}
+          <span className="absolute top-3 left-3 rounded-full border border-white/25 bg-white/15 px-2.5 py-1 text-min font-medium tracking-[0.04em] text-white uppercase backdrop-blur-md">
             {REGION_DISPLAY[country.region] ?? country.region}
           </span>
 
-          {/* Resting state: just the country and its institution count. */}
-          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-text/80 to-transparent p-4 pt-8 transition-opacity duration-200 group-hover:opacity-0">
+          {/* Resting state: just the country and its institution count. Scrim
+              tinted toward the brand ink (#140A2B, the same deep purple-black
+              used for headline text elsewhere) instead of flat neutral black,
+              so even the photo cards carry a trace of the brand colour. */}
+          <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-[#140A2B]/85 to-transparent p-4 pt-8 transition-opacity duration-200 group-hover:opacity-0">
             <CountryLabel country={country} />
             {count && <p className="text-label font-normal text-white/85">{count}</p>}
           </div>
 
           {/* Hover: the tagline and the way in. */}
-          <div className="absolute inset-0 flex flex-col justify-end bg-primary-text/80 p-4 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
+          <div className="absolute inset-0 flex flex-col justify-end bg-[#140A2B]/85 p-4 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
             <CountryLabel country={country} />
             {count && <p className="mb-1 text-label font-normal text-white/85">{count}</p>}
             {country.tagline && (

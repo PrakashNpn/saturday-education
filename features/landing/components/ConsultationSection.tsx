@@ -36,7 +36,7 @@ interface Props {
 }
 
 const FIELD =
-  'rounded-[4px] border border-stroke bg-surface-0 px-3.5 py-2 font-sans text-body font-light text-primary-text transition-colors placeholder:text-muted-text focus:border-action focus:bg-surface focus:ring-2 focus:ring-action/15 focus:outline-none'
+  'rounded-sm border border-stroke/70 bg-white/70 px-3.5 py-2 font-sans text-body font-light text-primary-text shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.2)] backdrop-blur-sm transition-colors placeholder:text-muted-text hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none'
 
 const LABEL = 'flex flex-col gap-1.5 text-label font-medium text-primary-text'
 
@@ -98,7 +98,7 @@ function SuccessCard({ name, email }: { name: string; email: string }) {
   }))
 
   return (
-    <div className="flex flex-col gap-4 lg:p-8">
+    <div className="flex flex-col gap-4 p-6 lg:p-8">
       <span className="grid size-12 place-items-center rounded-full bg-tint">
         <svg viewBox="0 0 24 24" fill="none" aria-hidden="true" className="size-6 text-action">
           <path
@@ -119,7 +119,7 @@ function SuccessCard({ name, email }: { name: string; email: string }) {
       <ol className="mt-2 flex flex-col gap-4">
         {steps.map((step, index) => (
           <li key={step.title} className="flex gap-3">
-            <span className="grid size-6 shrink-0 place-items-center rounded-full bg-structure text-min font-medium text-white">
+            <span className="grid size-6 shrink-0 place-items-center rounded-full bg-action text-min font-medium text-white">
               {index + 1}
             </span>
             <div>
@@ -133,7 +133,7 @@ function SuccessCard({ name, email }: { name: string; email: string }) {
       <button
         type="button"
         onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-        className="mt-2 inline-flex min-h-10 cursor-pointer items-center justify-center self-start rounded-full border border-stroke-strong px-6 text-label font-medium text-primary-text transition-colors hover:bg-surface-0"
+        className="mt-2 inline-flex min-h-10 cursor-pointer items-center justify-center self-start rounded-full border border-stroke-strong px-6 text-label font-medium text-primary-text transition-colors hover:border-action/40 hover:bg-tint"
       >
         {t('success.backToTop')}
       </button>
@@ -199,7 +199,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
   }
 
   return (
-    <section id="consultation" className="py-14 max-tablet:py-10">
+    <section id="consultation" className="bg-surface-0 py-14 max-tablet:py-10">
       <div className="mx-auto max-w-wrap px-6">
         <div className="mb-10 text-center">
           <h2 className="text-title leading-[1.18] font-medium tracking-[-0.022em] whitespace-nowrap max-tablet:whitespace-normal">
@@ -210,10 +210,22 @@ export default function ConsultationSection({ onSubmit }: Props) {
           </p>
         </div>
 
-        <div className="lg:grid lg:grid-cols-[2fr_1fr] lg:overflow-hidden lg:rounded-md lg:border lg:border-stroke lg:bg-surface">
+        <div className="relative overflow-hidden rounded-[28px] border border-stroke bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_30px_60px_-30px_rgba(20,10,43,0.25)] backdrop-blur-md lg:grid lg:grid-cols-[2fr_1fr]">
+          {/* Liquid glass: same self-contained top-down wash every other
+              card on the page uses, positioned toward the form side rather
+              than centred, since the photo already carries its own visual
+              weight. */}
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_60%_50%_at_15%_0%,rgba(127,2,235,0.07)_0%,rgba(127,2,235,0)_60%)]"
+          />
+
           {/* Second in the DOM but first in the grid from lg up, so the photo
-              sits right of the form on desktop and above it on a phone. */}
-          <div className="relative mb-6 h-56 overflow-hidden rounded-md lg:order-2 lg:mb-0 lg:h-auto lg:min-h-full lg:rounded-none">
+              sits right of the form on desktop and above it on a phone. No
+              radius or overflow-hidden of its own any more — it sits flush
+              against this panel's own edges, so the panel's rounded corners
+              already clip it correctly at every breakpoint. */}
+          <div className="relative z-[1] mb-6 h-56 lg:order-2 lg:mb-0 lg:h-auto lg:min-h-full">
             <Image
               src="/images/landing/david-consultation.webp"
               alt={t('form.imageAlt')}
@@ -225,11 +237,11 @@ export default function ConsultationSection({ onSubmit }: Props) {
           </div>
 
           {submitted ? (
-            <div className="lg:order-1">
+            <div className="relative z-[1] lg:order-1">
               <SuccessCard name={submittedName} email={submittedEmail} />
             </div>
           ) : (
-            <form onSubmit={handleSubmit} className="flex flex-col gap-4 lg:order-1 lg:p-8">
+            <form onSubmit={handleSubmit} className="relative z-[1] flex flex-col gap-4 p-6 lg:order-1 lg:p-8">
               <h3 className="text-card font-medium">{t('formHeading')}</h3>
 
               <div className="grid gap-4 sm:grid-cols-2">
@@ -318,7 +330,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-2 inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-action px-16 text-body font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-2 inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-action px-16 text-body font-medium whitespace-nowrap text-white transition-[background-color,box-shadow] duration-300 hover:bg-action-hover hover:shadow-[0_16px_32px_-16px_rgba(110,5,240,0.5)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? t('form.submitting') : t('form.submit')}
               </button>

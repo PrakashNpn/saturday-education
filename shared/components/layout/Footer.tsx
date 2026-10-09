@@ -3,30 +3,23 @@ import { Link } from '@/i18n/navigation'
 import { SOCIAL_LINKS } from '@/shared/constants/social'
 import { CookieSettingsButton } from '@/shared/components/consent'
 
-const COLUMN_HEADING = 'mb-3 text-label font-medium tracking-[0.06em] text-white/50 uppercase'
-const LINK = 'text-label font-normal text-white/70 transition-colors hover:text-white hover:underline'
-
-/** Message key paired with the real destination slug. The design renders these
- *  as plain spans because none of its routes existed; every one of ours does. */
-const DESTINATIONS = [
-  { key: 'germany', slug: 'germany' },
-  { key: 'ireland', slug: 'ireland' },
-  { key: 'malaysia', slug: 'malaysia' },
-  { key: 'singapore', slug: 'singapore' },
-  { key: 'dubai', slug: 'uae' },
-  { key: 'canada', slug: 'canada' },
-  { key: 'thailand', slug: 'thailand' },
-  { key: 'newZealand', slug: 'new-zealand' },
-  { key: 'hungary', slug: 'hungary' },
-  { key: 'switzerland', slug: 'switzerland' },
-  { key: 'spain', slug: 'spain' },
-] as const
+const COLUMN_HEADING = 'mb-3 text-label font-medium tracking-[0.06em] text-white/80 uppercase'
+const LINK =
+  'text-label font-normal text-white/70 transition-colors hover:text-white hover:underline hover:decoration-action hover:underline-offset-2'
 
 const SERVICES = [
   'counseling', 'application', 'visa', 'scholarships', 'predeparture', 'arrival',
 ] as const
 
+// Study Destinations and Course Finder replace what used to be a separate
+// eleven-link "Study Abroad" column, one link to each destination page. That
+// column made the footer very long for links with little real navigational
+// value, both the homepage's destinations grid and the /destinations hub
+// already cover that job, Course Finder is an actual tool that was missing
+// from the footer entirely.
 const COMPANY = [
+  { key: 'studyDestinations', href: '/destinations' },
+  { key: 'courseFinder', href: '/course-finder' },
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
   { key: 'testimonials', href: '/#testimonials' },
@@ -49,24 +42,34 @@ const SOCIALS = [
 ] as const
 
 const SOCIAL_CIRCLE =
-  'flex size-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-white/40 hover:text-white'
+  'flex size-10 items-center justify-center rounded-full border border-white/20 text-white/70 transition-colors hover:border-action hover:bg-action hover:text-white'
 
 export default function Footer() {
   const t = useTranslations('footer')
 
   return (
-    <footer className="bg-structure py-14 text-white max-tablet:py-10">
-      <div className="mx-auto max-w-wrap px-6">
-        <div className="grid grid-cols-2 gap-x-8 gap-y-10 sm:grid-cols-3 lg:grid-cols-[1.3fr_1fr_1fr_1fr_1.2fr]">
-          {/* Identity, ask, and social. Full width until the five-column layout
+    <footer className="relative overflow-hidden bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-14 text-white max-tablet:py-10">
+      {/* A dark, muted tint of the vivid-purple action colour rather than the
+          flat neutral bg-structure: real brand colour throughout instead of
+          just at the glows, but dark enough to still pair with the
+          near-black CTA section directly above it. Same three-glow wash as
+          before, lightened back down since the base itself now carries the
+          hue, the glows only need to add depth on top, not supply it. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_0%,rgba(127,2,235,0.2)_0%,rgba(127,2,235,0)_70%),radial-gradient(ellipse_75%_90%_at_0%_50%,rgba(127,2,235,0.22)_0%,rgba(127,2,235,0)_75%),radial-gradient(ellipse_75%_90%_at_100%_50%,rgba(92,9,245,0.22)_0%,rgba(92,9,245,0)_75%)]"
+      />
+      <div className="relative z-[1] mx-auto max-w-wrap px-6">
+        <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
+          {/* Identity, ask, and social. Full width until the four-column layout
               kicks in at lg. */}
-          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <p className="mb-3 text-card font-medium">{t('companyName')}</p>
             <p className="mb-6 max-w-[36ch] text-label font-normal text-white/70">{t('tagline')}</p>
 
             <Link
               href="/#consultation"
-              className="mb-6 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-action px-6 text-label font-medium whitespace-nowrap text-white transition-colors hover:bg-action-hover"
+              className="mb-6 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-action px-6 text-label font-medium whitespace-nowrap text-white transition-[background-color,box-shadow] duration-300 hover:bg-action-hover hover:shadow-[0_16px_32px_-16px_rgba(110,5,240,0.5)]"
             >
               {t('contactUs.bookConsultation')}
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className="size-4 shrink-0">
@@ -123,19 +126,6 @@ export default function Footer() {
           </div>
 
           <div>
-            <p className={COLUMN_HEADING}>{t('studyAbroad.heading')}</p>
-            <ul className="flex flex-col gap-2">
-              {DESTINATIONS.map((destination) => (
-                <li key={destination.key}>
-                  <Link href={`/destinations/${destination.slug}`} className={LINK}>
-                    {t(`studyAbroad.${destination.key}`)}
-                  </Link>
-                </li>
-              ))}
-            </ul>
-          </div>
-
-          <div>
             <p className={COLUMN_HEADING}>{t('services.heading')}</p>
             {/* Plain text in the design too: these are not pages. */}
             <ul className="flex flex-col gap-2">
@@ -160,7 +150,7 @@ export default function Footer() {
             </ul>
           </div>
 
-          <div className="col-span-2 sm:col-span-3 lg:col-span-1">
+          <div className="col-span-2 lg:col-span-1">
             <p className={COLUMN_HEADING}>{t('contactUs.heading')}</p>
             <div className="flex flex-col gap-5">
               <div>
@@ -203,7 +193,7 @@ export default function Footer() {
           </div>
         </div>
 
-        <div className="mt-12 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-white/15 pt-6 text-min text-white/60">
+        <div className="mt-12 flex flex-wrap items-center justify-between gap-x-3 gap-y-2 border-t border-white/20 pt-6 text-min text-white/80">
           {/* Year comes from the clock, not a literal, so it cannot go stale. */}
           <span>{t('copyright', { year: String(new Date().getFullYear()) })}</span>
           <CookieSettingsButton className="cursor-pointer hover:underline" />

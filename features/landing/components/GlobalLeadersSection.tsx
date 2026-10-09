@@ -40,10 +40,13 @@ export default function GlobalLeadersSection({ destinations }: Props) {
         </div>
 
         {/* Same hairline trick as Beyond admissions: a 1px grid gap over a
-            stroke-coloured container, with the cards opaque on top. */}
+            stroke-coloured container, with the cards opaque on top. Only the
+            outer four corners of the whole mosaic are rounded (rounded-2xl
+            on this wrapper, clipped by overflow-hidden); individual cards
+            stay flush/square against each other, unchanged. */}
         <div
           ref={ref}
-          className="grid gap-px overflow-hidden rounded-sm border border-stroke bg-stroke sm:grid-cols-2 lg:grid-cols-3"
+          className="grid gap-px overflow-hidden rounded-2xl border border-stroke bg-stroke sm:grid-cols-2 lg:grid-cols-3"
         >
           {destinations.map((destination, index) => {
             const name = t(`${destination.key}Name`)
@@ -61,6 +64,20 @@ export default function GlobalLeadersSection({ destinations }: Props) {
                     ? { duration: 0 }
                     : { duration: 0.5, delay: index * STAGGER, ease: EASE }
                 }
+                // Framer Motion drives the hover zoom, not a CSS group-hover
+                // utility: this build isn't compiling hover/group-hover
+                // variants into the stylesheet at all (confirmed directly,
+                // the tagline overlay a few lines down doesn't appear on
+                // hover either, a pre-existing issue, not something this
+                // change caused). whileHover here is a variant label, not a
+                // target object, so it only drives this card's own
+                // animation where variants defines it (nothing, it doesn't
+                // move) and is otherwise just propagated to the image below
+                // for its own variants to react to; the Link overlay sits
+                // above the image in stacking order, so the image's own
+                // hover detection would never fire on its own.
+                whileHover={prefersReducedMotion ? undefined : 'hover'}
+                variants={{ hover: {} }}
                 className="group relative aspect-16/9 overflow-hidden bg-surface-1"
               >
                 {/* Not a link in the design, because none of the designer's
@@ -69,14 +86,20 @@ export default function GlobalLeadersSection({ destinations }: Props) {
                   <span className="sr-only">{name}</span>
                 </Link>
 
-                <Image
-                  src={`/images/destinations/${destination.file}`}
-                  alt={name}
-                  fill
-                  unoptimized
-                  sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
-                  className="object-cover"
-                />
+                <motion.div
+                  className="absolute inset-0"
+                  variants={{ hover: { scale: 1.08 } }}
+                  transition={{ duration: 0.5, ease: EASE }}
+                >
+                  <Image
+                    src={`/images/destinations/${destination.file}`}
+                    alt={name}
+                    fill
+                    unoptimized
+                    sizes="(max-width: 640px) 100vw, (max-width: 1024px) 50vw, 33vw"
+                    className="object-cover"
+                  />
+                </motion.div>
 
                 <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-primary-text/70 to-transparent p-4 pt-10">
                   <b className="block text-card font-medium text-white">{name}</b>
@@ -85,7 +108,7 @@ export default function GlobalLeadersSection({ destinations }: Props) {
 
                 {/* The tagline is the hover state, so the resting card stays a
                     photograph with one fact on it. */}
-                <div className="absolute inset-0 flex flex-col justify-end bg-primary-text/80 p-4 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
+                <div className="absolute inset-0 flex flex-col justify-end bg-primary-text/55 p-4 opacity-0 transition-opacity duration-200 group-focus-within:opacity-100 group-hover:opacity-100">
                   <b className="text-card font-medium text-white">{name}</b>
                   {count && <p className="mb-1 text-label font-normal text-white/85">{count}</p>}
                   <p className="text-label font-normal text-white">

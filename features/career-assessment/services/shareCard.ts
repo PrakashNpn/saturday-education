@@ -186,9 +186,9 @@ function getLogoDataUri(): Promise<string> {
   }
   return logoDataUriPromise
 }
-// Real aspect ratio of logo.webp (2480×957) — used to size the footer mark
+// Real aspect ratio of logo.webp (846×311), used to size the footer mark
 // from a single height value without distorting it.
-const LOGO_ASPECT = 2480 / 957
+const LOGO_ASPECT = 846 / 311
 
 /** The public results page this card's QR code points to. No locale prefix
  *  yet — the share-card pipeline doesn't currently thread the student's

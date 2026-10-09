@@ -34,7 +34,7 @@ export function AssessmentModeTabs({ mode, onChange }: Props) {
   ] as const
 
   return (
-    <div className="sticky top-[62px] z-30 border-b border-white/10 bg-[oklch(20%_0.10_307.4)] py-2.5 text-white shadow-xs backdrop-blur-md">
+    <div className="sticky top-[62px] z-30 border-b border-white/10 bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-2.5 text-white shadow-xs backdrop-blur-md">
       {/* Only this row fades/rises on mount — the dark bar itself stays solid. */}
       <motion.div
         initial={{ opacity: 0, y: -8 }}

@@ -9,8 +9,9 @@ export interface DropdownOption {
 }
 
 /** 'default' is the original look; 'field' matches the redesigned form
- *  controls, which read as a native select. */
-type Variant = 'default' | 'field'
+ *  controls, which read as a native select; 'field-glass' is 'field' restyled
+ *  as a full pill for the liquid-glass course finder card. */
+type Variant = 'default' | 'field' | 'field-glass'
 
 interface Props {
   label?: string
@@ -100,16 +101,27 @@ export function CustomDropdown({
   }, [])
 
   const selectedLabel = options.find((o) => o.value === value)?.label ?? placeholder
-  const field = variant === 'field'
+  const isField = variant === 'field' || variant === 'field-glass'
+  const isGlass = variant === 'field-glass'
   const triggerPadding = size === 'compact' ? 'px-3 py-1.5 text-sm' : 'px-4 py-2.5 text-sm'
 
-  const labelCls = field
+  const labelCls = isField
     ? 'mb-1.5 block text-label font-medium text-primary-text'
     : 'text-[10px] uppercase text-start tracking-wider font-semibold text-gray-500 mb-1.5'
 
   const fieldBox =
     'flex w-full items-center justify-between gap-2 rounded-[4px] border border-stroke bg-surface text-primary-text transition-colors hover:border-stroke-strong focus:border-action focus:ring-2 focus:ring-action/15 focus:outline-none'
-  const triggerCls = field
+  // Translucent full pill so the card's own glass wash still shows through,
+  // rather than a flat white box sitting on top of it.
+  const glassBox =
+    'flex w-full items-center justify-between gap-2 rounded-sm border border-stroke/70 bg-white/70 text-primary-text shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.25)] backdrop-blur-sm transition-colors hover:border-action/40 focus:border-action focus:ring-2 focus:ring-action/15 focus:outline-none'
+  const triggerCls = isGlass
+    ? `${glassBox} ${
+        size === 'compact'
+          ? 'px-3.5 py-1.5 text-label font-normal'
+          : 'px-4 py-2.5 text-body font-normal'
+      }`
+    : isField
     ? `${fieldBox} ${
         size === 'compact'
           ? 'px-3 py-1.5 text-label font-normal shadow-2xs'
@@ -117,16 +129,18 @@ export function CustomDropdown({
       }`
     : `w-full flex items-center justify-between gap-2 bg-white border border-gray-200 rounded-lg hover:border-gray-300 transition-colors text-gray-900 font-medium ${triggerPadding}`
 
-  const chevronCls = field
+  const chevronCls = isField
     ? 'size-4 shrink-0 text-muted-text transition-transform duration-150'
     : 'w-4 h-4 text-gray-400 flex-shrink-0 transition-transform duration-150'
 
-  const panelCls = field
+  const panelCls = isGlass
+    ? 'overflow-hidden rounded-md border border-stroke bg-surface shadow-card'
+    : isField
     ? 'overflow-hidden rounded-sm border border-stroke bg-surface shadow-card'
     : 'bg-white border border-gray-200 rounded-lg shadow-lg overflow-hidden'
 
   const rowCls = (active: boolean) =>
-    field
+    isField
       ? `w-full px-3.5 py-2 text-left text-label transition-colors ${
           active ? 'bg-tint font-medium text-action' : 'text-secondary-text hover:bg-surface-0'
         }`

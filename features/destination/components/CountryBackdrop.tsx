@@ -19,10 +19,10 @@ export function CountryBackdrop({ url, priority = false }: Props) {
           fill
           priority={priority}
           sizes="100vw"
-          className="scale-125 object-cover object-center opacity-80 blur-3xl"
+          className="scale-125 object-cover object-center opacity-95 blur-md"
         />
       )}
-      <div className="absolute inset-0 bg-black/20" />
+      <div className="absolute inset-0 bg-black/10" />
     </div>
   )
 }
