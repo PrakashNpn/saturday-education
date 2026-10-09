@@ -2,6 +2,7 @@
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
 import { useTranslations } from 'next-intl'
+import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { ComparisonUniversity } from '@/features/landing/services/comparison-service'
 
 interface Props {
@@ -33,6 +34,8 @@ const USD_PER_UNIT: Record<string, number> = {
 
 const group = (value: number) => Math.round(value).toLocaleString('en-US')
 
+const EASE = [0, 0, 0.2, 1] as const
+
 /**
  * The model is told not to use dashes and mostly obeys, but "science—solid"
  * still slips through. House style has no em or en dashes in copy, so they are
@@ -52,7 +55,7 @@ function SearchIcon() {
       viewBox="0 0 20 20"
       fill="none"
       aria-hidden="true"
-      className="pointer-events-none absolute top-1/2 left-3.5 size-4 -translate-y-1/2 text-muted-text"
+      className="pointer-events-none absolute top-1/2 left-3.5 z-10 size-4 -translate-y-1/2 text-muted-text"
     >
       <circle cx="9" cy="9" r="6.5" stroke="currentColor" strokeWidth="1.6" />
       <path d="M17 17L13.5 13.5" stroke="currentColor" strokeWidth="1.6" strokeLinecap="round" />
@@ -125,7 +128,7 @@ function UniversityPicker({
         }}
         onFocus={() => setOpen(true)}
         onKeyDown={(event) => event.key === 'Escape' && setOpen(false)}
-        className="w-full rounded-full border border-stroke bg-surface-1 py-2 pr-4 pl-10 font-sans text-body font-light text-primary-text transition-colors placeholder:text-muted-text focus:border-action focus:bg-surface focus:ring-2 focus:ring-action/15 focus:outline-none"
+        className="w-full rounded-sm border border-stroke/70 bg-white/70 py-2 pr-4 pl-10 font-sans text-body font-light text-primary-text shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.25)] backdrop-blur-sm transition-colors placeholder:text-muted-text hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none"
       />
 
       {open && (
@@ -173,7 +176,9 @@ function Row({ label, value }: { label: string; value: string }) {
   )
 }
 
-function UniversityCard({
+/** Just the data, no card chrome of its own: both universities now sit inside
+ *  one shared glass panel rather than each owning a separate card. */
+function UniversityDetails({
   university,
   showUsd,
   onToggleCurrency,
@@ -183,6 +188,7 @@ function UniversityCard({
   onToggleCurrency: () => void
 }) {
   const t = useTranslations('Landing.comparisonTool')
+  const prefersReducedMotion = useReducedMotion()
   const { tuition } = university
 
   const rate = tuition ? (USD_PER_UNIT[tuition.currencyCode] ?? null) : null
@@ -201,12 +207,26 @@ function UniversityCard({
   const left = tuition ? (tuition.min / tuition.scale) * 100 : 0
   const width = tuition ? ((tuition.max - tuition.min) / tuition.scale) * 100 : 0
 
-  return (
-    <div className="rounded-md border border-stroke bg-surface p-5">
-      <b className="mb-1 block text-card font-medium">{university.name}</b>
-      <p className="mb-3 text-label font-normal text-muted-text">{university.country}</p>
+  // Each block below is its own stagger item rather than the whole card
+  // fading in as one piece, so the data reads top to bottom as it appears
+  // instead of landing all at once.
+  const item = {
+    hidden: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: EASE },
+    },
+  }
 
-      <div className="border-t border-stroke pt-3">
+  return (
+    <div>
+      <motion.div variants={item}>
+        <b className="mb-1 block text-card font-medium">{university.name}</b>
+        <p className="mb-3 text-label font-normal text-muted-text">{university.country}</p>
+      </motion.div>
+
+      <motion.div variants={item} className="border-t border-stroke/70 pt-3">
         <div className="mb-1.5 flex items-baseline justify-between gap-4 text-label">
           <span className="flex items-baseline gap-2 font-normal text-muted-text">
             {t('tuition')}
@@ -227,14 +247,14 @@ function UniversityCard({
         <div className="relative h-1.5 w-full rounded-full bg-surface-2">
           {tuition && (
             <div
-              className="absolute inset-y-0 rounded-full bg-accent"
+              className="absolute inset-y-0 rounded-full bg-gradient-to-r from-accent to-accent-ink"
               style={{ left: `${left}%`, width: `${Math.max(width, 2)}%` }}
             />
           )}
         </div>
-      </div>
+      </motion.div>
 
-      <div className="mt-3 flex flex-col gap-2 border-t border-stroke pt-3">
+      <motion.div variants={item} className="mt-3 flex flex-col gap-2 border-t border-stroke/70 pt-3">
         <Row
           label={t('globalRanking')}
           value={university.globalRanking ? `#${university.globalRanking}` : t('notAvailable')}
@@ -250,10 +270,10 @@ function UniversityCard({
         <Row label={t('visaProcessing')} value={university.visaProcessing} />
         <Row label={t('scholarships')} value={university.scholarships} />
         <Row label={t('workRights')} value={university.workRights} />
-      </div>
+      </motion.div>
 
       {university.popularCourses.length > 0 && (
-        <div className="mt-3 border-t border-stroke pt-3">
+        <motion.div variants={item} className="mt-3 border-t border-stroke/70 pt-3">
           <p className="mb-1.5 text-label font-medium text-primary-text">{t('popularCourses')}</p>
           <ul className="flex flex-wrap gap-1.5">
             {university.popularCourses.map((course) => (
@@ -265,7 +285,7 @@ function UniversityCard({
               </li>
             ))}
           </ul>
-        </div>
+        </motion.div>
       )}
     </div>
   )
@@ -305,6 +325,42 @@ export default function ComparisonToolSection({ universities }: Props) {
   const [loading, setLoading] = useState(false)
   const [failed, setFailed] = useState(false)
   const abortRef = useRef<AbortController | null>(null)
+  const prefersReducedMotion = useReducedMotion()
+
+  // Orchestrates UniversityDetails's own child blocks (see its `item`
+  // variant): this container has no visible motion of its own, it only
+  // staggers when each child's hidden -> visible transition starts.
+  const detailsContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.08,
+        delayChildren: prefersReducedMotion ? 0 : 0.05,
+      },
+    },
+  }
+
+  // Same stagger pattern for the advisor panel's verdict, its numbered
+  // questions, and the disclaimer: each mounts fresh when a result arrives
+  // (the loading branch unmounts this block in between), so a plain
+  // initial/animate pair is enough, no AnimatePresence needed here.
+  const advisorContainer = {
+    hidden: {},
+    visible: {
+      transition: {
+        staggerChildren: prefersReducedMotion ? 0 : 0.08,
+        delayChildren: prefersReducedMotion ? 0 : 0.05,
+      },
+    },
+  }
+  const advisorItem = {
+    hidden: prefersReducedMotion ? { opacity: 1 } : { opacity: 0, y: 10 },
+    visible: {
+      opacity: 1,
+      y: 0,
+      transition: prefersReducedMotion ? { duration: 0 } : { duration: 0.3, ease: EASE },
+    },
+  }
 
   const left = universities.find((u) => u.id === leftId) ?? universities[0]
   const right = universities.find((u) => u.id === rightId) ?? universities[1]
@@ -407,46 +463,106 @@ export default function ComparisonToolSection({ universities }: Props) {
           </button>
         </div>
 
-        <div className="grid gap-6 md:grid-cols-[1fr_auto_1fr] md:items-start">
-          <div className="flex flex-col gap-2">
-            <UniversityPicker
-              label={t('compareUni1')}
-              universities={universities}
-              selectedId={leftId}
-              onSelect={setLeftId}
-            />
-            <UniversityCard
-              university={left}
-              showUsd={showUsd}
-              onToggleCurrency={() => setShowUsd((v) => !v)}
-            />
-          </div>
-
-          <span className="mx-auto self-center text-label font-medium text-muted-text">
+        {/* One shared glass panel, search fields included: they used to sit
+            in their own row above the panel, on the section's flat grey
+            background, which gave them nothing to actually look like glass
+            against and left them reading as a separate, plainer element
+            bolted on top. Folding them into the panel's own first row means
+            they sit on the same wash and blur as everything below, and the
+            vertical divider line now runs the full height of the panel
+            instead of starting partway down it. */}
+        <div className="relative overflow-hidden rounded-[28px] border border-stroke bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(20,10,43,0.04)] backdrop-blur-md">
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(127,2,235,0.07)_0%,rgba(127,2,235,0)_70%)]"
+          />
+          <div
+            aria-hidden="true"
+            className="pointer-events-none absolute top-7 bottom-7 left-1/2 z-[1] hidden w-px bg-[linear-gradient(180deg,rgba(127,2,235,0)_0%,rgba(110,5,240,0.35)_50%,rgba(127,2,235,0)_100%)] md:block"
+          />
+          <span className="absolute top-1/2 left-1/2 z-[2] hidden size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-stroke bg-surface text-label font-bold text-action shadow-[0_10px_24px_-8px_rgba(92,9,245,0.3)] md:grid">
             {t('vs')}
           </span>
 
-          <div className="flex flex-col gap-2">
-            <UniversityPicker
-              label={t('compareUni2')}
-              universities={universities}
-              selectedId={rightId}
-              onSelect={setRightId}
-            />
-            <UniversityCard
-              university={right}
-              showUsd={showUsd}
-              onToggleCurrency={() => setShowUsd((v) => !v)}
-            />
+          <div className="relative z-[1] grid md:grid-cols-2">
+            <div className="relative border-b border-stroke p-6 md:border-b-0 md:p-7">
+              <UniversityPicker
+                label={t('compareUni1')}
+                universities={universities}
+                selectedId={leftId}
+                onSelect={setLeftId}
+              />
+              <div className="relative mt-5 overflow-hidden">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={left.id}
+                    initial="hidden"
+                    animate="visible"
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, y: -10, transition: { duration: 0.2, ease: EASE } }}
+                    variants={detailsContainer}
+                  >
+                    <UniversityDetails
+                      university={left}
+                      showUsd={showUsd}
+                      onToggleCurrency={() => setShowUsd((v) => !v)}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+              {/* Mobile fallback for the line + badge above: centred on this
+                  half's own bottom border via translate-y-1/2, the same
+                  overlap technique the Services step badges use, rather than
+                  on 50% of the stacked pair's combined (and uneven) height. */}
+              <span className="absolute bottom-0 left-1/2 z-[2] grid size-9 -translate-x-1/2 translate-y-1/2 place-items-center rounded-full border border-stroke bg-surface text-min font-bold text-action shadow-[0_6px_16px_-6px_rgba(92,9,245,0.3)] md:hidden">
+                {t('vs')}
+              </span>
+            </div>
+            <div className="p-6 md:p-7">
+              <UniversityPicker
+                label={t('compareUni2')}
+                universities={universities}
+                selectedId={rightId}
+                onSelect={setRightId}
+              />
+              <div className="relative mt-5 overflow-hidden">
+                <AnimatePresence mode="wait" initial={false}>
+                  <motion.div
+                    key={right.id}
+                    initial="hidden"
+                    animate="visible"
+                    exit={prefersReducedMotion ? undefined : { opacity: 0, y: -10, transition: { duration: 0.2, ease: EASE } }}
+                    variants={detailsContainer}
+                  >
+                    <UniversityDetails
+                      university={right}
+                      showUsd={showUsd}
+                      onToggleCurrency={() => setShowUsd((v) => !v)}
+                    />
+                  </motion.div>
+                </AnimatePresence>
+              </div>
+            </div>
           </div>
         </div>
       </div>
 
+      {/* Both fixed to the viewport, not absolute within this section: the
+          dialog used inset-y-0 against the section before, so its height
+          and position depended on where this section happened to be
+          scrolled to, and on top of that it tied on z-index with the
+          navbar's own `sticky z-20` (shared/components/layout/Navbar.tsx),
+          losing that tie by DOM order and painting over it. Fixed
+          positioning anchors both to the viewport regardless of scroll. The
+          desktop panel starts at top-16, below the navbar's own measured
+          height, rather than overlapping it and relying on z-index to lose
+          gracefully: the navbar stays reachable while the panel is open,
+          the way a page-level nav should. z-10 keeps both comfortably above
+          ordinary page content without needing to outrank the navbar. */}
       <button
         type="button"
         aria-label={t('advisorCloseBackdrop')}
         onClick={() => setAdvisorOpen(false)}
-        className={`absolute inset-0 z-10 bg-primary-text/40 transition-opacity max-tablet:fixed ${
+        className={`fixed inset-0 z-10 bg-primary-text/40 transition-opacity ${
           advisorOpen ? 'opacity-100' : 'pointer-events-none opacity-0'
         }`}
       />
@@ -455,11 +571,20 @@ export default function ComparisonToolSection({ universities }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label={t('advisorDialogLabel')}
-        className={`absolute inset-y-0 right-0 z-20 flex w-full max-w-[560px] flex-col overflow-y-auto bg-brand p-6 text-white shadow-lg transition-transform duration-300 ease-out max-tablet:fixed max-tablet:inset-x-0 max-tablet:inset-y-auto max-tablet:bottom-0 max-tablet:max-h-[85vh] max-tablet:max-w-none ${
+        className={`fixed top-16 right-0 bottom-0 z-10 flex w-full max-w-[560px] flex-col overflow-y-auto rounded-l-[28px] bg-[linear-gradient(165deg,#7F02EB_0%,#6E05F0_55%,#5C09F5_100%)] p-6 text-white transition-transform duration-300 ease-out will-change-transform max-tablet:inset-x-0 max-tablet:inset-y-auto max-tablet:bottom-0 max-tablet:max-h-[85vh] max-tablet:max-w-none max-tablet:rounded-t-[28px] max-tablet:rounded-l-none ${
           advisorOpen ? 'translate-x-0 max-tablet:translate-y-0' : 'translate-x-full max-tablet:translate-x-0 max-tablet:translate-y-full'
         }`}
       >
-        <div className="mb-4 flex items-start justify-between gap-4">
+        {/* Same liquid-glass family as the rest of the page, just inverted:
+            a soft white highlight on the gradient instead of a purple wash
+            on white. Positioned (it's absolute), so the real content below
+            needs its own z-index to paint above it rather than behind it. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_50%_at_25%_0%,rgba(255,255,255,0.14)_0%,rgba(255,255,255,0)_60%)]"
+        />
+
+        <div className="relative z-[1] mb-4 flex items-start justify-between gap-4">
           <span className="inline-flex items-center gap-1.5 rounded-full bg-white px-3 py-1.5 text-min font-medium text-brand">
             <SparkleIcon />
             {t('advisorBadge')}
@@ -481,7 +606,7 @@ export default function ComparisonToolSection({ universities }: Props) {
           </button>
         </div>
 
-        <div aria-live="polite" aria-busy={loading}>
+        <div className="relative z-[1]" aria-live="polite" aria-busy={loading}>
           {loading && (
             <>
               <p className="mb-6 text-lede font-medium text-white/70">
@@ -506,25 +631,29 @@ export default function ComparisonToolSection({ universities }: Props) {
           )}
 
           {!loading && !failed && result && (
-            <>
-              <p className="mb-6 text-lede font-medium text-white">{stripDashes(result.verdict)}</p>
+            <motion.div initial="hidden" animate="visible" variants={advisorContainer}>
+              <motion.p variants={advisorItem} className="mb-6 text-lede font-medium text-white">
+                {stripDashes(result.verdict)}
+              </motion.p>
 
               <ol className="flex flex-col gap-5">
                 {result.questions.map((item, index) => (
-                  <li key={item.q} className="flex gap-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white text-min font-medium text-brand">
+                  <motion.li key={item.q} variants={advisorItem} className="flex gap-3">
+                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white text-min font-medium text-brand shadow-[0_4px_10px_-2px_rgba(20,10,43,0.3)]">
                       {index + 1}
                     </span>
                     <div>
                       <p className="mb-1 text-label font-medium text-white">{stripDashes(item.q)}</p>
                       <p className="text-label font-normal text-white/80">{stripDashes(item.a)}</p>
                     </div>
-                  </li>
+                  </motion.li>
                 ))}
               </ol>
 
-              <p className="mt-6 text-min text-white/60">{t('advisorDisclaimer')}</p>
-            </>
+              <motion.p variants={advisorItem} className="mt-6 text-min text-white/60">
+                {t('advisorDisclaimer')}
+              </motion.p>
+            </motion.div>
           )}
         </div>
       </div>

@@ -146,7 +146,7 @@ export function PhoneCountrySelect({
         }}
         onFocus={onFocus}
         onBlur={onBlur}
-        className="flex h-full items-center gap-1.5 rounded-[4px] border border-stroke bg-surface-0 px-2.5 transition-colors hover:border-stroke-strong focus:border-action focus:bg-surface focus:ring-2 focus:ring-action/15 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
+        className="flex h-full items-center gap-1.5 rounded-sm border border-stroke/70 bg-white/70 px-2.5 shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.2)] backdrop-blur-sm transition-colors hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none disabled:cursor-not-allowed disabled:opacity-60"
       >
         <FlagIcon code={selected?.value} />
         <ChevronDown

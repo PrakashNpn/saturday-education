@@ -34,7 +34,7 @@ export function ReportShowcase({ onStart }: Props) {
   const columns = [BENEFITS.slice(0, 3), BENEFITS.slice(3)]
 
   return (
-    <section className="border-b border-white/10 bg-[#120D1B] py-16 text-white max-tablet:py-12">
+    <section className="border-b border-white/10 bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-16 text-white max-tablet:py-12">
       {/* Only the content fades/rises — the dark band stays solid. */}
       <motion.div
         initial={{ opacity: 0, y: 16 }}
@@ -98,7 +98,7 @@ export function ReportShowcase({ onStart }: Props) {
                   <div key={titleKey} className="flex items-start gap-3.5">
                     <span
                       aria-hidden="true"
-                      className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-[#120D1B] shadow-sm"
+                      className="mt-0.5 flex size-5 shrink-0 items-center justify-center rounded-full bg-white text-xs font-bold text-[color-mix(in_srgb,var(--color-action)_40%,black)] shadow-sm"
                     >
                       ✓
                     </span>

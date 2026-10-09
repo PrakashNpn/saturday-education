@@ -40,9 +40,17 @@ export default async function LocaleLayout({
     <html
       lang={locale}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable}`}
+      className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable} [overflow-x:clip]`}
     >
-      <body className={`bg-canvas text-primary-text ${scriptFontClass} text-body font-light leading-[1.65] antialiased flex flex-col min-h-screen`}>
+      {/* overflow-x:clip, not overflow-x-hidden (= overflow-x: hidden): per the
+          CSS overflow spec, setting one axis to hidden/auto/scroll forces the
+          other axis to auto too when it was visible — turning body into its
+          own scroll container instead of the real viewport, which silently
+          broke the header's position: sticky (it stuck relative to that new
+          container, not the page). clip is explicitly exempted from that
+          forcing rule, so it clips the same off-screen overflow this was
+          added for without creating a scroll container. */}
+      <body className={`bg-canvas text-primary-text ${scriptFontClass} text-body font-light leading-[1.65] antialiased flex min-h-screen flex-col [overflow-x:clip]`}>
         <NextIntlClientProvider messages={messages}>
           <NextTopLoader color="linear-gradient(to right, var(--color-action-hover), var(--color-action))" height={3} showSpinner={false} shadow="none" />
           <Navbar />

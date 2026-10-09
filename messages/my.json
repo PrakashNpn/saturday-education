@@ -79,7 +79,7 @@
         },
         "2": {
           "quote": "Germany ကို Apply လုပ်ဖို့ ဘယ်ကနေ စရမှန်း လုံးဝ မသိခဲ့ပါဘူး။ Team က University ရွေးတာကနေ Document ပြင်တာအထိ အကုန်လုံးကို ရှင်းရှင်းလင်းလင်း ရှင်းပြပေးခဲ့ပါတယ်။",
-          "name": "သီဟန်",
+          "name": "သီဟ",
           "program": "BSc Computer Science, Germany"
         },
         "3": {
@@ -138,7 +138,8 @@
       "arrivalDesc": "Accept ဖြစ်သွားတဲ့ Student တွေအတွက် Flight Booking နဲ့ Housing Assistance။",
       "loansTitle": "Education Loan",
       "loansDesc": "Student Loan အတွက် Lending Partner တွေနဲ့ ချိတ်ဆက်ပေးတာ။",
-      "footnote": "*Additional Charge ပါဝင်နိုင်ပါတယ်။"
+      "footnote": "*Additional Charge ပါဝင်နိုင်ပါတယ်။",
+      "imageAlt": "Saturday Education Counsellor တစ်ယောက် Student နဲ့ One-on-One Consultation လုပ်နေစဉ်"
     },
     "services": {
       "eyebrow": "The Process",
@@ -274,7 +275,7 @@
       "searchButton": "University တွေ ရှာရန်"
     },
     "courseSearch": {
-      "statBanner": "{countries} နိုင်ငံက {institutions} Institution ကနေ Course {programs} ခု။",
+      "statBanner": "{institutions} Institution ကနေ Course {programs} ခု။",
       "statBannerNoCounts": "ကျွန်တော်တို့ရဲ့ Partner Destination တွေက Course တွေကို ရှာကြည့်ပါ။",
       "countryLabel": "ဘယ်နေရာ သွားချင်လဲ?",
       "levelLabel": "Study Level",
@@ -306,27 +307,12 @@
       "pricingTitle": "Transparent Pricing",
       "pricingBody": "Consultation က Free ပါ။ Paid ဒါမှမဟုတ် Partner Service တိုင်းကို အောက်မှာ Mark လုပ်ထားပါတယ်။ Services ကို ကြည့်ပါ။",
       "visaTitle": "သင့်ကို ပြပေးမယ့် Visa Record",
-      "visaBody": "95% Visa Success Rate။ အပေါ်က Hero မှာ ပြောထားတဲ့ Figure အတိုင်းပါပဲ၊ Separate Claim မဟုတ်ပါဘူး။",
-      "cta": "Free Consultation ကို Book လုပ်ရန်"
+      "visaBody": "<percent>95%</percent> Visa Success Rate။ အပေါ်က Hero မှာ ပြောထားတဲ့ Figure အတိုင်းပါပဲ၊ Separate Claim မဟုတ်ပါဘူး။"
     }
   },
   "footer": {
     "companyName": "Saturday Education Consulting",
     "tagline": "International Education အတွက် သင့်ရဲ့ Trusted Partner။ Myanmar Student တွေရဲ့ Study Abroad Dream ကို Achieve ဖြစ်အောင် Guide ပေးနေပါတယ်။",
-    "studyAbroad": {
-      "heading": "Study Abroad",
-      "canada": "Study in Canada",
-      "singapore": "Study in Singapore",
-      "thailand": "Study in Thailand",
-      "ireland": "Study in Ireland",
-      "newZealand": "Study in New Zealand",
-      "germany": "Study in Germany",
-      "malaysia": "Study in Malaysia",
-      "dubai": "Study in Dubai",
-      "hungary": "Study in Hungary",
-      "switzerland": "Study in Switzerland",
-      "spain": "Study in Spain"
-    },
     "services": {
       "heading": "ကျွန်ုပ်တို့ရဲ့ Services",
       "counseling": "Education Counseling",
@@ -339,6 +325,8 @@
     "company": {
       "careerAssessment": "Career Assessment",
       "heading": "Company",
+      "studyDestinations": "Study Destinations",
+      "courseFinder": "Course Finder",
       "about": "About Us",
       "testimonials": "Testimonials",
       "contact": "Contact Us",

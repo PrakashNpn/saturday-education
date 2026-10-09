@@ -61,8 +61,15 @@ export default function TestimonialsSection() {
   return (
     <section
       id="testimonials"
-      className="border-y border-stroke bg-structure py-14 text-white max-tablet:py-10"
+      className="relative overflow-hidden bg-[color-mix(in_srgb,var(--color-action)_80%,black)] py-14 text-white max-tablet:py-10"
     >
+      {/* One flat brand colour, not the gradient this had a moment ago, plus
+          a soft white highlight for a little depth. */}
+      <div
+        aria-hidden="true"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_50%_at_20%_0%,rgba(255,255,255,0.1)_0%,rgba(255,255,255,0)_60%)]"
+      />
+
       {/* Only the heading fades/rises — the dark band stays solid, and the
           marquee below is already in constant motion so it doesn't need its
           own entrance. */}
@@ -71,7 +78,7 @@ export default function TestimonialsSection() {
         whileInView={{ opacity: 1, y: 0 }}
         viewport={{ once: true, margin: '-80px' }}
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
-        className="mx-auto mb-10 max-w-wrap px-6"
+        className="relative z-[1] mx-auto mb-10 max-w-wrap px-6"
       >
         <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-white/60 uppercase">
           {t('eyebrow')}
@@ -80,8 +87,15 @@ export default function TestimonialsSection() {
       </motion.div>
 
       {/* One row, travelling left. Same seamless-loop mechanism as the partner
-          wall: the list is rendered twice and the track slides by half. */}
-      <div className="marquee">
+          wall: the list is rendered twice and the track slides by half.
+          .marquee's own mask-image fades to transparent in its outer 7%, read
+          as an unwanted shadow where cards enter/exit, so it's overridden off
+          here: cards stay fully opaque to the container edge and clip
+          cleanly instead of dissolving into it. */}
+      <div
+        className="marquee relative z-[1]"
+        style={{ maskImage: 'none', WebkitMaskImage: 'none' }}
+      >
         <div
           className="marquee-track marquee-track--left"
           style={{ '--marquee-duration': '42s' } as React.CSSProperties}
@@ -91,55 +105,85 @@ export default function TestimonialsSection() {
               {reviews.map((review) => (
                 <figure
                   key={review.key}
-                  className="mx-3 flex h-[24rem] w-72 shrink-0 flex-col rounded-sm border border-white/10 bg-white/[0.02] p-7"
+                  className="relative mx-3 h-[24rem] w-72 shrink-0 overflow-hidden rounded-[28px] border border-white/40 bg-[color-mix(in_srgb,white_90%,color-mix(in_srgb,var(--color-action)_80%,black))] text-primary-text shadow-[inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_0_rgba(92,9,245,0.12),0_24px_48px_-28px_rgba(20,10,43,0.45)]"
                 >
-                  <span className="mb-4 text-[oklch(70%_0.13_307.4)]/50">
-                    <QuoteMark />
-                  </span>
-
-                  {/* flex-1 + min-h-0 lets this fill exactly the space
-                      between the quote mark and the pinned-to-bottom
-                      figcaption, no more — a short quote just sits there like
-                      before, a long one scrolls internally instead of
-                      overflowing the card. The fade hints there's more below
-                      without a "read more" link breaking the quoted-text feel. */}
-                  <div className="relative mb-6 min-h-0 flex-1">
-                    <blockquote className="h-full overflow-y-auto scrollbar-thin-dark pr-2 text-label font-light text-white/80">
-                      {review.quote}
-                    </blockquote>
-                    <div
-                      aria-hidden="true"
-                      className="pointer-events-none absolute inset-x-0 bottom-0 h-8 bg-gradient-to-t from-structure to-transparent"
-                    />
-                  </div>
-
-                  <figcaption className="mt-auto flex items-center gap-3 border-t border-white/10 pt-4 text-label">
-                    {/* A real photograph when we have one. The design fills
-                        this slot with a generated DiceBear shape, which is
-                        neither a photograph nor the person; initials say the
-                        same amount and claim less, so they are the fallback. */}
-                    {review.photo ? (
-                      <Image
-                        src={`/images/testimonials/${review.photo}.webp`}
-                        alt=""
-                        width={80}
-                        height={80}
-                        unoptimized
-                        className="size-10 shrink-0 rounded-full bg-white/10 object-cover"
-                      />
-                    ) : (
-                      <span
-                        aria-hidden="true"
-                        className="grid size-10 shrink-0 place-items-center rounded-full bg-white/10 text-min font-medium text-white/80"
-                      >
-                        {initials(review.name)}
-                      </span>
-                    )}
-                    <span>
-                      <span className="block font-medium text-white">{review.name}</span>
-                      <span className="text-white/60">{review.program}</span>
+                  {/* A fixed, precomputed tint (the same 65%-white-over-the-
+                      section's-purple blend) rather than true bg-white/65 +
+                      backdrop-blur: backdrop-blur samples whatever is
+                      actually behind the card, and the section has its own
+                      off-centre white highlight plus a constantly-scrolling
+                      marquee, so every card read a slightly different
+                      gradient depending on where it sat. Baking the blend in
+                      keeps every card identical and flat, at the cost of the
+                      card no longer genuinely reacting to what's behind it.
+                      No external drop shadow beyond the soft one here: the
+                      marquee fades to transparent at its own left/right 7%,
+                      and a wider shadow bleeding past the card's edge didn't
+                      fade in step with it, leaving a dark smudge with no
+                      card visible behind it. */}
+                  <div className="relative z-[1] flex h-full flex-col p-7">
+                    {/* White text on a white-tinted card has a contrast
+                        ceiling no matter how the opacity is tuned, both the
+                        tint and the text are variations on white. A
+                        near-opaque light card with dark text, the same
+                        glass-card convention every other section already
+                        uses, floating on the brand-purple band rather than a
+                        white section, reads clearly regardless. */}
+                    <span className="mb-4 text-brand/30">
+                      <QuoteMark />
                     </span>
-                  </figcaption>
+
+                    {/* flex-1 + min-h-0 lets this fill exactly the space
+                        between the quote mark and the pinned-to-bottom
+                        figcaption, no more — a short quote just sits there
+                        like before, a long one scrolls internally instead of
+                        overflowing the card. The fade hints there's more
+                        below without a "read more" link breaking the
+                        quoted-text feel. A mask on the text itself, not a
+                        colour-matched overlay on top of it, so it keeps
+                        blending correctly into whatever the card's own
+                        background actually is. */}
+                    <div className="mb-6 min-h-0 flex-1">
+                      <blockquote
+                        className="h-full overflow-y-auto scrollbar-thin-brand pr-2 text-label font-normal text-primary-text"
+                        style={{
+                          maskImage: 'linear-gradient(to top, transparent, black 32px)',
+                          WebkitMaskImage: 'linear-gradient(to top, transparent, black 32px)',
+                        }}
+                      >
+                        {review.quote}
+                      </blockquote>
+                    </div>
+
+                    <figcaption className="mt-auto flex items-center gap-3 border-t border-stroke pt-4 text-label">
+                      {/* A real photograph when we have one. The design
+                          fills this slot with a generated DiceBear shape,
+                          which is neither a photograph nor the person;
+                          initials say the same amount and claim less, so
+                          they are the fallback. */}
+                      {review.photo ? (
+                        <Image
+                          src={`/images/testimonials/${review.photo}.webp`}
+                          alt=""
+                          width={80}
+                          height={80}
+                          unoptimized
+                          className="size-10 shrink-0 rounded-full bg-tint object-cover ring-2 ring-stroke"
+                        />
+                      ) : (
+                        <span
+                          aria-hidden="true"
+                          className="grid size-10 shrink-0 place-items-center rounded-full bg-tint text-min font-medium text-brand ring-2 ring-stroke"
+                        >
+                          {initials(review.name)}
+                        </span>
+                      )}
+                      <span>
+                        <span className="block font-medium text-primary-text">{review.name}</span>
+                        <span className="text-muted-text">{review.program}</span>
+                      </span>
+                    </figcaption>
+                  </div>
                 </figure>
               ))}
             </div>

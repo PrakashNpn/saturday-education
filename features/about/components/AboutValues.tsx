@@ -55,7 +55,7 @@ export function AboutValues() {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section className="relative overflow-hidden border-t border-purple-200/60 bg-[#F7F2FA] py-16 max-tablet:py-12">
+    <section className="relative overflow-hidden border-t border-stroke bg-tint py-16 max-tablet:py-12">
       <div className="values-section-texture pointer-events-none absolute inset-0" />
 
       <div className="relative mx-auto max-w-wrap px-6">
@@ -78,9 +78,9 @@ export function AboutValues() {
                   ? { duration: 0 }
                   : { duration: 0.45, delay: (index % COLS) * 0.1, ease: EASE }
               }
-              className="relative overflow-hidden rounded-[6px] border border-purple-500/20 bg-gradient-to-br from-[#240B3E] via-[#170528] to-[#0E0219] p-8 text-center max-tablet:p-6"
+              className="relative overflow-hidden rounded-[6px] border border-white/10 bg-gradient-to-br from-[color-mix(in_srgb,var(--color-action)_35%,black)] via-[color-mix(in_srgb,var(--color-action)_28%,black)] to-[color-mix(in_srgb,var(--color-action)_20%,black)] p-8 text-center max-tablet:p-6"
             >
-              <span className="absolute top-5 right-5 font-mono text-sm font-medium text-purple-300/40">
+              <span className="absolute top-5 right-5 font-mono text-sm font-medium text-white/40">
                 {String(n).padStart(2, '0')}
               </span>
 
@@ -107,7 +107,7 @@ export function AboutValues() {
               <h3 className="mb-2 text-xl font-medium tracking-tight text-white">
                 {t(`value${n}Title`)}
               </h3>
-              <p className="mx-auto max-w-[38ch] text-body leading-[1.6] font-light text-purple-100/85">
+              <p className="mx-auto max-w-[38ch] text-body leading-[1.6] font-light text-white/80">
                 {t(`value${n}Desc`)}
               </p>
             </motion.div>

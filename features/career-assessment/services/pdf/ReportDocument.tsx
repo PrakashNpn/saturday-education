@@ -32,11 +32,16 @@ import type {
 } from '../../types'
 import { LOGO_DATA_URI } from './logoAsset'
 
-// Palette
-const PURPLE = '#590D82'
-const PURPLE_DARK = '#3D0A5A'
-const PURPLE_50 = '#F5E6FF'
-const PURPLE_BORDER = '#E3CCF5'
+// Palette. PDF rendering has no CSS engine behind it (react-pdf writes PDF
+// content streams directly), so these are plain hex literals rather than the
+// var()/color-mix() the rest of the site uses — but they're still meant to
+// track the same tokens: PURPLE is --color-brand (Electric Purple),
+// PURPLE_DARK is --color-action-hover, PURPLE_50 is --color-tint. The old
+// values here (#590D82 etc.) were the deprecated pre-rebrand brand-purple.
+const PURPLE = '#7F02EB'
+const PURPLE_DARK = '#5806C9'
+const PURPLE_50 = '#F1EBFD'
+const PURPLE_BORDER = '#E5CCFB'
 const GOLD = '#F59E0B'
 const INK = '#18181B'
 const GRAY = '#6B7280'

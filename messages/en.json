@@ -79,7 +79,7 @@
         },
         "2": {
           "quote": "I had no idea where to start with applying to Germany. The team explained everything clearly, from choosing a university to preparing my documents.",
-          "name": "Thi Han",
+          "name": "Thi Ha",
           "program": "BSc Computer Science, Germany"
         },
         "3": {
@@ -138,7 +138,8 @@
       "arrivalDesc": "Flight booking and housing assistance for accepted students.",
       "loansTitle": "Education loans",
       "loansDesc": "Introductions to lending partners for student loans.",
-      "footnote": "*Additional charges will apply."
+      "footnote": "*Additional charges will apply.",
+      "imageAlt": "A Saturday Education counsellor in a one-on-one consultation with a student"
     },
     "services": {
       "eyebrow": "The Process",
@@ -274,9 +275,9 @@
       "searchButton": "Find Universities"
     },
     "courseSearch": {
-      "statBanner": "{programs} courses across {institutions} institutions in {countries} countries.",
+      "statBanner": "{programs} courses across {institutions} institutions.",
       "statBannerNoCounts": "Explore courses across our partner destinations.",
-      "countryLabel": "Where do you want to go?",
+      "countryLabel": "Select your destination",
       "levelLabel": "Study level",
       "fieldLabel": "Field of study",
       "anyCountry": "Any destination",
@@ -306,8 +307,7 @@
       "pricingTitle": "Transparent pricing",
       "pricingBody": "Consultation is free. Every paid or partner service is marked as one below. See Services.",
       "visaTitle": "A visa record we'll show you",
-      "visaBody": "95% visa success rate. The same figure quoted in the hero, not a separate claim.",
-      "cta": "Book a free consultation"
+      "visaBody": "<percent>95%</percent> visa success rate. The same figure quoted in the hero, not a separate claim."
     }
   },
   "careerAssessment": {
@@ -629,20 +629,6 @@
   "footer": {
     "companyName": "Saturday Education Consulting",
     "tagline": "Your trusted partner for international education. Guiding Myanmar students to achieve their dreams of studying abroad.",
-    "studyAbroad": {
-      "heading": "Study Abroad",
-      "canada": "Study in Canada",
-      "singapore": "Study in Singapore",
-      "thailand": "Study in Thailand",
-      "ireland": "Study in Ireland",
-      "newZealand": "Study in New Zealand",
-      "germany": "Study in Germany",
-      "malaysia": "Study in Malaysia",
-      "dubai": "Study in Dubai",
-      "hungary": "Study in Hungary",
-      "switzerland": "Study in Switzerland",
-      "spain": "Study in Spain"
-    },
     "services": {
       "heading": "Our Services",
       "counseling": "Education Counseling",
@@ -654,6 +640,8 @@
     },
     "company": {
       "heading": "Company",
+      "studyDestinations": "Study Destinations",
+      "courseFinder": "Course Finder",
       "careerAssessment": "Career Assessment",
       "about": "About Us",
       "testimonials": "Testimonials",

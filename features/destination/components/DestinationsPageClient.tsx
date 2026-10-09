@@ -74,8 +74,15 @@ export function DestinationsPageClient({ countries, translations: t }: Props) {
         resultCount={visible.length}
       />
 
-      <section ref={resultsRef} className="pt-2 pb-12 max-tablet:pt-2 max-tablet:pb-8">
-        <div className="mx-auto max-w-wrap px-6">
+      <section ref={resultsRef} className="relative overflow-hidden pt-2 pb-12 max-tablet:pt-2 max-tablet:pb-8">
+        {/* Same side glows as Why Saturday Education / Our Services on the
+            homepage, so the grid doesn't sit on a flat white the hero and
+            cards above and below it no longer do. */}
+        <div
+          aria-hidden="true"
+          className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(127,2,235,0.06)_0%,rgba(127,2,235,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(92,9,245,0.06)_0%,rgba(92,9,245,0)_70%)]"
+        />
+        <div className="relative z-[1] mx-auto max-w-wrap px-6">
           <DestinationGrid countries={visible} viewDetailsLabel={t.viewDetails} />
         </div>
       </section>

@@ -31,7 +31,7 @@ function BeginIllustration() {
       <path d="M72 88L76 80H124L128 88H72Z" fill="#D3D3D3" />
       <rect x="68" y="87" width="64" height="3" rx="1.5" fill="#A8A8A8" />
       <rect x="74" y="44" width="52" height="36" rx="3" fill="#3D3935" />
-      <rect x="77" y="47" width="46" height="30" rx="1.5" fill="#632D8B" />
+      <rect x="77" y="47" width="46" height="30" rx="1.5" fill="#7F02EB" />
       <path
         d="M82 68L88 62L94 65L102 55L108 58L118 50"
         stroke="#FBFBFB"
@@ -42,7 +42,7 @@ function BeginIllustration() {
       <circle cx="102" cy="55" r="2" fill="#FBBF24" />
       <circle cx="118" cy="50" r="2" fill="#34D399" />
       <path d="M180 90H160" stroke="#706E6B" strokeWidth="3" strokeLinecap="round" />
-      <path d="M170 90V65L154 48" stroke="#632D8B" strokeWidth="2.5" strokeLinecap="round" />
+      <path d="M170 90V65L154 48" stroke="#7F02EB" strokeWidth="2.5" strokeLinecap="round" />
       <path
         d="M148 44L162 48L156 56L144 50L148 44Z"
         fill="#FBBF24"
@@ -61,7 +61,7 @@ function BeginIllustration() {
       <path d="M46 69C45 66 48 65 47 62" stroke="#D3D3D3" strokeWidth="1.5" strokeLinecap="round" />
       <rect x="134" y="82" width="22" height="8" rx="1.5" fill="#FFFFFF" stroke="#C0BFBD" strokeWidth="1" />
       <line x1="137" y1="85" x2="147" y2="85" stroke="#706E6B" strokeWidth="1" strokeLinecap="round" />
-      <line x1="137" y1="87" x2="151" y2="87" stroke="#632D8B" strokeWidth="1" strokeLinecap="round" />
+      <line x1="137" y1="87" x2="151" y2="87" stroke="#7F02EB" strokeWidth="1" strokeLinecap="round" />
       <line x1="158" y1="81" x2="158" y2="89" stroke="#E87A5D" strokeWidth="1.5" strokeLinecap="round" />
     </svg>
   )

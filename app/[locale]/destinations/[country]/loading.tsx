@@ -99,8 +99,12 @@ function FaqsSkeleton() {
 export default function Loading() {
   return (
     <div>
-      {/* Hero — mirrors DetailHero: breadcrumb, region pill, flag + name, tagline */}
-      <section className="bg-black py-12 max-tablet:py-9">
+      {/* Hero — mirrors DetailHero: breadcrumb, region pill, flag + name, tagline.
+          A muted brand-purple rather than flat bg-black: the real hero's photo
+          backdrop is light now, so a stark black box flashed in first read as
+          a jarring, too-dark placeholder against it. Can't match the photo's
+          own colour here (not loaded yet), so this is a calm middle ground. */}
+      <section className="bg-[color-mix(in_srgb,var(--color-action)_35%,black)] py-12 max-tablet:py-9">
         <div className="mx-auto max-w-wrap px-6">
           <Skeleton tone="dark" className="mb-3 h-4 w-40" />
           <Skeleton tone="dark" className="mb-3 h-6 w-24 rounded-full" />
@@ -157,8 +161,9 @@ export default function Loading() {
         </div>
       </section>
 
-      {/* CTA band — mirrors DetailCta */}
-      <section className="bg-black py-16 text-center max-tablet:py-12">
+      {/* CTA band — mirrors DetailCta. Same muted-purple placeholder as the
+          hero above, for the same reason. */}
+      <section className="bg-[color-mix(in_srgb,var(--color-action)_35%,black)] py-16 text-center max-tablet:py-12">
         <div className="mx-auto max-w-wrap px-6">
           <Skeleton tone="dark" className="mx-auto mb-6 h-6 w-72 max-w-full" />
           <Skeleton tone="dark" className="mx-auto h-10 w-40 rounded-full" />

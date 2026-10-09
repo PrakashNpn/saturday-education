@@ -48,13 +48,10 @@ export function AboutWhyUs() {
                     key={n}
                     className="flex flex-col items-center justify-center p-8 text-center sm:p-10"
                   >
-                    {/* The visa figure is the one people remember, so it is the
-                        only cell that takes the action colour. */}
-                    <span
-                      className={`text-title font-medium sm:text-[36px] ${
-                        n === 3 ? 'text-action' : 'text-primary-text'
-                      }`}
-                    >
+                    {/* Same gold as the homepage hero's own stat figures
+                        (95% visa success, 3,000+ students), on all four here
+                        rather than singling one out in the action colour. */}
+                    <span className="text-title font-medium text-accent-ink sm:text-[36px]">
                       {t(`whyStat${n}Value`)}
                     </span>
                     <span className="mt-1.5 block text-min font-medium text-muted-text">

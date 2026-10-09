@@ -3,7 +3,7 @@
 import { useEffect, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import { Menu, X, ChevronDown } from 'lucide-react'
+import { Menu, X, ChevronDown, Phone, MapPin } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
 import { cn } from '@/shared/utils/cn'
 
@@ -11,8 +11,8 @@ type NavItem = { labelKey: string; href: string }
 
 const NAV_LINKS: NavItem[] = [
   { labelKey: 'home', href: '/' },
-  { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'courseFinder', href: '/course-finder' },
+  { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'careerAssessment', href: '/career-assessment' },
   { labelKey: 'aboutUs', href: '/about' },
 ]
@@ -23,23 +23,23 @@ const NAV_LINKS: NavItem[] = [
 // real routed locale but isn't offered here yet — its translations (UI
 // strings and the destination detail pages' database content) are drafted
 // but awaiting team review. Add it back once that review is done.
+// flag is the country whose flag best represents the language, not the
+// locale code itself — reuses the same /images/flags assets the destination
+// pickers already use, English maps to the UK's "gb" rather than a locale
+// code with no matching flag file.
 const LANGUAGE_OPTIONS = [
-  { code: 'en', label: 'English' },
-  { code: 'th', label: 'ไทย' },
+  { code: 'en', label: 'English', flag: 'gb' },
+  { code: 'th', label: 'ไทย', flag: 'th' },
 ] as const
 
-/** The design's own globe, not the lucide one — thinner stroke, and it has to
- *  sit at 14px beside 12px text without going muddy. */
-function GlobeIcon() {
+/** Clipped into a circle the same way DestinationCard's flag badges are,
+ *  rather than left as the source rectangle, so it reads as a small token
+ *  beside text instead of a tiny photo. */
+function FlagIcon({ code }: { code: string }) {
   return (
-    <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className="size-3.5 shrink-0">
-      <circle cx="8" cy="8" r="6.5" stroke="currentColor" strokeWidth="1.2" />
-      <path
-        d="M1.5 8h13M8 1.5c1.8 1.8 2.8 4.2 2.8 6.5S9.8 12.7 8 14.5c-1.8-1.8-2.8-4.2-2.8-6.5S6.2 3.3 8 1.5Z"
-        stroke="currentColor"
-        strokeWidth="1.2"
-      />
-    </svg>
+    <span className="relative size-4 shrink-0 overflow-hidden rounded-full border border-stroke/70">
+      <Image src={`/images/flags/${code}.png`} alt="" fill unoptimized sizes="16px" className="object-cover" />
+    </span>
   )
 }
 
@@ -73,9 +73,9 @@ function LanguageSwitcher() {
         onClick={() => setOpen((v) => !v)}
         aria-haspopup="menu"
         aria-expanded={open}
-        className="flex cursor-pointer items-center gap-1.5 opacity-80 hover:opacity-100"
+        className="flex cursor-pointer items-center gap-1.5 text-white/80 transition-colors hover:text-white"
       >
-        <GlobeIcon />
+        <FlagIcon code={current.flag} />
         {current.label}
         <ChevronDown size={12} className={cn('transition-transform', open && 'rotate-180')} />
       </button>
@@ -83,7 +83,7 @@ function LanguageSwitcher() {
       {open && (
         <span
           role="menu"
-          className="absolute top-full right-0 z-40 mt-2 min-w-[7.5rem] overflow-hidden rounded-md border border-white/10 bg-structure py-1 text-left shadow-lg"
+          className="absolute top-full right-0 z-50 mt-2 min-w-[8.5rem] overflow-hidden rounded-xl border border-stroke/70 bg-white/90 py-1.5 text-left shadow-[0_12px_32px_-8px_rgba(20,10,43,0.2),0_4px_12px_-4px_rgba(20,10,43,0.1)] backdrop-blur-md"
         >
           {LANGUAGE_OPTIONS.map((option) => (
             <Link
@@ -93,10 +93,11 @@ function LanguageSwitcher() {
               role="menuitem"
               onClick={() => setOpen(false)}
               className={cn(
-                'block px-3 py-2 whitespace-nowrap hover:bg-white/10',
-                option.code === locale ? 'text-white' : 'text-white/70',
+                'flex items-center gap-2 px-3 py-2 text-label whitespace-nowrap transition-colors hover:bg-tint hover:text-link',
+                option.code === locale ? 'bg-tint font-medium text-link' : 'text-primary-text',
               )}
             >
+              <FlagIcon code={option.flag} />
               {option.label}
             </Link>
           ))}
@@ -123,43 +124,47 @@ export default function Navbar() {
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + '/')
 
-  // The design drops the utility bar on these two pages specifically — both
-  // are full-width tools (course finder's embedded iframe, the assessment's
-  // own takeover chrome) where the extra band just eats into limited height.
-  // Every other page keeps it.
-  const hideUtilityBar = pathname === '/course-finder' || pathname === '/career-assessment'
-
   return (
     <>
       {/* ── Utility bar ─────────────────────────────────────────────────────
           Deliberately not sticky: it scrolls away and only the header below
-          pins. Black rather than purple, so the two full-width bands on every
-          page do not spend the brand colour on furniture. */}
-      {!hideUtilityBar && (
-        <div className="relative z-30 bg-structure text-white text-min">
-          <div className="mx-auto flex min-h-[34px] max-w-wrap flex-wrap items-center justify-between gap-6 px-6 max-tablet:min-h-0 max-tablet:py-1.5">
-            {/* Locations and the phone+language cluster together measure wider
-                than the content area on almost any phone (confirmed: ~378px
-                needed against ~342px available at 390px wide), so this wraps
-                to two lines on real devices. Locations is the least essential
-                of the three on a phone — it's still in the footer — so it
-                drops first rather than everything shrinking to fit. */}
-            <div className="flex items-center gap-2 font-normal opacity-80 max-tablet:hidden">
-              <span>{tBar('locations')}</span>
-            </div>
-
-            <span className="flex items-center gap-6 font-normal max-tablet:w-full max-tablet:justify-between max-tablet:gap-3">
-              <a
-                href={tBar('phoneHref')}
-                className="hover:underline hover:underline-offset-2"
-              >
-                {tBar('phone')}
-              </a>
-              <LanguageSwitcher />
-            </span>
+          pins. Always rendered — there's no pathname check here, because the
+          one place it actually needs to disappear (mid-assessment) already
+          happens for free: AssessmentChrome covers the whole viewport with
+          a fixed, higher-z-index takeover once the test itself starts, the
+          same way it hides the main nav links, so this bar needs no matching
+          logic of its own.
+          z-40, above the career assessment page's own sticky mode tabs
+          (z-30): both this bar and that sticky bar sit in the same global
+          stacking order (neither's ancestor establishes a contained stacking
+          context), so at equal z-index the one later in the DOM — the page
+          content, not this bar — would win and paint over the language
+          dropdown below. */}
+      <div className="relative z-40 bg-structure text-white text-min">
+        <div className="mx-auto flex min-h-[34px] max-w-wrap flex-wrap items-center justify-between gap-6 px-6 max-tablet:min-h-0 max-tablet:py-1.5">
+          {/* Locations and the phone+language cluster together measure wider
+              than the content area on almost any phone (confirmed: ~378px
+              needed against ~342px available at 390px wide), so this wraps
+              to two lines on real devices. Locations is the least essential
+              of the three on a phone — it's still in the footer — so it
+              drops first rather than everything shrinking to fit. */}
+          <div className="flex items-center gap-1.5 font-normal opacity-80 max-tablet:hidden">
+            <MapPin className="size-3.5 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+            <span>{tBar('locations')}</span>
           </div>
+
+          <span className="flex items-center gap-6 font-normal max-tablet:w-full max-tablet:justify-between max-tablet:gap-3">
+            <a
+              href={tBar('phoneHref')}
+              className="flex items-center gap-1.5 hover:underline hover:underline-offset-2"
+            >
+              <Phone className="size-3.5 shrink-0" strokeWidth={1.5} aria-hidden="true" />
+              {tBar('phone')}
+            </a>
+            <LanguageSwitcher />
+          </span>
         </div>
-      )}
+      </div>
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
       <header className="sticky top-0 z-20 border-b border-stroke bg-surface">
@@ -177,17 +182,21 @@ export default function Navbar() {
           </Link>
 
           <nav aria-label="Main navigation">
-            <ul className="flex items-center gap-8 max-tablet:hidden">
+            <ul className="flex items-center gap-1 max-tablet:hidden">
               {NAV_LINKS.map((item) => (
                 <li key={item.href}>
                   <Link
                     href={item.href}
                     aria-current={isActive(item.href) ? 'page' : undefined}
                     className={cn(
-                      'text-label font-normal hover:text-link hover:underline hover:underline-offset-4',
+                      // border-b-2 always present (colour toggles, not width),
+                      // so an item's own size never shifts between its
+                      // resting, hover and active states. Same mechanic the
+                      // Destinations page's region tabs already use.
+                      'block border-b-2 px-3.5 py-1.5 text-label font-normal transition-colors hover:text-link',
                       isActive(item.href)
-                        ? 'text-link underline underline-offset-4'
-                        : 'text-primary-text',
+                        ? 'border-action text-link font-medium'
+                        : 'border-transparent text-primary-text',
                     )}
                   >
                     {t(item.labelKey)}

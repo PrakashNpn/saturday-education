@@ -25,7 +25,7 @@ export function AboutCertifications() {
   const prefersReducedMotion = useReducedMotion()
 
   return (
-    <section className="border-t border-[#262626] bg-[#121212] py-12 max-tablet:py-8">
+    <section className="border-t border-white/10 bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-12 max-tablet:py-8">
       {/* Only the heading fades/rises — the dark band stays solid, and the
           marquee below is already in constant motion so it doesn't need its
           own entrance. */}
@@ -36,7 +36,7 @@ export function AboutCertifications() {
         transition={prefersReducedMotion ? { duration: 0 } : { duration: 0.5, ease: EASE }}
         className="mx-auto mb-6 max-w-wrap px-6 text-center"
       >
-        <p className="mb-1.5 text-min font-medium tracking-[0.06em] text-[#8e8e8e] uppercase">
+        <p className="mb-1.5 text-min font-medium tracking-[0.06em] text-white/60 uppercase">
           {t('certsLabel')}
         </p>
         <h2 className="mx-auto max-w-[54ch] text-section font-medium text-white">
@@ -53,8 +53,12 @@ export function AboutCertifications() {
       </motion.div>
 
       {/* Same marquee as the partner wall and the testimonials, so it also
-          stops and becomes a horizontal scroll under reduced motion. */}
-      <div className="marquee py-2">
+          stops and becomes a horizontal scroll under reduced motion.
+          .marquee's own mask-image fades to transparent at its own
+          left/right 7%, read as an unwanted shadow where certificates
+          enter/exit, so it's overridden off here — same fix as the
+          testimonials marquee. */}
+      <div className="marquee py-2" style={{ maskImage: 'none', WebkitMaskImage: 'none' }}>
         <div
           className="marquee-track marquee-track--left"
           style={{ '--marquee-duration': '48s' } as React.CSSProperties}

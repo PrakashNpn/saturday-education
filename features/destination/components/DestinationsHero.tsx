@@ -29,8 +29,12 @@ export function DestinationsHero({ searchValue, onSearchChange }: Props) {
 
   return (
     // Same drifting dot texture as the homepage Course Finder, so the two dark
-    // purple bands on the site read as the same surface.
-    <section className="course-finder-texture relative overflow-hidden bg-[oklch(20%_0.10_307.4)] py-11 max-tablet:py-8">
+    // purple bands on the site read as the same surface. The dark fill itself
+    // is the live action colour mixed toward black, not a hardcoded value:
+    // the old oklch() literal here turned out to be keyed to the deprecated
+    // #632D8B brand-purple's own hue (307.4), not the current Electric/Vivid
+    // Purple family (hue ~290-297), which is why it read as muddy and dark.
+    <section className="course-finder-texture relative overflow-hidden bg-[color-mix(in_srgb,var(--color-action)_60%,black)] py-11 max-tablet:py-8">
       <div className="relative mx-auto max-w-wrap px-6">
         <div className="mx-auto max-w-4xl text-center">
           <motion.h1

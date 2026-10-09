@@ -41,7 +41,7 @@ export function PublicResultsView({ data }: Props) {
               src="/images/logo/logo.webp"
               alt="Saturday Education Consulting"
               width={300}
-              height={84}
+              height={110}
               priority
               unoptimized
               className="h-10 w-auto shrink-0 self-start sm:self-auto"

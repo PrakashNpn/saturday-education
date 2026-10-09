@@ -5,7 +5,7 @@ import { Skeleton } from '@/shared/components/ui/skeleton'
  *  entire skeleton. */
 function CountryCardSkeleton() {
   return (
-    <div className="overflow-hidden rounded-sm border border-stroke bg-surface-1">
+    <div className="overflow-hidden rounded-[28px] border border-stroke bg-surface-1">
       <Skeleton className="aspect-[16/10] w-full rounded-none" />
     </div>
   )
@@ -15,7 +15,7 @@ export default function Loading() {
   return (
     <div>
       {/* Hero — mirrors DestinationsHero's dark band + centered search pill */}
-      <section className="bg-[oklch(20%_0.10_307.4)] py-11 max-tablet:py-8">
+      <section className="course-finder-texture bg-[color-mix(in_srgb,var(--color-action)_60%,black)] py-11 max-tablet:py-8">
         <div className="mx-auto max-w-wrap px-6">
           <div className="mx-auto flex max-w-4xl flex-col items-center">
             <Skeleton tone="dark" className="h-9 w-full max-w-md" />

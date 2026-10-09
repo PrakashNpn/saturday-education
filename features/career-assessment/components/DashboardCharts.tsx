@@ -36,8 +36,8 @@ export function HollandHexagon({ interests }: { interests: DashboardData['intere
       {/* data polygon */}
       <motion.polygon
         points={dataPts}
-        fill="rgba(99,45,139,0.16)"
-        stroke="#632D8B"
+        fill="rgba(127,2,235,0.16)"
+        stroke="#7F02EB"
         strokeWidth="2"
         strokeLinejoin="round"
         initial={{ scale: 0, opacity: 0 }}
@@ -52,7 +52,7 @@ export function HollandHexagon({ interests }: { interests: DashboardData['intere
         return (
           <g key={it.category}>
             <circle cx={x} cy={y} r="13" fill="#F3EDFA" stroke="#E5E5E5" strokeWidth="1" />
-            <text x={x} y={y + 1} textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="700" fill="#632D8B">
+            <text x={x} y={y + 1} textAnchor="middle" dominantBaseline="central" fontSize="12" fontWeight="700" fill="#7F02EB">
               {it.category}
             </text>
           </g>
