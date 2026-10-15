@@ -1,6 +1,6 @@
 interface Props {
   className?: string
-  /** 'dark' for a skeleton sitting on one of the black/dark-purple bands
+  /** 'dark' for a skeleton sitting on one of the black/dark-teal bands
    *  (hero, CTA) — a light-grey fill would look like a rendering error there.
    *  Kept as a prop rather than an appended class so the two never collide on
    *  the same background-color property. */

@@ -15,12 +15,12 @@ export default function LoginPage({ searchParams }: { searchParams: Promise<{ er
               name="password"
               required
               autoFocus
-              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+              className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-action focus:outline-none focus:ring-1 focus:ring-action"
             />
           </div>
           <button
             type="submit"
-            className="w-full rounded-md bg-purple-700 px-4 py-2 text-sm font-medium text-white hover:bg-purple-800 focus:outline-none"
+            className="w-full rounded-md bg-action px-4 py-2 text-sm font-medium text-white hover:bg-action-hover focus:outline-none"
           >
             Sign in
           </button>

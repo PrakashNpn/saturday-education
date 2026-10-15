@@ -37,7 +37,7 @@
    translucent lavender glass now, not solid white or near-black, so
    scrollbar-thin's light grey nearly vanishes against it (barely any
    lightness difference) and scrollbar-thin-dark's white thumb would too.
-   Brand purple at partial opacity reads clearly on that tint instead. */
+   Brand teal at partial opacity reads clearly on that tint instead. */
 .scrollbar-thin-brand::-webkit-scrollbar {
   width: 4px;
 }
@@ -45,11 +45,11 @@
   background: transparent;
 }
 .scrollbar-thin-brand::-webkit-scrollbar-thumb {
-  background-color: rgba(127, 2, 235, 0.4);
+  background-color: rgba(23, 126, 141, 0.4);
   border-radius: 9999px;
 }
 .scrollbar-thin-brand::-webkit-scrollbar-thumb:hover {
-  background-color: rgba(127, 2, 235, 0.6);
+  background-color: rgba(23, 126, 141, 0.6);
 }
 
 /* Consultation form's phone field (react-phone-number-input). The country
@@ -97,35 +97,42 @@
 
 @theme {
   /* ── Brand ────────────────────────────────────────────────────────────────
-     2026 refresh: the old #632D8B plum is replaced by the new electric-purple
-     palette. --color-brand (Electric Purple) carries text, links and identity
-     moments; --color-action (Vivid Purple) is the button fill, one step
-     brighter than --color-brand so filled buttons read distinctly from
-     underlined text. --color-action-hover has no equivalent in the brand
-     palette (which has no darker step), so it is derived. */
-  --color-brand: #7F02EB;
-  --color-action: #6E05F0;
-  --color-action-hover: #5806C9;
-  --color-tint: #F1EBFD;
+     2026 rebrand to the teal palette. --color-brand carries text, links and
+     identity moments; --color-action is the button fill. They are the same
+     Teal now: the palette has one primary, and teal on white clears AA for
+     body text (4.77:1). --color-action-hover is derived, a step darker
+     (7.3:1). --color-tint is the lightest wash that still keeps teal text on
+     it at AA (4.52:1). --color-light is the brand's Light Sky Blue: for
+     fills, rules and glows, never for text, and dark teal reads on it at
+     11.9:1. --color-deep is the brand's Dark Teal: dark surfaces, the deep end
+     of gradients, scrims. */
+  --color-brand: #177E8D;
+  --color-action: #177E8D;
+  --color-action-hover: #115F6B;
+  --color-tint: #F0FBFD;
+  --color-light: #C5F8FF;
+  --color-deep: #00333A;
   --color-link: var(--color-action);
 
-  /* Legacy aliases, still the old plum on purpose: unmigrated sections keep
-     their current look until each is rebuilt against the new tokens above. */
-  --color-brand-purple: #632D8B;
-  --color-brand-purple-dark: #4C236C;
-  --color-brand-purple-light: #7B1FA2;
-  --color-brand-purple-50: #F5E6FF;
-  --color-brand-purple-100: #E8CCFF;
+  /* Legacy aliases. The names say purple because unmigrated sections still
+     use them, but the values are the teal palette, so those sections follow
+     the rebrand without being touched. Prefer brand/action/tint/light in new
+     work. */
+  --color-brand-purple: #177E8D;
+  --color-brand-purple-dark: #115F6B;
+  --color-brand-purple-light: #4DA3AF;
+  --color-brand-purple-50: #F0FBFD;
+  --color-brand-purple-100: #C5F8FF;
 
   /* ── Structure ────────────────────────────────────────────────────────────
-     Black carries the full-width furniture (utility bar, footer) so the brand
-     colour is not spent on wallpaper. */
-  --color-structure: #171717;
+     Dark Teal carries the full-width furniture (utility bar, footer) so the
+     primary teal is not spent on wallpaper. */
+  --color-structure: #00333A;
   --color-pill: #171717;
 
   /* ── Surfaces ─────────────────────────────────────────────────────────────
-     True neutrals, no violet cast. A tinted grey reads as one more shade of
-     purple, which is the thing being removed. */
+     True neutrals, no colour cast. A tinted grey reads as one more shade of the
+     brand colour and muddies it. */
   --color-canvas: #FAFAFA;
   --color-surface: #FFFFFF;
   --color-surface-0: #F5F5F5;
@@ -213,59 +220,6 @@
   letter-spacing: normal !important;
 }
 
-/* Hero backdrop: a soft lift behind the headline so the page does not start on
-   a flat grey, plus a faint brand-purple glow at the centre. The globe behind
-   it fades out before it reaches the copy. Kept light: everything below the
-   hero is white, and colour reads relative to its neighbours, what felt
-   right in isolation read as heavy once four calm white sections followed. */
-.hero-lift {
-  background-image:
-    radial-gradient(ellipse 36% 46% at 50% 40%, rgba(127, 2, 235, 0.03) 0%, rgba(127, 2, 235, 0) 70%),
-    radial-gradient(
-      ellipse 68% 56% at 50% 34%,
-      #fff 0%,
-      #fcfcfc 30%,
-      var(--color-canvas) 56%,
-      #f4f3f5 100%
-    );
-}
-/* Two masks: the original top-to-bottom fade, plus a horizontal one that
-   clears the centre, roughly the width of the course finder card, so the
-   globe reads as ambient texture in the margins rather than a pattern
-   sitting behind the headline and the card. Both must agree for a pixel to
-   show, hence the intersect. */
-.hero-globe-fade {
-  -webkit-mask-image:
-    linear-gradient(#000 0% 25%, #0000 45%),
-    linear-gradient(to right, #000 0%, #000 12%, transparent 24%, transparent 76%, #000 88%, #000 100%);
-  -webkit-mask-composite: source-in;
-  mask-image:
-    linear-gradient(#000 0% 25%, #0000 45%),
-    linear-gradient(to right, #000 0%, #000 12%, transparent 24%, transparent 76%, #000 88%, #000 100%);
-  mask-composite: intersect;
-}
-
-/* Hero side glows: light brand-purple, fading both away from the edge and
-   from top to bottom, so they sit behind the globe and the copy without
-   reaching the bottom of the section. */
-.hero-glow {
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 40%;
-  pointer-events: none;
-  -webkit-mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.55) 50%, transparent 100%);
-  mask-image: linear-gradient(to bottom, #000 0%, rgba(0, 0, 0, 0.55) 50%, transparent 100%);
-}
-.hero-glow-l {
-  left: 0;
-  background: radial-gradient(ellipse 90% 70% at 0% 25%, rgba(127, 2, 235, 0.08) 0%, rgba(127, 2, 235, 0) 70%);
-}
-.hero-glow-r {
-  right: 0;
-  background: radial-gradient(ellipse 90% 70% at 100% 25%, rgba(92, 9, 245, 0.07) 0%, rgba(92, 9, 245, 0) 70%);
-}
-
 /* Logo marquee. Two identical lists sit side by side and the track slides by
    exactly half its width, so the loop is seamless with no JS measuring
    anything. --marquee-duration is set per row. */
@@ -323,12 +277,10 @@
   .course-finder-texture { animation: none; }
 }
 
-/* About page, "What We Stand For": a purple dot grid faded out towards the
-   edges by its own mask, so the texture never reaches the section border.
-   Electric Purple now, not the deprecated #632D8B brand-purple this used to
-   hardcode. */
+/* About page, "What We Stand For": a brand-teal dot grid faded out towards the
+   edges by its own mask, so the texture never reaches the section border. */
 .values-section-texture {
-  background-image: radial-gradient(circle, rgba(127, 2, 235, 0.12) 1.5px, #0000 1.5px);
+  background-image: radial-gradient(circle, rgba(23, 126, 141, 0.12) 1.5px, #0000 1.5px);
   background-size: 24px 24px;
   -webkit-mask-image: radial-gradient(85% 70%, #000 35%, #0000 100%);
   mask-image: radial-gradient(85% 70%, #000 35%, #0000 100%);
@@ -360,7 +312,7 @@
   100% { background-position: 16px 16px; }
 }
 .assessment-hero-texture {
-  background-image: radial-gradient(circle, #632d8b38 1.25px, #0000 1.25px);
+  background-image: radial-gradient(circle, #177E8D38 1.25px, #0000 1.25px);
   background-size: 16px 16px;
   animation: assessment-grid-drift 28s linear infinite;
   -webkit-mask-image: radial-gradient(92% 88%, #000 45%, #0000 100%);

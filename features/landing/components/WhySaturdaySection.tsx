@@ -35,14 +35,14 @@ export default function WhySaturdaySection() {
   return (
     // White, not grey: the cards carry their own definition (a real border
     // and shadow) rather than relying on a tinted page background to stand
-    // out against. Side glows now too, same two-tone purple/violet pairing
+    // out against. Side glows now too, same two-tone teal/dark-teal pairing
     // as the hero's own hero-glow-l/r and the footer, self-contained here
     // rather than reusing those classes directly since they're tuned for the
     // hero's own top-heavy layout, not this section's centred row.
     <section className="relative overflow-hidden bg-surface py-14 max-tablet:py-10">
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(127,2,235,0.06)_0%,rgba(127,2,235,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(92,9,245,0.06)_0%,rgba(92,9,245,0)_70%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(23,126,141,0.06)_0%,rgba(23,126,141,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(0,51,58,0.06)_0%,rgba(0,51,58,0)_70%)]"
       />
       <div className="relative z-[1] mx-auto max-w-wrap px-6">
         {/* Only this block animates in the design; the facts row and the button
@@ -66,13 +66,13 @@ export default function WhySaturdaySection() {
             <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
               {t('eyebrow')}
             </h2>
-            <p className="mb-6 max-w-[28ch] text-section font-medium text-[#140A2B]">{t('headline')}</p>
-            <p className="mb-6 max-w-[46ch] text-body font-light text-[#5B5370]">{t('body')}</p>
+            <p className="mb-6 max-w-[28ch] text-section font-medium text-[#00333A]">{t('headline')}</p>
+            <p className="mb-6 max-w-[46ch] text-body font-light text-[#4D6A70]">{t('body')}</p>
             <p className="text-title leading-none font-medium text-accent-ink tabular-nums">{t('statCount')}</p>
-            <p className="mt-1 text-label font-normal text-[#6F6789]">{t('statLabel')}</p>
+            <p className="mt-1 text-label font-normal text-[#587279]">{t('statLabel')}</p>
           </div>
 
-          <div className="relative min-h-[260px] overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(20,10,43,0.35)]">
+          <div className="relative min-h-[260px] overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(0,51,58,0.35)]">
             <Image
               src="/images/hero/counselling.webp"
               alt={t('imageAlt')}
@@ -85,7 +85,7 @@ export default function WhySaturdaySection() {
         </motion.div>
 
         {/* A soft gradient line instead of a flat hairline. */}
-        <div aria-hidden="true" className="my-10 h-px bg-gradient-to-r from-transparent via-[#140A2B]/10 to-transparent" />
+        <div aria-hidden="true" className="my-10 h-px bg-gradient-to-r from-transparent via-[#00333A]/10 to-transparent" />
 
         {/* Same three facts, each a solid white card with a real border and
             shadow so it reads clearly on a white page, and a gentle scale on
@@ -96,13 +96,13 @@ export default function WhySaturdaySection() {
             return (
               <div
                 key={fact.title}
-                className="cursor-default rounded-2xl border border-stroke bg-white p-5 shadow-card transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:shadow-[0_20px_40px_-20px_rgba(127,2,235,0.35)]"
+                className="cursor-default rounded-2xl border border-stroke bg-white p-5 shadow-card transition-[transform,box-shadow] duration-200 ease-out hover:-translate-y-1 hover:scale-[1.03] hover:shadow-[0_20px_40px_-20px_rgba(23,126,141,0.35)]"
               >
                 <div className="mb-3 flex size-9 items-center justify-center rounded-full bg-surface-1">
                   <Icon className="size-4 text-brand" strokeWidth={1.75} aria-hidden="true" />
                 </div>
-                <b className="mb-1 block text-label font-medium text-[#140A2B]">{fact.title}</b>
-                <p className="text-label font-normal text-[#6F6789]">{fact.body}</p>
+                <b className="mb-1 block text-label font-medium text-[#00333A]">{fact.title}</b>
+                <p className="text-label font-normal text-[#587279]">{fact.body}</p>
               </div>
             )
           })}

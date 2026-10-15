@@ -7,7 +7,7 @@ import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
 import 'react-phone-number-input/style.css'
 import { Link } from '@/i18n/navigation'
 import { CONTACT_LINKS } from '@/shared/constants/social'
-import { PhoneCountrySelect } from '@/shared/components/common'
+import { CustomDropdown, PhoneCountrySelect } from '@/shared/components/common'
 
 // Which country's flag/dial code is pre-selected before the visitor picks
 // their own — the site's own locale is the only signal available before
@@ -36,7 +36,7 @@ interface Props {
 }
 
 const FIELD =
-  'rounded-sm border border-stroke/70 bg-white/70 px-3.5 py-2 font-sans text-body font-light text-primary-text shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.2)] backdrop-blur-sm transition-colors placeholder:text-muted-text hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none'
+  'rounded-sm border border-stroke/70 bg-white/70 px-3.5 py-2 font-sans text-body font-light text-primary-text shadow-[0_1px_2px_rgba(0,51,58,0.05),0_8px_16px_-12px_rgba(0,51,58,0.2)] backdrop-blur-sm transition-colors placeholder:text-muted-text hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none'
 
 const LABEL = 'flex flex-col gap-1.5 text-label font-medium text-primary-text'
 
@@ -50,25 +50,6 @@ const COUNTRY_VALUES = [
   'thailand', 'malaysia', 'germany', 'hungary', 'finland', 'china',
   'sweden', 'uae', 'japan', 'korea', 'uk', 'usa', 'australia',
 ] as const
-
-function Chevron() {
-  return (
-    <svg
-      viewBox="0 0 20 20"
-      fill="none"
-      aria-hidden="true"
-      className="pointer-events-none absolute top-1/2 right-3.5 size-4 -translate-y-1/2 text-muted-text transition-colors peer-focus:text-action"
-    >
-      <path
-        d="M5 7.5L10 12.5L15 7.5"
-        stroke="currentColor"
-        strokeWidth="1.6"
-        strokeLinecap="round"
-        strokeLinejoin="round"
-      />
-    </svg>
-  )
-}
 
 function MessengerIcon() {
   return (
@@ -172,6 +153,10 @@ export default function ConsultationSection({ onSubmit }: Props) {
       setError(t('form.errorPhone'))
       return
     }
+    if (!targetCountry) {
+      setError(t('form.errorCountry'))
+      return
+    }
 
     setIsSubmitting(true)
     const response = await onSubmit({
@@ -210,14 +195,14 @@ export default function ConsultationSection({ onSubmit }: Props) {
           </p>
         </div>
 
-        <div className="relative overflow-hidden rounded-[28px] border border-stroke bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_30px_60px_-30px_rgba(20,10,43,0.25)] backdrop-blur-md lg:grid lg:grid-cols-[2fr_1fr]">
+        <div className="relative overflow-hidden rounded-[28px] border border-stroke bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_30px_60px_-30px_rgba(0,51,58,0.25)] backdrop-blur-md lg:grid lg:grid-cols-[2fr_1fr]">
           {/* Liquid glass: same self-contained top-down wash every other
               card on the page uses, positioned toward the form side rather
               than centred, since the photo already carries its own visual
               weight. */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_60%_50%_at_15%_0%,rgba(127,2,235,0.07)_0%,rgba(127,2,235,0)_60%)]"
+            className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_60%_50%_at_15%_0%,rgba(23,126,141,0.07)_0%,rgba(23,126,141,0)_60%)]"
           />
 
           {/* Second in the DOM but first in the grid from lg up, so the photo
@@ -285,28 +270,19 @@ export default function ConsultationSection({ onSubmit }: Props) {
                     className={FIELD}
                   />
                 </label>
-                <label className={LABEL}>
-                  {t('form.country.label')}
-                  <span className="relative block">
-                    <select
-                      name="country"
-                      required
-                      value={targetCountry}
-                      onChange={(e) => setTargetCountry(e.target.value)}
-                      className={`peer w-full appearance-none pr-10 ${FIELD}`}
-                    >
-                      <option value="" disabled>
-                        {t('form.country.placeholder')}
-                      </option>
-                      {COUNTRY_VALUES.map((value) => (
-                        <option key={value} value={value}>
-                          {t(`form.country.options.${value}`)}
-                        </option>
-                      ))}
-                    </select>
-                    <Chevron />
-                  </span>
-                </label>
+                <CustomDropdown
+                  variant="field-glass"
+                  size="form"
+                  label={t('form.country.label')}
+                  value={targetCountry}
+                  options={COUNTRY_VALUES.map((value) => ({
+                    value,
+                    label: t(`form.country.options.${value}`),
+                  }))}
+                  onChange={setTargetCountry}
+                  placeholder={t('form.country.placeholder')}
+                  showPlaceholderOption={false}
+                />
               </div>
 
               <label className="flex flex-col gap-1.5 text-label font-medium">
@@ -330,7 +306,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
               <button
                 type="submit"
                 disabled={isSubmitting}
-                className="mt-2 inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-action px-16 text-body font-medium whitespace-nowrap text-white transition-[background-color,box-shadow] duration-300 hover:bg-action-hover hover:shadow-[0_16px_32px_-16px_rgba(110,5,240,0.5)] disabled:cursor-not-allowed disabled:opacity-60"
+                className="mt-2 inline-flex min-h-13 cursor-pointer items-center justify-center gap-2 rounded-full bg-action px-16 text-body font-medium whitespace-nowrap text-white transition-[background-color,box-shadow] duration-300 hover:bg-action-hover hover:shadow-[0_16px_32px_-16px_rgba(23,126,141,0.5)] disabled:cursor-not-allowed disabled:opacity-60"
               >
                 {isSubmitting ? t('form.submitting') : t('form.submit')}
               </button>

@@ -9,9 +9,12 @@
 // filter, but the tool treats those as a locked embed and hides the matching
 // dropdown, so a student could not widen the search afterwards. Hence the JSON.
 
-// --color-brand-purple from globals.css without the hash, which in a URL would
-// start a fragment. Repaints the tool's accent to match ours.
-const BRAND_PURPLE = '590D82'
+// --color-brand from globals.css without the hash, which in a URL would start a
+// fragment. Checked in Oct 2026: the tool ignores this parameter (a red value
+// renders identically), and its purple comes from the Firmli portal's own
+// branding settings for this tenant. It is kept so the URL is right if the
+// tool ever honours it.
+const BRAND_COLOR = '177E8D'
 
 const EMBED_BASE = 'https://coursefinder.saturdayeducation.com/embeddable-programs'
 
@@ -59,7 +62,7 @@ export function buildEmbedUrl(filters: CourseFinderFilters): string {
     ...(filters.field && { discipline_id: [filters.field] }),
   }
 
-  const params = new URLSearchParams({ theme: BRAND_PURPLE })
+  const params = new URLSearchParams({ theme: BRAND_COLOR })
   if (Object.keys(programFilters).length > 0) {
     params.set('programFilters', JSON.stringify(programFilters))
   }

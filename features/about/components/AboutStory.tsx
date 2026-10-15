@@ -13,12 +13,11 @@ export function AboutStory() {
   return (
     <section className="relative overflow-hidden border-t border-white/10 bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-16 text-white max-tablet:py-12">
       {/* The same photograph twice: blurred and dimmed here as an ambient
-          backdrop, sharp in the frame on the right. The scrim is #2C0260,
+          backdrop, sharp in the frame on the right. The scrim is #00262B,
           the same 40%-of-action-on-black mix as the section background
           above (computed once rather than nested color-mix() calls, since
-          Tailwind's opacity suffixes need a plain colour to work from) —
-          was a desaturated, off-hue near-black purple before, now the same
-          brand purple the rest of the site's dark bands use. */}
+          Tailwind's opacity suffixes need a plain colour to work from), so it
+          stays the same brand teal the rest of the site's dark bands use. */}
       <div className="pointer-events-none absolute inset-0 overflow-hidden">
         <Image
           src="/images/about/counsellor-training.webp"
@@ -29,7 +28,7 @@ export function AboutStory() {
           sizes="100vw"
           className="scale-125 object-cover object-center opacity-35 blur-2xl filter"
         />
-        <div className="absolute inset-0 bg-gradient-to-r from-[#2C0260]/90 via-[#2C0260]/75 to-[#2C0260]/50" />
+        <div className="absolute inset-0 bg-gradient-to-r from-[#00262B]/90 via-[#00262B]/75 to-[#00262B]/50" />
       </div>
 
       {/* Only this content fades/rises on scroll — the dark band and its

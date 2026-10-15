@@ -9,8 +9,8 @@ export interface AptitudeBand {
 }
 
 export function aptitudeBandFor(percent: number): AptitudeBand {
-  if (percent >= 80) return { label: 'Strong', color: '#590D82' }
-  if (percent >= 60) return { label: 'Proficient', color: '#7B1FA2' }
-  if (percent >= 40) return { label: 'Developing', color: '#9D5BB8' }
-  return { label: 'Emerging', color: '#C9A8DD' }
+  if (percent >= 80) return { label: 'Strong', color: '#115F6B' }
+  if (percent >= 60) return { label: 'Proficient', color: '#177E8D' }
+  if (percent >= 40) return { label: 'Developing', color: '#5BB0BC' }
+  return { label: 'Emerging', color: '#A5DCE3' }
 }

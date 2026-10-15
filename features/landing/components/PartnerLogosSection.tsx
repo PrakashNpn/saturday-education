@@ -70,7 +70,12 @@ export default function PartnerLogosSection() {
   const t = useTranslations('Landing.partners')
 
   return (
-    <section className="border-y border-stroke bg-surface py-14 max-tablet:py-10">
+    // A light teal wash that fades to plain white behind the heading. It stops
+    // well above the logo rows on purpose: about a third of the logos are
+    // images with a solid white background, which would show as boxes on any
+    // tint, so the rows stay on pure white. The stops are in pixels so the
+    // fade ends at the same place however many lines the heading wraps to.
+    <section className="border-y border-stroke bg-surface bg-[linear-gradient(180deg,rgba(197,248,255,.24)_0px,rgba(240,251,253,.34)_70px,#fff_150px)] py-14 max-tablet:py-10">
       <div className="mx-auto mb-10 max-w-wrap px-6 text-center">
         <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
           {t('eyebrow')}

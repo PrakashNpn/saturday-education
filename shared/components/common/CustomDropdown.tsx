@@ -20,7 +20,8 @@ interface Props {
   onChange: (value: string) => void
   placeholder?: string
   className?: string
-  size?: 'default' | 'compact'
+  /** 'form' matches the height and type of a text field in a form grid. */
+  size?: 'default' | 'compact' | 'form'
   showPlaceholderOption?: boolean
   variant?: Variant
 }
@@ -114,11 +115,13 @@ export function CustomDropdown({
   // Translucent full pill so the card's own glass wash still shows through,
   // rather than a flat white box sitting on top of it.
   const glassBox =
-    'flex w-full items-center justify-between gap-2 rounded-sm border border-stroke/70 bg-white/70 text-primary-text shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.25)] backdrop-blur-sm transition-colors hover:border-action/40 focus:border-action focus:ring-2 focus:ring-action/15 focus:outline-none'
+    'flex w-full items-center justify-between gap-2 rounded-sm border border-stroke/70 bg-white/70 text-primary-text shadow-[0_1px_2px_rgba(0,51,58,0.05),0_8px_16px_-12px_rgba(0,51,58,0.25)] backdrop-blur-sm transition-colors hover:border-action/40 focus:border-action focus:ring-2 focus:ring-action/15 focus:outline-none'
   const triggerCls = isGlass
     ? `${glassBox} ${
         size === 'compact'
           ? 'px-3.5 py-1.5 text-label font-normal'
+          : size === 'form'
+          ? 'px-3.5 py-2 text-body font-light'
           : 'px-4 py-2.5 text-body font-normal'
       }`
     : isField

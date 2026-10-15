@@ -83,7 +83,7 @@ function LanguageSwitcher() {
       {open && (
         <span
           role="menu"
-          className="absolute top-full right-0 z-50 mt-2 min-w-[8.5rem] overflow-hidden rounded-xl border border-stroke/70 bg-white/90 py-1.5 text-left shadow-[0_12px_32px_-8px_rgba(20,10,43,0.2),0_4px_12px_-4px_rgba(20,10,43,0.1)] backdrop-blur-md"
+          className="absolute top-full right-0 z-50 mt-2 min-w-[8.5rem] overflow-hidden rounded-xl border border-stroke/70 bg-white/90 py-1.5 text-left shadow-[0_12px_32px_-8px_rgba(0,51,58,0.2),0_4px_12px_-4px_rgba(0,51,58,0.1)] backdrop-blur-md"
         >
           {LANGUAGE_OPTIONS.map((option) => (
             <Link

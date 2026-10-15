@@ -2,6 +2,7 @@
 // call-to-action. The model is told never to use dashes and to emit a marker such
 // as [[book-consultation]] when an action is relevant; here we strip any dash that
 // slips through and map the marker to a branded CTA button.
+import { readLeadMarker, type LeadMarker } from './leadMarkers'
 
 export interface CtaLink {
   href: string
@@ -10,14 +11,13 @@ export interface CtaLink {
 }
 
 /** Markers the model may emit (mirrored in the system prompt) → CTA descriptor.
- *  Only confirmed, real routes. */
+ *  Only confirmed, real routes. The chat is a lead funnel, so the only button
+ *  that leaves it is the Career Assessment, offered after details are sent.
+ *  Other markers the model may still write ([[destinations]] and
+ *  [[book-consultation]] from older history) are stripped from display and get
+ *  no button. */
 export const CTA_LINKS: Record<string, CtaLink> = {
-  '[[book-consultation]]': { href: '/#consultation', labelKey: 'consultationCta' },
   '[[career-assessment]]': { href: '/career-assessment', labelKey: 'careerAssessmentCta' },
-  // '[[universities]]' is intentionally disabled: the universities page is hidden
-  // pending partnership contracts. Re-enable by uncommenting the line below AND
-  // restoring the [[universities]] marker + guidance in prompts/system.ts.
-  '[[destinations]]': { href: '/destinations', labelKey: 'destinationsCta' },
 }
 
 const MARKERS = Object.keys(CTA_LINKS)
@@ -35,6 +35,8 @@ export function stripDashes(text: string): string {
 export interface ParsedReply {
   text: string
   cta: CtaLink | null
+  /** The lead form's state in this message: open, saved or known from an earlier chat. */
+  lead: LeadMarker | null
 }
 
 /**
@@ -51,5 +53,5 @@ export function parseAssistantReply(content: string): ParsedReply {
   // half-streamed marker so it doesn't flash mid-stream.
   let text = content.replace(/\[\[[^\]]*\]\]/g, ' ').replace(/\[\[[^\]]*$/, '')
   text = stripDashes(text)
-  return { text: text.replace(/\s{2,}/g, ' ').trim(), cta }
+  return { text: text.replace(/\s{2,}/g, ' ').trim(), cta, lead: readLeadMarker(content) }
 }

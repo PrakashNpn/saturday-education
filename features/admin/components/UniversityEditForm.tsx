@@ -75,7 +75,7 @@ export default function UniversityEditForm({ university }: { university: Univers
           name="ranking"
           defaultValue={university.ranking ?? ''}
           placeholder="e.g. 250"
-          className="w-32 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+          className="w-32 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-action focus:outline-none focus:ring-1 focus:ring-action"
         />
       </div>
 
@@ -85,7 +85,7 @@ export default function UniversityEditForm({ university }: { university: Univers
           name="shortDescription"
           defaultValue={university.shortDescription ?? ''}
           rows={3}
-          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+          className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-action focus:outline-none focus:ring-1 focus:ring-action"
         />
       </div>
 
@@ -93,7 +93,7 @@ export default function UniversityEditForm({ university }: { university: Univers
         <button
           type="submit"
           disabled={saving}
-          className="rounded-md bg-purple-700 px-5 py-2 text-sm font-medium text-white hover:bg-purple-800 disabled:opacity-60"
+          className="rounded-md bg-action px-5 py-2 text-sm font-medium text-white hover:bg-action-hover disabled:opacity-60"
         >
           {saving ? 'Saving…' : 'Save'}
         </button>

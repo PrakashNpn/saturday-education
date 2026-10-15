@@ -65,7 +65,7 @@ export default async function UniversitiesPage({
                 <td className="px-4 py-3 text-right">
                   <Link
                     href={`/admin/universities/${u.slug}`}
-                    className="rounded-md border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 hover:border-purple-300 hover:text-purple-700"
+                    className="rounded-md border border-gray-200 px-3 py-1 text-xs font-medium text-gray-600 hover:border-action/40 hover:text-action-hover"
                   >
                     Edit
                   </Link>

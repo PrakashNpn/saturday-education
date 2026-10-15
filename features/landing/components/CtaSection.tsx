@@ -37,7 +37,7 @@ export default function CtaSection() {
         <p className="mb-8 max-w-[20ch] text-display leading-[1.1] font-medium text-white">
           {t('heading')}
         </p>
-        {/* White on the photograph rather than purple: the brand colour would
+        {/* White on the photograph rather than the brand colour: the brand colour would
             disappear into the scrim. */}
         <Link
           href="/#consultation"

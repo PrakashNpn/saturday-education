@@ -161,7 +161,7 @@ export default function Loading() {
         </div>
       </section>
 
-      {/* CTA band — mirrors DetailCta. Same muted-purple placeholder as the
+      {/* CTA band — mirrors DetailCta. Same muted-teal placeholder as the
           hero above, for the same reason. */}
       <section className="bg-[color-mix(in_srgb,var(--color-action)_35%,black)] py-16 text-center max-tablet:py-12">
         <div className="mx-auto max-w-wrap px-6">

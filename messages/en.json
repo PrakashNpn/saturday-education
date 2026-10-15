@@ -229,7 +229,8 @@
         "imageAlt": "A Saturday Education counsellor at his desk",
         "errorName": "Please enter your full name.",
         "errorEmail": "Please enter a valid email address.",
-        "errorPhone": "Please enter a valid phone number."
+        "errorPhone": "Please enter a valid phone number.",
+        "errorCountry": "Please select a target country."
       },
       "success": {
         "title": "Request Received!",
@@ -277,19 +278,12 @@
     "courseSearch": {
       "statBanner": "{programs} courses across {institutions} institutions.",
       "statBannerNoCounts": "Explore courses across our partner destinations.",
-      "countryLabel": "Select your destination",
       "levelLabel": "Study level",
       "fieldLabel": "Field of study",
       "anyCountry": "Any destination",
       "anyLevel": "Any level",
-      "anyLevelPill": "Any",
       "anyField": "Any field",
-      "searchButton": "Find Programmes",
-      "pillBachelor": "Bachelor's",
-      "pillMaster": "Master's",
-      "pillDiploma": "Diploma",
-      "pillCertificate": "Certificate",
-      "consultationPrompt": "Prefer to talk it through first? <link>Book a free consultation</link> instead."
+      "searchButton": "Find Programmes"
     },
     "partners": {
       "eyebrow": "Partner universities",
@@ -622,6 +616,17 @@
     "imageCaption": "A Saturday Education counsellor walking students through their options.",
     "titleSuffix": ""
   },
+  "heroLiquid": {
+    "eyebrow": "Study abroad counselling",
+    "bookConsultation": "Book a free consultation",
+    "careerAssessment": "Take the career assessment",
+    "partnersCount": "700+",
+    "partnersLabel": "partner universities",
+    "popular": "Popular",
+    "destinationLabel": "Destination",
+    "photoAlt": "Saturday Education counsellors talking with students in the office",
+    "allDestinations": "All 20+ destinations"
+  },
   "consultation": {
     "title": "Book a Free Consultation",
     "success": "We'll contact you within 24 hours!"
@@ -694,14 +699,40 @@
     "status": "Online",
     "welcomeMessage": "Hi there! 👋 I'm your Study Abroad Advisor. I can help you find the right university, compare destinations, and guide you through the application process. How can I help you today?",
     "inputPlaceholder": "Type your message...",
-    "consultationCta": "Book a free consultation",
     "careerAssessmentCta": "Take the free Career Assessment",
     "universitiesCta": "Browse universities",
-    "destinationsCta": "Explore destinations",
     "suggestions": {
-      "whatToStudy": "What should I study?",
-      "compare": "Compare study destinations",
-      "scholarships": "Scholarship opportunities"
+      "chooseCourse": "Help me choose a course and country",
+      "scholarships": "Am I eligible for scholarships?",
+      "counsellor": "Talk to a counsellor"
+    },
+    "lead": {
+      "title": "Talk to a counsellor",
+      "subtitle": "Leave your details and a counsellor will follow up within 1 business day.",
+      "nameLabel": "Full name",
+      "namePlaceholder": "Your full name",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "phoneLabel": "Phone number",
+      "phonePlaceholder": "Phone number",
+      "privacy": "By sending, you agree to our <link>Privacy Policy</link>.",
+      "submit": "Send to a counsellor",
+      "submitting": "Sending...",
+      "orMessage": "or message us on",
+      "whatsapp": "WhatsApp",
+      "messenger": "Messenger",
+      "sentTitle": "Details sent",
+      "sentBody": "A counsellor will contact you within 1 business day.",
+      "errors": {
+        "name": "Please enter your full name.",
+        "email": "Please check your email address.",
+        "phone": "Please enter a valid phone number with its country code.",
+        "rate": "Too many attempts. Please try again later or message us on WhatsApp.",
+        "failed": "Something went wrong. Please try again or message us on WhatsApp."
+      },
+      "gateTitle": "Let a counsellor help with your options",
+      "gateSubtitle": "Share your details and a counsellor will go through universities and next steps that fit you within 1 business day. You can keep chatting right after.",
+      "gatePlaceholder": "Share your details above to continue"
     }
   },
   "destinations": {

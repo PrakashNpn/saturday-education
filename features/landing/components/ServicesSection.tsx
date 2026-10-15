@@ -42,7 +42,7 @@ export default function ServicesSection() {
           relative z-[1] treatment matched to its own content wrapper. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(127,2,235,0.06)_0%,rgba(127,2,235,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(92,9,245,0.06)_0%,rgba(92,9,245,0)_70%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(23,126,141,0.06)_0%,rgba(23,126,141,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(0,51,58,0.06)_0%,rgba(0,51,58,0)_70%)]"
       />
       <div className="relative z-[1] mx-auto max-w-wrap px-6 text-center">
         <h2 className="mb-2 text-min font-medium tracking-[0.06em] text-muted-text uppercase">
@@ -68,7 +68,7 @@ export default function ServicesSection() {
               not straddling this container's edge the way it used to). */}
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-[calc(50%+10px)] right-12 left-12 h-px bg-[linear-gradient(90deg,#7F02EB_0%,#6E05F0_50%,#5C09F5_100%)] opacity-25 max-tablet:hidden"
+            className="pointer-events-none absolute top-[calc(50%+10px)] right-12 left-12 h-px bg-[linear-gradient(90deg,#177E8D_0%,#177E8D_50%,#00333A_100%)] opacity-25 max-tablet:hidden"
           />
           {steps.map((step, index) => (
             <motion.div
@@ -106,14 +106,14 @@ export default function ServicesSection() {
               // follows its own description directly, and any leftover
               // height to match the tallest card shows up as quiet space at
               // the card's own bottom, not a mid-card gap.
-              className="relative row-span-3 grid grid-rows-subgrid gap-2.5 overflow-visible rounded-2xl border border-stroke bg-white/70 px-6 pt-7 pb-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(20,10,43,0.04)] backdrop-blur-md transition-shadow duration-300 ease-out hover:shadow-[0_20px_40px_-20px_rgba(127,2,235,0.35)]"
+              className="relative row-span-3 grid grid-rows-subgrid gap-2.5 overflow-visible rounded-2xl border border-stroke bg-white/70 px-6 pt-7 pb-6 text-center shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(0,51,58,0.04)] backdrop-blur-md transition-shadow duration-300 ease-out hover:shadow-[0_20px_40px_-20px_rgba(23,126,141,0.35)]"
             >
               {/* Liquid glass: the same top-down wash and translucency the
                   course finder card uses, self-contained per card so it
                   doesn't depend on anything sitting behind the section. */}
               <div
                 aria-hidden="true"
-                className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(127,2,235,0.09)_0%,rgba(127,2,235,0.02)_45%,rgba(127,2,235,0)_80%)]"
+                className="pointer-events-none absolute inset-0 z-0 overflow-hidden rounded-2xl bg-[radial-gradient(ellipse_80%_60%_at_50%_-10%,rgba(23,126,141,0.09)_0%,rgba(23,126,141,0.02)_45%,rgba(23,126,141,0)_80%)]"
               />
               <span className="relative z-[1] grid size-11 justify-self-center place-items-center rounded-full bg-action text-label font-semibold text-white">
                 {step.label}

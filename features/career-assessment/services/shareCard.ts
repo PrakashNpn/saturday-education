@@ -12,7 +12,7 @@ import type { DashboardData } from '../types'
  * results page, and a small logo mark. Visual language is deliberately NOT a
  * cropped copy of the dashboard: floating "stat cards" with their own
  * borders and shadow rather than sitting flush on the page, on white — the
- * real brand tokens (app/globals.css), not a bespoke palette, so the purple
+ * real brand tokens (app/globals.css), not a bespoke palette, so the teal
  * logo mark in the footer reads clearly instead of fighting a tinted or
  * gradient ground.
  */
@@ -36,12 +36,12 @@ const FOOTER_MARK_H = 100
 // Design tokens, inlined: raw SVG rasterization (sharp/librsvg) does not
 // resolve CSS custom properties, so these are copied from app/globals.css
 // rather than referenced. Matches the site's real tokens exactly (previously
-// secondaryText/mutedText/track carried a purple tint that no other on-brand
+// secondaryText/mutedText/track carried a lilac tint that no other on-brand
 // surface uses — AGENTS.md is explicit that neutrals stay true neutrals).
 const COLOR = {
-  action: '#632D8B',
-  actionHover: '#4C236C',
-  tint: '#F3EDFA',
+  action: '#177E8D',
+  actionHover: '#115F6B',
+  tint: '#F0FBFD',
   white: '#FFFFFF',
   primaryText: '#141414',
   secondaryText: '#404040',
@@ -207,12 +207,12 @@ async function buildQrSnippet(url: string, size: number): Promise<string> {
     type: 'svg',
     margin: 1,
     width: size,
-    color: { dark: '#632D8Bff', light: '#FFFFFFff' },
+    color: { dark: '#177E8Dff', light: '#FFFFFFff' },
   })
 }
 
 // ── Background: plain white, with one very soft tint wash in the corner for
-// depth — the point of white is for the purple logo mark to read clearly, so
+// depth — the point of white is for the teal logo mark to read clearly, so
 // this stays subtle rather than competing with it. ──────────────────────────
 function background(): string {
   return `
@@ -333,13 +333,13 @@ function personalityBars(
 }
 
 // ── Aptitude rings — same construction as DashboardCharts' ScoreRing, static,
-// with an on-brand purple ramp (all four stops are the one action purple at
+// with an on-brand teal ramp (all four stops are the one action teal at
 // different tints, not a separate colour system). ───────────────────────────
 function ringColorFor(percent: number): string {
-  if (percent >= 80) return '#632D8B'
-  if (percent >= 60) return '#8B4FB8'
-  if (percent >= 40) return '#B98FD6'
-  return '#DFC7EE'
+  if (percent >= 80) return '#177E8D'
+  if (percent >= 60) return '#4DA3AF'
+  if (percent >= 40) return '#85C4CD'
+  return '#BFE3E8'
 }
 
 function scoreRing(cx: number, cy: number, size: number, stroke: number, percent: number, label?: string): string {

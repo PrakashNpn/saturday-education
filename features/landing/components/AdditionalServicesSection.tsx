@@ -25,7 +25,7 @@ export default function AdditionalServicesSection() {
       {/* Same side glows as Why Saturday Education and Our Services. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(127,2,235,0.06)_0%,rgba(127,2,235,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(92,9,245,0.06)_0%,rgba(92,9,245,0)_70%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_50%_70%_at_0%_50%,rgba(23,126,141,0.06)_0%,rgba(23,126,141,0)_70%),radial-gradient(ellipse_50%_70%_at_100%_50%,rgba(0,51,58,0.06)_0%,rgba(0,51,58,0)_70%)]"
       />
       <div className="relative z-[1] mx-auto max-w-wrap px-6">
         {/* Image on the left, a divided icon list on the right rather than
@@ -39,7 +39,7 @@ export default function AdditionalServicesSection() {
               being tuned by hand to a fixed pixel height. The list beside it
               is tightened so that natural height stays in a range that
               doesn't crop the wide 2.2:1 photo too hard. */}
-          <div className="relative min-h-[260px] overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(20,10,43,0.35)] max-tablet:min-h-[240px]">
+          <div className="relative min-h-[260px] overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(0,51,58,0.35)] max-tablet:min-h-[240px]">
             <Image
               src="/images/landing/counselling.webp"
               alt={t('imageAlt')}

@@ -22,10 +22,10 @@ export function AboutHero() {
   })
 
   return (
-    // A white centre fading out to a pale purple at the edges, so the page
+    // A white centre fading out to a pale teal at the edges, so the page
     // opens lighter than it ends. Values are the design's own rather than
     // tokens: this wash appears nowhere else.
-    <section className="relative overflow-hidden bg-[#F2E8F8] bg-[radial-gradient(ellipse_110%_85%_at_50%_35%,#FFFFFF_0%,#FFFFFF_30%,#F8F3FC_62%,#EFE3F6_100%)] pt-16 pb-16 max-tablet:pt-12 max-tablet:pb-12">
+    <section className="relative overflow-hidden bg-[#E3F6F9] bg-[radial-gradient(ellipse_110%_85%_at_50%_35%,#FFFFFF_0%,#FFFFFF_30%,#F2FBFC_62%,#D9F2F6_100%)] pt-16 pb-16 max-tablet:pt-12 max-tablet:pb-12">
       <div className="mx-auto max-w-wrap px-6 text-center">
         <motion.p
           {...rise(0)}

@@ -1,6 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
+import type { MessageParam } from '@anthropic-ai/sdk/resources/messages'
 import { buildSystemPrompt } from '@/features/ai-advisor/prompts/system'
+import { planLeadTurn } from '@/features/ai-advisor/services/leadCapture'
 import type { Message } from '@/features/ai-advisor/types'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -17,56 +19,54 @@ export async function POST(req: NextRequest) {
   }
 
   // Only send the last 20 messages to cap token usage
-  const trimmed = messages.slice(-20).map(({ role, content }) => ({ role, content }))
+  const trimmed: MessageParam[] = messages.slice(-20).map(({ role, content }) => ({ role, content }))
 
-  try {
-    const stream = await client.messages.create({
-      model: 'claude-haiku-4-5-20251001',
-      max_tokens: 600,
-      stream: true,
-      system: buildSystemPrompt(locale),
-      messages: trimmed,
-    })
+  // Read from the full history rather than the trimmed copy sent to the model.
+  const plan = planLeadTurn(messages)
 
-    const readable = new ReadableStream({
-      async start(controller) {
-        const encoder = new TextEncoder()
-        let sent = false
-        try {
-          for await (const event of stream) {
-            if (
-              event.type === 'content_block_delta' &&
-              event.delta.type === 'text_delta'
-            ) {
-              controller.enqueue(encoder.encode(event.delta.text))
-              sent = true
-            }
-          }
-        } catch (err) {
-          // Failure mid-stream: if nothing has streamed yet, leave a short apology
-          // so the bubble isn't blank; otherwise keep what we have.
-          console.error('Chat stream error:', err)
-          if (!sent) {
-            controller.enqueue(encoder.encode("Sorry, I couldn't finish that. Please try again."))
-          }
-        } finally {
-          controller.close()
+  const readable = new ReadableStream({
+    async start(controller) {
+      const encoder = new TextEncoder()
+      let reply = ''
+      try {
+        const stream = client.messages.stream({
+          model: 'claude-haiku-4-5-20251001',
+          max_tokens: 600,
+          system: buildSystemPrompt(locale) + plan.directive,
+          messages: trimmed,
+        })
+        stream.on('text', (text) => {
+          reply += text
+          controller.enqueue(encoder.encode(text))
+        })
+        await stream.finalMessage()
+      } catch (err) {
+        // Failure before or during streaming. The request now lives inside the
+        // stream, so an overloaded or rate-limited API surfaces here as text
+        // rather than an HTTP status. If nothing has streamed yet, leave a short
+        // message so the bubble isn't blank; otherwise keep what we have.
+        console.error('Chat stream error:', err)
+        if (!reply) {
+          const status = err instanceof Anthropic.APIError ? err.status : undefined
+          const busy = status === 429 || status === 529
+          controller.enqueue(
+            encoder.encode(
+              busy
+                ? "I'm getting a lot of questions right now. Please try again in a moment."
+                : "Sorry, I couldn't finish that. Please try again.",
+            ),
+          )
         }
-      },
-    })
+      } finally {
+        controller.close()
+      }
+    },
+  })
 
-    return new Response(readable, {
-      headers: {
-        'Content-Type': 'text/plain; charset=utf-8',
-        'Cache-Control': 'no-cache',
-      },
-    })
-  } catch (err) {
-    // Failure before streaming starts (overloaded, rate limited, connection). Return
-    // a JSON status the client maps to a friendly message.
-    const status = err instanceof Anthropic.APIError ? err.status : undefined
-    const busy = status === 429 || status === 529
-    console.error('Chat API error:', err)
-    return NextResponse.json({ error: busy ? 'busy' : 'error' }, { status: busy ? 503 : 500 })
-  }
+  return new Response(readable, {
+    headers: {
+      'Content-Type': 'text/plain; charset=utf-8',
+      'Cache-Control': 'no-cache',
+    },
+  })
 }

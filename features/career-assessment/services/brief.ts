@@ -12,15 +12,16 @@ import type {
   RecommendationTree,
 } from '../types'
 
-// Public Supabase-hosted logo — a stable absolute URL that loads in email clients.
-const LOGO_URL =
-  'https://yucleuhlcrbqzcrweozy.supabase.co/storage/v1/object/public/saturday%20education/logo/logo.png'
+// The site's own email-safe PNG logo (many mail clients do not render WebP). An
+// absolute URL, so it loads in email clients, and it ships with the site, so it
+// changes with the brand instead of living in a separate bucket.
+const LOGO_URL = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://saturdayeducation.com'}/images/logo/logo-email.png`
 
 // Brand palette
-const PURPLE = '#590D82'
-const PURPLE_DARK = '#3D0A5A'
-const PURPLE_50 = '#F5E6FF'
-const PURPLE_BORDER = '#E3CCF5'
+const BRAND = '#177E8D'
+const BRAND_DARK = '#00333A'
+const BRAND_50 = '#F0FBFD'
+const BRAND_BORDER = '#C5F8FF'
 const TRACK = '#ECECF1'
 const INK = '#18181B'
 const GRAY = '#6b7280'
@@ -88,23 +89,23 @@ export function buildCounselorEmailHtml(
 
   // Flags — high-signal context for triaging the lead at a glance.
   const flags: string[] = []
-  if (contact.preferredCountry) flags.push(chip(`📍 Prefers ${esc(contact.preferredCountry)}`, '#ffffff', PURPLE, PURPLE_BORDER))
-  if (contact.educationLevel) flags.push(chip(`🎓 ${esc(contact.educationLevel)}`, '#ffffff', PURPLE, PURPLE_BORDER))
+  if (contact.preferredCountry) flags.push(chip(`📍 Prefers ${esc(contact.preferredCountry)}`, '#ffffff', BRAND, BRAND_BORDER))
+  if (contact.educationLevel) flags.push(chip(`🎓 ${esc(contact.educationLevel)}`, '#ffffff', BRAND, BRAND_BORDER))
   if (bigFive.percentile.N > 70) flags.push(chip('⚠️ High stress-reactivity', '#FEF3C7', '#92400E', '#FDE68A'))
   if (bigFive.percentile.A < 30) flags.push(chip('⚠️ Low agreeableness', '#FEF3C7', '#92400E', '#FDE68A'))
 
   // ── Lead card (identity + flags)
-  const leadCard = `<div style="background:${PURPLE_50};border:1px solid ${PURPLE_BORDER};border-radius:14px;padding:18px 20px;margin:0 0 16px;">
-    <p style="margin:0;font-size:20px;font-weight:800;color:${PURPLE_DARK};">${esc(contact.fullName)}</p>
-    <p style="margin:4px 0 0;font-size:14px;color:${PURPLE};font-weight:600;">${esc(archetype)} · Holland ${esc(riasec.hollandCode)}</p>
+  const leadCard = `<div style="background:${BRAND_50};border:1px solid ${BRAND_BORDER};border-radius:14px;padding:18px 20px;margin:0 0 16px;">
+    <p style="margin:0;font-size:20px;font-weight:800;color:${BRAND_DARK};">${esc(contact.fullName)}</p>
+    <p style="margin:4px 0 0;font-size:14px;color:${BRAND};font-weight:600;">${esc(archetype)} · Holland ${esc(riasec.hollandCode)}</p>
     <p style="margin:6px 0 0;font-size:12.5px;color:${GRAY};">${esc(contact.email)}${contact.phone ? ` · ${esc(contact.phone)}` : ''}</p>
     ${flags.length ? `<div style="margin:12px 0 0;">${flags.join('')}</div>` : ''}
   </div>`
 
   // ── Attachment call-out (honest about whether the PDF actually generated)
   const attachment = pdfAttached
-    ? `<div style="background:#ffffff;border:1px solid ${TRACK};border-left:4px solid ${PURPLE};border-radius:12px;padding:14px 18px;">
-        <p style="margin:0 0 3px;font-size:13px;font-weight:700;color:${PURPLE};">📎 Full report attached (PDF)</p>
+    ? `<div style="background:#ffffff;border:1px solid ${TRACK};border-left:4px solid ${BRAND};border-radius:12px;padding:14px 18px;">
+        <p style="margin:0 0 3px;font-size:13px;font-weight:700;color:${BRAND};">📎 Full report attached (PDF)</p>
         <p style="margin:0;font-size:12.5px;color:${GRAY};line-height:1.55;">The complete report (interests, personality, aptitude, ranked career paths and university matches) is attached. Open the PDF for the full breakdown.</p>
       </div>`
     : `<div style="background:#FEF3C7;border:1px solid #FDE68A;border-radius:12px;padding:14px 18px;">
@@ -115,17 +116,17 @@ export function buildCounselorEmailHtml(
   // ── Assemble
   return `<div style="background:#F4F4F7;padding:24px 10px;font-family:-apple-system,BlinkMacSystemFont,'Segoe UI',Roboto,Helvetica,Arial,sans-serif;">
     <div style="max-width:640px;margin:0 auto;background:#ffffff;border-radius:16px;overflow:hidden;border:1px solid ${TRACK};">
-      <div style="padding:18px 24px 14px;border-bottom:1px solid #F0EAF6;">
+      <div style="padding:18px 24px 14px;border-bottom:1px solid #DCEEF1;">
         <img src="${LOGO_URL}" alt="Saturday Education Consulting" height="72" style="height:72px;display:block;border:0;" />
       </div>
-      <div style="background:${PURPLE};padding:10px 24px;">
+      <div style="background:${BRAND};padding:10px 24px;">
         <span style="color:#ffffff;font-size:12px;font-weight:700;letter-spacing:.6px;">CAREER ASSESSMENT · NEW LEAD</span>
       </div>
       <div style="padding:22px;color:${INK};">
         ${leadCard}
         ${attachment}
       </div>
-      <div style="background:#FAF8FC;padding:16px 24px;text-align:center;border-top:1px solid #F0EAF6;">
+      <div style="background:#F7FCFD;padding:16px 24px;text-align:center;border-top:1px solid #DCEEF1;">
         <p style="margin:0;font-size:11px;color:${MUTE};">Saturday Education Consulting · Auto-generated by the Career Assessment</p>
       </div>
     </div>

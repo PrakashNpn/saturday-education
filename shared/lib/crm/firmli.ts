@@ -14,10 +14,12 @@ const FIRMLI_UTM_NUMBER = process.env.FIRMLI_UTM_NUMBER
 const apiBase = () => `https://${FIRMLI_CLIENT_NUMBER}-api.firmli.com/v1`
 
 // Firmli's destination-country picklist IDs for this account (from
-// GET /v1/dropdowns/destination-countries-dropdown), limited to the
-// countries our own consultation form's targetCountry select offers. If
-// Firmli ever rejects one of these, re-pull that endpoint — the IDs are
-// account-specific, not something Firmli documents publicly.
+// GET /v1/dropdowns/destination-countries-dropdown), limited to the countries
+// our consultation form's targetCountry select and the chat advisor's lead
+// tool can send. Grenada has no entry in Firmli's list, so a Grenada lead is
+// saved without a country there. If Firmli ever rejects one of these, re-pull
+// that endpoint — the IDs are account-specific, not something Firmli
+// documents publicly.
 const FIRMLI_COUNTRY_IDS: Record<string, number> = {
   uk: 230,
   usa: 231,
@@ -28,6 +30,11 @@ const FIRMLI_COUNTRY_IDS: Record<string, number> = {
   switzerland: 212,
   ireland: 105,
   thailand: 217,
+  germany: 82,
+  malaysia: 132,
+  netherlands: 155,
+  spain: 205,
+  uae: 229,
 }
 
 interface FirmliLeadInput {
