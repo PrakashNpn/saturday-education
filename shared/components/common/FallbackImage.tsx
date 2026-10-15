@@ -24,7 +24,7 @@ export function FallbackImage({ src, alt, className, fallbackClassName, fallback
   if (failed) {
     return (
       <div
-        className={`${fallbackBg ?? 'bg-gradient-to-br from-brand-purple to-purple-900'} flex items-center justify-center ${fallbackClassName ?? className ?? ''}`}
+        className={`${fallbackBg ?? 'bg-gradient-to-br from-action to-deep'} flex items-center justify-center ${fallbackClassName ?? className ?? ''}`}
         role="img"
         aria-label={alt}
       />

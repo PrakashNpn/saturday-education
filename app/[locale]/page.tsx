@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
 import HeroSection from "@/features/landing/components/HeroSection"
+import CourseFinderBar from "@/features/landing/components/CourseFinderBar"
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -32,7 +33,6 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
 }
 import PartnerLogosSection from "@/features/landing/components/PartnerLogosSection"
 import WhySaturdaySection from "@/features/landing/components/WhySaturdaySection"
-import CourseSearchSection from "@/features/landing/components/CourseSearchSection"
 import { getCourseFinderOptions } from '@/features/course-finder'
 import ComparisonToolSection from "@/features/landing/components/ComparisonToolSection"
 import { getComparisonUniversities } from '@/features/landing/services/comparison-service'
@@ -60,7 +60,7 @@ export default async function HomePage() {
           unreachable, rather than rendered with empty selects that would look
           broken. */}
       <HeroSection
-        courseFinder={courseFinderOptions ? <CourseSearchSection options={courseFinderOptions} /> : undefined}
+        courseFinder={courseFinderOptions ? <CourseFinderBar options={courseFinderOptions} /> : undefined}
       />
       <Reveal>
         <PartnerLogosSection />

@@ -1,0 +1,46 @@
+/**
+ * Firmli's country names mapped to ISO 3166-1 alpha-2, which is how the flag
+ * files are named. Kept here rather than in the Course Finder service because
+ * it is purely about how the home hero draws the list. A destination without a
+ * mapping simply has no popular chip (it stays in the Destination menu).
+ */
+export const FLAG_CODES: Record<string, string> = {
+  Australia: 'au',
+  Austria: 'at',
+  Belgium: 'be',
+  Canada: 'ca',
+  China: 'cn',
+  'Czech Republic': 'cz',
+  Denmark: 'dk',
+  Finland: 'fi',
+  France: 'fr',
+  Germany: 'de',
+  Greece: 'gr',
+  Grenada: 'gd',
+  Hungary: 'hu',
+  India: 'in',
+  Indonesia: 'id',
+  Ireland: 'ie',
+  Italy: 'it',
+  Japan: 'jp',
+  Malaysia: 'my',
+  Mauritius: 'mu',
+  Netherlands: 'nl',
+  'New Zealand': 'nz',
+  Norway: 'no',
+  Philippines: 'ph',
+  Poland: 'pl',
+  Portugal: 'pt',
+  Singapore: 'sg',
+  'South Korea': 'kr',
+  Spain: 'es',
+  Sweden: 'se',
+  Switzerland: 'ch',
+  Taiwan: 'tw',
+  Thailand: 'th',
+  Turkey: 'tr',
+  'United Arab Emirates': 'ae',
+  'United Kingdom': 'gb',
+  'United States': 'us',
+  Vietnam: 'vn',
+}

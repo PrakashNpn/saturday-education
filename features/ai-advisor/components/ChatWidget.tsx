@@ -8,6 +8,9 @@ import { useTranslations, useLocale } from 'next-intl'
 import { useChat } from '../hooks/useChat'
 import ChatMessage from './ChatMessage'
 import ChatTypingIndicator from './ChatTypingIndicator'
+import LeadCard from './LeadCard'
+import { guessCountry } from '../utils/leadCountries'
+import { readLeadMarker } from '../utils/leadMarkers'
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
@@ -73,23 +76,44 @@ export default function ChatWidget() {
   const t = useTranslations('chatWidget')
   const locale = useLocale()
   const messagesEndRef = useRef<HTMLDivElement>(null)
+  const gateRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { messages, isStreaming, sendMessage, clearHistory } = useChat(t('welcomeMessage'), locale)
+  const { messages, isStreaming, gated, leadSent, sendMessage, markLeadSent, clearHistory } = useChat(
+    t('welcomeMessage'),
+    locale,
+  )
 
   const suggestions = [
-    t('suggestions.whatToStudy'),
-    t('suggestions.compare'),
+    t('suggestions.chooseCourse'),
     t('suggestions.scholarships'),
+    t('suggestions.counsellor'),
   ]
 
-  const showSuggestions = messages.length <= 1
+  const showSuggestions = messages.length <= 1 && !gated
+
+  // Only the newest open lead form is shown, none once details were sent, and
+  // none while the required form below stands in for it.
+  const openFormId = leadSent
+    ? undefined
+    : [...messages].reverse().find((m) => m.role === 'assistant' && readLeadMarker(m.content)?.status === 'open')?.id
+  const studentSaid = messages.filter((m) => m.role === 'user').map((m) => m.content)
+  const lastReplyId = [...messages].reverse().find((m) => m.role === 'assistant')?.id
+
+  // The required form waits for the reply in progress to finish.
+  const showGate = gated && !isStreaming
 
   useEffect(() => {
     if (isOpen) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, isOpen, isStreaming])
+
+  // The required form is taller than the visible chat, so bring up its top
+  // rather than the bottom the effect above scrolls to.
+  useEffect(() => {
+    if (isOpen && showGate) gateRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [isOpen, showGate])
 
   // Auto-focus the input when the panel opens and after each reply finishes, so the
   // user can keep typing without clicking back into the field. The input is disabled
@@ -148,7 +172,7 @@ export default function ChatWidget() {
             className="fixed bottom-24 right-6 z-50 w-[360px] max-w-[calc(100vw-48px)] h-[500px] max-h-[calc(100dvh-160px)] flex flex-col"
           >
             {/* Gradient border wrapper */}
-            <div className="relative flex flex-col h-full rounded-3xl p-[1.5px] bg-gradient-to-br from-action/30 via-white/40 to-action/60 shadow-[0_32px_80px_rgba(99,45,139,0.32),0_8px_32px_rgba(99,45,139,0.2),0_0_0_1px_rgba(99,45,139,0.08)]">
+            <div className="relative flex flex-col h-full rounded-3xl p-[1.5px] bg-gradient-to-br from-action/30 via-white/40 to-action/60 shadow-[0_32px_80px_rgba(23,126,141,0.32),0_8px_32px_rgba(23,126,141,0.2),0_0_0_1px_rgba(23,126,141,0.08)]">
 
               {/* Inner panel */}
               <div className="flex flex-col h-full rounded-[calc(1.5rem-1.5px)] overflow-hidden bg-white/75 backdrop-blur-2xl">
@@ -197,18 +221,38 @@ export default function ChatWidget() {
                   </div>
                 </div>
 
-                {/* Chat body — purple stops toned down (30%/20% → 15%/10%),
+                {/* Chat body — teal stops toned down (30%/20% → 15%/10%),
                     white anchor raised (40% → 55%): the message bubbles are
                     already white, so a strong tint behind them was reading
-                    as a purple wash across the whole body rather than a
+                    as a teal wash across the whole body rather than a
                     subtle one. */}
                 <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3 bg-gradient-to-b from-white/55 via-tint/40 to-tint/25">
                   {messages.map((msg) =>
-                    msg.content === '' ? null : <ChatMessage key={msg.id} message={msg} onNavigate={() => setIsOpen(false)} />
+                    msg.content === '' ? null : (
+                      <ChatMessage
+                        key={msg.id}
+                        message={msg}
+                        onNavigate={() => setIsOpen(false)}
+                        showLeadForm={msg.id === openFormId && !isStreaming && !gated}
+                        said={studentSaid}
+                        onLeadSent={() => markLeadSent(msg.id)}
+                      />
+                    )
                   )}
 
                   {isStreaming && messages[messages.length - 1]?.content === '' && (
                     <ChatTypingIndicator />
+                  )}
+
+                  {showGate && lastReplyId && (
+                    <div ref={gateRef}>
+                      <LeadCard
+                        variant="gate"
+                        initialCountry={guessCountry(studentSaid)}
+                        said={studentSaid}
+                        onSent={() => markLeadSent(lastReplyId)}
+                      />
+                    </div>
                   )}
 
                   {showSuggestions && (
@@ -237,14 +281,14 @@ export default function ChatWidget() {
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder={t('inputPlaceholder')}
-                    disabled={isStreaming}
-                    className="flex-1 px-4 py-2.5 rounded-full bg-tint/60 border border-action/15 text-sm placeholder:text-muted-text focus:outline-none focus:ring-2 focus:ring-action/20 focus:border-action/40 transition-all disabled:cursor-not-allowed shadow-[inset_0_1px_4px_rgba(99,45,139,0.05)]"
+                    placeholder={gated ? t('lead.gatePlaceholder') : t('inputPlaceholder')}
+                    disabled={isStreaming || gated}
+                    className="flex-1 px-4 py-2.5 rounded-full bg-tint/60 border border-action/15 text-sm placeholder:text-muted-text focus:outline-none focus:ring-2 focus:ring-action/20 focus:border-action/40 transition-all disabled:cursor-not-allowed shadow-[inset_0_1px_4px_rgba(23,126,141,0.05)]"
                   />
                   <button
                     onClick={handleSend}
-                    disabled={!inputValue.trim() || isStreaming}
-                    className="w-9 h-9 rounded-full bg-gradient-to-br from-action-hover to-action flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_4px_16px_rgba(99,45,139,0.5)] hover:scale-105 active:scale-95 shadow-[0_2px_10px_rgba(99,45,139,0.3)]"
+                    disabled={!inputValue.trim() || isStreaming || gated}
+                    className="w-9 h-9 rounded-full bg-gradient-to-br from-action-hover to-action flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_4px_16px_rgba(23,126,141,0.5)] hover:scale-105 active:scale-95 shadow-[0_2px_10px_rgba(23,126,141,0.3)]"
                     aria-label="Send message"
                   >
                     <Send size={15} className="text-white" />
@@ -290,8 +334,8 @@ export default function ChatWidget() {
               className={`absolute right-0 bottom-0 flex items-center cursor-pointer
                 bg-gradient-to-br from-white/55 via-white/40 to-tint/40 backdrop-blur-xl
                 border border-white/50
-                shadow-[0_8px_40px_rgba(99,45,139,0.28),0_2px_16px_rgba(99,45,139,0.12),inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(99,45,139,0.04)]
-                hover:shadow-[0_12px_52px_rgba(99,45,139,0.38),0_2px_16px_rgba(99,45,139,0.16)]
+                shadow-[0_8px_40px_rgba(23,126,141,0.28),0_2px_16px_rgba(23,126,141,0.12),inset_0_1px_0_rgba(255,255,255,0.8),inset_0_-1px_0_rgba(23,126,141,0.04)]
+                hover:shadow-[0_12px_52px_rgba(23,126,141,0.38),0_2px_16px_rgba(23,126,141,0.16)]
                 hover:from-white/65 hover:to-tint/60 active:scale-95 transition-all duration-300 ease-out
                 ${showCollapsed ? (isMobile ? 'rounded-full p-2' : 'rounded-full p-3') : 'rounded-2xl px-4 py-3'}`}
             >
@@ -301,7 +345,7 @@ export default function ChatWidget() {
                   presence indicator (the bottom-right corner every chat app
                   puts one) rather than trying to icon-badge "this is chat". */}
               <div className="relative w-10 h-10 shrink-0">
-                <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-[0_2px_8px_rgba(99,45,139,0.2)]">
+                <div className="relative w-10 h-10 rounded-full overflow-hidden shadow-[0_2px_8px_rgba(23,126,141,0.2)]">
                   <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill unoptimized sizes="40px" className="object-contain" />
                 </div>
                 {showCollapsed && (
@@ -354,8 +398,8 @@ export default function ChatWidget() {
               aria-label="Close chat"
               className="absolute right-0 bottom-0 w-11 h-11 rounded-full flex items-center justify-center
                 bg-gradient-to-br from-action-hover to-action
-                shadow-[0_4px_20px_rgba(99,45,139,0.5)] cursor-pointer
-                hover:shadow-[0_6px_28px_rgba(99,45,139,0.65)] active:scale-95 transition-shadow duration-200"
+                shadow-[0_4px_20px_rgba(23,126,141,0.5)] cursor-pointer
+                hover:shadow-[0_6px_28px_rgba(23,126,141,0.65)] active:scale-95 transition-shadow duration-200"
             >
               <X size={18} className="text-white" />
             </motion.button>

@@ -10,9 +10,9 @@ export const REGION_DISPLAY: Record<string, string> = {
 }
 
 export const REGION_BADGE_COLORS: Record<string, string> = {
-  EUROPE: 'bg-purple-600 text-white',
+  EUROPE: 'bg-action text-white',
   AMERICAS: 'bg-blue-900 text-white',
-  OCEANIA: 'bg-teal-600 text-white',
+  OCEANIA: 'bg-emerald-600 text-white',
   ASIA: 'bg-red-600 text-white',
   AFRICA: 'bg-amber-600 text-white',
 }

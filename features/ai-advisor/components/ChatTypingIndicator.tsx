@@ -4,7 +4,7 @@ export default function ChatTypingIndicator() {
   return (
     <div className="flex items-start gap-2.5">
       {/* Bot avatar — matches ChatMessage */}
-      <div className="relative shrink-0 w-7 h-7 rounded-full bg-white shadow-[0_2px_10px_rgba(99,45,139,0.2)] mt-0.5 overflow-hidden">
+      <div className="relative shrink-0 w-7 h-7 rounded-full bg-white shadow-[0_2px_10px_rgba(23,126,141,0.2)] mt-0.5 overflow-hidden">
         <Image src="/images/logo/logo-symbol.webp" alt="Saturday Education" fill unoptimized sizes="28px" className="object-contain p-0.5" />
       </div>
 
@@ -14,7 +14,7 @@ export default function ChatTypingIndicator() {
           px-4 py-3.5 rounded-2xl rounded-tl-sm
           bg-white/70 backdrop-blur-sm
           border border-action/15
-          shadow-[0_2px_16px_rgba(99,45,139,0.07),inset_0_1px_0_rgba(255,255,255,0.8)]
+          shadow-[0_2px_16px_rgba(23,126,141,0.07),inset_0_1px_0_rgba(255,255,255,0.8)]
         "
       >
         <div className="flex gap-1.5 items-center">

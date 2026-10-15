@@ -30,12 +30,12 @@ export default function UniversitySearch({
         placeholder="Search by name or city…"
         defaultValue={defaultQ}
         onChange={e => update(e.target.value, defaultCountry ?? '')}
-        className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+        className="flex-1 rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-action focus:outline-none focus:ring-1 focus:ring-action"
       />
       <select
         defaultValue={defaultCountry ?? ''}
         onChange={e => update(defaultQ ?? '', e.target.value)}
-        className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+        className="rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-action focus:outline-none focus:ring-1 focus:ring-action"
       >
         <option value="">All countries</option>
         {countries.map(c => (

@@ -35,13 +35,13 @@ import { LOGO_DATA_URI } from './logoAsset'
 // Palette. PDF rendering has no CSS engine behind it (react-pdf writes PDF
 // content streams directly), so these are plain hex literals rather than the
 // var()/color-mix() the rest of the site uses — but they're still meant to
-// track the same tokens: PURPLE is --color-brand (Electric Purple),
-// PURPLE_DARK is --color-action-hover, PURPLE_50 is --color-tint. The old
-// values here (#590D82 etc.) were the deprecated pre-rebrand brand-purple.
-const PURPLE = '#7F02EB'
-const PURPLE_DARK = '#5806C9'
-const PURPLE_50 = '#F1EBFD'
-const PURPLE_BORDER = '#E5CCFB'
+// track the same tokens: BRAND is --color-brand (Teal #177E8D), BRAND_DARK is
+// --color-action-hover, BRAND_50 is --color-tint and BRAND_BORDER is
+// --color-light.
+const BRAND = '#177E8D'
+const BRAND_DARK = '#115F6B'
+const BRAND_50 = '#F0FBFD'
+const BRAND_BORDER = '#C5F8FF'
 const GOLD = '#F59E0B'
 const INK = '#18181B'
 const GRAY = '#6B7280'
@@ -61,7 +61,7 @@ const RIASEC_COLOR: Record<RiasecCategory, string> = {
   C: '#8A9A4B',
 }
 const BIG_FIVE_BARS: { trait: BigFiveTrait; label: string; low: string; high: string; color: string }[] = [
-  { trait: 'O', label: 'Openness', low: 'Practical', high: 'Curious', color: '#7B1FA2' },
+  { trait: 'O', label: 'Openness', low: 'Practical', high: 'Curious', color: '#177E8D' },
   { trait: 'C', label: 'Conscientiousness', low: 'Flexible', high: 'Organised', color: '#2E6F9E' },
   { trait: 'E', label: 'Extraversion', low: 'Reserved', high: 'Outgoing', color: '#E8833A' },
   { trait: 'A', label: 'Agreeableness', low: 'Direct', high: 'Compassionate', color: '#7E57A0' },
@@ -92,15 +92,15 @@ const s = StyleSheet.create({
   header: { flexDirection: 'row', alignItems: 'center', justifyContent: 'space-between', marginBottom: 14 },
   headerTitle: { fontSize: 8.5, color: MUTE, fontFamily: 'Helvetica-Bold', letterSpacing: 1 },
   footer: { position: 'absolute', bottom: 22, left: 40, right: 40, flexDirection: 'row', justifyContent: 'space-between', fontSize: 8, color: MUTE },
-  band: { backgroundColor: PURPLE, borderRadius: 6, paddingVertical: 6, paddingHorizontal: 12, marginBottom: 12, marginTop: 4 },
+  band: { backgroundColor: BRAND, borderRadius: 6, paddingVertical: 6, paddingHorizontal: 12, marginBottom: 12, marginTop: 4 },
   bandText: { color: '#fff', fontSize: 11, fontFamily: 'Helvetica-Bold', letterSpacing: 0.5 },
   card: { borderWidth: 1, borderColor: BORDER, borderRadius: 10, padding: 12, marginBottom: 10 },
   small: { fontSize: 9, color: GRAY, lineHeight: 1.45 },
   muted: { fontSize: 8.5, color: MUTE },
   bullet: { fontSize: 9, color: INK, lineHeight: 1.4, marginBottom: 2 },
-  chip: { borderWidth: 1, borderColor: PURPLE_BORDER, color: PURPLE, fontSize: 8.5, fontFamily: 'Helvetica-Bold', paddingVertical: 3, paddingHorizontal: 8, borderRadius: 999, marginRight: 6, marginBottom: 6 },
+  chip: { borderWidth: 1, borderColor: BRAND_BORDER, color: BRAND, fontSize: 8.5, fontFamily: 'Helvetica-Bold', paddingVertical: 3, paddingHorizontal: 8, borderRadius: 999, marginRight: 6, marginBottom: 6 },
   flagWarn: { borderWidth: 1, borderColor: '#FDE68A', backgroundColor: '#FEF3C7', color: '#92400E', fontSize: 8.5, fontFamily: 'Helvetica-Bold', paddingVertical: 3, paddingHorizontal: 8, borderRadius: 999, marginRight: 6, marginBottom: 6 },
-  eyebrow: { fontSize: 8.5, color: PURPLE, fontFamily: 'Helvetica-Bold', letterSpacing: 0.8, marginBottom: 6, textTransform: 'uppercase' },
+  eyebrow: { fontSize: 8.5, color: BRAND, fontFamily: 'Helvetica-Bold', letterSpacing: 0.8, marginBottom: 6, textTransform: 'uppercase' },
 })
 
 // ── charts / ui ──────────────────────────────────────────────────────────────
@@ -123,7 +123,7 @@ function Hexagon({ values, size = 140 }: { values: number[]; size?: number }) {
         const [x, y] = hexPoint(i, MAXR)
         return <Line key={i} x1={100} y1={100} x2={x} y2={y} stroke="#F1F1F4" strokeWidth={1} />
       })}
-      <Polygon points={data} fill={PURPLE} fillOpacity={0.18} stroke={PURPLE} strokeWidth={2} />
+      <Polygon points={data} fill={BRAND} fillOpacity={0.18} stroke={BRAND} strokeWidth={2} />
     </Svg>
   )
 }
@@ -245,7 +245,7 @@ function FitCol({ label, value }: { label: string; value: number }) {
 }
 
 const CHIP_TONE = {
-  req: { color: PURPLE, bg: PURPLE_50, border: PURPLE_BORDER },
+  req: { color: BRAND, bg: BRAND_50, border: BRAND_BORDER },
   nice: { color: GRAY, bg: '#F3F4F6', border: BORDER },
   strength: { color: '#15803D', bg: '#F0FDF4', border: '#BBF7D0' },
   focus: { color: '#B45309', bg: '#FFFBEB', border: '#FDE68A' },
@@ -303,7 +303,7 @@ function CareerProfile({ career, rank }: { career: MatchedCareer; rank: number }
 
       {/* why this fits (AI, per student) */}
       {career.whyFit ? (
-        <View style={{ backgroundColor: PURPLE_50, borderRadius: 6, padding: 8, marginTop: 8 }}>
+        <View style={{ backgroundColor: BRAND_50, borderRadius: 6, padding: 8, marginTop: 8 }}>
           <Text style={{ ...s.eyebrow, marginBottom: 3 }}>Why this fits</Text>
           <Text style={{ fontSize: 9, color: INK, lineHeight: 1.45 }}>{career.whyFit}</Text>
         </View>
@@ -320,8 +320,8 @@ function CareerProfile({ career, rank }: { career: MatchedCareer; rank: number }
         <View style={{ flexDirection: 'row', alignItems: 'flex-end', height: 46 }}>
           {t.map((v, i) => (
             <View key={i} style={{ flex: 1, marginRight: i < t.length - 1 ? 5 : 0, alignItems: 'center', justifyContent: 'flex-end' }}>
-              <Text style={{ fontSize: 6.5, fontFamily: 'Helvetica-Bold', color: PURPLE, marginBottom: 1.5 }}>{v}</Text>
-              <View style={{ width: '100%', height: barH(v), backgroundColor: PURPLE, borderTopLeftRadius: 2, borderTopRightRadius: 2 }} />
+              <Text style={{ fontSize: 6.5, fontFamily: 'Helvetica-Bold', color: BRAND, marginBottom: 1.5 }}>{v}</Text>
+              <View style={{ width: '100%', height: barH(v), backgroundColor: BRAND, borderTopLeftRadius: 2, borderTopRightRadius: 2 }} />
             </View>
           ))}
         </View>
@@ -426,12 +426,12 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
       <Page size="A4" style={{ fontFamily: 'Helvetica', color: INK, padding: 0 }}>
         {/* decorative graphics,confined to top/bottom so they never cover content */}
         <Svg viewBox="0 0 595 180" style={{ position: 'absolute', top: 0, left: 0, width: 595, height: 180 }}>
-          <Circle cx={30} cy={40} r={70} fill={PURPLE} fillOpacity={0.1} />
+          <Circle cx={30} cy={40} r={70} fill={BRAND} fillOpacity={0.1} />
           <Circle cx={110} cy={-15} r={55} fill={GOLD} fillOpacity={0.16} />
-          <Circle cx={20} cy={150} r={26} fill={PURPLE} fillOpacity={0.22} />
+          <Circle cx={20} cy={150} r={26} fill={BRAND} fillOpacity={0.22} />
         </Svg>
         <Svg viewBox="0 0 595 120" style={{ position: 'absolute', bottom: 0, left: 0, width: 595, height: 120 }}>
-          <Path d="M0,55 Q230,0 595,80 L595,120 L0,120 Z" fill={PURPLE} />
+          <Path d="M0,55 Q230,0 595,80 L595,120 L0,120 Z" fill={BRAND} />
           <Path d="M0,45 Q250,-8 595,68" stroke={GOLD} strokeWidth={4} fill="none" />
         </Svg>
 
@@ -441,10 +441,10 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
           <Text style={{ fontSize: 30, fontFamily: 'Helvetica-Bold', color: INK }}>Career Assessment Report</Text>
           <Text style={{ fontSize: 11, color: GRAY, marginTop: 6 }}>Interests · Personality · Aptitude</Text>
 
-          <View style={{ marginTop: 34, borderWidth: 1, borderColor: PURPLE_BORDER, backgroundColor: PURPLE_50, borderRadius: 14, padding: 20, maxWidth: 360 }}>
-            <Text style={{ fontSize: 8.5, color: PURPLE, fontFamily: 'Helvetica-Bold', letterSpacing: 1 }}>PREPARED FOR</Text>
-            <Text style={{ fontSize: 22, fontFamily: 'Helvetica-Bold', color: PURPLE_DARK, marginTop: 4 }}>{contact.fullName}</Text>
-            <Text style={{ fontSize: 13, color: PURPLE, fontFamily: 'Helvetica-Bold', marginTop: 8 }}>{archetype} · Holland {riasec.hollandCode}</Text>
+          <View style={{ marginTop: 34, borderWidth: 1, borderColor: BRAND_BORDER, backgroundColor: BRAND_50, borderRadius: 14, padding: 20, maxWidth: 360 }}>
+            <Text style={{ fontSize: 8.5, color: BRAND, fontFamily: 'Helvetica-Bold', letterSpacing: 1 }}>PREPARED FOR</Text>
+            <Text style={{ fontSize: 22, fontFamily: 'Helvetica-Bold', color: BRAND_DARK, marginTop: 4 }}>{contact.fullName}</Text>
+            <Text style={{ fontSize: 13, color: BRAND, fontFamily: 'Helvetica-Bold', marginTop: 8 }}>{archetype} · Holland {riasec.hollandCode}</Text>
             <Text style={{ fontSize: 9, color: GRAY, marginTop: 8 }}>{contact.email}{contact.phone ? `  ·  ${contact.phone}` : ''}</Text>
             {(contact.educationLevel || contact.preferredCountry) && (
               <Text style={{ fontSize: 9, color: GRAY, marginTop: 2 }}>
@@ -469,7 +469,7 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
 
         <View style={s.card}>
           <Text style={{ fontSize: 16, fontFamily: 'Helvetica-Bold', color: INK }}>{contact.fullName}</Text>
-          <Text style={{ fontSize: 11, color: PURPLE, fontFamily: 'Helvetica-Bold', marginTop: 3 }}>{archetype} · Holland code {riasec.hollandCode}</Text>
+          <Text style={{ fontSize: 11, color: BRAND, fontFamily: 'Helvetica-Bold', marginTop: 3 }}>{archetype} · Holland code {riasec.hollandCode}</Text>
           <Text style={{ ...s.small, marginTop: 6 }}>{contact.email}{contact.phone ? ` · ${contact.phone}` : ''}</Text>
           <View style={{ flexDirection: 'row', marginTop: 6 }}>
             {contact.educationLevel ? <Text style={{ ...s.small, marginRight: 16 }}>Education: {contact.educationLevel}</Text> : null}
@@ -480,7 +480,7 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
         <View style={s.card}>
           <Text style={s.eyebrow}>Counsellor Read</Text>
           {synthesis?.read ? (
-            <Text style={{ fontSize: 10, color: PURPLE_DARK, lineHeight: 1.6 }}>{synthesis.read}</Text>
+            <Text style={{ fontSize: 10, color: BRAND_DARK, lineHeight: 1.6 }}>{synthesis.read}</Text>
           ) : (
             <Text style={s.muted}>AI synthesis unavailable. Use the dimension detail in the following pages.</Text>
           )}
@@ -500,7 +500,7 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
           <View style={{ flex: 1, ...s.card, alignItems: 'center' }}>
             <Text style={{ ...s.muted, marginBottom: 2 }}>Interests</Text>
             <Hexagon values={RIASEC_ORDER.map((c) => (riasec.scores[c] / 50) * 100)} size={110} />
-            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', color: PURPLE, marginTop: 2 }}>Holland {riasec.hollandCode}</Text>
+            <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', color: BRAND, marginTop: 2 }}>Holland {riasec.hollandCode}</Text>
           </View>
           <View style={{ flex: 1, ...s.card }}>
             <Text style={{ ...s.muted, marginBottom: 6, textAlign: 'center' }}>Top personality</Text>
@@ -549,9 +549,9 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
           />
         ))}
 
-        <View style={{ ...s.card, backgroundColor: PURPLE_50, borderColor: PURPLE_BORDER, marginTop: 2 }}>
+        <View style={{ ...s.card, backgroundColor: BRAND_50, borderColor: BRAND_BORDER, marginTop: 2 }}>
           <Text style={s.eyebrow}>Your interest combination</Text>
-          <Text style={{ fontSize: 9.5, color: PURPLE_DARK, lineHeight: 1.5 }}>{comboText}</Text>
+          <Text style={{ fontSize: 9.5, color: BRAND_DARK, lineHeight: 1.5 }}>{comboText}</Text>
         </View>
       </Page>
 
@@ -633,9 +633,9 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
         {tree.buckets.length ? (
           tree.buckets.slice(0, 3).map((b) => (
             <View key={b.bucket} style={{ marginBottom: 5 }} wrap={false}>
-              <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', color: PURPLE_DARK }}>{b.bucket}</Text>
+              <Text style={{ fontSize: 10, fontFamily: 'Helvetica-Bold', color: BRAND_DARK }}>{b.bucket}</Text>
               {b.countries.slice(0, 2).map((c) => (
-                <View key={c.country} style={{ marginTop: 2, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: c.preferred ? GOLD : PURPLE_BORDER }}>
+                <View key={c.country} style={{ marginTop: 2, paddingLeft: 8, borderLeftWidth: 2, borderLeftColor: c.preferred ? GOLD : BRAND_BORDER }}>
                   <Text style={{ fontSize: 9, fontFamily: 'Helvetica-Bold', color: INK }}>{c.country}{c.preferred ? '  · preferred' : ''}</Text>
                   {c.universities.slice(0, 2).map((u, i) => (
                     <Text key={i} style={s.small}>• {u.program} ({u.degreeLevel}) at {u.name}</Text>
@@ -664,7 +664,7 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
             ['Top career paths', paths.slice(0, 3).map((p) => p.title).join(' · ') || '-'],
           ].map((row, i) => (
             <View key={i} style={{ flexDirection: 'row', borderTopWidth: i === 0 ? 0 : 1, borderTopColor: BORDER, backgroundColor: i % 2 ? '#FAFAFC' : '#fff' }}>
-              <Text style={{ width: 110, backgroundColor: PURPLE, color: '#fff', fontFamily: 'Helvetica-Bold', fontSize: 9, padding: 8 }}>{row[0]}</Text>
+              <Text style={{ width: 110, backgroundColor: BRAND, color: '#fff', fontFamily: 'Helvetica-Bold', fontSize: 9, padding: 8 }}>{row[0]}</Text>
               <Text style={{ flex: 1, fontSize: 9, color: INK, padding: 8, lineHeight: 1.4 }}>{row[1]}</Text>
             </View>
           ))}
@@ -687,9 +687,9 @@ export function ReportDocument({ contact, scores, synthesis, tree, careers }: Re
           <Text style={s.bullet}>• Agree concrete next actions and a follow-up date.</Text>
         </View>
 
-        <View style={{ backgroundColor: PURPLE, borderRadius: 10, padding: 14, marginTop: 2 }}>
+        <View style={{ backgroundColor: BRAND, borderRadius: 10, padding: 14, marginTop: 2 }}>
           <Text style={{ color: '#fff', fontSize: 12, fontFamily: 'Helvetica-Bold' }}>Ready to plan the next step?</Text>
-          <Text style={{ color: '#EADBF5', fontSize: 9.5, marginTop: 3, lineHeight: 1.4 }}>Book a free consultation with a Saturday Education counsellor to turn this profile into a concrete study-abroad plan.</Text>
+          <Text style={{ color: '#C5F8FF', fontSize: 9.5, marginTop: 3, lineHeight: 1.4 }}>Book a free consultation with a Saturday Education counsellor to turn this profile into a concrete study-abroad plan.</Text>
         </View>
 
         <Text style={{ ...s.muted, textAlign: 'center', marginTop: 10 }}>

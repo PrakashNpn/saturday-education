@@ -52,6 +52,13 @@ landing/     → 12 rendered sections, in page order: Hero, PartnerLogos, WhySat
                GlobalLeaders, Testimonials, Faq, Consultation, Cta.
                UniversityFinderSection also lives here but is commented out —
                see UNIVERSITIES_HIDDEN_RESTORE.md.
+               The home hero (HeroSection) is a counsellor photo with the
+               headline over it and the course finder (CourseFinderBar, a
+               frosted card of popular-destination chips plus Destination,
+               Study level and Field of study) overlapping its bottom edge.
+               Its overlay strength is the single CLARITY number at the top of
+               HeroSection.tsx. Its extra copy lives in the `heroLiquid`
+               message namespace; the headline, lede and stats reuse `hero`.
 destination/ → Listing + country detail pages. Real Prisma queries, redesigned.
 consultation/→ ConsultationForm, ConsultationSuccess
 ai-advisor/  → ChatWidget, ChatWindow, ChatMessage, ChatInput, ChatTypingIndicator
@@ -73,16 +80,26 @@ All tokens are CSS variables in the `@theme` block of `app/globals.css`. There i
 no `tailwind.config.js`. Read that block before writing any styles — it is the
 source of truth and this table is only a summary.
 
-The brand purple is **`#632D8B`**, sampled from the logo where it is the dominant
-purple by a factor of nine. The older `#590D82` appeared nowhere in the mark and
-is gone.
+The brand palette is the 2026 teal rebrand: **Teal `#177E8D`** is the primary
+(buttons, links, identity), **Dark Teal `#00333A`** is the secondary (dark
+surfaces, the footer and top bar, gradient ends, scrims) and **Light Sky Blue
+`#C5F8FF`** is the light colour (fills, rules, glows; never body text). The
+logo files are `public/images/logo/logo.webp` (wordmark, 846x311) and
+`logo-symbol.webp` (298x298). Raw-hex surfaces (the counsellor PDF, the
+share card, emails) cannot read CSS variables, so they carry the same values
+and must be updated by hand when the palette changes. The embedded Firmli
+course finder is the exception in the other direction: its colours come from
+the Firmli portal's own branding settings and ignore the `theme` URL
+parameter, so it is changed in Firmli, not here.
 
 | Role | Token | Value |
 |---|---|---|
-| Primary action | `--color-action` | `#632D8B` |
-| Action hover | `--color-action-hover` | `#4C236C` |
-| Purple tint | `--color-tint` | `#F3EDFA` |
-| Dark surface | `--color-structure` | `#171717` |
+| Primary action, links | `--color-action` / `--color-brand` | `#177E8D` |
+| Action hover | `--color-action-hover` | `#115F6B` |
+| Lightest wash (text-safe) | `--color-tint` | `#F0FBFD` |
+| Brand light | `--color-light` | `#C5F8FF` |
+| Brand dark | `--color-deep` | `#00333A` |
+| Dark surface | `--color-structure` | `#00333A` |
 | Page background | `--color-canvas` | `#FAFAFA` |
 | Card background | `--color-surface` | `#FFFFFF` |
 | Raised greys | `--color-surface-0/1/2` | `#F5F5F5` / `#F0F0F0` / `#E3E3E3` |
@@ -93,13 +110,18 @@ is gone.
 | Stronger rule | `--color-stroke-strong` | `#C4C4C4` |
 | Amber accent | `--color-accent` / `--color-accent-ink` | `#F59E0B` / `#B45309` |
 
+Contrast: Teal on white is 4.77:1 and on `--color-tint` 4.52:1, both AA for
+body text. Teal on `--color-light` is 4.14:1, so text on a Light Sky Blue
+fill uses Dark Teal (11.9:1).
+
 Type is a clamp-based scale, not Tailwind's default sizes: `text-display`,
 `text-title`, `text-section`, `text-lede`, `text-card`, `text-body` (17px),
 `text-label` (14px), `text-min` (12px). Layout uses `max-w-wrap` (1080px) and the
 custom `tablet` breakpoint at 860px, which gives `tablet:` and `max-tablet:`.
 
 `--color-brand-purple*` and `--color-neutral-*` still exist so unredesigned areas
-keep compiling. Do not use them in new work.
+keep compiling. The `brand-purple` names are legacy: their values are the teal
+palette. Do not use them in new work.
 
 Font: Noto Sans (all text — loaded in `[locale]/layout.tsx` via `next/font`)
 

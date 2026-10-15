@@ -47,7 +47,7 @@ export function AboutTeam() {
             >
               {/* The pale ground behind the cut-out headshots, so the three
                   read as one set even though the crops differ. */}
-              <div className="relative aspect-[4/3.3] w-full overflow-hidden border-b border-stroke bg-[#F6F2FB]">
+              <div className="relative aspect-[4/3.3] w-full overflow-hidden border-b border-stroke bg-tint">
                 {/* unoptimized on purpose: these are transparent cut-outs and
                     Next's optimiser drops the alpha channel, which flattens the
                     background to black instead of letting the card's ground

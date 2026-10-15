@@ -88,7 +88,7 @@ export default function ImageUrlField({
         value={url}
         onChange={e => { setUrl(e.target.value); setError('') }}
         placeholder="Paste URL or use buttons →"
-        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-purple-500 focus:outline-none focus:ring-1 focus:ring-purple-500"
+        className="w-full rounded-md border border-gray-300 px-3 py-2 text-sm focus:border-action focus:outline-none focus:ring-1 focus:ring-action"
       />
 
       {/* Action buttons */}
@@ -99,7 +99,7 @@ export default function ImageUrlField({
           onClick={handleImport}
           disabled={busy || !url}
           title="Fetch this URL and save image to Supabase Storage"
-          className="flex-1 rounded-md border border-purple-200 bg-purple-50 px-3 py-1.5 text-xs font-medium text-purple-700 hover:bg-purple-100 disabled:opacity-50"
+          className="flex-1 rounded-md border border-action/30 bg-tint px-3 py-1.5 text-xs font-medium text-action hover:bg-light disabled:opacity-50"
         >
           {status === 'importing' ? 'Importing…' : '↓ Import URL → Supabase'}
         </button>

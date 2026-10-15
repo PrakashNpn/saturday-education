@@ -105,10 +105,10 @@ export default function TestimonialsSection() {
               {reviews.map((review) => (
                 <figure
                   key={review.key}
-                  className="relative mx-3 h-[24rem] w-72 shrink-0 overflow-hidden rounded-[28px] border border-white/40 bg-[color-mix(in_srgb,white_90%,color-mix(in_srgb,var(--color-action)_80%,black))] text-primary-text shadow-[inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_0_rgba(92,9,245,0.12),0_24px_48px_-28px_rgba(20,10,43,0.45)]"
+                  className="relative mx-3 h-[24rem] w-72 shrink-0 overflow-hidden rounded-[28px] border border-white/40 bg-[color-mix(in_srgb,white_90%,color-mix(in_srgb,var(--color-action)_80%,black))] text-primary-text shadow-[inset_0_1px_0_rgba(255,255,255,0.9),inset_0_-1px_0_rgba(0,51,58,0.12),0_24px_48px_-28px_rgba(0,51,58,0.45)]"
                 >
                   {/* A fixed, precomputed tint (the same 65%-white-over-the-
-                      section's-purple blend) rather than true bg-white/65 +
+                      section's-teal blend) rather than true bg-white/65 +
                       backdrop-blur: backdrop-blur samples whatever is
                       actually behind the card, and the section has its own
                       off-centre white highlight plus a constantly-scrolling

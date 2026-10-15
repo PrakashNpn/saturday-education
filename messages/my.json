@@ -229,7 +229,8 @@
         "imageAlt": "Saturday Education Counsellor တစ်ယောက် သူ့ Desk မှာ",
         "errorName": "သင့် Full Name ကို ထည့်ပါ။",
         "errorEmail": "Valid Email Address ကို ထည့်ပါ။",
-        "errorPhone": "Valid Phone Number ကို ထည့်ပါ။"
+        "errorPhone": "Valid Phone Number ကို ထည့်ပါ။",
+        "errorCountry": "Target Country ကို ရွေးပါ။"
       },
       "success": {
         "title": "Request ရရှိပါပြီ!",
@@ -277,19 +278,12 @@
     "courseSearch": {
       "statBanner": "{institutions} Institution ကနေ Course {programs} ခု။",
       "statBannerNoCounts": "ကျွန်တော်တို့ရဲ့ Partner Destination တွေက Course တွေကို ရှာကြည့်ပါ။",
-      "countryLabel": "ဘယ်နေရာ သွားချင်လဲ?",
       "levelLabel": "Study Level",
       "fieldLabel": "Field of Study",
       "anyCountry": "Destination မရွေး",
       "anyLevel": "Level မရွေး",
-      "anyLevelPill": "မရွေး",
       "anyField": "Field မရွေး",
-      "searchButton": "Programme တွေ ရှာရန်",
-      "pillBachelor": "Bachelor's",
-      "pillMaster": "Master's",
-      "pillDiploma": "Diploma",
-      "pillCertificate": "Certificate",
-      "consultationPrompt": "အရင်ဆုံး တိုက်ရိုက် ဆွေးနွေးချင်ပါသလား? <link>Free Consultation တစ်ခု Book လုပ်ပါ</link>။"
+      "searchButton": "Programme တွေ ရှာရန်"
     },
     "partners": {
       "eyebrow": "Partner Universities",
@@ -378,14 +372,40 @@
     "status": "Online",
     "welcomeMessage": "Hi! 👋 ကျွန်ုပ်က သင့် Study Abroad Advisor ပါ။ Right University ရှာတာ, Destination တွေ Compare လုပ်တာနဲ့ Application Process ကို Guide လုပ်ပေးနိုင်ပါတယ်။ ဒီနေ့ ဘာကူညီရမလဲ?",
     "inputPlaceholder": "သင့် Message ကို Type လုပ်ပါ...",
-    "consultationCta": "Free Consultation ကို Book လုပ်ရန်",
     "careerAssessmentCta": "Free Career Assessment ကို လုပ်ရန်",
     "universitiesCta": "University တွေ Browse လုပ်ရန်",
-    "destinationsCta": "Destination တွေ Explore လုပ်ရန်",
     "suggestions": {
-      "whatToStudy": "ဘာ Study လုပ်သင့်လဲ?",
-      "compare": "Study Destination တွေ Compare လုပ်ရန်",
-      "scholarships": "Scholarship Opportunities"
+      "chooseCourse": "Course နဲ့ Country ရွေးဖို့ ကူညီပါ",
+      "scholarships": "Scholarship ရဖို့ အရည်အချင်းပြည့်မီလား?",
+      "counsellor": "Counsellor နဲ့ ပြောချင်ပါတယ်"
+    },
+    "lead": {
+      "title": "Counsellor နဲ့ ပြောရန်",
+      "subtitle": "သင့်အချက်အလက်တွေ ထားခဲ့ပါ။ Counsellor က အလုပ်ရက် ၁ ရက်အတွင်း ပြန်ဆက်သွယ်ပါမယ်။",
+      "nameLabel": "အမည်အပြည့်အစုံ",
+      "namePlaceholder": "သင့်အမည်အပြည့်အစုံ",
+      "emailLabel": "Email",
+      "emailPlaceholder": "you@example.com",
+      "phoneLabel": "ဖုန်းနံပါတ်",
+      "phonePlaceholder": "ဖုန်းနံပါတ်",
+      "privacy": "ပို့ခြင်းအားဖြင့် ကျွန်ုပ်တို့ရဲ့ <link>Privacy Policy</link> ကို သဘောတူရာရောက်ပါတယ်။",
+      "submit": "Counsellor ဆီ ပို့ရန်",
+      "submitting": "ပို့နေပါတယ်...",
+      "orMessage": "ဒါမှမဟုတ် ဒီမှာ Message ပို့ရန်",
+      "whatsapp": "WhatsApp",
+      "messenger": "Messenger",
+      "sentTitle": "ပို့ပြီးပါပြီ",
+      "sentBody": "Counsellor က အလုပ်ရက် ၁ ရက်အတွင်း သင့်ကို ဆက်သွယ်ပါမယ်။",
+      "errors": {
+        "name": "အမည်အပြည့်အစုံ ထည့်ပါ။",
+        "email": "Email လိပ်စာကို ပြန်စစ်ပါ။",
+        "phone": "နိုင်ငံကုဒ်ပါတဲ့ မှန်ကန်တဲ့ ဖုန်းနံပါတ် ထည့်ပါ။",
+        "rate": "ကြိုးစားမှု များလွန်းပါတယ်။ နောက်မှ ပြန်ကြိုးစားပါ၊ ဒါမှမဟုတ် WhatsApp မှာ Message ပို့ပါ။",
+        "failed": "တစ်ခုခု မှားသွားပါတယ်။ ပြန်ကြိုးစားပါ၊ ဒါမှမဟုတ် WhatsApp မှာ Message ပို့ပါ။"
+      },
+      "gateTitle": "Counsellor ကို သင့်ရွေးချယ်စရာတွေ ကူကြည့်ခိုင်းပါ",
+      "gateSubtitle": "သင့်အချက်အလက် ထားခဲ့ပါ။ Counsellor က သင့်နဲ့ကိုက်ညီတဲ့ University တွေနဲ့ နောက်အဆင့်တွေကို အလုပ်ရက် ၁ ရက်အတွင်း ကူညီပြီး ဆက်သွယ်ပါမယ်။ ပြီးရင် ဆက်ပြောနိုင်ပါတယ်။",
+      "gatePlaceholder": "ဆက်ပြောရန် အပေါ်က အချက်အလက် ဖြည့်ပါ"
     }
   },
   "hero": {
@@ -405,6 +425,17 @@
     "imageAlt": "Saturday Education Counsellor and Students in Conversation",
     "imageCaption": "Saturday Education Counsellor တစ်ယောက်က Student တွေကို သူတို့ Options တွေ ရှင်းပြနေစဉ်။",
     "titleSuffix": "နဲ့အတူ စလိုက်ကြရအောင်"
+  },
+  "heroLiquid": {
+    "eyebrow": "Study Abroad Counselling",
+    "bookConsultation": "Free Consultation ကို Book လုပ်ရန်",
+    "careerAssessment": "Career Assessment လုပ်ရန်",
+    "partnersCount": "700+",
+    "partnersLabel": "Partner University",
+    "popular": "လူကြိုက်များ",
+    "destinationLabel": "Destination",
+    "photoAlt": "Saturday Education Counsellor တွေက Office မှာ Student တွေနဲ့ စကားပြောနေစဉ်",
+    "allDestinations": "Destination 20+ အားလုံး"
   },
   "consultation": {
     "title": "Free Consultation ကို Book လုပ်ရန်",

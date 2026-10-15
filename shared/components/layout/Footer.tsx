@@ -49,7 +49,7 @@ export default function Footer() {
 
   return (
     <footer className="relative overflow-hidden bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-14 text-white max-tablet:py-10">
-      {/* A dark, muted tint of the vivid-purple action colour rather than the
+      {/* A dark, muted tint of the teal action colour rather than the
           flat neutral bg-structure: real brand colour throughout instead of
           just at the glows, but dark enough to still pair with the
           near-black CTA section directly above it. Same three-glow wash as
@@ -57,7 +57,7 @@ export default function Footer() {
           hue, the glows only need to add depth on top, not supply it. */}
       <div
         aria-hidden="true"
-        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_0%,rgba(127,2,235,0.2)_0%,rgba(127,2,235,0)_70%),radial-gradient(ellipse_75%_90%_at_0%_50%,rgba(127,2,235,0.22)_0%,rgba(127,2,235,0)_75%),radial-gradient(ellipse_75%_90%_at_100%_50%,rgba(92,9,245,0.22)_0%,rgba(92,9,245,0)_75%)]"
+        className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_80%_70%_at_50%_0%,rgba(23,126,141,0.2)_0%,rgba(23,126,141,0)_70%),radial-gradient(ellipse_75%_90%_at_0%_50%,rgba(23,126,141,0.22)_0%,rgba(23,126,141,0)_75%),radial-gradient(ellipse_75%_90%_at_100%_50%,rgba(0,51,58,0.22)_0%,rgba(0,51,58,0)_75%)]"
       />
       <div className="relative z-[1] mx-auto max-w-wrap px-6">
         <div className="grid grid-cols-2 gap-x-8 gap-y-10 lg:grid-cols-[1.3fr_1fr_1fr_1.2fr]">
@@ -69,7 +69,7 @@ export default function Footer() {
 
             <Link
               href="/#consultation"
-              className="mb-6 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-action px-6 text-label font-medium whitespace-nowrap text-white transition-[background-color,box-shadow] duration-300 hover:bg-action-hover hover:shadow-[0_16px_32px_-16px_rgba(110,5,240,0.5)]"
+              className="mb-6 inline-flex min-h-10 items-center justify-center gap-2 rounded-full bg-action px-6 text-label font-medium whitespace-nowrap text-white transition-[background-color,box-shadow] duration-300 hover:bg-action-hover hover:shadow-[0_16px_32px_-16px_rgba(23,126,141,0.5)]"
             >
               {t('contactUs.bookConsultation')}
               <svg viewBox="0 0 16 16" fill="none" aria-hidden="true" className="size-4 shrink-0">

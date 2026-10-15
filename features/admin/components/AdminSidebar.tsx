@@ -14,7 +14,7 @@ export default function AdminSidebar() {
   return (
     <aside className="flex h-screen w-56 flex-col border-r border-gray-200 bg-white">
       <div className="border-b border-gray-200 px-5 py-4">
-        <p className="text-xs font-semibold uppercase tracking-widest text-purple-700">Saturday Admin</p>
+        <p className="text-xs font-semibold uppercase tracking-widest text-action">Saturday Admin</p>
       </div>
       <nav className="flex-1 space-y-1 p-3">
         {links.map(({ href, label }) => (
@@ -23,7 +23,7 @@ export default function AdminSidebar() {
             href={href}
             className={`flex items-center rounded-md px-3 py-2 text-sm font-medium transition-colors ${
               pathname.startsWith(href)
-                ? 'bg-purple-50 text-purple-700'
+                ? 'bg-tint text-action'
                 : 'text-gray-600 hover:bg-gray-50 hover:text-gray-900'
             }`}
           >

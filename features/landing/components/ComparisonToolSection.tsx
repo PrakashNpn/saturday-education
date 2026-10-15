@@ -128,7 +128,7 @@ function UniversityPicker({
         }}
         onFocus={() => setOpen(true)}
         onKeyDown={(event) => event.key === 'Escape' && setOpen(false)}
-        className="w-full rounded-sm border border-stroke/70 bg-white/70 py-2 pr-4 pl-10 font-sans text-body font-light text-primary-text shadow-[0_1px_2px_rgba(20,10,43,0.05),0_8px_16px_-12px_rgba(92,9,245,0.25)] backdrop-blur-sm transition-colors placeholder:text-muted-text hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none"
+        className="w-full rounded-sm border border-stroke/70 bg-white/70 py-2 pr-4 pl-10 font-sans text-body font-light text-primary-text shadow-[0_1px_2px_rgba(0,51,58,0.05),0_8px_16px_-12px_rgba(0,51,58,0.25)] backdrop-blur-sm transition-colors placeholder:text-muted-text hover:border-action/40 focus:border-action focus:bg-white/90 focus:ring-2 focus:ring-action/15 focus:outline-none"
       />
 
       {open && (
@@ -291,7 +291,7 @@ function UniversityDetails({
   )
 }
 
-/** Loading state for the advisor panel. Sits on the purple panel, so the bars
+/** Loading state for the advisor panel. Sits on the teal panel, so the bars
  *  are white at low alpha rather than the grey the shared Skeleton uses. */
 function AdvisorSkeleton() {
   return (
@@ -471,16 +471,16 @@ export default function ComparisonToolSection({ universities }: Props) {
             they sit on the same wash and blur as everything below, and the
             vertical divider line now runs the full height of the panel
             instead of starting partway down it. */}
-        <div className="relative overflow-hidden rounded-[28px] border border-stroke bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(20,10,43,0.04)] backdrop-blur-md">
+        <div className="relative overflow-hidden rounded-[28px] border border-stroke bg-white/70 shadow-[inset_0_1px_0_rgba(255,255,255,0.9),0_1px_2px_rgba(0,51,58,0.04)] backdrop-blur-md">
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(127,2,235,0.07)_0%,rgba(127,2,235,0)_70%)]"
+            className="pointer-events-none absolute inset-0 z-0 bg-[radial-gradient(ellipse_70%_50%_at_50%_0%,rgba(23,126,141,0.07)_0%,rgba(23,126,141,0)_70%)]"
           />
           <div
             aria-hidden="true"
-            className="pointer-events-none absolute top-7 bottom-7 left-1/2 z-[1] hidden w-px bg-[linear-gradient(180deg,rgba(127,2,235,0)_0%,rgba(110,5,240,0.35)_50%,rgba(127,2,235,0)_100%)] md:block"
+            className="pointer-events-none absolute top-7 bottom-7 left-1/2 z-[1] hidden w-px bg-[linear-gradient(180deg,rgba(23,126,141,0)_0%,rgba(23,126,141,0.35)_50%,rgba(23,126,141,0)_100%)] md:block"
           />
-          <span className="absolute top-1/2 left-1/2 z-[2] hidden size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-stroke bg-surface text-label font-bold text-action shadow-[0_10px_24px_-8px_rgba(92,9,245,0.3)] md:grid">
+          <span className="absolute top-1/2 left-1/2 z-[2] hidden size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full border border-stroke bg-surface text-label font-bold text-action shadow-[0_10px_24px_-8px_rgba(0,51,58,0.3)] md:grid">
             {t('vs')}
           </span>
 
@@ -513,7 +513,7 @@ export default function ComparisonToolSection({ universities }: Props) {
                   half's own bottom border via translate-y-1/2, the same
                   overlap technique the Services step badges use, rather than
                   on 50% of the stacked pair's combined (and uneven) height. */}
-              <span className="absolute bottom-0 left-1/2 z-[2] grid size-9 -translate-x-1/2 translate-y-1/2 place-items-center rounded-full border border-stroke bg-surface text-min font-bold text-action shadow-[0_6px_16px_-6px_rgba(92,9,245,0.3)] md:hidden">
+              <span className="absolute bottom-0 left-1/2 z-[2] grid size-9 -translate-x-1/2 translate-y-1/2 place-items-center rounded-full border border-stroke bg-surface text-min font-bold text-action shadow-[0_6px_16px_-6px_rgba(0,51,58,0.3)] md:hidden">
                 {t('vs')}
               </span>
             </div>
@@ -571,12 +571,12 @@ export default function ComparisonToolSection({ universities }: Props) {
         role="dialog"
         aria-modal="true"
         aria-label={t('advisorDialogLabel')}
-        className={`fixed top-16 right-0 bottom-0 z-10 flex w-full max-w-[560px] flex-col overflow-y-auto rounded-l-[28px] bg-[linear-gradient(165deg,#7F02EB_0%,#6E05F0_55%,#5C09F5_100%)] p-6 text-white transition-transform duration-300 ease-out will-change-transform max-tablet:inset-x-0 max-tablet:inset-y-auto max-tablet:bottom-0 max-tablet:max-h-[85vh] max-tablet:max-w-none max-tablet:rounded-t-[28px] max-tablet:rounded-l-none ${
+        className={`fixed top-16 right-0 bottom-0 z-10 flex w-full max-w-[560px] flex-col overflow-y-auto rounded-l-[28px] bg-[linear-gradient(165deg,#177E8D_0%,#177E8D_55%,#00333A_100%)] p-6 text-white transition-transform duration-300 ease-out will-change-transform max-tablet:inset-x-0 max-tablet:inset-y-auto max-tablet:bottom-0 max-tablet:max-h-[85vh] max-tablet:max-w-none max-tablet:rounded-t-[28px] max-tablet:rounded-l-none ${
           advisorOpen ? 'translate-x-0 max-tablet:translate-y-0' : 'translate-x-full max-tablet:translate-x-0 max-tablet:translate-y-full'
         }`}
       >
         {/* Same liquid-glass family as the rest of the page, just inverted:
-            a soft white highlight on the gradient instead of a purple wash
+            a soft white highlight on the gradient instead of a teal wash
             on white. Positioned (it's absolute), so the real content below
             needs its own z-index to paint above it rather than behind it. */}
         <div
@@ -639,7 +639,7 @@ export default function ComparisonToolSection({ universities }: Props) {
               <ol className="flex flex-col gap-5">
                 {result.questions.map((item, index) => (
                   <motion.li key={item.q} variants={advisorItem} className="flex gap-3">
-                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white text-min font-medium text-brand shadow-[0_4px_10px_-2px_rgba(20,10,43,0.3)]">
+                    <span className="grid size-6 shrink-0 place-items-center rounded-full bg-white text-min font-medium text-brand shadow-[0_4px_10px_-2px_rgba(0,51,58,0.3)]">
                       {index + 1}
                     </span>
                     <div>
