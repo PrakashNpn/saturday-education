@@ -4,11 +4,13 @@ import type { MessageParam } from '@anthropic-ai/sdk/resources/messages'
 import { buildSystemPrompt } from '@/features/ai-advisor/prompts/system'
 import { planLeadTurn } from '@/features/ai-advisor/services/leadCapture'
 import type { Message } from '@/features/ai-advisor/types'
+import { languageOf, type LocaleCode } from '@/i18n/languages'
+import { modelForLocale } from '@/shared/lib/ai/models'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 // Shown in the chat bubble when the model call fails before anything streams.
-const FALLBACK_TEXT: Record<string, { busy: string; failed: string }> = {
+const FALLBACK_TEXT: Record<LocaleCode, { busy: string; failed: string }> = {
   en: {
     busy: "I'm getting a lot of questions right now. Please try again in a moment.",
     failed: "Sorry, I couldn't finish that. Please try again.",
@@ -28,7 +30,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
   }
 
-  const { messages, locale }: { messages: Message[]; locale?: string } = await req.json()
+  let body: { messages?: Message[]; locale?: string }
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
+  const { messages, locale } = body
 
   if (!Array.isArray(messages) || messages.length === 0) {
     return NextResponse.json({ error: 'Invalid messages' }, { status: 400 })
@@ -46,10 +54,8 @@ export async function POST(req: NextRequest) {
       let reply = ''
       try {
         const stream = client.messages.stream({
-          // Haiku writes broken Burmese and slips into English for Filipino, so those
-          // two get the stronger model (same finding as the comparison advisor).
-          model: locale === 'my' || locale === 'fil' ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001',
-          max_tokens: locale === 'my' || locale === 'th' ? 1400 : 600,
+          model: modelForLocale(locale),
+          max_tokens: languageOf(locale).longOutput ? 1400 : 600,
           system: buildSystemPrompt(locale) + plan.directive,
           messages: trimmed,
         })
@@ -67,7 +73,7 @@ export async function POST(req: NextRequest) {
         if (!reply) {
           const status = err instanceof Anthropic.APIError ? err.status : undefined
           const busy = status === 429 || status === 529
-          const text = FALLBACK_TEXT[locale ?? ''] ?? FALLBACK_TEXT.en
+          const text = FALLBACK_TEXT[locale as LocaleCode] ?? FALLBACK_TEXT.en
           controller.enqueue(encoder.encode(busy ? text.busy : text.failed))
         }
       } finally {

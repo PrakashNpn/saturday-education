@@ -1,6 +1,5 @@
 import type { Metadata } from 'next'
-import { getTranslations } from 'next-intl/server'
-import { routing } from '@/i18n/routing'
+import { getTranslations, setRequestLocale } from 'next-intl/server'
 import HeroSection from "@/features/landing/components/HeroSection"
 import CourseFinderBar from "@/features/landing/components/CourseFinderBar"
 
@@ -9,30 +8,9 @@ type Props = { params: Promise<{ locale: string }> }
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'metadata' })
-  return {
-    // absolute, not a plain string: the root layout's title template would
-    // otherwise append "| Saturday Education" a second time onto a title
-    // that already opens with the brand name.
-    title: { absolute: t('home.title') },
-    description: t('home.description'),
-    openGraph: {
-      title: t('home.title'),
-      description: t('home.description'),
-      type: 'website',
-      locale,
-      siteName: 'Saturday Education',
-    },
-    twitter: {
-      card: 'summary_large_image',
-      title: t('home.title'),
-      description: t('home.description'),
-    },
-    alternates: {
-      languages: Object.fromEntries(
-        routing.locales.map((l) => [l, l === routing.defaultLocale ? '/' : `/${l}`]),
-      ),
-    },
-  }
+  // The home title already says the brand, so it is `absolute`: the root layout's
+  // title template would otherwise append "| Saturday Education" a second time.
+  return pageMetadata({ locale, path: '', title: { absolute: t('home.title') }, description: t('home.description') })
 }
 import PartnerLogosSection from "@/features/landing/components/PartnerLogosSection"
 import WhySaturdaySection from "@/features/landing/components/WhySaturdaySection"
@@ -49,8 +27,15 @@ import CtaSection from "@/features/landing/components/CtaSection"
 import ConsultationSection from "@/features/landing/components/ConsultationSection"
 import { submitConsultation } from '@/features/consultation'
 import { Reveal } from '@/shared/components/motion/Reveal'
+import { pageMetadata } from '@/shared/lib/seo/metadata'
 
-export default async function HomePage() {
+// Built once and served from Vercel's cache, then rebuilt in the background at most
+// once a day. A content edit made in the database shows after that, or at the next deploy.
+export const revalidate = 86400
+
+export default async function HomePage({ params }: Props) {
+  const { locale } = await params
+  setRequestLocale(locale)
   const [comparisonUniversities, courseFinderOptions, globalLeadersDestinations] = await Promise.all([
     getComparisonUniversities(),
     getCourseFinderOptions(),

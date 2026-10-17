@@ -1,32 +1,7 @@
 import { prisma } from '@/shared/lib/db/prisma'
 import { getFirmliInstitutionCountsByName } from '@/shared/lib/courseFinder/firmliClient'
 import type { CountryCardData, CountryDetailData } from '../types'
-
-/** The translated columns for one piece of text, keyed by locale. */
-type Translations = Partial<Record<'th' | 'my' | 'vi' | 'fil' | 'id', string | null>>
-
-/**
- * Picks the translated value for `locale`, falling back to the English
- * `base` when that field hasn't been translated for this country yet (the
- * translation columns are null until someone fills them in). English itself
- * has no override column, so it always resolves to `base`. An empty string
- * counts as untranslated, so a blank cell never blanks the page. Generic so a
- * non-nullable base (e.g. a FAQ's `question`) still types as non-nullable
- * coming out, not widened to `string | null`.
- */
-function localize<T extends string | null>(base: T, translations: Translations, locale: string): T {
-  const value = (translations as Record<string, string | null | undefined>)[locale]
-  return value != null && value !== '' ? (value as T) : base
-}
-
-/** The six translation columns every translated field carries. */
-const columns = (th: string | null, my: string | null, vi: string | null, fil: string | null, idn: string | null): Translations => ({
-  th,
-  my,
-  vi,
-  fil,
-  id: idn,
-})
+import { columns, localize } from '../utils/localize'
 
 /**
  * `locale` defaults to English so the admin dashboard's calls (which don't

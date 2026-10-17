@@ -208,10 +208,17 @@
             "hungary": "Hungary",
             "finland": "Phần Lan",
             "china": "Trung Quốc",
-            "sweden": "Thụy Điển",
             "uae": "UAE",
             "japan": "Nhật Bản",
-            "korea": "Hàn Quốc"
+            "korea": "Hàn Quốc",
+            "belgium": "Bỉ",
+            "france": "Pháp",
+            "grenada": "Grenada",
+            "italy": "Ý",
+            "netherlands": "Hà Lan",
+            "spain": "Tây Ban Nha",
+            "vietnam": "Việt Nam",
+            "other": "Khác"
           },
           "placeholder": "Chọn một quốc gia"
         },
@@ -295,7 +302,7 @@
       "body": "Mỗi chuyên viên tư vấn đều có nhiều năm kinh nghiệm thực tế trong việc xếp trường cho sinh viên, hiểu rõ điểm số và ngân sách của bạn thực sự có thể đưa bạn đến đâu. Đó là cùng một đội ngũ đứng sau mọi trường hợp được xếp trường dưới đây.",
       "statCount": "3.000+",
       "statLabel": "sinh viên được xếp trường từ năm 2019",
-      "imageAlt": "Một chuyên viên tư vấn của Saturday Education đang tư vấn 1-1 với sinh viên",
+      "imageAlt": "Các chuyên viên tư vấn của Saturday Education đang trao đổi trong văn phòng",
       "supportTitle": "Hỗ trợ sau khi nhập học",
       "supportBody": "Chúng tôi đồng hành qua việc tìm chỗ ở, ngày đến nơi và học kỳ đầu tiên, không chỉ dừng ở thư mời nhập học.",
       "pricingTitle": "Giá minh bạch",
@@ -695,7 +702,7 @@
       "description": "Chúng tôi đã giúp hơn 3,000 sinh viên nhận được thư nhập học từ các trường đại học hàng đầu thế giới. Tư vấn du học, học bổng, hỗ trợ visa và nhiều hơn nữa."
     },
     "universities": {
-      "title": "Tìm trường đại học: So sánh các trường hàng đầu thế giới | Saturday Education",
+      "title": "Tìm trường đại học: So sánh các trường hàng đầu thế giới",
       "description": "Tìm kiếm và so sánh các trường đại học tại Anh, Mỹ, Úc, Canada và nhiều nước khác. Chọn chương trình phù hợp cho hành trình du học của bạn."
     },
     "courseFinder": {
@@ -703,20 +710,24 @@
       "description": "Tìm hàng nghìn chương trình tại các trường đại học và cao đẳng trên thế giới. Lọc theo quốc gia, trường, bậc học, kỳ nhập học, thời gian và ngôn ngữ."
     },
     "destinations": {
-      "title": "Điểm đến du học: Khám phá các quốc gia giáo dục hàng đầu | Saturday Education",
+      "title": "Điểm đến du học: Khám phá các quốc gia giáo dục hàng đầu",
       "description": "Khám phá những quốc gia tốt nhất cho sinh viên quốc tế. So sánh hệ thống giáo dục, chi phí, quy trình visa và cơ hội nghề nghiệp."
     },
     "careerAssessment": {
-      "title": "Đánh giá nghề nghiệp | Saturday Education",
+      "title": "Đánh giá nghề nghiệp",
       "description": "Làm bài đánh giá nghề nghiệp miễn phí để hiểu rõ sở thích và tính cách của bạn. Chuyên viên tư vấn của chúng tôi sẽ trực tiếp xem hồ sơ và hướng dẫn bạn."
     },
     "about": {
-      "title": "Giới thiệu | Saturday Education",
+      "title": "Giới thiệu",
       "description": "Tư vấn du học độc lập, có chứng nhận từ Saturday Education. Gặp gỡ những chuyên viên đứng sau mỗi hồ sơ nhập học thành công tại Yangon và Bangkok."
+    },
+    "destinationDetail": {
+      "title": "Du học {country}"
     }
   },
   "chatWidget": {
     "title": "Cố vấn du học",
+    "letsChat": "Trò chuyện ngay",
     "status": "Trực tuyến",
     "welcomeMessage": "Xin chào! 👋 Mình là cố vấn du học của bạn. Mình có thể giúp bạn chọn trường phù hợp, so sánh các điểm đến và hướng dẫn quy trình nộp hồ sơ. Hôm nay mình có thể giúp gì cho bạn?",
     "inputPlaceholder": "Nhập tin nhắn của bạn...",

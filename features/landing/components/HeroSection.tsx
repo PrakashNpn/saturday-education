@@ -19,17 +19,29 @@ const AQUA = '#52D8EA'
 const TURQUOISE = '#2DD4BF'
 const SKY = '#C5F8FF'
 
-const SHADOW_HEADLINE = '0 2px 20px rgba(0,51,58,.46),0 1px 3px rgba(0,51,58,.32)'
-const SHADOW_NAME = '0 2px 18px rgba(0,51,58,.4),0 1px 3px rgba(0,51,58,.32)'
+// The text shadows carry part of the legibility now that the photo behind the copy is
+// lighter (see CLARITY), so they are a little stronger than the first approved look.
+const SHADOW_HEADLINE = '0 2px 22px rgba(0,51,58,.62),0 1px 3px rgba(0,51,58,.44)'
+const SHADOW_NAME = '0 2px 20px rgba(0,51,58,.55),0 1px 3px rgba(0,51,58,.42)'
 const SHADOW_NUMBER = '0 2px 14px rgba(0,51,58,.9),0 1px 3px rgba(0,51,58,.75)'
-const SHADOW_SOFT = '0 1px 12px rgba(0,51,58,.56),0 1px 2px rgba(0,51,58,.38)'
+const SHADOW_SOFT = '0 1px 12px rgba(0,51,58,.68),0 1px 2px rgba(0,51,58,.46)'
 const SHADOW_LABEL = '0 1px 10px rgba(0,51,58,.8)'
 
 // Photo clarity, 0 to 100. This one number drives every overlay below. 75 is the
 // first approved look; 100 is the photo almost bare. The dark areas sit only
 // behind the copy (the bright wall at the top of the photo is where white text
 // needs them), and the lower half, where the people are, is left clear.
-const CLARITY = 83
+// Raised from 83 to 84 in October 2026, together with the teal tint below, because the
+// top middle read as too dark: that is about 14% more light there and on the faces.
+// Measured against the photo, white text is already close to its readable limit on the
+// brightest part of the wall (a higher value made the headline and subtitle too weak),
+// so going further needs a darker photo, not a weaker overlay.
+const CLARITY = 84
+
+// The overlay colour (R,G,B) is the brand teal, deepened, rather than the near-black
+// teal used by the text shadows: over the white wall it gives a clean teal instead of
+// a grey, so the same strength looks lighter and more on brand.
+const OVERLAY = '4,66,78'
 
 // The overlay strengths at clarity 75 and at clarity 100; every other value
 // is a straight line between the two.
@@ -41,9 +53,9 @@ const mix = (key: keyof typeof AT_75) => {
 }
 const a = (value: number) => Math.max(0, value).toFixed(3)
 
-const WASH = `linear-gradient(180deg,rgba(23,126,141,${a(mix('washTop'))}) 0%,rgba(0,51,58,${a(mix('washBottom'))}) 100%)`
-const POOL_TOP = `radial-gradient(ellipse 62% 44% at 50% 24%,rgba(0,51,58,${a(mix('poolTop'))}) 0%,rgba(0,51,58,${a(mix('poolTop') * 0.7)}) 55%,rgba(0,51,58,0) 100%)`
-const POOL_MID = `radial-gradient(ellipse 56% 30% at 50% 68%,rgba(0,51,58,${a(mix('poolMid'))}) 0%,rgba(0,51,58,${a(mix('poolMid') * 0.5)}) 60%,rgba(0,51,58,0) 100%)`
+const WASH = `linear-gradient(180deg,rgba(23,126,141,${a(mix('washTop'))}) 0%,rgba(${OVERLAY},${a(mix('washBottom'))}) 100%)`
+const POOL_TOP = `radial-gradient(ellipse 62% 44% at 50% 24%,rgba(${OVERLAY},${a(mix('poolTop'))}) 0%,rgba(${OVERLAY},${a(mix('poolTop') * 0.7)}) 55%,rgba(${OVERLAY},0) 100%)`
+const POOL_MID = `radial-gradient(ellipse 56% 30% at 50% 68%,rgba(${OVERLAY},${a(mix('poolMid'))}) 0%,rgba(${OVERLAY},${a(mix('poolMid') * 0.5)}) 60%,rgba(${OVERLAY},0) 100%)`
 
 interface Props {
   /** Dropped by the page when Firmli's lists are unreachable. The hero then
@@ -87,6 +99,7 @@ export default function HeroSection({ courseFinder }: Props) {
           aria-hidden="true"
           fill
           priority
+          fetchPriority="high"
           sizes="100vw"
           className="object-cover [object-position:50%_38%] [filter:saturate(1.08)_contrast(1.05)_brightness(1.04)] max-tablet:[object-position:36%_38%]"
         />

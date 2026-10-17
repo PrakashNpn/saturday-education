@@ -208,10 +208,17 @@
             "hungary": "Hungary",
             "finland": "Finland",
             "china": "China",
-            "sweden": "Sweden",
             "uae": "UAE",
             "japan": "Japan",
-            "korea": "Korea"
+            "korea": "Korea",
+            "belgium": "Belgium",
+            "france": "France",
+            "grenada": "Grenada",
+            "italy": "Italy",
+            "netherlands": "Netherlands",
+            "spain": "Spain",
+            "vietnam": "Vietnam",
+            "other": "Other"
           },
           "placeholder": "Country တစ်ခု ရွေးပါ"
         },
@@ -295,7 +302,7 @@
       "body": "Counsellor တိုင်းမှာ Student တွေ Place လုပ်ပေးတဲ့ Hands-on Experience နှစ်ပေါင်းများစွာ ရှိပြီး၊ သင့် Grades နဲ့ Budget က ဘာရနိုင်မလဲဆိုတာ ရှင်းရှင်းလင်းလင်း သိပါတယ်။ အောက်က Placement တိုင်းနောက်မှာ Team တစ်ခုတည်းပါပဲ။",
       "statCount": "3,000+",
       "statLabel": "2019 ကတည်းက Place လုပ်ပေးထားတဲ့ Student",
-      "imageAlt": "Saturday Education Counsellor တစ်ယောက် Student နဲ့ One-on-One Consultation လုပ်နေစဉ်",
+      "imageAlt": "Saturday Education Counsellor တွေ Office မှာ Discussion လုပ်နေစဉ်",
       "supportTitle": "Post-Admission Support",
       "supportBody": "Offer တစ်ခုတည်းမက Housing, Arrival နဲ့ ပထမ Term အထိ ကျွန်ုပ်တို့ ပါဝင်နေပါတယ်။",
       "pricingTitle": "Transparent Pricing",
@@ -347,7 +354,7 @@
       "description": "ကျွန်ုပ်တို့က Student 3,000+ ကို Worldwide Top University တွေမှာ Admission ရအောင် ကူညီပေးခဲ့ပါတယ်။ Study Abroad, Scholarship, Visa Support စတာတွေအတွက် Expert Guidance။"
     },
     "universities": {
-      "title": "University Finder - Compare Top Universities Worldwide | Saturday Education",
+      "title": "University Finder - Compare Top Universities Worldwide",
       "description": "UK, USA, Australia, Canada စတာတွေရှိ University တွေကို Search & Compare လုပ်ပါ။ သင့် Study Abroad Journey အတွက် Perfect Program ကို ရှာပါ။"
     },
     "courseFinder": {
@@ -355,20 +362,24 @@
       "description": "Worldwide ရှိ University နဲ့ College တွေက Program ထောင်ချီကို Search လုပ်ပါ။ Country, Institution, Study Level, Intake, Duration နဲ့ Language အလိုက် Filter လုပ်ပါ။"
     },
     "destinations": {
-      "title": "Study Destinations - Explore Top Countries for Education | Saturday Education",
+      "title": "Study Destinations - Explore Top Countries for Education",
       "description": "International Student တွေအတွက် Best Country တွေကို Discover လုပ်ပါ။ Education System, Cost, Visa Process နဲ့ Career Opportunity တွေကို Compare လုပ်ပါ။"
     },
     "careerAssessment": {
-      "title": "Career Assessment | Saturday Education",
+      "title": "Career Assessment",
       "description": "သင့် Interest နဲ့ Personality ကို နားလည်ဖို့ ကျွန်ုပ်တို့ရဲ့ Free Career Assessment ကို လုပ်ကြည့်ပါ - ကျွန်ုပ်တို့ရဲ့ Counsellor တွေက သင့် Profile ကို ကိုယ်တိုင် Review လုပ်ပြီး Guide ပေးပါမယ်။"
     },
     "about": {
-      "title": "About Us | Saturday Education",
+      "title": "About Us",
       "description": "Saturday Education ကနေ Independent, Certified Study Abroad Guidance။ ရန်ကုန်နဲ့ ဘန်ကောက်က Student Placement တိုင်းနောက်ကွယ်က Advisor တွေကို Meet လုပ်ပါ။"
+    },
+    "destinationDetail": {
+      "title": "{country} မှာ ပညာသင်ယူရန်"
     }
   },
   "chatWidget": {
     "title": "Study Abroad Advisor",
+    "letsChat": "Chat လုပ်ရအောင်",
     "status": "Online",
     "welcomeMessage": "Hi! 👋 ကျွန်ုပ်က သင့် Study Abroad Advisor ပါ။ Right University ရှာတာ, Destination တွေ Compare လုပ်တာနဲ့ Application Process ကို Guide လုပ်ပေးနိုင်ပါတယ်။ ဒီနေ့ ဘာကူညီရမလဲ?",
     "inputPlaceholder": "သင့် Message ကို Type လုပ်ပါ...",

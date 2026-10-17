@@ -7,9 +7,8 @@ export const config = {
   matcher: [
     // Match all paths EXCEPT:
     //  - api routes
-    //  - admin routes (handled outside next-intl locale routing)
     //  - Next.js internals (_next/*)
     //  - Any file with an extension (.jpeg, .png, .svg, .ico, .js, .css, etc.)
-    '/((?!api|admin|_next|_vercel|.*\\..*).*)',
+    '/((?!api|_next|_vercel|.*\\..*).*)',
   ],
 }

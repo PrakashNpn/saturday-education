@@ -6,19 +6,15 @@ import { useTranslations } from 'next-intl'
 import { Sparkle, Check, Loader2, ShieldCheck } from 'lucide-react'
 import { CustomDropdown } from '@/shared/components/common'
 import { Link } from '@/i18n/navigation'
+import { COUNTRY_KEYS } from '@/shared/constants/destinationCountries'
 import type { ContactDetails } from '../types'
+import { EDUCATION_KEYS } from '../utils/educationLevels'
 
 interface Props {
   onSubmit: (contact: ContactDetails) => void
   serverError?: string | null
 }
 
-const COUNTRY_KEYS = [
-  'canada', 'newZealand', 'singapore', 'switzerland', 'ireland', 'thailand',
-  'malaysia', 'germany', 'hungary', 'finland', 'china', 'sweden', 'uae',
-  'japan', 'korea', 'uk', 'usa', 'australia',
-]
-const EDUCATION_KEYS = ['highSchool', 'foundation', 'undergraduate', 'graduate', 'other']
 
 const EMAIL_REGEX = /^[^\s@]+@[^\s@]+\.[^\s@]+$/
 
@@ -51,10 +47,6 @@ export function ContactForm({ onSubmit, serverError }: Props) {
     { value: 'other', label: t('otherDestination') },
   ]
 
-  function labelOf(opts: { value: string; label: string }[], v: string) {
-    return opts.find((o) => o.value === v)?.label
-  }
-
   function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     if (submitting) return
@@ -72,8 +64,9 @@ export function ContactForm({ onSubmit, serverError }: Props) {
       fullName: fullName.trim(),
       email: email.trim(),
       phone: phone.trim(),
-      educationLevel: labelOf(educationOptions, educationLevel),
-      preferredCountry: labelOf(countryOptions, preferredCountry),
+      // Keys, not the dropdowns' translated text: the server turns them into English names.
+      educationLevel,
+      preferredCountry,
     })
   }
 

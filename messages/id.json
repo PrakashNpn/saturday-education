@@ -208,10 +208,17 @@
             "hungary": "Hungaria",
             "finland": "Finlandia",
             "china": "Tiongkok",
-            "sweden": "Swedia",
             "uae": "UEA",
             "japan": "Jepang",
-            "korea": "Korea"
+            "korea": "Korea",
+            "belgium": "Belgia",
+            "france": "Prancis",
+            "grenada": "Grenada",
+            "italy": "Italia",
+            "netherlands": "Belanda",
+            "spain": "Spanyol",
+            "vietnam": "Vietnam",
+            "other": "Lainnya"
           },
           "placeholder": "Pilih negara"
         },
@@ -295,7 +302,7 @@
       "body": "Setiap konselor membawa pengalaman bertahun-tahun menempatkan mahasiswa, dengan gambaran jelas tentang apa yang bisa Anda raih dengan nilai dan anggaran Anda. Tim yang sama berada di balik setiap penempatan di bawah ini.",
       "statCount": "3.000+",
       "statLabel": "mahasiswa telah ditempatkan sejak 2019",
-      "imageAlt": "Seorang konselor Saturday Education dalam konsultasi satu lawan satu dengan mahasiswa",
+      "imageAlt": "Para konselor Saturday Education sedang berdiskusi di kantor",
       "supportTitle": "Dukungan pascapenerimaan",
       "supportBody": "Kami tetap terlibat dalam urusan tempat tinggal, kedatangan, dan semester pertama, bukan hanya sampai surat penerimaan.",
       "pricingTitle": "Harga transparan",
@@ -695,7 +702,7 @@
       "description": "Kami telah membantu lebih dari 3,000 mahasiswa diterima di universitas terbaik dunia. Bimbingan kuliah di luar negeri, beasiswa, bantuan visa, dan lainnya."
     },
     "universities": {
-      "title": "Cari Universitas: Bandingkan Universitas Terbaik Dunia | Saturday Education",
+      "title": "Cari Universitas: Bandingkan Universitas Terbaik Dunia",
       "description": "Cari dan bandingkan universitas di Inggris, AS, Australia, Kanada, dan negara lainnya. Temukan program yang tepat untuk perjalanan kuliah Anda di luar negeri."
     },
     "courseFinder": {
@@ -703,20 +710,24 @@
       "description": "Cari ribuan program di universitas dan perguruan tinggi di seluruh dunia. Saring berdasarkan negara, institusi, jenjang studi, jadwal masuk, durasi, dan bahasa."
     },
     "destinations": {
-      "title": "Destinasi Studi: Jelajahi Negara Pendidikan Terbaik | Saturday Education",
+      "title": "Destinasi Studi: Jelajahi Negara Pendidikan Terbaik",
       "description": "Temukan negara terbaik untuk mahasiswa internasional. Bandingkan sistem pendidikan, biaya, proses visa, dan peluang karier."
     },
     "careerAssessment": {
-      "title": "Asesmen Karier | Saturday Education",
+      "title": "Asesmen Karier",
       "description": "Ikuti asesmen karier gratis kami untuk memahami minat dan kepribadian Anda. Konselor kami akan meninjau profil Anda secara langsung dan memberi arahan."
     },
     "about": {
-      "title": "Tentang Kami | Saturday Education",
+      "title": "Tentang Kami",
       "description": "Bimbingan kuliah di luar negeri yang independen dan bersertifikat dari Saturday Education. Kenali para penasihat di balik setiap penempatan mahasiswa di Yangon dan Bangkok."
+    },
+    "destinationDetail": {
+      "title": "Kuliah di {country}"
     }
   },
   "chatWidget": {
     "title": "Penasihat kuliah di luar negeri",
+    "letsChat": "Ayo Ngobrol",
     "status": "Online",
     "welcomeMessage": "Halo! 👋 Saya penasihat kuliah di luar negeri Anda. Saya bisa membantu Anda memilih universitas yang tepat, membandingkan destinasi, dan memandu proses pendaftaran. Apa yang bisa saya bantu hari ini?",
     "inputPlaceholder": "Ketik pesan Anda...",

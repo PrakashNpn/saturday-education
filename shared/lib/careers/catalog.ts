@@ -1160,12 +1160,3 @@ export function findCareerByQuery(query: string): Career | undefined {
   if (!q) return undefined
   return BY_TITLE.get(q) ?? BY_SLUG.get(q.replace(/[^a-z0-9]+/g, '-').replace(/^-+|-+$/g, ''))
 }
-
-export function getCareersByField(field: CareerField): Career[] {
-  return CAREERS.filter((c) => c.field === field)
-}
-
-/** Careers that suit any of the given Holland types. */
-export function getCareersByRiasec(codes: HollandCode[]): Career[] {
-  return CAREERS.filter((c) => c.riasec.some((r) => codes.includes(r)))
-}

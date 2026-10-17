@@ -363,12 +363,19 @@ model Consultation {
   source           String?             @default("website")
   status           ConsultationStatus  @default(NEW)
 
+  // Whether the lead reached the Firmli CRM: "synced", "failed" or "skipped"
+  // (Firmli not configured). Null for leads saved before this was tracked.
+  crmStatus        String?             @map("crm_status")
+  crmError         String?             @map("crm_error") @db.Text
+  crmSyncedAt      DateTime?           @map("crm_synced_at")
+
   createdAt        DateTime            @default(now()) @map("created_at")
   updatedAt        DateTime            @updatedAt      @map("updated_at")
 
   @@index([status])
   @@index([createdAt])
   @@index([email])
+  @@index([crmStatus])
   @@map("consultations")
 }
 

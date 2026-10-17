@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { AssessmentFlow } from '@/features/career-assessment'
+import { pageMetadata } from '@/shared/lib/seo/metadata'
 
 type Props = { params: Promise<{ locale: string }> }
 
@@ -12,10 +13,7 @@ export const maxDuration = 60
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'metadata.careerAssessment' })
-  return {
-    title: t('title'),
-    description: t('description'),
-  }
+  return pageMetadata({ locale, path: '/career-assessment', title: t('title'), description: t('description') })
 }
 
 export default async function CareerDiscoveryPage({ params }: Props) {

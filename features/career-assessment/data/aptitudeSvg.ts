@@ -110,18 +110,6 @@ export function foldPrompt(holes: [number, number][], axes: ('v' | 'h')[]): stri
   return wrap(squareOutline() + lines + dots)
 }
 
-/** Prompt for the reflection item: the figure plus the dashed diagonal mirror axis. */
-export function reflectPrompt(cells: [number, number][]): string {
-  const rows = cells.map((c) => c[0])
-  const cols = cells.map((c) => c[1])
-  const w = (Math.max(...cols) - Math.min(...cols) + 1) * CS
-  const h = (Math.max(...rows) - Math.min(...rows) + 1) * CS
-  const ox = C - w / 2 - Math.min(...cols) * CS
-  const oy = C - h / 2 - Math.min(...rows) * CS
-  const diag = `<line x1="14" y1="14" x2="${VB - 14}" y2="${VB - 14}" stroke="${RIGHT}" stroke-width="2" stroke-dasharray="4 3"/>`
-  return wrap(cellsRects(cells, ox, oy, FILL) + diag)
-}
-
 // ── Cube nets (arrangements of 6 unit squares) ───────────────────────────────
 export function net(cells: [number, number][]): string {
   const rows = cells.map((c) => c[0])

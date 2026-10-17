@@ -120,5 +120,3 @@ export const APTITUDE_QUESTIONS: (AptitudeQuestion & { area: AptitudeArea })[] =
   // SPA10 — lines of symmetry of a regular pentagon
   { id: 'SPA10', area: 'spatial', text: 'How many lines of symmetry does this regular shape have?', svg: regularPolygon(5), options: ['3', '4', '5', '6'] },
 ]
-
-export const APTITUDE_COUNT = APTITUDE_QUESTIONS.length // 40

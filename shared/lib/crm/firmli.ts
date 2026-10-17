@@ -4,11 +4,14 @@
 //   FIRMLI_CLIENT_NUMBER = c191z26royal58
 //   FIRMLI_FORM_NUMBER   = FRM1790061849437W26JWECS31   ("Website Form", consultation form)
 //   FIRMLI_UTM_NUMBER    = UTM1790583080779Q26HZFCX32   (source "Website")
+// A failed sync is recorded on the lead and emailed to CRM_ALERT_EMAIL (see leadStorage.ts).
 // The AI chatbot has its own Firmli form and UTM source so its leads can be told
 // apart from the consultation form's. If these two are unset, chat leads fall
 // back to the consultation form above, so nothing is lost before they are set:
 //   FIRMLI_CHAT_FORM_NUMBER = FRM1792068158127E26EXDHR92   ("AI Chatbot - Website Form")
 //   FIRMLI_CHAT_UTM_NUMBER  = UTM1792207569261M26WXWZI49   (source "AIChatbot_website")
+import { COUNTRIES } from '@/shared/constants/destinationCountries'
+
 const FIRMLI_CLIENT_NUMBER = process.env.FIRMLI_CLIENT_NUMBER
 const FIRMLI_FORM_NUMBER = process.env.FIRMLI_FORM_NUMBER
 const FIRMLI_CHAT_FORM_NUMBER = process.env.FIRMLI_CHAT_FORM_NUMBER
@@ -18,58 +21,23 @@ const FIRMLI_CHAT_UTM_NUMBER = process.env.FIRMLI_CHAT_UTM_NUMBER
 // sent without it were showing up there as "Email").
 const FIRMLI_UTM_NUMBER = process.env.FIRMLI_UTM_NUMBER
 
+// Without a limit a hung Firmli request would hold the student's form open.
+const REQUEST_TIMEOUT_MS = 8000
+
 const apiBase = () => `https://${FIRMLI_CLIENT_NUMBER}-api.firmli.com/v1`
 
-// Firmli's destination-country picklist IDs for this account (from
-// GET /v1/dropdowns/destination-countries-dropdown), limited to the countries
-// our consultation form's targetCountry select and the chat advisor's lead
-// tool can send. Grenada has no entry in Firmli's list, so a Grenada lead is
-// saved without a country there. If Firmli ever rejects one of these, re-pull
-// that endpoint — the IDs are account-specific, not something Firmli
-// documents publicly.
-const FIRMLI_COUNTRY_IDS: Record<string, number> = {
-  uk: 230,
-  usa: 231,
-  australia: 13,
-  canada: 38,
-  newZealand: 157,
-  singapore: 196,
-  switzerland: 212,
-  ireland: 105,
-  thailand: 217,
-  germany: 82,
-  malaysia: 132,
-  netherlands: 155,
-  spain: 205,
-  uae: 229,
-}
-
-// The chat form's destination field is a multi-select whose values are the
-// country NAMES (not ids), from GET /v1/dropdowns/destination-countries-dropdown
-// ?text_only=true. Keys are the lead form's country keys; one with no entry here
-// is sent without a destination.
-const FIRMLI_COUNTRY_NAMES: Record<string, string> = {
-  uk: 'United Kingdom',
-  usa: 'United States',
-  australia: 'Australia',
-  canada: 'Canada',
-  newZealand: 'New Zealand',
-  singapore: 'Singapore',
-  switzerland: 'Switzerland',
-  ireland: 'Ireland',
-  thailand: 'Thailand',
-  germany: 'Germany',
-  malaysia: 'Malaysia',
-  netherlands: 'Netherlands',
-  spain: 'Spain',
-  uae: 'United Arab Emirates',
-  hungary: 'Hungary',
-  finland: 'Finland',
-  china: 'China',
-  japan: 'Japan',
-  korea: 'South Korea',
-  vietnam: 'Vietnam',
-}
+// Firmli's destination-country IDs and names come from shared/constants/destinationCountries.ts
+// (originally read from GET /v1/dropdowns/destination-countries-dropdown; the IDs
+// are account-specific, not something Firmli documents publicly). A country with
+// no Firmli entry (Belgium, Grenada) is saved without a destination there. If
+// Firmli ever rejects one, re-pull that endpoint and update the list.
+// The consultation form sends the ID; the chat form's multi-select takes the NAME.
+const FIRMLI_COUNTRY_IDS: Record<string, number> = Object.fromEntries(
+  COUNTRIES.flatMap((c) => (c.firmliId ? [[c.key, c.firmliId]] : [])),
+)
+const FIRMLI_COUNTRY_NAMES: Record<string, string> = Object.fromEntries(
+  COUNTRIES.flatMap((c) => (c.firmliName ? [[c.key, c.firmliName]] : [])),
+)
 
 // Firmli's "Additional Inquiry" is a short text field, not a textarea, so the
 // chat transcript note is trimmed for the CRM (the database keeps the full text).
@@ -106,10 +74,10 @@ function headers() {
 export async function createFirmliLead(
   data: FirmliLeadInput,
   options: { channel?: FirmliChannel } = {},
-): Promise<void> {
+): Promise<'sent' | 'skipped'> {
   if (!FIRMLI_CLIENT_NUMBER || !FIRMLI_FORM_NUMBER) {
     console.warn('FIRMLI_CLIENT_NUMBER / FIRMLI_FORM_NUMBER not set — skipping Firmli CRM sync.')
-    return
+    return 'skipped'
   }
 
   // The chatbot has its own form and UTM source, but only when both are set;
@@ -147,6 +115,7 @@ export async function createFirmliLead(
     method: 'POST',
     headers: headers(),
     body: JSON.stringify(payload),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   })
   if (!encryptRes.ok) {
     throw new Error(`Firmli encrypt-data failed: ${encryptRes.status}`)
@@ -162,9 +131,11 @@ export async function createFirmliLead(
     method: 'POST',
     headers: headers(),
     body: JSON.stringify({ content }),
+    signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   })
   if (!saveRes.ok) {
     const body = await saveRes.text().catch(() => '')
     throw new Error(`Firmli forms/save failed: ${saveRes.status} ${body}`)
   }
+  return 'sent'
 }

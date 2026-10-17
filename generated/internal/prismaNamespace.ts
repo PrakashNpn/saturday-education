@@ -1772,6 +1772,9 @@ export const ConsultationScalarFieldEnum = {
   message: 'message',
   source: 'source',
   status: 'status',
+  crmStatus: 'crmStatus',
+  crmError: 'crmError',
+  crmSyncedAt: 'crmSyncedAt',
   createdAt: 'createdAt',
   updatedAt: 'updatedAt'
 } as const

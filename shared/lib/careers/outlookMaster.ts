@@ -8,6 +8,8 @@
 // both the client modal and the server action.
 
 import type { Career, CareerField, Demand, HollandCode } from './catalog'
+import { deDash } from '@/shared/utils/dashes'
+import { TRANSLATION_LOCALES, type TranslationLocale } from '@/i18n/languages'
 
 export type Horizon = '5' | '10'
 
@@ -91,8 +93,6 @@ export function growthLabelFor(growth: number): string {
 
 const clamp = (n: number, lo: number, hi: number) => Math.max(lo, Math.min(hi, n))
 const str = (v: unknown) => (typeof v === 'string' ? v : '')
-const deDash = (s: string) =>
-  s.replace(/\s*[—–]\s*/g, ', ').replace(/,\s*,/g, ',').replace(/\s{2,}/g, ' ').trim()
 const cleanList = (v: unknown, max: number) =>
   (Array.isArray(v) ? v : [])
     .map((x) => deDash(str(x)))
@@ -230,8 +230,7 @@ export function deriveHorizonView(master: CareerOutlookMaster, horizon: Horizon)
 // second AI call and stored beside the English master, so only the text fields
 // below are ever replaced; numbers, codes, sources and the slug never change.
 
-export const TRANSLATION_LOCALES = ['th', 'my', 'vi', 'fil', 'id'] as const
-export type TranslationLocale = (typeof TRANSLATION_LOCALES)[number]
+export { TRANSLATION_LOCALES, type TranslationLocale }
 
 export function toTranslationLocale(locale: unknown): TranslationLocale | null {
   return (TRANSLATION_LOCALES as readonly string[]).includes(String(locale))

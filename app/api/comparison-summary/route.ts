@@ -1,11 +1,13 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import type { ComparisonUniversity } from '@/features/landing/services/comparison-service'
+import { isTranslationLocale, type TranslationLocale } from '@/i18n/languages'
+import { modelForLocale } from '@/shared/lib/ai/models'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 // Language the advisor writes in. English (or anything unrecognised) adds no instruction.
-const LANGUAGE_NOTE: Record<string, string> = {
+const LANGUAGE_NOTE: Record<TranslationLocale, string> = {
   th: 'Thai. Keep university names, tool names and acronyms in English.',
   vi: 'Vietnamese. Keep university names, tool names and acronyms in English.',
   fil: 'natural Filipino, the way Filipinos write today, with common English terms kept in English. Do not force deep Tagalog.',
@@ -14,7 +16,7 @@ const LANGUAGE_NOTE: Record<string, string> = {
 }
 
 function buildPrompt(uni1: ComparisonUniversity, uni2: ComparisonUniversity, locale?: string): string {
-  const language = locale ? LANGUAGE_NOTE[locale] : undefined
+  const language = isTranslationLocale(locale) ? LANGUAGE_NOTE[locale] : undefined
   // The JSON template below is written in English, which pulls the model back
   // to English, so the language is stated first and again just before the template.
   const languageIntro = language
@@ -85,8 +87,13 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
   }
 
-  const { uni1, uni2, locale }: { uni1: ComparisonUniversity; uni2: ComparisonUniversity; locale?: string } =
-    await req.json()
+  let body: { uni1?: ComparisonUniversity; uni2?: ComparisonUniversity; locale?: string }
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
+  const { uni1, uni2, locale } = body
 
   if (!uni1 || !uni2) {
     return NextResponse.json({ error: 'Missing university data' }, { status: 400 })
@@ -95,8 +102,8 @@ export async function POST(req: NextRequest) {
   const stream = await client.messages.create({
     // Burmese and Filipino need the stronger model: Haiku produced broken Burmese and
     // kept slipping back into English for Filipino.
-    model: locale === 'my' || locale === 'fil' ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001',
-    max_tokens: LANGUAGE_NOTE[locale ?? ''] ? 1600 : 600, // Thai and Burmese need many more tokens
+    model: modelForLocale(locale),
+    max_tokens: isTranslationLocale(locale) ? 1600 : 600, // Thai and Burmese need many more tokens
     stream: true,
     messages: [{ role: 'user', content: buildPrompt(uni1, uni2, locale) }],
   })

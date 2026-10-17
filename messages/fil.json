@@ -208,10 +208,17 @@
             "hungary": "Hungary",
             "finland": "Finland",
             "china": "China",
-            "sweden": "Sweden",
             "uae": "UAE",
             "japan": "Japan",
-            "korea": "Korea"
+            "korea": "Korea",
+            "belgium": "Belgium",
+            "france": "France",
+            "grenada": "Grenada",
+            "italy": "Italy",
+            "netherlands": "Netherlands",
+            "spain": "Spain",
+            "vietnam": "Vietnam",
+            "other": "Iba pa"
           },
           "placeholder": "Pumili ng bansa"
         },
@@ -295,7 +302,7 @@
       "body": "Bawat counselor ay may taon-taong karanasan sa pag-place ng mga estudyante, at malinaw ang pagkaunawa kung hanggang saan ka dadalhin ng iyong grades at badyet. Iisang team ang nasa likod ng bawat placement sa ibaba.",
       "statCount": "3,000+",
       "statLabel": "estudyanteng na-place mula 2019",
-      "imageAlt": "Isang counselor ng Saturday Education sa one-on-one na konsultasyon sa isang estudyante",
+      "imageAlt": "Mga counselor ng Saturday Education na nag-uusap sa opisina",
       "supportTitle": "Suporta pagkatapos ng admission",
       "supportBody": "Nananatili kaming kasama mo sa paghahanap ng tirahan, pagdating, at unang term, hindi lang hanggang sa offer.",
       "pricingTitle": "Transparent na presyo",
@@ -695,7 +702,7 @@
       "description": "Nakatulong na kami sa mahigit 3,000 estudyante na matanggap sa mga nangungunang university sa buong mundo. Gabay sa pag-aaral abroad, scholarship, tulong sa visa, at marami pa."
     },
     "universities": {
-      "title": "University Finder: Ihambing ang mga Nangungunang University sa Mundo | Saturday Education",
+      "title": "University Finder: Ihambing ang mga Nangungunang University sa Mundo",
       "description": "Maghanap at maghambing ng mga university sa UK, USA, Australia, Canada, at iba pa. Hanapin ang tamang programa para sa iyong pag-aaral sa ibang bansa."
     },
     "courseFinder": {
@@ -703,20 +710,24 @@
       "description": "Maghanap ng libu-libong programa sa mga university at kolehiyo sa buong mundo. I-filter ayon sa bansa, institusyon, antas ng pag-aaral, intake, tagal, at wika."
     },
     "destinations": {
-      "title": "Mga Destinasyon sa Pag-aaral: Tuklasin ang mga Nangungunang Bansa | Saturday Education",
+      "title": "Mga Destinasyon sa Pag-aaral: Tuklasin ang mga Nangungunang Bansa",
       "description": "Tuklasin ang pinakamagagandang bansa para sa mga international student. Ihambing ang sistema ng edukasyon, gastos, proseso ng visa, at mga oportunidad sa karera."
     },
     "careerAssessment": {
-      "title": "Career Assessment | Saturday Education",
+      "title": "Career Assessment",
       "description": "Kunin ang libre naming Career Assessment para maunawaan ang iyong mga interes at personalidad. Personal na susuriin ng aming mga counselor ang iyong profile at gagabayan ka."
     },
     "about": {
-      "title": "Tungkol sa Amin | Saturday Education",
+      "title": "Tungkol sa Amin",
       "description": "Malaya at sertipikadong gabay sa pag-aaral abroad mula sa Saturday Education. Kilalanin ang mga tagapayo sa likod ng bawat placement ng estudyante sa Yangon at Bangkok."
+    },
+    "destinationDetail": {
+      "title": "Mag-aral sa {country}"
     }
   },
   "chatWidget": {
     "title": "Study Abroad Advisor",
+    "letsChat": "Makipag-chat",
     "status": "Online",
     "welcomeMessage": "Hi! 👋 Ako ang iyong Study Abroad Advisor. Matutulungan kitang humanap ng tamang university, maghambing ng mga destinasyon, at gabayan ka sa proseso ng aplikasyon. Paano kita matutulungan ngayon?",
     "inputPlaceholder": "I-type ang mensahe mo...",

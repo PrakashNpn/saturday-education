@@ -55,8 +55,8 @@ export default function WhySaturdaySection() {
           transition={
             prefersReducedMotion ? { duration: 0 } : { duration: 0.55, ease: EASE }
           }
-          // 5fr/7fr rather than an even split: the counselling photo is a wide
-          // 2.2:1 group shot, it needs the wider column. Grid default
+          // 5fr/7fr rather than an even split: the counsellors' discussion photo
+          // is a wide group shot, it needs the wider column. Grid default
           // (stretch) rather than items-start: the photo now fills the full
           // row height to match the text column, cropped via object-cover,
           // instead of sitting at its own natural, much shorter height.
@@ -74,12 +74,12 @@ export default function WhySaturdaySection() {
 
           <div className="relative min-h-[260px] overflow-hidden rounded-[28px] shadow-[0_30px_60px_-30px_rgba(0,51,58,0.35)]">
             <Image
-              src="/images/hero/counselling.webp"
+              src="/images/landing/counselors-discussion.webp"
               alt={t('imageAlt')}
               fill
-              unoptimized
+              quality={85}
               sizes="(max-width: 860px) 100vw, 60vw"
-              className="object-cover"
+              className="object-cover [object-position:50%_35%]"
             />
           </div>
         </motion.div>

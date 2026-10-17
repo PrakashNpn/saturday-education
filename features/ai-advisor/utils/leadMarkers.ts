@@ -5,15 +5,14 @@
 // server knows a form was already shown or sent without any session store. The
 // chat UI strips every [[...]] marker from display.
 
-/** Asks the chat to render the lead form under this message. May carry the
- *  student's country: [[lead-card:germany]]. */
-export const LEAD_CARD_PREFIX = '[[lead-card'
 /** The form was submitted in this chat and the details are with a counsellor. */
 export const LEAD_SAVED_MARKER = '[[lead-saved]]'
 /** Added by the browser, to what it sends and never to what it shows: this
  *  student sent their details in an earlier chat on this device. */
 export const LEAD_KNOWN_MARKER = '[[lead-known]]'
 
+/** Asks the chat to render the lead form under this message. May carry the
+ *  student's country: [[lead-card:germany]]. */
 const CARD_RE = /\[\[lead-card(?::([A-Za-z]+))?\]\]/
 
 export type LeadMarker = { status: 'open' | 'saved' | 'known'; country?: string }

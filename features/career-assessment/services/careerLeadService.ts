@@ -4,6 +4,8 @@ import { after } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import { prisma } from '@/shared/lib/db/prisma'
 import { resend } from '@/shared/lib/email'
+import { deDash } from '@/shared/utils/dashes'
+import { countryNameFor } from '@/shared/constants/destinationCountries'
 import { computeScores } from './scoring'
 import { scoreAptitude } from './aptitudeScoring'
 import { getRecommendationTree } from './universityRecs'
@@ -11,6 +13,7 @@ import { matchCareers } from './careerMatch'
 import { extractInterestEvidence, buildCounselorEmailHtml } from './brief'
 import { buildAssessmentPdf } from './pdf/ReportDocument'
 import { buildDashboard } from './dashboardBuilder'
+import { educationLevelName } from '../utils/educationLevels'
 import { buildCounselorPrompt } from '../prompts/counselorBrief'
 import { candidateBuckets } from '../data/fieldTaxonomy'
 import type {
@@ -71,10 +74,6 @@ async function generateSynthesis(
     if (jsonStart === -1 || jsonEnd === -1) return null
     const parsed = JSON.parse(text.slice(jsonStart, jsonEnd + 1)) as CounselorSynthesis
     const clampFit = (n: unknown) => Math.max(0, Math.min(100, Math.round(Number(n) || 0)))
-    // Safety net: the prompt asks the model not to use em/en dashes, but strip any
-    // that slip through so the output never reads as machine-generated.
-    const deDash = (s: string) =>
-      s.replace(/\s*[—–]\s*/g, ', ').replace(/,\s*,/g, ',').replace(/\s{2,}/g, ' ').trim()
 
     return {
       read: typeof parsed.read === 'string' ? deDash(parsed.read) : '',
@@ -131,8 +130,9 @@ export async function submitAssessment(
     fullName: contact.fullName.trim(),
     email: contact.email.trim(),
     phone: contact.phone?.trim() ?? '',
-    educationLevel: contact.educationLevel?.trim() || undefined,
-    preferredCountry: contact.preferredCountry?.trim() || undefined,
+    educationLevel: contact.educationLevel?.trim() ? educationLevelName(contact.educationLevel.trim()) : undefined,
+    // The form sends a country key; counsellors, the PDF and the AI prompt use the English name.
+    preferredCountry: contact.preferredCountry?.trim() ? countryNameFor(contact.preferredCountry.trim()) : undefined,
   }
 
   try {

@@ -2,6 +2,7 @@
 // The full breakdown now lives in the attached PDF report — this email is just a heads-up.
 // Email-client-safe: inline styles only.
 
+import { SITE_URL } from '@/shared/constants/site'
 import { RIASEC_QUESTIONS } from '../data/riasecQuestions'
 import { buildArchetype } from './archetype'
 import type {
@@ -15,7 +16,7 @@ import type {
 // The site's own email-safe PNG logo (many mail clients do not render WebP). An
 // absolute URL, so it loads in email clients, and it ships with the site, so it
 // changes with the brand instead of living in a separate bucket.
-const LOGO_URL = `${process.env.NEXT_PUBLIC_SITE_URL || 'https://saturdayeducation.com'}/images/logo/logo-email.png`
+const LOGO_URL = `${SITE_URL}/images/logo/logo-email.png`
 
 // Brand palette
 const BRAND = '#177E8D'
