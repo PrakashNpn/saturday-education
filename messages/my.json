@@ -208,10 +208,17 @@
             "hungary": "Hungary",
             "finland": "Finland",
             "china": "China",
-            "sweden": "Sweden",
             "uae": "UAE",
             "japan": "Japan",
-            "korea": "Korea"
+            "korea": "Korea",
+            "belgium": "Belgium",
+            "france": "France",
+            "grenada": "Grenada",
+            "italy": "Italy",
+            "netherlands": "Netherlands",
+            "spain": "Spain",
+            "vietnam": "Vietnam",
+            "other": "Other"
           },
           "placeholder": "Country တစ်ခု ရွေးပါ"
         },
@@ -295,7 +302,7 @@
       "body": "Counsellor တိုင်းမှာ Student တွေ Place လုပ်ပေးတဲ့ Hands-on Experience နှစ်ပေါင်းများစွာ ရှိပြီး၊ သင့် Grades နဲ့ Budget က ဘာရနိုင်မလဲဆိုတာ ရှင်းရှင်းလင်းလင်း သိပါတယ်။ အောက်က Placement တိုင်းနောက်မှာ Team တစ်ခုတည်းပါပဲ။",
       "statCount": "3,000+",
       "statLabel": "2019 ကတည်းက Place လုပ်ပေးထားတဲ့ Student",
-      "imageAlt": "Saturday Education Counsellor တစ်ယောက် Student နဲ့ One-on-One Consultation လုပ်နေစဉ်",
+      "imageAlt": "Saturday Education Counsellor တွေ Office မှာ Discussion လုပ်နေစဉ်",
       "supportTitle": "Post-Admission Support",
       "supportBody": "Offer တစ်ခုတည်းမက Housing, Arrival နဲ့ ပထမ Term အထိ ကျွန်ုပ်တို့ ပါဝင်နေပါတယ်။",
       "pricingTitle": "Transparent Pricing",
@@ -306,7 +313,7 @@
   },
   "footer": {
     "companyName": "Saturday Education Consulting",
-    "tagline": "International Education အတွက် သင့်ရဲ့ Trusted Partner။ Myanmar Student တွေရဲ့ Study Abroad Dream ကို Achieve ဖြစ်အောင် Guide ပေးနေပါတယ်။",
+    "tagline": "International Education အတွက် သင့်ရဲ့ Trusted Partner။ Student တွေရဲ့ Study Abroad Dream ကို Achieve ဖြစ်အောင် Guide ပေးနေပါတယ်။",
     "services": {
       "heading": "ကျွန်ုပ်တို့ရဲ့ Services",
       "counseling": "Education Counseling",
@@ -347,7 +354,7 @@
       "description": "ကျွန်ုပ်တို့က Student 3,000+ ကို Worldwide Top University တွေမှာ Admission ရအောင် ကူညီပေးခဲ့ပါတယ်။ Study Abroad, Scholarship, Visa Support စတာတွေအတွက် Expert Guidance။"
     },
     "universities": {
-      "title": "University Finder - Compare Top Universities Worldwide | Saturday Education",
+      "title": "University Finder - Compare Top Universities Worldwide",
       "description": "UK, USA, Australia, Canada စတာတွေရှိ University တွေကို Search & Compare လုပ်ပါ။ သင့် Study Abroad Journey အတွက် Perfect Program ကို ရှာပါ။"
     },
     "courseFinder": {
@@ -355,20 +362,24 @@
       "description": "Worldwide ရှိ University နဲ့ College တွေက Program ထောင်ချီကို Search လုပ်ပါ။ Country, Institution, Study Level, Intake, Duration နဲ့ Language အလိုက် Filter လုပ်ပါ။"
     },
     "destinations": {
-      "title": "Study Destinations - Explore Top Countries for Education | Saturday Education",
+      "title": "Study Destinations - Explore Top Countries for Education",
       "description": "International Student တွေအတွက် Best Country တွေကို Discover လုပ်ပါ။ Education System, Cost, Visa Process နဲ့ Career Opportunity တွေကို Compare လုပ်ပါ။"
     },
     "careerAssessment": {
-      "title": "Career Assessment | Saturday Education",
+      "title": "Career Assessment",
       "description": "သင့် Interest နဲ့ Personality ကို နားလည်ဖို့ ကျွန်ုပ်တို့ရဲ့ Free Career Assessment ကို လုပ်ကြည့်ပါ - ကျွန်ုပ်တို့ရဲ့ Counsellor တွေက သင့် Profile ကို ကိုယ်တိုင် Review လုပ်ပြီး Guide ပေးပါမယ်။"
     },
     "about": {
-      "title": "About Us | Saturday Education",
+      "title": "About Us",
       "description": "Saturday Education ကနေ Independent, Certified Study Abroad Guidance။ ရန်ကုန်နဲ့ ဘန်ကောက်က Student Placement တိုင်းနောက်ကွယ်က Advisor တွေကို Meet လုပ်ပါ။"
+    },
+    "destinationDetail": {
+      "title": "{country} မှာ ပညာသင်ယူရန်"
     }
   },
   "chatWidget": {
     "title": "Study Abroad Advisor",
+    "letsChat": "Chat လုပ်ရအောင်",
     "status": "Online",
     "welcomeMessage": "Hi! 👋 ကျွန်ုပ်က သင့် Study Abroad Advisor ပါ။ Right University ရှာတာ, Destination တွေ Compare လုပ်တာနဲ့ Application Process ကို Guide လုပ်ပေးနိုင်ပါတယ်။ ဒီနေ့ ဘာကူညီရမလဲ?",
     "inputPlaceholder": "သင့် Message ကို Type လုပ်ပါ...",
@@ -406,7 +417,11 @@
       "gateTitle": "Counsellor ကို သင့်ရွေးချယ်စရာတွေ ကူကြည့်ခိုင်းပါ",
       "gateSubtitle": "သင့်အချက်အလက် ထားခဲ့ပါ။ Counsellor က သင့်နဲ့ကိုက်ညီတဲ့ University တွေနဲ့ နောက်အဆင့်တွေကို အလုပ်ရက် ၁ ရက်အတွင်း ကူညီပြီး ဆက်သွယ်ပါမယ်။ ပြီးရင် ဆက်ပြောနိုင်ပါတယ်။",
       "gatePlaceholder": "ဆက်ပြောရန် အပေါ်က အချက်အလက် ဖြည့်ပါ"
-    }
+    },
+    "clearChat": "Chat History ကို ရှင်းရန်",
+    "closeChat": "Chat ကို ပိတ်ရန်",
+    "sendMessage": "Message ပို့ရန်",
+    "openChat": "Chat ကို ဖွင့်ရန်"
   },
   "hero": {
     "titleLine1": "သင့် Global Education Journey ကို",
@@ -563,7 +578,23 @@
       "bookShort": "Consultation ကို Book လုပ်ရန်",
       "takeAssessmentShort": "Assessment လုပ်ရန်",
       "interestedBodyShort": "ကျွန်ုပ်တို့ရဲ့ Certified Counsellor တွေက သင့် Academic Profile ကို Evaluate လုပ်ပြီး Accredited University Degree တွေကို Shortlist လုပ်ပေးတယ်။",
-      "close": "Dialog ကို ပိတ်ရန်"
+      "close": "Dialog ကို ပိတ်ရန်",
+      "researching": "Research လုပ်နေတယ်",
+      "researchStep1": "Labour market signal တွေကို Scan လုပ်နေတယ်",
+      "researchStep2": "နောက် ဆယ်နှစ်အတွက် Demand ကို Project လုပ်နေတယ်",
+      "researchStep3": "အရေးကြီးတဲ့ Skill တွေကို Map လုပ်နေတယ်",
+      "researchStep4": "Outlook ကို Compile လုပ်နေတယ်",
+      "invalidTitle": "ဒါက Career တစ်ခုလို မထင်ရပါဘူး",
+      "invalidBody": "\"{query}\" ဆိုတဲ့ Career ကို မတွေ့ပါဘူး။ တခြား Job Title တစ်ခု စမ်းကြည့်ပါ၊ ဒါမှမဟုတ် List ထဲက ရွေးပါ။",
+      "invalidAction": "တခြား Career စမ်းကြည့်ရန်",
+      "busyTitle": "ကျွန်ုပ်တို့ရဲ့ Research Service အလုပ်များနေပါတယ်",
+      "busyBody": "အခု Request တွေ အရမ်းများနေပါတယ်။ ခဏနေရင် ပြန်စမ်းကြည့်ပါ။",
+      "busyAction": "ပြန်စမ်းကြည့်ရန်",
+      "errorTitle": "တစ်ခုခု မှားသွားပါတယ်",
+      "errorBody": "အခု ဒီ Career ကို Research မလုပ်နိုင်သေးပါဘူး။ ခဏနေရင် ပြန်စမ်းကြည့်ပါ။",
+      "errorAction": "ထပ်စမ်းကြည့်ရန်",
+      "dialogLabel": "{query} Outlook",
+      "getOutlookFor": "“{query}” အတွက် Outlook ကြည့်ရန်"
     },
     "sections": {
       "riasecTitle": "Part 1 · ဘာက သင့်ကို Energise ဖြစ်စေလဲ?",
@@ -721,7 +752,11 @@
       "downloading": "Download လုပ်နေပါတယ်…",
       "copyLink": "Link ကို Copy ကူးရန်",
       "copied": "ကူးပြီးပါပြီ!",
-      "orShareVia": "ဒါမှမဟုတ် ဒီနေရာကနေ Share လုပ်ပါ"
+      "orShareVia": "ဒါမှမဟုတ် ဒီနေရာကနေ Share လုပ်ပါ",
+      "close": "ပိတ်ရန်",
+      "shareWhatsapp": "WhatsApp မှာ Share လုပ်ရန်",
+      "shareFacebook": "Facebook မှာ Share လုပ်ရန်",
+      "shareTelegram": "Telegram မှာ Share လုပ်ရန်"
     }
   },
   "nav": {
@@ -733,7 +768,8 @@
     "aboutUs": "About",
     "bookConsultation": "Free Consultation ကို Book လုပ်ရန်",
     "openMenu": "Menu ကို Open ရန်",
-    "closeMenu": "Menu ကို Close ရန်"
+    "closeMenu": "Menu ကို Close ရန်",
+    "mainNavigation": "Main Navigation"
   },
   "destinations": {
     "heroTitle": "သင်ရွေးထားတဲ့ Destination အကြောင်း In Depth Learn လုပ်ပါ။",
@@ -880,5 +916,142 @@
     "locations": "ရန်ကုန် · ဘန်ကောက်",
     "phone": "+95 9 765 929 492",
     "phoneHref": "tel:+959765929492"
+  },
+  "phoneSelect": {
+    "searchPlaceholder": "Country ရှာရန်",
+    "noResults": "Country မတွေ့ပါဘူး"
+  },
+  "errors": {
+    "errorEyebrow": "တစ်ခုခု မှားသွားပါတယ်",
+    "errorTitle": "မမျှော်လင့်ထားတဲ့ Error တစ်ခု ဖြစ်သွားပါတယ်",
+    "errorBody": "ပြန်စမ်းကြည့်ပါ၊ ဒါမှမဟုတ် ကျွန်ုပ်တို့ စစ်ဆေးနေတုန်း Homepage ကို ပြန်သွားပါ။",
+    "retry": "ပြန်စမ်းကြည့်ရန်",
+    "home": "Homepage သို့ သွားရန်",
+    "notFoundEyebrow": "Error 404",
+    "notFoundTitle": "ဒီ Page မရှိပါဘူး",
+    "notFoundBody": "သင်ရှာနေတဲ့ Page ကို ရွှေ့လိုက်ပြီ ဖြစ်နိုင်ပါတယ်၊ ဒါမှမဟုတ် ဒီကို ခေါ်လာတဲ့ Link က ဟောင်းနေနိုင်ပါတယ်။",
+    "tryOne": "ဒါမှမဟုတ် ဒီထဲက တစ်ခုကို စမ်းကြည့်ပါ"
+  },
+  "careerCatalog": {
+    "summary": {
+      "software-engineer": "App, Website နဲ့ Service တွေကို အလုပ်လုပ်စေတဲ့ Software နဲ့ System တွေကို Design လုပ်၊ Build လုပ်ပြီး Maintain လုပ်ပေးတယ်။",
+      "data-scientist": "Statistics, Programming နဲ့ Machine Learning သုံးပြီး Raw Data တွေကို Insight နဲ့ Prediction အဖြစ် ပြောင်းလဲပေးတယ်။",
+      "cybersecurity-analyst": "Attack တွေကို Monitor လုပ်၊ Test လုပ်ပြီး တုံ့ပြန်ခြင်းဖြင့် System, Network နဲ့ Data တွေကို Cyber Threat ကနေ ကာကွယ်ပေးတယ်။",
+      "ai-ml-engineer": "Model တွေ၊ Data Pipeline တွေကနေ Production App တွေအထိ ခေတ်သစ် Product တွေနောက်က Machine Learning နဲ့ AI System တွေကို Build လုပ်ပြီး Deploy လုပ်ပေးတယ်။",
+      "cloud-devops-engineer": "Software တွေကို ယုံကြည်စိတ်ချရပြီး Scale ကြီးကြီးနဲ့ Release လုပ်နိုင်စေတဲ့ Cloud Infrastructure နဲ့ Automation တွေကို Build လုပ်ပြီး Run ပေးတယ်။",
+      "mechanical-engineer": "Industry အမျိုးမျိုးမှာ သုံးတဲ့ စက်ပစ္စည်းတွေ၊ Engine တွေနဲ့ Mechanical System တွေကို Design လုပ်၊ Test လုပ်ပြီး ပိုကောင်းအောင် Improve လုပ်တယ်။",
+      "civil-engineer": "လမ်း၊ တံတားနဲ့ အဆောက်အအုံတွေလို Infrastructure တွေကို Plan လုပ်၊ Design လုပ်ပြီး ဆောက်လုပ်ရေးကို ကြီးကြပ်တယ်။",
+      "electrical-electronics-engineer": "Microchip ကနေ Power Grid အထိ Electrical System, Electronics နဲ့ Device တွေကို Design လုပ်ပြီး Develop လုပ်တယ်။",
+      "biomedical-engineer": "Engineering ကို Biology နဲ့ Medicine တွေနဲ့ ပေါင်းစပ်ပြီး Medical Device, Implant နဲ့ Health Technology တွေကို Design လုပ်တယ်။",
+      "management-consultant": "Analysis နဲ့ Strategy တွေနဲ့ အဖွဲ့အစည်းတွေ ပြဿနာဖြေရှင်းပြီး Performance တိုးတက်အောင် ကူညီပေးတယ်။",
+      "marketing-manager": "Awareness, Demand နဲ့ Customer Loyalty တိုးလာအောင် Campaign တွေနဲ့ Brand Strategy ကို Plan လုပ်ပြီး ဦးဆောင်တယ်။",
+      "product-manager": "Design, Engineering နဲ့ Business Goal တွေကို ညှိနှိုင်းပြီး Product တစ်ခုရဲ့ Vision နဲ့ Roadmap ကို ကိုင်တွယ်တယ်။",
+      "operations-supply-chain-manager": "အဖွဲ့အစည်းတစ်ခုက ကုန်ပစ္စည်းနဲ့ ဝန်ဆောင်မှုတွေကို ထိရောက်ပြီး အချိန်မီ ထုတ်လုပ်ပေးပို့ပုံကို Plan လုပ်ပြီး ညှိနှိုင်းတယ်။",
+      "financial-analyst": "Investment, Budgeting နဲ့ Business ဆုံးဖြတ်ချက်တွေကို လမ်းညွှန်ဖို့ Financial Data တွေကို Analyse လုပ်တယ်။",
+      "accountant": "အဖွဲ့အစည်းတွေအတွက် Financial Record, Tax နဲ့ Compliance တွေကို ပြင်ဆင်၊ စစ်ဆေးပြီး အကြံပေးတယ်။",
+      "economist": "စီးပွားရေးတွေ ဘယ်လိုလည်ပတ်လဲဆိုတာကို လေ့လာပြီး Policy နဲ့ Business Strategy အတွက် Data နဲ့ Trend တွေကို Analyse လုပ်တယ်။",
+      "investment-banker": "Capital ရှာဖွေခြင်း၊ Merger နဲ့ Acquisition တွေနဲ့ ပတ်သက်ပြီး ကုမ္ပဏီတွေနဲ့ Investor တွေကို အကြံပေးပြီး Financial Deal ကြီးတွေကို ဆောင်ရွက်တယ်။",
+      "physician": "ရောဂါနဲ့ ဒဏ်ရာတွေကို စစ်ဆေးကုသပြီး General ဒါမှမဟုတ် Specialist Medicine မှာ လူနာတွေကို ပြုစုစောင့်ရှောက်တယ်။",
+      "registered-nurse": "လူနာစောင့်ရှောက်မှုကို ပေးပြီး ညှိနှိုင်းကာ ဆရာဝန်တွေကို ထောက်ပံ့ပြီး လူနာတွေရဲ့ Wellbeing အတွက် ရပ်တည်ပေးတယ်။",
+      "pharmacist": "ဆေးတွေ ထုတ်ပေးပြီး ဆေးကို လုံခြုံ ထိရောက်စွာ သုံးဖို့ လူနာတွေနဲ့ Clinician တွေကို အကြံပေးတယ်။",
+      "physiotherapist": "ဒဏ်ရာ၊ ရောဂါ ဒါမှမဟုတ် ခွဲစိတ်မှုအပြီး Physical Therapy နဲ့ လှုပ်ရှားနိုင်စွမ်း ပြန်ရအောင်နဲ့ နာကျင်မှုကို ထိန်းချုပ်နိုင်အောင် ကူညီတယ်။",
+      "biotechnologist": "Medicine, Agriculture နဲ့ Environment မှာ Product တွေ Develop လုပ်ဖို့ Biology နဲ့ Technology ကို အသုံးချတယ်။",
+      "environmental-scientist": "ပတ်ဝန်းကျင်နဲ့ လူ့ကျန်းမာရေးကို ကာကွယ်ဖို့ ပတ်ဝန်းကျင်ကို လေ့လာပြီး Sustainability နဲ့ Policy အတွက် အကြံပေးတယ်။",
+      "research-scientist": "Biology, Physics, Chemistry ဒါမှမဟုတ် AI လို နယ်ပယ်တွေမှာ အသိပညာ တိုးတက်စေဖို့ Experiment တွေကို Design လုပ်ပြီး Run တယ်။",
+      "psychologist": "လူတွေ Wellbeing ပိုကောင်းအောင်နဲ့ စိန်ခေါ်မှုတွေကို ကျော်လွှားနိုင်အောင် ကူညီဖို့ အပြုအမူနဲ့ စိတ်ကို လေ့လာတယ်။",
+      "social-worker": "တစ်ဦးချင်း၊ မိသားစုနဲ့ ရပ်ရွာတွေ စိန်ခေါ်မှုတွေကို ရင်ဆိုင်နိုင်ပြီး အကူအညီ ရယူနိုင်အောင် ထောက်ပံ့ပေးတယ်။",
+      "counsellor-therapist": "Talking Therapy နဲ့ စိတ်ခံစားမှု လမ်းညွှန်မှုတွေနဲ့ Mental Health နဲ့ ဘဝစိန်ခေါ်မှုတွေမှာ လူတွေကို ထောက်ပံ့ပေးတယ်။",
+      "ux-ui-designer": "Digital Product တွေ အသုံးဝင်၊ အသုံးပြုရလွယ်ပြီး ပျော်စရာကောင်းအောင် ဘယ်လိုမြင်ရ၊ ဘယ်လိုခံစားရမလဲဆိုတာကို Design လုပ်တယ်။",
+      "architect": "Function, Safety, Sustainability နဲ့ အလှအပတို့ကို ဟန်ချက်ညီစေတဲ့ အဆောက်အအုံတွေနဲ့ နေရာတွေကို Design လုပ်တယ်။",
+      "graphic-designer": "Print နဲ့ Digital Media မှာ အကြံဥာဏ်တွေ ဖော်ပြဖို့ Logo, Layout နဲ့ Branding တွေလို Visual Content တွေ ဖန်တီးတယ်။",
+      "journalist": "Print, Broadcast ဒါမှမဟုတ် Digital Media အတွက် သတင်းနဲ့ ဇာတ်လမ်းတွေကို သုတေသနလုပ်၊ အစီရင်ခံပြီး ရေးသားတယ်။",
+      "lawyer": "ဥပဒေအခွင့်အရေး၊ အငြင်းပွားမှု၊ စာချုပ်နဲ့ Compliance တွေနဲ့ ပတ်သက်ပြီး Client တွေကို အကြံပေးပြီး ကိုယ်စားပြုတယ်။",
+      "corporate-lawyer": "စာချုပ်၊ Deal၊ Merger နဲ့ Compliance တွေနဲ့ ပတ်သက်ပြီး ဥပဒေအရ ကာကွယ်ခံရအောင် Business တွေကို အကြံပေးတယ်။",
+      "paralegal": "အမှုတွေကို သုတေသနလုပ်၊ စာရွက်စာတမ်းတွေ ပြင်ဆင်ပြီး ဥပဒေဆိုင်ရာ Information တွေကို စီမံခန့်ခွဲကာ ရှေ့နေတွေကို ထောက်ပံ့တယ်။",
+      "teacher": "ဘာသာရပ်တစ်ခု ဒါမှမဟုတ် အသက်အုပ်စုတစ်ခုမှာ သင်ခန်းစာတွေ Plan လုပ်ပြီး ဖွံ့ဖြိုးမှုကို ထောက်ပံ့ကာ ကျောင်းသားတွေ သင်ယူကြီးထွားလာအောင် ကူညီတယ်။",
+      "university-lecturer": "University အဆင့်မှာ သင်ကြားသုတေသနလုပ်ပြီး လက်ရာတွေ ထုတ်ဝေကာ အထူးပြုနယ်ပယ်တစ်ခုမှာ ကျောင်းသားတွေကို လမ်းညွှန်တယ်။",
+      "education-administrator": "ကျောင်း၊ College ဒါမှမဟုတ် Programme တွေကို ဦးဆောင်စီမံပြီး ဝန်ထမ်း၊ Policy နဲ့ ကျောင်းသားရလဒ်တွေကို ကြီးကြပ်တယ်။",
+      "translator-interpreter": "ယဉ်ကျေးမှုနဲ့ နယ်နိမိတ်တွေကို ကျော်ပြီး ဆက်သွယ်နိုင်အောင် ဘာသာစကားတွေအကြား စကားပြောဒါမှမဟုတ် စာသားတွေကို ပြောင်းပေးတယ်။",
+      "content-writer": "ပရိသတ်ကို အသိပေးပြီး စည်းရုံးနိုင်ဖို့ Article, Web Copy နဲ့ Marketing လို ရှင်းလင်း စိတ်ဝင်စားဖွယ် Content တွေ ရေးတယ်။",
+      "librarian-archivist": "Library, Archive နဲ့ Digital Collection တွေမှာ Information တွေကို စနစ်တကျ စီစဉ်၊ ထိန်းသိမ်းပြီး လူတွေ ရှာဖွေတွေ့ရှိအောင် ကူညီတယ်။",
+      "hospitality-manager": "ဧည့်သည်တွေ အတွေ့အကြုံကောင်း ရအောင် Team တွေကို ဦးဆောင်ပြီး Hotel, Restaurant ဒါမှမဟုတ် Travel Service တွေကို လည်ပတ်တယ်။",
+      "chef": "Restaurant နဲ့ Hospitality မှာ အစားအစာ ပြင်ဆင်မှုနဲ့ အရည်အသွေးကို ဦးဆောင်ပြီး ဟင်းလျာတွေ ဖန်တီးကာ မီးဖိုချောင်တွေကို လည်ပတ်တယ်။",
+      "travel-consultant": "ခရီးသွားတွေကို Destination, Logistics နဲ့ အတွေ့အကြုံတွေအကြောင်း အကြံပေးပြီး ခရီးစဉ်တွေ Plan လုပ်ကာ Book လုပ်ပေးတယ်။",
+      "dentist": "သွား၊ ဖုံးနဲ့ ပါးစပ်ပြဿနာတွေကို စစ်ဆေးကုသပြီး လူနာတွေ ပါးစပ်ရောဂါ ကာကွယ်နိုင်အောင် ကူညီတယ်။",
+      "veterinarian": "အိမ်မွေးတိရစ္ဆာန်ကနေ ကျွဲနွားအထိ တိရစ္ဆာန်တွေရဲ့ ရောဂါနဲ့ ဒဏ်ရာတွေကို စစ်ဆေးကုသပြီး စောင့်ရှောက်ပုံကို ပိုင်ရှင်တွေကို အကြံပေးတယ်။",
+      "dietitian-nutritionist": "ကျန်းမာရေး တိုးတက်စေဖို့၊ အခြေအနေတွေကို ထိန်းချုပ်ဖို့နဲ့ Wellbeing ကို ထောက်ပံ့ဖို့ အစားအစာနဲ့ Nutrition အကြောင်း လူတွေကို အကြံပေးတယ်။",
+      "public-health-specialist": "Data, Policy, ကာကွယ်ရေးနဲ့ Health Programme တွေနဲ့ လူဦးရေတစ်ခုလုံးရဲ့ ကျန်းမာရေးကို ကာကွယ်ပြီး မြှင့်တင်တယ်။",
+      "chemical-engineer": "လောင်စာနဲ့ ဆေးဝါးကနေ အစားအစာနဲ့ Material တွေအထိ ကုန်ကြမ်းတွေကို Product တွေအဖြစ် ပြောင်းလဲပေးတဲ့ Process တွေကို Design လုပ်ပြီး Run တယ်။",
+      "aerospace-engineer": "လေယာဉ်၊ အာကာသယာဉ်၊ Satellite တွေနဲ့ သူတို့ရဲ့ System တွေကို Design လုပ်၊ Test လုပ်ပြီး တည်ဆောက်တယ်။",
+      "industrial-engineer": "အဖွဲ့အစည်းတွေက ကုန်ပစ္စည်းနဲ့ ဝန်ဆောင်မှုတွေကို ပိုထိရောက်စွာ ထုတ်လုပ်နိုင်အောင် System နဲ့ Process တွေကို Design လုပ်ပြီး Improve လုပ်တယ်။",
+      "actuary": "Insurer, Pension နဲ့ Business တွေအတွက် Risk ကို တိုင်းတာစီမံဖို့ Mathematics, Statistics နဲ့ Financial Theory တွေ သုံးတယ်။",
+      "human-resources-manager": "Recruitment ကနေ Culture နဲ့ Policy အထိ အဖွဲ့အစည်းတစ်ခုက လူတွေကို ဘယ်လို Hire လုပ်၊ Develop လုပ်၊ စောင့်ရှောက်မလဲဆိုတာကို ဦးဆောင်တယ်။",
+      "business-analyst": "ပြဿနာနဲ့ Goal တွေကို ရှင်းလင်းတဲ့ Requirement နဲ့ ပိုကောင်းတဲ့ Process တွေအဖြစ် ပြောင်းလဲပေးပြီး Business နဲ့ Technology ကြား တံတားဖြစ်ပေးတယ်။",
+      "game-developer": "အပြန်အလှန်တုံ့ပြန်နိုင်တဲ့ အတွေ့အကြုံတွေ ဖန်တီးဖို့ Programming, Art နဲ့ Design ကို ပေါင်းစပ်ပြီး Video Game တွေကို Design လုပ်ကာ Build လုပ်တယ်။",
+      "interior-designer": "အိမ်၊ အလုပ်ခွင်နဲ့ အများပြည်သူ အဆောက်အအုံတွေအတွက် အသုံးဝင်၊ လုံခြုံပြီး လှပတဲ့ အခန်းတွင်းနေရာတွေကို Plan လုပ်ပြီး Design လုပ်တယ်။",
+      "animator": "ရုပ်ရှင်၊ Game၊ ကြော်ငြာနဲ့ Digital Media တွေအတွက် ရွေ့လျားတဲ့ ပုံတွေနဲ့ Visual Effect တွေ ဖန်တီးတယ်။",
+      "fashion-designer": "စိတ်ကူးနဲ့ Sketch ကနေ ပြီးစီးတဲ့ အပိုင်းအစအထိ အဝတ်အစား၊ ဖိနပ်နဲ့ Accessory တွေကို Design လုပ်တယ်။",
+      "chemist": "Material, ဆေးဝါးနဲ့ Product အသစ်တွေ Develop လုပ်ပြီး Test လုပ်ဖို့ ပစ္စည်းတွေကို Molecular အဆင့်မှာ လေ့လာတယ်။"
+    },
+    "note": {
+      "software-engineer": "Software ဆက်လက် တိုးချဲ့နေတာကြောင့် Industry အားလုံးလိုလိုမှာ Demand ခိုင်မာပြီး ကျယ်ပြန့်တယ်။",
+      "data-scientist": "အဖွဲ့အစည်းတွေ Data နဲ့ AI မှာ Invest လုပ်နေတာကြောင့် အမြန်ဆုံး ကြီးထွားနေတဲ့ နယ်ပယ်တွေထဲက တစ်ခုဖြစ်တယ်။",
+      "cybersecurity-analyst": "ကမ္ဘာတစ်ဝန်း Skill ပြတ်လပ်မှု ပြင်းထန်ပြီး အရည်အချင်းပြည့်မီသူ အရေအတွက်ထက် Demand က အများကြီး ပိုများတယ်။",
+      "ai-ml-engineer": "AI ခေတ်ကို ဖော်ဆောင်တဲ့ Role တွေထဲက တစ်ခုဖြစ်ပြီး Skill ရှိတဲ့ Engineer အရေအတွက်ထက် Demand က အများကြီး ပိုများတယ်။",
+      "cloud-devops-engineer": "Cloud Migration နဲ့ AI Workload တွေကြောင့် Demand မြင့်နေပြီး Automation Skill က အခုအခါ ရွေးချယ်စရာမဟုတ်ဘဲ မရှိမဖြစ်ဖြစ်လာပြီ။",
+      "mechanical-engineer": "Manufacturing, Energy, Automotive နဲ့ ပေါ်ပေါက်လာတဲ့ Green Tech တွေမှာ Demand တည်ငြိမ်တယ်။",
+      "civil-engineer": "Infrastructure Investment နဲ့ မြို့ပြဖွံ့ဖြိုးမှုနဲ့ ဆက်စပ်တဲ့ တည်ငြိမ်တဲ့ Demand ရှိတယ်။",
+      "electrical-electronics-engineer": "Electronics, Renewable Energy နဲ့ Automation တွေကြောင့် Demand တက်လာတယ်။",
+      "biomedical-engineer": "လူဦးရေ အသက်ကြီးလာမှုနဲ့ Health-tech Innovation တွေကြောင့် Device, Implant နဲ့ Diagnostics တွေမှာ တည်ငြိမ်တဲ့ ကြီးထွားမှု ရှိတယ်။",
+      "management-consultant": "ကုမ္ပဏီတွေက Efficiency, Digital နဲ့ Transformation အကြံဉာဏ်တွေ ရှာဖွေနေတာကြောင့် ကျန်းမာတဲ့ ကြီးထွားမှု ရှိတယ်။",
+      "marketing-manager": "Demand တည်ငြိမ်ပြီး Digital နဲ့ Data-driven Marketing ဘက်ကို ပြင်းထန်စွာ ပြောင်းလဲနေတယ်။",
+      "product-manager": "Tech နဲ့ Digital Business တွေမှာ Demand ခိုင်မာပေမယ့် ဝင်ရောက်ဖို့ ယှဉ်ပြိုင်မှု များတယ်။",
+      "operations-supply-chain-manager": "Supply Chain Resilience နဲ့ Automation တွေကြောင့် Demand ခိုင်မာနေပြီး Data နဲ့ Analytics Skill တွေကို တစ်ဖြည်းဖြည်း မျှော်လင့်လာကြတယ်။",
+      "financial-analyst": "Banking, Corporate နဲ့ Asset Management တွေမှာ အားကိုးရတဲ့ Demand ရှိတယ်။",
+      "accountant": "AI က ပုံမှန် Bookkeeping နဲ့ Compliance ကို Automate လုပ်နေတာကြောင့် Demand က Advisory, Audit Judgement နဲ့ Analysis ဘက်ကို ပြောင်းလဲနေတယ်။",
+      "economist": "ငယ်ပြီး ယှဉ်ပြိုင်မှုများတဲ့ နယ်ပယ်ဖြစ်ပြီး AI နဲ့ Big Data တွေက ခိုင်မာတဲ့ Econometrics နဲ့ Coding Skill တွေရဲ့ တန်ဖိုးကို မြှင့်တင်ပေးတယ်။",
+      "investment-banker": "ဂုဏ်သိက္ခာရှိပြီး လစာကောင်းပေမယ့် ယှဉ်ပြိုင်မှုအလွန်များပြီး Cycle ပေါ်မူတည်တယ်။ AI က Junior တွေရဲ့ ပင်ပန်းတဲ့ Analytical အလုပ်အများစုကို Automate လုပ်နေတယ်။",
+      "physician": "လူဦးရေ အသက်ကြီးလာမှုနဲ့ ဝန်ဆောင်မှု ရယူနိုင်မှု ကွာဟချက်ကြောင့် ကမ္ဘာတစ်ဝန်း ဆက်လက်ပြတ်လပ်မှု ရှိတယ်။",
+      "registered-nurse": "ကမ္ဘာတစ်ဝန်း Demand အလွန်မြင့်ပြီး လစ်လပ်နေတဲ့ ရာထူးအရေအတွက် များတယ်။",
+      "pharmacist": "Demand တည်ငြိမ်ပြီး Clinical နဲ့ Specialist Pharmacy Role တွေ ကြီးထွားနေတယ်။",
+      "physiotherapist": "လူဦးရေ အသက်ကြီးလာမှု၊ နာတာရှည်ရောဂါတွေနဲ့ တက်ကြွတဲ့ ဘဝပုံစံတွေက Automation ဆန့်ကျင်နိုင်တဲ့ ခိုင်မာပြီး Hands-on Demand ကို တွန်းအားပေးတယ်။",
+      "biotechnologist": "Healthcare, Genomics နဲ့ Sustainability တိုးတက်မှုတွေနဲ့အတူ ချဲ့ထွင်နေတယ်။",
+      "environmental-scientist": "ရာသီဥတု၊ Sustainability နဲ့ ESG ဦးစားပေးမှုတွေကြောင့် Demand တက်လာတယ်။",
+      "research-scientist": "ဥာဏ်ရည်အရ ကျေနပ်စရာကောင်းပေမယ့် Academic Post တွေ ရှားပါးပြီး ယှဉ်ပြိုင်မှုများတယ်။ Industry R&D နဲ့ Data Skill တွေက ရွေးချယ်စရာတွေကို ပိုကျယ်စေတယ်။",
+      "psychologist": "ကမ္ဘာတစ်ဝန်း Mental Health အသိအမြင် တိုးလာတာကြောင့် Demand ကြီးထွားနေတယ်။",
+      "social-worker": "ကျန်းမာရေး၊ Social Care နဲ့ Community Service တွေမှာ Demand တည်ငြိမ်တယ်။",
+      "counsellor-therapist": "Mental Health အသိအမြင်နဲ့ ရယူနိုင်မှု တိုးလာတာကြောင့် Demand ခိုင်မာတယ်။ AI အစားထိုးလို့မရတဲ့ လူသားဆန်လွန်းတဲ့ Role ဖြစ်တယ်။",
+      "ux-ui-designer": "Product တိုင်းက User Experience မှာ Invest လုပ်နေတာကြောင့် Demand ခိုင်မာတယ်။",
+      "architect": "ဆောက်လုပ်ရေးနဲ့ ဆက်စပ်တဲ့ Cycle အလိုက် Demand ဖြစ်တယ်။ AI နဲ့ Generative-design Tool တွေက Drafting ကို Automate လုပ်နေတာကြောင့် တန်ဖိုးက Design Vision, Sustainability နဲ့ BIM ဘက်ကို ပြောင်းနေတယ်။",
+      "graphic-designer": "Generative AI က ပုံမှန် Visual တွေကို ထုတ်လုပ်နေပြီဖြစ်တဲ့ လူစည်ကားတဲ့ နယ်ပယ်ဖြစ်တယ်။ ခိုင်မာတဲ့ Concept, Brand နဲ့ Art Direction အတွက်တော့ Demand ဆက်ရှိတယ်။",
+      "journalist": "ရိုးရာ Newsroom တွေ ဆက်လက်ကျုံ့နေပြီး AI က ပုံမှန် Copy တွေကို ရေးနေပြီ။ အခွင့်အလမ်းတွေက Digital, Niche နဲ့ Multimedia Journalism ဘက်ကို ပြောင်းနေတယ်။",
+      "lawyer": "AI က ပုံမှန် Research, Review နဲ့ Drafting အများစုကို ကိုင်တွယ်နေတဲ့ Entry Market မှာ Supply ပိုနေတယ်။ Specialist, Litigator နဲ့ ရှုပ်ထွေးတဲ့ Advisory တွေအတွက်တော့ Demand ဆက်ရှိတယ်။",
+      "corporate-lawyer": "Corporate Demand တည်ငြိမ်ပေမယ့် AI က Contract Review နဲ့ Due Diligence အများစုကို ကိုင်တွယ်နေပြီ။ တန်ဖိုးက Judgement နဲ့ Negotiation မှာ စုစည်းနေတယ်။",
+      "paralegal": "ဥပဒေနယ်ပယ်ထဲ ဝင်ရောက်ဖို့ လက်တွေ့ကျတဲ့ လမ်းကြောင်းဖြစ်ပေမယ့် AI Document နဲ့ Research Tool တွေက ပုံမှန် Paralegal အလုပ်အများစုကို Automate လုပ်နေတယ်။",
+      "teacher": "တည်ငြိမ်ပြီး မရှိမဖြစ်တဲ့ Demand ဖြစ်တယ်။ STEM နဲ့ အချို့ ဒေသတွေမှာ ပြတ်လပ်မှု ရှိတယ်။",
+      "university-lecturer": "ကျေနပ်စရာကောင်းပေမယ့် Tenure-track Post တွေ ရှားပါးပြီး ယှဉ်ပြိုင်မှုအလွန်များတယ်။ သင်ကြားရေးဦးစားပေးနဲ့ Industry Role တွေက ကြီးထွားလာတဲ့ အခြားရွေးချယ်စရာတွေဖြစ်တယ်။",
+      "education-administrator": "ပညာရေး ချဲ့ထွင်လာတာနဲ့အမျှ တည်ငြိမ်ပြီး မရှိမဖြစ်တဲ့ Demand ဖြစ်တယ်။ Digital နဲ့ Data သိတဲ့ Leader တွေအတွက် လိုအပ်ချက် တိုးလာတယ်။",
+      "translator-interpreter": "AI Machine Translation က ပုံမှန်အလုပ်တွေကို အလျင်အမြန် စုပ်ယူနေတယ်။ Demand က Specialist, Certified နဲ့ Live-interpreting Role တွေနဲ့ Post-editing ဘက်ကို ကျဉ်းလာတယ်။",
+      "content-writer": "Generative AI က ပုံမှန် Copy တွေကို အမြန်ရေးနေပြီ။ Demand က Strategy, Editing, Subject Expertise နဲ့ ထူးခြားတဲ့ Voice ဘက်ကို ပြောင်းနေတယ်။",
+      "librarian-archivist": "Information တွေ Digital ဖြစ်လာတာနဲ့အမျှ ရိုးရာ Library Role တွေ ရပ်တန့်နေပေမယ့် အခွင့်အလမ်းတွေက Digital Curation နဲ့ Data Management ဘက်ကို ပြောင်းနေတယ်။",
+      "hospitality-manager": "ကမ္ဘာ့ခရီးသွားလာမှုနဲ့ ခရီးသွားလုပ်ငန်း ကြီးထွားမှုနဲ့အတူ ပြင်းထန်စွာ ပြန်လည်ကောင်းမွန်လာတယ်။",
+      "chef": "Automation ဆန့်ကျင်နိုင်တဲ့ Hands-on လက်မှုပညာဖြစ်ပြီး စားသောက်မှုနဲ့ ခရီးသွားလာမှုနဲ့အတူ Demand ကြီးထွားတယ်၊ ဒါပေမယ့် အလုပ်ချိန်က ပင်ပန်းတယ်။",
+      "travel-consultant": "Online Self-booking နဲ့ AI Trip Planner တွေက ပုံမှန် Agency အလုပ်ကို ကျုံ့စေခဲ့တယ်။ ဆက်လက်တည်တံ့ဖို့ လမ်းက Luxury, ရှုပ်ထွေးတဲ့ နဲ့ Specialist Travel တွေမှာ ရှိတယ်။",
+      "dentist": "လူဦးရေ အသက်ကြီးလာပြီး သွားကျန်းမာရေးစောင့်ရှောက်မှု ရယူနိုင်မှု တိုးလာတာကြောင့် တည်ငြိမ်ပြီး မရှိမဖြစ်တဲ့ Demand ဖြစ်တယ်။ ဒေသအများအပြားမှာ ပြတ်လပ်မှု ရှိတယ်။",
+      "veterinarian": "အိမ်မွေးတိရစ္ဆာန် မွေးမြူသူတိုးလာမှုနဲ့ တိရစ္ဆာန်ကျန်းမာရေး အသုံးစရိတ်တိုးလာမှုက အရည်အချင်းရှိတဲ့ သားဆရာဝန်တွေအတွက် ခိုင်မာပြီး ခံနိုင်ရည်ရှိတဲ့ Demand ကို တွန်းအားပေးတယ်။",
+      "dietitian-nutritionist": "ကျန်းမာရေးအသိအမြင်၊ နာတာရှည်ရောဂါကာကွယ်ရေးနဲ့ Wellness Service တွေ ချဲ့ထွင်လာတာကြောင့် ကြီးထွားနေတယ်။",
+      "public-health-specialist": "ကပ်ရောဂါအပြီး ရောဂါ Surveillance, ကာကွယ်ရေးနဲ့ Global Health တွေမှာ ခိုင်မာတဲ့ Investment ရှိတယ်။",
+      "chemical-engineer": "Energy, Pharma နဲ့ Material တွေမှာ Demand တည်ငြိမ်ပြီး သန့်ရှင်းတဲ့နဲ့ Sustainable Process တွေဘက်ကို ဆွဲငင်အား တိုးလာတယ်။",
+      "aerospace-engineer": "Commercial Aviation နဲ့ ဖွံ့ဖြိုးလာတဲ့ Space Sector ကြောင့် တည်ငြိမ်စွာ ကြီးထွားတယ်၊ ဒါပေမယ့် Role တွေက အဓိက အလုပ်ရှင်ကြီး အနည်းငယ်ဝန်းကျင်မှာ စုစည်းနေတယ်။",
+      "industrial-engineer": "ကုမ္ပဏီတွေက Efficiency, Automation နဲ့ ခံနိုင်ရည်ရှိတဲ့ Supply Chain တွေကို လိုက်စားနေတာကြောင့် Demand ခိုင်မာတယ်။",
+      "actuary": "အရည်အချင်းပြည့်မီသူ အရေအတွက် ကန့်သတ်ချက်ရှိတဲ့ ခိုင်မာပြီး လစာကောင်းတဲ့ Demand ဖြစ်တယ်။ ပညာရှင်စာမေးပွဲတွေက ခက်ခဲပေမယ့် တန်ဖိုးရှိတယ်။",
+      "human-resources-manager": "အဖွဲ့အစည်းတွေက Talent, Culture နဲ့ Hybrid အလုပ်လုပ်ပုံတွေမှာ Invest လုပ်နေတာကြောင့် Demand တည်ငြိမ်တယ်။",
+      "business-analyst": "အဖွဲ့အစည်းတွေ Digitise လုပ်ပြီး Data အခြေပြု ဆုံးဖြတ်ချက်တွေကို မှီခိုလာတာကြောင့် Industry တစ်လျှောက် ကျယ်ပြန့်တဲ့ Demand ရှိတယ်။",
+      "game-developer": "ကမ္ဘာ့ Games Industry ကြီးထွားနေပေမယ့် ထင်ရှားဖို့ ခိုင်မာတဲ့ Portfolio အရေးကြီးတဲ့ လူကြိုက်များတဲ့ နယ်ပယ်ဖြစ်တယ်။",
+      "interior-designer": "ဆောက်လုပ်ရေးနဲ့ Property Cycle တွေနဲ့ ဆက်စပ်ပြီး ယှဉ်ပြိုင်မှုများတယ်။ ထူးခြားတဲ့ Portfolio နဲ့ Niche တစ်ခုက အကူအညီအများဆုံး ဖြစ်တယ်။",
+      "animator": "Streaming, Game နဲ့ Content တွေကြောင့် Demand ကြီးထွားပေမယ့် ယှဉ်ပြိုင်မှုများတယ်။ ခိုင်မာတဲ့ Showreel က အဓိကသော့ချက်ဖြစ်တယ်။",
+      "fashion-designer": "ယှဉ်ပြိုင်မှုအလွန်များပြီး Portfolio အခြေပြုတဲ့ နယ်ပယ်ဖြစ်တယ်။ Sustainability နဲ့ Digital Fashion တွေက Niche အသစ်တွေ ဖွင့်ပေးနေတယ်။",
+      "chemist": "Pharma, Material, Energy နဲ့ Consumer Product တွေမှာ Demand တည်ငြိမ်တယ်။ အဆင့်မြင့် Role တွေက ပိုမြင့်တဲ့ ဘွဲ့တွေကို ဦးစားပေးတယ်။"
+    }
   }
 }

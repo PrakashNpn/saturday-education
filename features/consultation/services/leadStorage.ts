@@ -1,26 +1,13 @@
 import { prisma } from '@/shared/lib/db/prisma'
 import { resend } from '@/shared/lib/email'
 import { createFirmliLead } from '@/shared/lib/crm/firmli'
+import { countryLabel } from '@/shared/constants/destinationCountries'
+import { syncLeadToCrm, type CrmChannel, type CrmOutcome } from './crmSync'
 
 const NOTIFICATION_EMAIL = process.env.CONSULTATION_NOTIFICATION_EMAIL ?? 'saturdayeducationconsulting@gmail.com'
-
-const COUNTRY_LABELS: Record<string, string> = {
-  uk: 'UK',
-  usa: 'USA',
-  australia: 'Australia',
-  canada: 'Canada',
-  newZealand: 'New Zealand',
-  singapore: 'Singapore',
-  switzerland: 'Switzerland',
-  ireland: 'Ireland',
-  thailand: 'Thailand',
-  germany: 'Germany',
-  malaysia: 'Malaysia',
-  netherlands: 'Netherlands',
-  spain: 'Spain',
-  uae: 'UAE',
-  other: 'Other',
-}
+// Where "this lead did not reach Firmli" alerts go. Kept apart from the consultation
+// notification address on purpose.
+const CRM_ALERT_EMAIL = process.env.CRM_ALERT_EMAIL ?? 'marketing@saturdayeducation.com'
 
 // Name, email and message can arrive from the chat advisor's lead tool as well
 // as the form, so they are escaped before going into the notification email.
@@ -61,7 +48,7 @@ const CONSULTATION_TYPE_MAP: Record<string, 'ONLINE' | 'IN_PERSON'> = {
  */
 export async function saveConsultationLead(
   data: ConsultationInput,
-  options: { notify: boolean },
+  options: { notify: boolean; channel?: 'consultation' | 'chat' },
 ) {
   if (!data.fullName?.trim() || !data.email?.trim()) {
     return { success: false, error: 'Name and email are required.' }
@@ -73,7 +60,10 @@ export async function saveConsultationLead(
   }
 
   try {
-    await prisma.consultation.create({
+    const saved = await prisma.consultation.create({
+      // Only the id is read back, so saving still works if the CRM tracking columns
+      // (prisma/migrations/20261017090000_add_consultation_crm_status) are not in the database yet.
+      select: { id: true },
       data: {
         fullName: data.fullName.trim(),
         email: data.email.trim(),
@@ -90,10 +80,13 @@ export async function saveConsultationLead(
     // should ever fail the submission itself, so each catches its own
     // errors internally. Run together rather than one after the other so a
     // slow CRM call doesn't add to how long the user waits.
-    await Promise.all([
+    const channel = options.channel ?? 'consultation'
+    const [, crm] = await Promise.all([
       options.notify ? sendNotificationEmail(data) : Promise.resolve(),
-      syncToFirmliCRM(data),
+      syncToFirmliCRM(data, channel),
     ])
+    await recordCrmOutcome(saved.id, crm)
+    if (crm.status === 'failed') await sendCrmFailureAlert(data, channel, crm.error)
 
     return { success: true }
   } catch (error) {
@@ -102,17 +95,78 @@ export async function saveConsultationLead(
   }
 }
 
-async function syncToFirmliCRM(data: ConsultationInput) {
-  try {
-    await createFirmliLead({
+async function syncToFirmliCRM(data: ConsultationInput, channel: CrmChannel): Promise<CrmOutcome> {
+  return syncLeadToCrm(
+    {
       fullName: data.fullName.trim(),
       email: data.email.trim(),
       phone: data.phone?.trim() || null,
       targetCountry: data.targetCountry || null,
       message: data.message?.trim() || null,
+    },
+    channel,
+    (lead, ch) => createFirmliLead(lead, { channel: ch }),
+  )
+}
+
+/** Notes on the lead's row whether it reached Firmli. Never fails the submission. */
+async function recordCrmOutcome(id: string, outcome: CrmOutcome) {
+  try {
+    await prisma.consultation.update({
+      where: { id },
+      data: {
+        crmStatus: outcome.status,
+        crmError: outcome.status === 'failed' ? outcome.error : null,
+        crmSyncedAt: new Date(),
+      },
     })
   } catch (error) {
-    console.error('Firmli CRM sync error:', error)
+    // Most likely the crm_* columns have not been added to the database yet.
+    console.error('Could not record the Firmli sync result:', error)
+  }
+}
+
+/** The lead is saved and (for the website form) emailed, but is not in the CRM:
+ *  tell the team, with everything needed to add it by hand. */
+async function sendCrmFailureAlert(data: ConsultationInput, channel: CrmChannel, error: string) {
+  if (!process.env.RESEND_API_KEY) {
+    console.warn('RESEND_API_KEY is not set, so the Firmli failure alert was not sent.')
+    return
+  }
+  const country = data.targetCountry ? countryLabel(data.targetCountry) : '—'
+  const via = channel === 'chat' ? 'AI chatbot' : 'Consultation form'
+  const row = (label: string, value: string) =>
+    `<tr><td style="padding: 8px 0; color: #6b7280;">${label}</td><td style="padding: 8px 0; font-weight: 600;">${escapeHtml(value)}</td></tr>`
+  try {
+    await resend.emails.send({
+      from: 'Saturday Education <consultations@saturdayeducation.com>',
+      to: CRM_ALERT_EMAIL,
+      replyTo: data.email.trim(),
+      subject: `Lead NOT in Firmli, add manually: ${data.fullName.trim()}`,
+      html: `
+        <div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
+          <h2 style="color: #b45309;">This lead did not reach Firmli</h2>
+          <p style="font-size: 14px;">It is saved in the database${channel === 'consultation' ? ' and the consultation notification was sent' : ''}, but the Firmli sync failed after two tries. Please add it in Firmli by hand.</p>
+          <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+            ${row('Came from', via)}
+            ${row('Full Name', data.fullName.trim())}
+            ${row('Email', data.email.trim())}
+            ${row('Phone', data.phone?.trim() || '—')}
+            ${row('Target Country', country)}
+          </table>
+          ${
+            data.message?.trim()
+              ? `<p style="color: #6b7280; margin-top: 16px; margin-bottom: 4px;">Message</p>
+                 <p style="white-space: pre-wrap; background: #f9fafb; border-radius: 8px; padding: 12px; font-size: 14px;">${escapeHtml(data.message.trim())}</p>`
+              : ''
+          }
+          <p style="color: #6b7280; margin-top: 16px; margin-bottom: 4px;">Error</p>
+          <p style="white-space: pre-wrap; background: #fef3c7; border-radius: 8px; padding: 12px; font-size: 13px;">${escapeHtml(error)}</p>
+        </div>
+      `,
+    })
+  } catch (alertError) {
+    console.error('Firmli failure alert email error:', alertError)
   }
 }
 
@@ -122,7 +176,7 @@ async function sendNotificationEmail(data: ConsultationInput) {
     return
   }
 
-  const country = data.targetCountry ? COUNTRY_LABELS[data.targetCountry] ?? data.targetCountry : '—'
+  const country = data.targetCountry ? countryLabel(data.targetCountry) : '—'
   const type = data.consultationType
     ? CONSULTATION_TYPE_LABELS[data.consultationType] ?? data.consultationType
     : '—'

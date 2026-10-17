@@ -14,7 +14,7 @@ Tech: Next.js 16.2 + TypeScript + Tailwind v4 + Prisma v7 + next-intl v4 + Zod v
 ## Architecture: Hybrid Feature-Based (3 Layers)
 - app/       → ROUTING ONLY (thin pages, 10-30 lines, imports from features/ and shared/)
 - features/  → BUSINESS DOMAINS (self-contained: components, services, hooks, types)
-- shared/    → CROSS-CUTTING (UI primitives, lib/db, lib/ai, lib/cms, lib/auth, hooks, utils)
+- shared/    → CROSS-CUTTING (UI components, constants, lib/db, lib/crm, lib/ai, lib/careers, lib/courseFinder, hooks, utils)
 
 ## The 4 Rules — NEVER Break
 1. app/ imports ONLY from features/ and shared/
@@ -27,15 +27,34 @@ NEVER use next/navigation or next/link directly.
 ALWAYS use: import { Link, useRouter, redirect, usePathname } from "@/i18n/navigation"
 
 ## i18n Routing (localePrefix: 'as-needed')
-- English = / (no prefix) — /en auto-redirects to /
+- English = / (no prefix) — /en auto-redirects to /. The plain address never redirects by
+  browser language (`localeDetection: false` in i18n/routing.ts): visitors pick a language
+  with the switcher or a link that contains it
 - Thai = /th prefix
-- Burmese = /my prefix
+- Burmese = /my prefix (hidden from the language switcher)
+- Vietnamese = /vi, Filipino = /fil, Indonesian = /id (code `id`, but DB columns use
+  the suffix `_idn`; Prisma fields `*Vi`, `*Fil`, `*Idn`)
+- i18n/request.ts deep-merges the locale file over `messages/en.json`, so a missing
+  or empty key falls back to English instead of showing a raw key
+- DB translations: nullable `*_th/_my/_vi/_fil/_idn` columns, `localize()` in
+  destinationService falls back to English. New columns must be created by running
+  prisma/migrations/20261016090000_add_vi_fil_idn_translations/migration.sql in
+  Supabase BEFORE deploying code that selects them (never run it from the agent)
+- Numbers: shared/utils/formatNumber.ts (vi-VN, id-ID, fil-PH; others en-US)
+- i18n/languages.ts is the single registry of languages (routing, switcher names and
+  flags, number formats, default phone country, script font, AI language name, which
+  languages need the stronger AI model). To add a language: add it there, add
+  messages/<code>.json, then fix the compile errors in the per-language text maps
+  (`Record<LocaleCode, ...>` / `Record<TranslationLocale, ...>`: chat fallback text,
+  comparison and career translation prompts, assessment brief) and the DB columns
 - Config in: i18n/routing.ts (defineRouting), i18n/navigation.ts (createNavigation)
 - i18n/request.ts (getRequestConfig) — REQUIRED, next.config.ts plugin points here directly
 - app/layout.tsx = minimal pass-through (NO html/body) — html/body is in [locale]/layout.tsx
-- Fonts: Noto Sans (all scripts — covers Latin, Thai, Myanmar, Arabic)
+- Fonts: Noto Sans (Latin) plus a second Noto Sans Vietnamese-subset instance
+  (`font-vietnamese`, preload off) for `vi`; Thai and Myanmar use their own Noto fonts
 
 ## Zod v4 Import
+Zod is installed but nothing uses it yet. If you add validation, import it as:
 import * as z from "zod"   ← NOT import { z } from "zod"
 
 ## Prisma v7
@@ -50,8 +69,9 @@ Fixed floating position, renders on EVERY page.
 landing/     → 12 rendered sections, in page order: Hero, PartnerLogos, WhySaturday,
                Services, AdditionalServices, CourseSearch, ComparisonTool,
                GlobalLeaders, Testimonials, Faq, Consultation, Cta.
-               UniversityFinderSection also lives here but is commented out —
-               see UNIVERSITIES_HIDDEN_RESTORE.md.
+               The public Universities section was dropped (see the note at the end of
+               this file); features/destination/components/PartnerUniversities.tsx is
+               kept, unused, in case partner universities are shown again on country pages.
                The home hero (HeroSection) is a counsellor photo with the
                headline over it and the course finder (CourseFinderBar, a
                frosted card of popular-destination chips plus Destination,
@@ -139,6 +159,68 @@ than inventing new ones — `features/destination/components/DetailHero.tsx` and
 `CustomDropdown` (both take a `variant` prop — `'default'` is the pre-redesign
 look, `'field'` matches the new form controls) and `FallbackImage`.
 
+## Destination countries
+`shared/constants/destinationCountries.ts` is the one list of countries a student can pick in
+the consultation form, the assessment contact form and the chat lead form (24 countries plus
+"Other"). Firmli ids and names, notification email labels and chat country detection all derive
+from it. To add a country: add an entry there, add its name under
+`Landing.consultation.form.country.options.<key>` in all six message files, and look up its id in
+Firmli's destination-countries-dropdown (leave the id out if Firmli has none; the test lists the
+known gaps). `tests/destinationCountries.test.ts` fails if any of that is missing. The older
+`shared/constants/countries.ts` (a world country list) is unrelated and currently unused.
+
+## Lead sync to Firmli
+`saveConsultationLead` (website form and chat) saves the lead, then syncs it to Firmli through
+`crmSync.ts` (two tries, 8 second limit per request). The result is written to the lead's row
+(`crm_status` synced / failed / skipped, `crm_error`, `crm_synced_at`) and a failure emails
+`CRM_ALERT_EMAIL` (default marketing@saturdayeducation.com) with the lead's details. The columns
+come from prisma/migrations/20261017090000_add_consultation_crm_status, which must be run in
+Supabase before deploying. The assessment form does not go to Firmli (by decision): its leads
+live in `assessment_leads` and the email only.
+
+## Rendering and caching
+Pages are prebuilt and served from Vercel's cache: the `[locale]` layout lists the locales
+(`generateStaticParams`) and every page calls `setRequestLocale(locale)`; without both, a page
+silently becomes server-rendered per visitor (slow, and it counts against function limits).
+Home, destinations and country pages refresh in the background at most once a day
+(`revalidate = 86400`), so a database edit shows within a day or at the next deploy. Still
+dynamic by design: course-finder (reads the URL's filters), assessment results, API routes. When
+adding a page, call `setRequestLocale` and check `next build`'s route table shows `●`, not `ƒ`.
+The root layout does not send `careerAssessment` or `careerCatalog` messages to the browser (large,
+assessment-only); `career-assessment/layout.tsx` provides them. `tests/messageScoping.test.ts` guards this.
+
+## Page weight
+Keep the JavaScript every page downloads small. The phone field (`react-phone-number-input`, about 190 KB
+with its phone-number data) is only imported by `PhoneField`, which forms reach through `LazyPhoneField`
+(consultation form: loads as the visitor nears it) or inside the lazily loaded chat `LeadCard`. Do not
+import `PhoneField` from a component every page loads, and do not import `country-flag-icons` (flags are
+SVG files in `public/images/flags-svg`). Validate phone numbers with `isValidPhone` from
+`shared/utils/phone.ts`. Next still lists lazily imported chunks in the page's HTML (async, so they do not
+block), so lazy loading helps rendering and parse cost but not the download; removing code (as with the
+flags) is what shrinks the download.
+
+## SEO and absolute URLs
+`shared/constants/site.ts` holds `SITE_URL` (from `NEXT_PUBLIC_SITE_URL`, default https://www.saturdayeducation.com,
+because the bare domain redirects to www). Use it for anything that needs an absolute URL; the root layout
+sets `metadataBase` from it, so relative alternates in page metadata become absolute. The sitemap
+(`app/sitemap.ts`, built by `shared/lib/seo/sitemap.ts`) lists the fixed pages in `STATIC_PAGES` plus every
+published country, each with all six language versions. When you add a public page, add it to `STATIC_PAGES`.
+Every public page builds its metadata with `pageMetadata({ locale, path, title, description })` from
+`shared/lib/seo/metadata.ts`: it sets the canonical address, the language alternates (with x-default) and
+the link preview (Open Graph and Twitter, picture `public/images/og/default.jpg`, 1200 by 630 JPEG). Pass a
+plain `title`; the root layout adds " | Saturday Education", so a title that already says the brand shows it
+twice (use `{ absolute }` for the home page). Message titles must not end with the brand
+(`tests/seoMetadata.test.ts` checks).
+
+## Tests
+`npm test` runs the Node test runner through tsx (no extra dependencies) over `tests/*.test.ts`:
+message files (every key in all six languages, placeholders, no dashes), career catalog
+translation completeness, work rights SQL bullet parity, scoring, lead capture, the Firmli
+payloads (fetch mocked) and the chat system prompt. They read files and call pure functions
+only: no database, no network. `tests/setup/stub-server-only.cjs` is preloaded to stub
+`server-only` and to work around a tsx/libphonenumber-js JSON interop problem. Run
+`npm test` after changing messages, the catalog, scoring or the lead flow.
+
 ## Phase Roadmap
 - Phase 0 ✅ Scaffold
 - Phase 1 ✅ Landing page, navbar, footer, chat widget
@@ -150,14 +232,23 @@ look, `'field'` matches the new form controls) and `FallbackImage`.
   and the Career Market Outlook instant mode), the destinations loading
   skeletons, the error page, and cookie consent. Pending: chat widget, legal
   pages
-- Phase 5 🔄 Admin dashboard — countries and universities CRUD, plus login
-- Phase 6 ⬜ Internationalization — routing and config are done, but roughly 73%
-  of strings are still English in both `th` and `my`
+- Phase 5 ⬜ Admin dashboard — the first simple admin (country and university text and
+  images) was removed in October 2026 for security and because it only covered a few
+  fields; a proper one is planned. Until then, edit content and image URLs with SQL
+  in Supabase (templates in prisma/snippets/update-images.sql). An English text edit
+  also needs the matching translations re-done (the translation SQL matches on the
+  exact English text)
+- Phase 6 🔄 Internationalization — UI messages are complete in all five non-English
+  locales (`th`, `my`, `vi`, `fil`, `id`), all 22 country pages are translated, and the
+  career outlook catalog is translated for th/vi/fil/id, and for my as summaries and market notes only (career names, skills and labels stay English in the Burmese code-switch register); typed careers for all five via
+  an AI call cached in the cache JSON). Still English by design: legal pages, the PDF
+  report, archetype/chart labels, the 150 assessment questions, the root 404. Not done: country stats strings
+  (tuition range; work rights is done), university/program content (not planned),
+  native-speaker review
 - Phase 7 ⬜ Hardening and launch
 
 A blog, a student portal and a public Universities section were previously
 planned. All three were dropped in September 2026 and their code, routes,
 messages and dependencies removed. The `University` and `Program` Prisma models
 remain in active use — by the homepage comparison tool, the partner logos on
-country pages, the career assessment's PDF recommendations, and the admin
-dashboard that maintains them.
+country pages and the career assessment's PDF recommendations.

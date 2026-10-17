@@ -1,6 +1,6 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { lazy, Suspense, useEffect, useRef, useState } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
 import { X, Send } from 'lucide-react'
 import Image from 'next/image'
@@ -8,16 +8,21 @@ import { useTranslations, useLocale } from 'next-intl'
 import { useChat } from '../hooks/useChat'
 import ChatMessage from './ChatMessage'
 import ChatTypingIndicator from './ChatTypingIndicator'
-import LeadCard from './LeadCard'
-import { guessCountry } from '../utils/leadCountries'
+import { guessCountryKey } from '@/shared/constants/destinationCountries'
 import { readLeadMarker } from '../utils/leadMarkers'
+import { useMediaQuery } from '@/shared/hooks/useMediaQuery'
+
+// The lead form carries the phone field (about 400 KB of flags and phone metadata), which
+// every page would otherwise download for a form most visitors never see. It is fetched
+// when the chat opens, so it is ready by the time the form appears.
+const loadLeadCard = () => import('./LeadCard')
+const LeadCard = lazy(loadLeadCard)
 
 export default function ChatWidget() {
   const [isOpen, setIsOpen] = useState(false)
   const [inputValue, setInputValue] = useState('')
   const [widgetVisible, setWidgetVisible] = useState(false)
   const [isScrolling, setIsScrolling] = useState(false)
-  const [isMobile, setIsMobile] = useState(false)
 
   useEffect(() => {
     const t = setTimeout(() => setWidgetVisible(true), 1000)
@@ -64,13 +69,7 @@ export default function ChatWidget() {
   // pauses. JS rather than a max-tablet: class because the scroll-collapse
   // logic above already has to pick the same className in JS — this folds
   // into that one decision instead of fighting it with CSS.
-  useEffect(() => {
-    const mq = window.matchMedia('(max-width: 859px)')
-    setIsMobile(mq.matches)
-    const handleChange = (e: MediaQueryListEvent) => setIsMobile(e.matches)
-    mq.addEventListener('change', handleChange)
-    return () => mq.removeEventListener('change', handleChange)
-  }, [])
+  const isMobile = useMediaQuery('(max-width: 859px)')
 
   const showCollapsed = isScrolling || isMobile
   const t = useTranslations('chatWidget')
@@ -108,6 +107,11 @@ export default function ChatWidget() {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
   }, [messages, isOpen, isStreaming])
+
+  // Start fetching the lead form's code as soon as the chat opens.
+  useEffect(() => {
+    if (isOpen) void loadLeadCard()
+  }, [isOpen])
 
   // The required form is taller than the visible chat, so bring up its top
   // rather than the bottom the effect above scrolls to.
@@ -206,7 +210,7 @@ export default function ChatWidget() {
                       <button
                         onClick={clearHistory}
                         className="text-white/50 hover:text-white/90 text-xs transition-colors"
-                        aria-label="Clear chat history"
+                        aria-label={t('clearChat')}
                       >
                         Clear
                       </button>
@@ -214,7 +218,7 @@ export default function ChatWidget() {
                     <button
                       onClick={() => setIsOpen(false)}
                       className="text-white/60 hover:text-white transition-colors"
-                      aria-label="Close chat"
+                      aria-label={t('closeChat')}
                     >
                       <X size={18} />
                     </button>
@@ -246,12 +250,14 @@ export default function ChatWidget() {
 
                   {showGate && lastReplyId && (
                     <div ref={gateRef}>
-                      <LeadCard
-                        variant="gate"
-                        initialCountry={guessCountry(studentSaid)}
-                        said={studentSaid}
-                        onSent={() => markLeadSent(lastReplyId)}
-                      />
+                      <Suspense fallback={null}>
+                        <LeadCard
+                          variant="gate"
+                          initialCountry={guessCountryKey(studentSaid)}
+                          said={studentSaid}
+                          onSent={() => markLeadSent(lastReplyId)}
+                        />
+                      </Suspense>
                     </div>
                   )}
 
@@ -289,7 +295,7 @@ export default function ChatWidget() {
                     onClick={handleSend}
                     disabled={!inputValue.trim() || isStreaming || gated}
                     className="w-9 h-9 rounded-full bg-gradient-to-br from-action-hover to-action flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_4px_16px_rgba(23,126,141,0.5)] hover:scale-105 active:scale-95 shadow-[0_2px_10px_rgba(23,126,141,0.3)]"
-                    aria-label="Send message"
+                    aria-label={t('sendMessage')}
                   >
                     <Send size={15} className="text-white" />
                   </button>
@@ -317,7 +323,10 @@ export default function ChatWidget() {
               exit={{   opacity: 0, y: 12,  scale: 0.93 }}
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
               onClick={() => setIsOpen(true)}
-              aria-label="Open chat"
+              // Expanded, the words on the button are its name (voice control saying
+              // "click Let's Chat" must match what is seen, so no separate label).
+              // Collapsed, only the logo shows, so it needs "Open chat".
+              aria-label={showCollapsed ? t('openChat') : undefined}
               // absolute + anchored to the parent's own corner: without this,
               // the brief moment both this and the X button exist together
               // (now that they cross-fade instead of waiting their turn)
@@ -371,14 +380,14 @@ export default function ChatWidget() {
                     transition={{ type: 'spring', stiffness: 380, damping: 28 }}
                     className="overflow-hidden text-left whitespace-nowrap"
                   >
-                    <p className="text-primary-text font-semibold text-sm leading-tight">Let&apos;s Chat</p>
+                    <p className="text-primary-text font-semibold text-sm leading-tight">{t('letsChat')}</p>
                     <div className="flex items-center gap-1 mt-0.5">
                       <motion.span
                         animate={{ opacity: [1, 0.3, 1] }}
                         transition={{ repeat: Infinity, duration: 2.5, ease: 'easeInOut' }}
                         className="w-1.5 h-1.5 rounded-full bg-emerald-400 shrink-0"
                       />
-                      <span className="text-secondary-text text-xs">Online</span>
+                      <span className="text-secondary-text text-xs">{t('status')}</span>
                     </div>
                   </motion.div>
                 )}
@@ -395,7 +404,7 @@ export default function ChatWidget() {
               exit={{   opacity: 0, scale: 0.7, rotate:  90  }}
               transition={{ type: 'spring', stiffness: 400, damping: 26 }}
               onClick={() => setIsOpen(false)}
-              aria-label="Close chat"
+              aria-label={t('closeChat')}
               className="absolute right-0 bottom-0 w-11 h-11 rounded-full flex items-center justify-center
                 bg-gradient-to-br from-action-hover to-action
                 shadow-[0_4px_20px_rgba(23,126,141,0.5)] cursor-pointer

@@ -82,7 +82,6 @@ const STUB_COUNTRIES = [
 
 // ─── SEED HELPERS ─────────────────────────────────────────────────────────────
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function seedCountry(data: any): Promise<string> {
   const { advantages, processSteps, faqs, ...countryFields } = data
 
@@ -98,15 +97,12 @@ async function seedCountry(data: any): Promise<string> {
   const id = country.id
 
   await prisma.countryAdvantage.deleteMany({ where: { countryId: id } })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.countryAdvantage.createMany({ data: advantages.map((a: any) => ({ ...a, countryId: id })) })
 
   await prisma.countryProcessStep.deleteMany({ where: { countryId: id } })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.countryProcessStep.createMany({ data: processSteps.map((s: any) => ({ ...s, countryId: id })) })
 
   await prisma.countryFAQ.deleteMany({ where: { countryId: id } })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.countryFAQ.createMany({ data: faqs.map((f: any) => ({ ...f, countryId: id })) })
 
   return id
@@ -120,7 +116,6 @@ async function seedCountryStub(data: { slug: string; name: string; region: Regio
   })
 }
 
-// eslint-disable-next-line @typescript-eslint/no-explicit-any
 async function seedUniversity(data: any, countryId: string): Promise<void> {
   const { programs, admissionSteps, scholarships, ...uniFields } = data
 
@@ -136,16 +131,13 @@ async function seedUniversity(data: any, countryId: string): Promise<void> {
   const id = uni.id
 
   await prisma.program.deleteMany({ where: { universityId: id } })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.program.createMany({ data: programs.map((p: any) => ({ ...p, universityId: id })) })
 
   await prisma.admissionStep.deleteMany({ where: { universityId: id } })
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
   await prisma.admissionStep.createMany({ data: admissionSteps.map((s: any) => ({ ...s, universityId: id })) })
 
   await prisma.scholarship.deleteMany({ where: { universityId: id } })
   if (scholarships.length > 0) {
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     await prisma.scholarship.createMany({ data: scholarships.map((s: any) => ({ ...s, universityId: id })) })
   }
 }

@@ -1,10 +1,31 @@
 import { NextRequest, NextResponse } from 'next/server'
 import Anthropic from '@anthropic-ai/sdk'
 import type { ComparisonUniversity } from '@/features/landing/services/comparison-service'
+import { isTranslationLocale, type TranslationLocale } from '@/i18n/languages'
+import { modelForLocale } from '@/shared/lib/ai/models'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
-function buildPrompt(uni1: ComparisonUniversity, uni2: ComparisonUniversity): string {
+// Language the advisor writes in. English (or anything unrecognised) adds no instruction.
+const LANGUAGE_NOTE: Record<TranslationLocale, string> = {
+  th: 'Thai. Keep university names, tool names and acronyms in English.',
+  vi: 'Vietnamese. Keep university names, tool names and acronyms in English.',
+  fil: 'natural Filipino, the way Filipinos write today, with common English terms kept in English. Do not force deep Tagalog.',
+  id: 'Indonesian (Bahasa Indonesia). Keep university names, tool names and acronyms in English.',
+  my: 'Burmese, written the way people in Myanmar naturally write today: Burmese grammar and particles with the friendly spoken-style endings (such as -ပါတယ်, -တယ်), and university names, city names and technical terms kept in English.',
+}
+
+function buildPrompt(uni1: ComparisonUniversity, uni2: ComparisonUniversity, locale?: string): string {
+  const language = isTranslationLocale(locale) ? LANGUAGE_NOTE[locale] : undefined
+  // The JSON template below is written in English, which pulls the model back
+  // to English, so the language is stated first and again just before the template.
+  const languageIntro = language
+    ? `\nIMPORTANT: every text value in your answer (the verdict, the three questions and the three answers) must be written in ${language} Do not answer in English.\n`
+    : ''
+  const languageRule = language
+    ? `\nLanguage reminder: the verdict, the three questions and the three answers are all in ${language} Translate the three question texts naturally; keep the JSON keys exactly as shown. Short plain sentences, no em dashes or en dashes.\n`
+    : ''
+
   function describe(u: ComparisonUniversity) {
     const tuition = u.tuition
       ? `${u.tuition.currency}${u.tuition.min.toLocaleString()}–${u.tuition.currency}${u.tuition.max.toLocaleString()}/year`
@@ -25,7 +46,7 @@ function buildPrompt(uni1: ComparisonUniversity, uni2: ComparisonUniversity): st
   }
 
   return `You are a straight-talking study abroad advisor helping Asian students pick between two universities.
-
+${languageIntro}
 UNIVERSITY 1:
 ${describe(uni1)}
 
@@ -40,6 +61,7 @@ Never use em dashes or en dashes. Use a comma, a semicolon, or a second sentence
 
 Write like a real person talking to a friend — short sentences, plain words, direct opinions. No AI phrases like "it's worth noting", "both have their merits", "it's important to consider". No corporate language. Just honest, simple advice.
 
+${languageRule}
 Return ONLY valid JSON, no extra text:
 {
   "verdict": "One sentence. Direct opinion or clear trade-off. Under 20 words. Plain language.",
@@ -65,17 +87,25 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
   }
 
-  const { uni1, uni2 }: { uni1: ComparisonUniversity; uni2: ComparisonUniversity } = await req.json()
+  let body: { uni1?: ComparisonUniversity; uni2?: ComparisonUniversity; locale?: string }
+  try {
+    body = await req.json()
+  } catch {
+    return NextResponse.json({ error: 'Invalid request body' }, { status: 400 })
+  }
+  const { uni1, uni2, locale } = body
 
   if (!uni1 || !uni2) {
     return NextResponse.json({ error: 'Missing university data' }, { status: 400 })
   }
 
   const stream = await client.messages.create({
-    model: 'claude-haiku-4-5-20251001',
-    max_tokens: 600,
+    // Burmese and Filipino need the stronger model: Haiku produced broken Burmese and
+    // kept slipping back into English for Filipino.
+    model: modelForLocale(locale),
+    max_tokens: isTranslationLocale(locale) ? 1600 : 600, // Thai and Burmese need many more tokens
     stream: true,
-    messages: [{ role: 'user', content: buildPrompt(uni1, uni2) }],
+    messages: [{ role: 'user', content: buildPrompt(uni1, uni2, locale) }],
   })
 
   const readable = new ReadableStream({

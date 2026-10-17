@@ -9,14 +9,6 @@ export const REGION_DISPLAY: Record<string, string> = {
   AFRICA: 'Africa',
 }
 
-export const REGION_BADGE_COLORS: Record<string, string> = {
-  EUROPE: 'bg-action text-white',
-  AMERICAS: 'bg-blue-900 text-white',
-  OCEANIA: 'bg-emerald-600 text-white',
-  ASIA: 'bg-red-600 text-white',
-  AFRICA: 'bg-amber-600 text-white',
-}
-
 export const REGION_TAB_LABELS: Record<string, string> = {
   All: 'regionAll',
   EUROPE: 'regionEurope',
@@ -33,8 +25,6 @@ export const SORT_OPTIONS = [
 ] as const
 
 export type SortOption = (typeof SORT_OPTIONS)[number]['value']
-
-export const PAGE_SIZE = 6
 
 /** Country slug to ISO 3166-1 alpha-2, which is how the flag files are named.
  *  The design pulls these from flagcdn; ours are the local copies already

@@ -2,16 +2,12 @@
 
 import { useId, useState } from 'react'
 import { useLocale, useTranslations } from 'next-intl'
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
-import 'react-phone-number-input/style.css'
+import { isValidPhoneNumber } from 'react-phone-number-input'
 import { Link } from '@/i18n/navigation'
+import { languageOf } from '@/i18n/languages'
 import { CONTACT_LINKS } from '@/shared/constants/social'
-import { PhoneCountrySelect } from '@/shared/components/common'
-import { LEAD_COUNTRIES } from '../utils/leadCountries'
-
-// Same rule as the website form: the site's own locale is the only signal for
-// which country's dial code to pre-select before the visitor picks one.
-const DEFAULT_PHONE_COUNTRY: Record<string, 'MM' | 'TH'> = { th: 'TH' }
+import PhoneField from '@/shared/components/common/PhoneField'
+import { isCountryKey } from '@/shared/constants/destinationCountries'
 
 const INPUT =
   'w-full rounded-xl border border-action/15 bg-white px-3 py-1.5 text-sm text-primary-text placeholder:text-muted-text transition-colors hover:border-action/30 focus:border-action/40 focus:ring-2 focus:ring-action/20 focus:outline-none'
@@ -65,9 +61,7 @@ export default function LeadCard({ variant = 'card', initialCountry, said, onSen
           fullName: fullName.trim(),
           email: email.trim(),
           phone,
-          targetCountry: (LEAD_COUNTRIES as readonly string[]).includes(initialCountry ?? '')
-            ? initialCountry
-            : undefined,
+          targetCountry: isCountryKey(initialCountry) ? initialCountry : undefined,
           said,
           hp,
         }),
@@ -129,17 +123,13 @@ export default function LeadCard({ variant = 'card', initialCountry, said, onSen
 
       <div className={LABEL}>
         <span>{t('phoneLabel')}</span>
-        <PhoneInput
-          international
-          withCountryCallingCode
-          defaultCountry={DEFAULT_PHONE_COUNTRY[locale] ?? 'MM'}
-          countryCallingCodeEditable={false}
-          countrySelectComponent={PhoneCountrySelect}
+        <PhoneField
+          defaultCountry={languageOf(locale).phoneCountry}
           value={phone}
           onChange={setPhone}
           placeholder={t('phonePlaceholder')}
-          numberInputProps={{ className: INPUT, autoComplete: 'tel' }}
-          className="phone-field"
+          inputClassName={INPUT}
+          autoComplete="tel"
         />
       </div>
 

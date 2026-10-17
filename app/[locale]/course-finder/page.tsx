@@ -1,6 +1,7 @@
 import type { Metadata } from 'next'
 import { getTranslations, setRequestLocale } from 'next-intl/server'
 import { CourseFinderPage, parseCourseFinderFilters } from '@/features/course-finder'
+import { pageMetadata } from '@/shared/lib/seo/metadata'
 
 type Props = {
   params: Promise<{ locale: string }>
@@ -10,16 +11,8 @@ type Props = {
 export async function generateMetadata({ params }: Props): Promise<Metadata> {
   const { locale } = await params
   const t = await getTranslations({ locale, namespace: 'metadata.courseFinder' })
-  return {
-    title: t('title'),
-    description: t('description'),
-    openGraph: {
-      title: t('title'),
-      description: t('description'),
-      type: 'website',
-      siteName: 'Saturday Education',
-    },
-  }
+  // The canonical address leaves out the filters in the query string: every filtered view is the same page.
+  return pageMetadata({ locale, path: '/course-finder', title: t('title'), description: t('description') })
 }
 
 export default async function CourseFinderRoute({ params, searchParams }: Props) {

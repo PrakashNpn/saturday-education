@@ -3,6 +3,7 @@
 // as [[book-consultation]] when an action is relevant; here we strip any dash that
 // slips through and map the marker to a branded CTA button.
 import { readLeadMarker, type LeadMarker } from './leadMarkers'
+import { stripDashes } from '@/shared/utils/dashes'
 
 export interface CtaLink {
   href: string
@@ -21,16 +22,6 @@ export const CTA_LINKS: Record<string, CtaLink> = {
 }
 
 const MARKERS = Object.keys(CTA_LINKS)
-
-/** Replace em/en dashes with natural punctuation. Real hyphens (part-time, F-1)
- *  are left untouched; numeric ranges keep a hyphen. */
-export function stripDashes(text: string): string {
-  return text
-    .replace(/(\d)\s*[–—―]\s*(\d)/g, '$1-$2') // numeric range: 2–4 -> 2-4
-    .replace(/\s*[–—―]\s*/g, ', ') // dash punctuation -> comma
-    .replace(/\s*,\s*,\s*/g, ', ') // collapse doubled commas
-    .replace(/[ \t]{2,}/g, ' ') // collapse runs of spaces
-}
 
 export interface ParsedReply {
   text: string

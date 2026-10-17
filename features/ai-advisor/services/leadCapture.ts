@@ -14,7 +14,7 @@
 // react-phone-number-input: that package ships React components and crashes
 // when loaded in a route handler.
 import { isValidPhoneNumber, parsePhoneNumberFromString } from 'libphonenumber-js/min'
-import { LEAD_COUNTRIES } from '../utils/leadCountries'
+import { isCountryKey, OTHER_COUNTRY } from '@/shared/constants/destinationCountries'
 import { LEAD_KNOWN_MARKER, LEAD_SAVED_MARKER } from '../utils/leadMarkers'
 
 export type LeadSubmission = {
@@ -111,9 +111,9 @@ export async function submitLeadForm(
   // No country given stays unset rather than being recorded as "Other".
   const targetCountry = !country
     ? undefined
-    : (LEAD_COUNTRIES as readonly string[]).includes(country)
+    : isCountryKey(country)
       ? country
-      : 'other'
+      : OTHER_COUNTRY
 
   const outcome = await submit({
     fullName,

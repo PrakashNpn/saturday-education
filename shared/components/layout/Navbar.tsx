@@ -5,6 +5,7 @@ import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { Menu, X, ChevronDown, Phone, MapPin } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
+import { LANGUAGES, LOCALE_CODES } from '@/i18n/languages'
 import { cn } from '@/shared/utils/cn'
 
 type NavItem = { labelKey: string; href: string }
@@ -19,18 +20,18 @@ const NAV_LINKS: NavItem[] = [
 
 // Names, not translations: a switcher has to show every language's own name
 // regardless of which locale is currently active, so these can't come from
-// the message files the way the rest of the nav's labels do. Myanmar is a
-// real routed locale but isn't offered here yet — its translations (UI
-// strings and the destination detail pages' database content) are drafted
-// but awaiting team review. Add it back once that review is done.
-// flag is the country whose flag best represents the language, not the
-// locale code itself — reuses the same /images/flags assets the destination
-// pickers already use, English maps to the UK's "gb" rather than a locale
-// code with no matching flag file.
-const LANGUAGE_OPTIONS = [
-  { code: 'en', label: 'English', flag: 'gb' },
-  { code: 'th', label: 'ไทย', flag: 'th' },
-] as const
+// the message files the way the rest of the nav's labels do. The names, flags
+// and which languages are offered live in i18n/languages.ts. Myanmar is a real
+// routed locale but is not offered yet (awaiting team review); Vietnamese,
+// Filipino and Indonesian are offered while being reviewed locally, so check
+// the `inSwitcher` flags again before deploying.
+// The flag is the country whose flag best represents the language, from the
+// same /images/flags assets the destination pickers use.
+const LANGUAGE_OPTIONS = LOCALE_CODES.filter((code) => LANGUAGES[code].inSwitcher).map((code) => ({
+  code,
+  label: LANGUAGES[code].nativeName,
+  flag: LANGUAGES[code].flag,
+}))
 
 /** Clipped into a circle the same way DestinationCard's flag badges are,
  *  rather than left as the source rectangle, so it reads as a small token
@@ -181,7 +182,7 @@ export default function Navbar() {
             />
           </Link>
 
-          <nav aria-label="Main navigation">
+          <nav aria-label={t('mainNavigation')}>
             <ul className="flex items-center gap-1 max-tablet:hidden">
               {NAV_LINKS.map((item) => (
                 <li key={item.href}>

@@ -3,24 +3,12 @@
 import { useState } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import PhoneInput, { isValidPhoneNumber } from 'react-phone-number-input'
-import 'react-phone-number-input/style.css'
 import { Link } from '@/i18n/navigation'
+import { languageOf } from '@/i18n/languages'
+import { COUNTRY_KEYS, OTHER_COUNTRY } from '@/shared/constants/destinationCountries'
 import { CONTACT_LINKS } from '@/shared/constants/social'
-import { CustomDropdown, PhoneCountrySelect } from '@/shared/components/common'
-
-// Which country's flag/dial code is pre-selected before the visitor picks
-// their own — the site's own locale is the only signal available before
-// they've typed anything. 'en' falls back to Myanmar rather than being left
-// unset: it's the no-prefix default for every visitor, not a locale tied to
-// English speakers specifically, and this whole site's primary audience is
-// Myanmar students regardless of which locale they're browsing in — the
-// phone placeholder itself ("+95 9 XXX XXX XXX") already assumes that even
-// on the English site.
-const DEFAULT_COUNTRY_BY_LOCALE: Record<string, 'MM' | 'TH'> = {
-  th: 'TH',
-}
-const FALLBACK_DEFAULT_COUNTRY = 'MM'
+import { CustomDropdown, LazyPhoneField } from '@/shared/components/common'
+import { isValidPhone } from '@/shared/utils/phone'
 
 interface ConsultationInput {
   fullName: string
@@ -45,11 +33,7 @@ const LABEL = 'flex flex-col gap-1.5 text-label font-medium text-primary-text'
 // and record both expect one.
 const DEFAULT_CONSULTATION_TYPE = 'online'
 
-const COUNTRY_VALUES = [
-  'canada', 'newZealand', 'singapore', 'switzerland', 'ireland',
-  'thailand', 'malaysia', 'germany', 'hungary', 'finland', 'china',
-  'sweden', 'uae', 'japan', 'korea', 'uk', 'usa', 'australia',
-] as const
+const COUNTRY_VALUES = [...COUNTRY_KEYS, OTHER_COUNTRY]
 
 function MessengerIcon() {
   return (
@@ -149,7 +133,7 @@ export default function ConsultationSection({ onSubmit }: Props) {
       setError(t('form.errorEmail'))
       return
     }
-    if (!phone || !isValidPhoneNumber(phone)) {
+    if (!(await isValidPhone(phone))) {
       setError(t('form.errorPhone'))
       return
     }
@@ -243,17 +227,12 @@ export default function ConsultationSection({ onSubmit }: Props) {
                 </label>
                 <label className={LABEL}>
                   {t('form.phone.label')}
-                  <PhoneInput
-                    international
-                    withCountryCallingCode
-                    defaultCountry={DEFAULT_COUNTRY_BY_LOCALE[locale] ?? FALLBACK_DEFAULT_COUNTRY}
-                    countryCallingCodeEditable={false}
-                    countrySelectComponent={PhoneCountrySelect}
+                  <LazyPhoneField
+                    defaultCountry={languageOf(locale).phoneCountry}
                     value={phone}
                     onChange={setPhone}
                     placeholder={t('form.phone.placeholder')}
-                    numberInputProps={{ className: FIELD }}
-                    className="phone-field"
+                    inputClassName={FIELD}
                   />
                 </label>
               </div>

@@ -1,33 +1,28 @@
 import type { MetadataRoute } from 'next'
+import { routing } from '@/i18n/routing'
+import { getAllCountrySlugs } from '@/features/destination'
+import { SITE_URL } from '@/shared/constants/site'
+import { buildSitemapEntries } from '@/shared/lib/seo/sitemap'
 
-export default function sitemap(): MetadataRoute.Sitemap {
-  const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saturdayeducation.com'
-  const now = new Date()
+// Rebuilt in the background at most once a day, so a country published in the
+// database appears in the sitemap within a day.
+export const revalidate = 86400
 
-  const staticPages = [
-    { path: '',                   priority: 1.0, changeFrequency: 'weekly'  as const },
-    { path: '/career-assessment', priority: 0.9, changeFrequency: 'monthly' as const },
-    { path: '/course-finder',     priority: 0.8, changeFrequency: 'monthly' as const },
-    { path: '/destinations',      priority: 0.8, changeFrequency: 'weekly'  as const },
-  ]
-
-  const entries: MetadataRoute.Sitemap = []
-
-  for (const page of staticPages) {
-    entries.push({
-      url: `${baseUrl}${page.path}`,
-      lastModified: now,
-      changeFrequency: page.changeFrequency,
-      priority: page.priority,
-      alternates: {
-        languages: {
-          en: `${baseUrl}${page.path}`,
-          th: `${baseUrl}/th${page.path}`,
-          my: `${baseUrl}/my${page.path}`,
-        },
-      },
-    })
+export default async function sitemap(): Promise<MetadataRoute.Sitemap> {
+  let countrySlugs: string[] = []
+  try {
+    countrySlugs = (await getAllCountrySlugs()).map((c) => c.slug)
+  } catch (error) {
+    // The database being unreachable at build time should not break the build; the
+    // sitemap then lists the fixed pages and gets the countries on its next rebuild.
+    console.error('Sitemap: could not read the country list:', error)
   }
 
-  return entries
+  return buildSitemapEntries({
+    baseUrl: SITE_URL,
+    locales: routing.locales,
+    defaultLocale: routing.defaultLocale,
+    countrySlugs,
+    now: new Date(),
+  })
 }

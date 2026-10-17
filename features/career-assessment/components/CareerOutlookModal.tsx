@@ -2,10 +2,11 @@
 
 import { useEffect, useState, type ReactNode } from 'react'
 import { motion, AnimatePresence } from 'framer-motion'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { SearchX, RotateCw, Clock } from 'lucide-react'
 import { Link } from '@/i18n/navigation'
 import { deriveHorizonView, type Horizon, type OutlookView } from '@/shared/lib/careers/outlookMaster'
+import { useCareerText } from '@/shared/lib/careers/useCareerText'
 import { workStyleOf } from '../utils/workStyle'
 import { getCareerOutlook } from '../services/careerOutlookService'
 import { CareerOutlookResearching } from './CareerOutlookResearching'
@@ -31,6 +32,7 @@ function Cell({ label, children }: { label: string; children: ReactNode }) {
 }
 
 function SkillList({ skills, numberClass }: { skills: string[]; numberClass: string }) {
+  const text = useCareerText()
   return (
     <ol className="space-y-2.5">
       {skills.map((skill, i) => (
@@ -38,7 +40,7 @@ function SkillList({ skills, numberClass }: { skills: string[]; numberClass: str
           <span className={`shrink-0 font-mono text-min ${numberClass}`}>
             {String(i + 1).padStart(2, '0')}
           </span>
-          <span className="leading-snug">{skill}</span>
+          <span className="leading-snug">{text.skill(skill)}</span>
         </li>
       ))}
     </ol>
@@ -59,6 +61,7 @@ function ModalBody({
   onStart?: () => void
 }) {
   const t = useTranslations('careerAssessment.outlook')
+  const text = useCareerText()
   const trend = career.outlook.trend
   const startYear = new Date().getFullYear()
   const step = horizonYears === 5 ? 1 : 2
@@ -76,14 +79,14 @@ function ModalBody({
     <div className="space-y-5 p-6 sm:p-7">
       <div>
         <h2 className="pr-10 text-title leading-tight font-medium tracking-tight text-primary-text">
-          {career.title}
+          {text.title(career.slug, career.title)}
         </h2>
         <p className="mt-1.5 text-body leading-relaxed font-normal text-secondary-text">
-          {career.summary}
+          {text.summary(career.slug, career.summary)}
         </p>
         <div className="mt-3 flex flex-wrap items-center gap-1.5">
           {career.relatedFields.map((field) => (
-            <Chip key={field} label={field} />
+            <Chip key={field} label={text.field(field)} />
           ))}
         </div>
       </div>
@@ -93,7 +96,7 @@ function ModalBody({
           <div className="grid grid-cols-[0.85fr_1.2fr_1.25fr] divide-x divide-stroke border-b border-stroke bg-surface">
             <Cell label={t('demandNow')}>
               <p className="text-label leading-tight font-medium text-primary-text">
-                {career.outlook.demand}
+                {text.demand(career.outlook.demand)}
               </p>
             </Cell>
             <Cell label={t('trajectory', { years: horizonYears })}>
@@ -103,7 +106,7 @@ function ModalBody({
                   {growth}%
                 </p>
                 <span className="rounded-full bg-action px-2 py-0.5 text-min leading-none font-medium text-white shadow-2xs">
-                  {career.outlook.growthLabel}
+                  {text.growth(career.outlook.growthLabel)}
                 </span>
               </div>
             </Cell>
@@ -124,7 +127,7 @@ function ModalBody({
                 })}
               </h3>
               <p className="mt-1 text-label leading-relaxed font-normal text-secondary-text">
-                {career.outlook.marketNote}
+                {text.note(career.slug, career.outlook.marketNote)}
               </p>
             </div>
 
@@ -277,6 +280,8 @@ export function CareerOutlookModal({
   /** Sends the reader into the full assessment from the modal footer. */
   onStart?: () => void
 }) {
+  const t = useTranslations('careerAssessment.outlook')
+  const locale = useLocale()
   const [state, setState] = useState<FetchState>({ phase: 'loading' })
   const [reloadKey, setReloadKey] = useState(0)
   const horizonYears = horizon === '5' ? 5 : 10
@@ -289,7 +294,7 @@ export function CareerOutlookModal({
     setState({ phase: 'loading' })
     const startedAt = Date.now()
     ;(async () => {
-      const result = await getCareerOutlook(query).catch(() => ({ status: 'error' as const }))
+      const result = await getCareerOutlook(query, locale).catch(() => ({ status: 'error' as const }))
       // Hold the research animation for a deliberate, slightly-varied beat so instant
       // catalog/cache results still feel like real research (and don't flash by).
       const target = MIN_RESEARCH_MS + Math.floor(Math.random() * RESEARCH_JITTER_MS)
@@ -336,7 +341,7 @@ export function CareerOutlookModal({
           <motion.div
             role="dialog"
             aria-modal="true"
-            aria-label={`${query} outlook`}
+            aria-label={t('dialogLabel', { query: query ?? '' })}
             className="relative z-10 max-h-[92vh] w-full max-w-5xl overflow-y-auto rounded-md border border-stroke bg-surface"
             initial={{ opacity: 0, y: 40, scale: 0.98 }}
             animate={{ opacity: 1, y: 0, scale: 1 }}
@@ -347,7 +352,7 @@ export function CareerOutlookModal({
             <button
               type="button"
               onClick={onClose}
-              aria-label="Close dialog"
+              aria-label={t('close')}
               className="absolute top-4 right-4 z-10 cursor-pointer rounded-full p-1.5 text-muted-text transition-colors hover:bg-surface-0 hover:text-primary-text"
             >
               <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" className="size-5">
@@ -360,15 +365,15 @@ export function CareerOutlookModal({
             {state.phase === 'invalid' && (
               <StateMessage
                 icon={<SearchX size={24} />}
-                title="That doesn't look like a career"
-                body={`We couldn't find a career called "${query}". Try another job title, or pick one from the list.`}
+                title={t('invalidTitle')}
+                body={t('invalidBody', { query: query ?? '' })}
                 action={
                   <button
                     type="button"
                     onClick={onClose}
                     className="cursor-pointer rounded-full bg-action px-6 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover"
                   >
-                    Try another career
+                    {t('invalidAction')}
                   </button>
                 }
               />
@@ -377,8 +382,8 @@ export function CareerOutlookModal({
             {state.phase === 'busy' && (
               <StateMessage
                 icon={<Clock size={24} />}
-                title="Our research service is busy"
-                body="It's getting a lot of requests right now. Please try again in a moment."
+                title={t('busyTitle')}
+                body={t('busyBody')}
                 action={
                   <button
                     type="button"
@@ -386,7 +391,7 @@ export function CareerOutlookModal({
                     className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-action px-6 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover"
                   >
                     <RotateCw size={15} />
-                    Try again
+                    {t('busyAction')}
                   </button>
                 }
               />
@@ -395,8 +400,8 @@ export function CareerOutlookModal({
             {state.phase === 'error' && (
               <StateMessage
                 icon={<RotateCw size={22} />}
-                title="Something went wrong"
-                body="We couldn't research this career just now. Please try again in a moment."
+                title={t('errorTitle')}
+                body={t('errorBody')}
                 action={
                   <button
                     type="button"
@@ -404,7 +409,7 @@ export function CareerOutlookModal({
                     className="inline-flex cursor-pointer items-center gap-2 rounded-full bg-action px-6 py-2.5 text-label font-medium text-white transition-colors hover:bg-action-hover"
                   >
                     <RotateCw size={15} />
-                    Retry
+                    {t('errorAction')}
                   </button>
                 }
               />

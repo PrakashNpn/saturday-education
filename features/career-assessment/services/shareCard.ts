@@ -4,6 +4,7 @@ import path from 'node:path'
 import sharp from 'sharp'
 import QRCode from 'qrcode'
 import { supabaseAdmin, STORAGE_BUCKET, getPublicUrl } from '@/shared/lib/supabase'
+import { SITE_URL } from '@/shared/constants/site'
 import type { DashboardData } from '../types'
 
 /**
@@ -195,8 +196,7 @@ const LOGO_ASPECT = 846 / 311
  *  locale through this far, so every QR opens the English results page
  *  regardless of which locale the assessment was taken in. */
 function getResultsUrl(leadId: string): string {
-  const base = process.env.NEXT_PUBLIC_SITE_URL || 'https://saturdayeducation.com'
-  return `${base}/career-assessment/results/${leadId}`
+  return `${SITE_URL}/career-assessment/results/${leadId}`
 }
 
 /** A real, scannable QR — not a placeholder — encoding the student's public

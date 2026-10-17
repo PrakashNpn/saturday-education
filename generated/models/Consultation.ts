@@ -34,6 +34,9 @@ export type ConsultationMinAggregateOutputType = {
   message: string | null
   source: string | null
   status: $Enums.ConsultationStatus | null
+  crmStatus: string | null
+  crmError: string | null
+  crmSyncedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -48,6 +51,9 @@ export type ConsultationMaxAggregateOutputType = {
   message: string | null
   source: string | null
   status: $Enums.ConsultationStatus | null
+  crmStatus: string | null
+  crmError: string | null
+  crmSyncedAt: Date | null
   createdAt: Date | null
   updatedAt: Date | null
 }
@@ -62,6 +68,9 @@ export type ConsultationCountAggregateOutputType = {
   message: number
   source: number
   status: number
+  crmStatus: number
+  crmError: number
+  crmSyncedAt: number
   createdAt: number
   updatedAt: number
   _all: number
@@ -78,6 +87,9 @@ export type ConsultationMinAggregateInputType = {
   message?: true
   source?: true
   status?: true
+  crmStatus?: true
+  crmError?: true
+  crmSyncedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -92,6 +104,9 @@ export type ConsultationMaxAggregateInputType = {
   message?: true
   source?: true
   status?: true
+  crmStatus?: true
+  crmError?: true
+  crmSyncedAt?: true
   createdAt?: true
   updatedAt?: true
 }
@@ -106,6 +121,9 @@ export type ConsultationCountAggregateInputType = {
   message?: true
   source?: true
   status?: true
+  crmStatus?: true
+  crmError?: true
+  crmSyncedAt?: true
   createdAt?: true
   updatedAt?: true
   _all?: true
@@ -193,6 +211,9 @@ export type ConsultationGroupByOutputType = {
   message: string | null
   source: string | null
   status: $Enums.ConsultationStatus
+  crmStatus: string | null
+  crmError: string | null
+  crmSyncedAt: Date | null
   createdAt: Date
   updatedAt: Date
   _count: ConsultationCountAggregateOutputType | null
@@ -228,6 +249,9 @@ export type ConsultationWhereInput = {
   message?: Prisma.StringNullableFilter<"Consultation"> | string | null
   source?: Prisma.StringNullableFilter<"Consultation"> | string | null
   status?: Prisma.EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
+  crmStatus?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  crmError?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  crmSyncedAt?: Prisma.DateTimeNullableFilter<"Consultation"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Consultation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Consultation"> | Date | string
 }
@@ -242,6 +266,9 @@ export type ConsultationOrderByWithRelationInput = {
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   source?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  crmStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  crmError?: Prisma.SortOrderInput | Prisma.SortOrder
+  crmSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -259,6 +286,9 @@ export type ConsultationWhereUniqueInput = Prisma.AtLeast<{
   message?: Prisma.StringNullableFilter<"Consultation"> | string | null
   source?: Prisma.StringNullableFilter<"Consultation"> | string | null
   status?: Prisma.EnumConsultationStatusFilter<"Consultation"> | $Enums.ConsultationStatus
+  crmStatus?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  crmError?: Prisma.StringNullableFilter<"Consultation"> | string | null
+  crmSyncedAt?: Prisma.DateTimeNullableFilter<"Consultation"> | Date | string | null
   createdAt?: Prisma.DateTimeFilter<"Consultation"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"Consultation"> | Date | string
 }, "id">
@@ -273,6 +303,9 @@ export type ConsultationOrderByWithAggregationInput = {
   message?: Prisma.SortOrderInput | Prisma.SortOrder
   source?: Prisma.SortOrderInput | Prisma.SortOrder
   status?: Prisma.SortOrder
+  crmStatus?: Prisma.SortOrderInput | Prisma.SortOrder
+  crmError?: Prisma.SortOrderInput | Prisma.SortOrder
+  crmSyncedAt?: Prisma.SortOrderInput | Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
   _count?: Prisma.ConsultationCountOrderByAggregateInput
@@ -293,6 +326,9 @@ export type ConsultationScalarWhereWithAggregatesInput = {
   message?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
   source?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
   status?: Prisma.EnumConsultationStatusWithAggregatesFilter<"Consultation"> | $Enums.ConsultationStatus
+  crmStatus?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
+  crmError?: Prisma.StringNullableWithAggregatesFilter<"Consultation"> | string | null
+  crmSyncedAt?: Prisma.DateTimeNullableWithAggregatesFilter<"Consultation"> | Date | string | null
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"Consultation"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"Consultation"> | Date | string
 }
@@ -307,6 +343,9 @@ export type ConsultationCreateInput = {
   message?: string | null
   source?: string | null
   status?: $Enums.ConsultationStatus
+  crmStatus?: string | null
+  crmError?: string | null
+  crmSyncedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -321,6 +360,9 @@ export type ConsultationUncheckedCreateInput = {
   message?: string | null
   source?: string | null
   status?: $Enums.ConsultationStatus
+  crmStatus?: string | null
+  crmError?: string | null
+  crmSyncedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -335,6 +377,9 @@ export type ConsultationUpdateInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+  crmStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -349,6 +394,9 @@ export type ConsultationUncheckedUpdateInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+  crmStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -363,6 +411,9 @@ export type ConsultationCreateManyInput = {
   message?: string | null
   source?: string | null
   status?: $Enums.ConsultationStatus
+  crmStatus?: string | null
+  crmError?: string | null
+  crmSyncedAt?: Date | string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -377,6 +428,9 @@ export type ConsultationUpdateManyMutationInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+  crmStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -391,6 +445,9 @@ export type ConsultationUncheckedUpdateManyInput = {
   message?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   source?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   status?: Prisma.EnumConsultationStatusFieldUpdateOperationsInput | $Enums.ConsultationStatus
+  crmStatus?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmError?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  crmSyncedAt?: Prisma.NullableDateTimeFieldUpdateOperationsInput | Date | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -405,6 +462,9 @@ export type ConsultationCountOrderByAggregateInput = {
   message?: Prisma.SortOrder
   source?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  crmStatus?: Prisma.SortOrder
+  crmError?: Prisma.SortOrder
+  crmSyncedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -419,6 +479,9 @@ export type ConsultationMaxOrderByAggregateInput = {
   message?: Prisma.SortOrder
   source?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  crmStatus?: Prisma.SortOrder
+  crmError?: Prisma.SortOrder
+  crmSyncedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -433,6 +496,9 @@ export type ConsultationMinOrderByAggregateInput = {
   message?: Prisma.SortOrder
   source?: Prisma.SortOrder
   status?: Prisma.SortOrder
+  crmStatus?: Prisma.SortOrder
+  crmError?: Prisma.SortOrder
+  crmSyncedAt?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
 }
@@ -443,6 +509,10 @@ export type NullableEnumConsultationTypeFieldUpdateOperationsInput = {
 
 export type EnumConsultationStatusFieldUpdateOperationsInput = {
   set?: $Enums.ConsultationStatus
+}
+
+export type NullableDateTimeFieldUpdateOperationsInput = {
+  set?: Date | string | null
 }
 
 
@@ -457,6 +527,9 @@ export type ConsultationSelect<ExtArgs extends runtime.Types.Extensions.Internal
   message?: boolean
   source?: boolean
   status?: boolean
+  crmStatus?: boolean
+  crmError?: boolean
+  crmSyncedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["consultation"]>
@@ -471,6 +544,9 @@ export type ConsultationSelectCreateManyAndReturn<ExtArgs extends runtime.Types.
   message?: boolean
   source?: boolean
   status?: boolean
+  crmStatus?: boolean
+  crmError?: boolean
+  crmSyncedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["consultation"]>
@@ -485,6 +561,9 @@ export type ConsultationSelectUpdateManyAndReturn<ExtArgs extends runtime.Types.
   message?: boolean
   source?: boolean
   status?: boolean
+  crmStatus?: boolean
+  crmError?: boolean
+  crmSyncedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }, ExtArgs["result"]["consultation"]>
@@ -499,11 +578,14 @@ export type ConsultationSelectScalar = {
   message?: boolean
   source?: boolean
   status?: boolean
+  crmStatus?: boolean
+  crmError?: boolean
+  crmSyncedAt?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type ConsultationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "targetCountry" | "consultationType" | "message" | "source" | "status" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
+export type ConsultationOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "fullName" | "email" | "phone" | "targetCountry" | "consultationType" | "message" | "source" | "status" | "crmStatus" | "crmError" | "crmSyncedAt" | "createdAt" | "updatedAt", ExtArgs["result"]["consultation"]>
 
 export type $ConsultationPayload<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   name: "Consultation"
@@ -518,6 +600,9 @@ export type $ConsultationPayload<ExtArgs extends runtime.Types.Extensions.Intern
     message: string | null
     source: string | null
     status: $Enums.ConsultationStatus
+    crmStatus: string | null
+    crmError: string | null
+    crmSyncedAt: Date | null
     createdAt: Date
     updatedAt: Date
   }, ExtArgs["result"]["consultation"]>
@@ -952,6 +1037,9 @@ export interface ConsultationFieldRefs {
   readonly message: Prisma.FieldRef<"Consultation", 'String'>
   readonly source: Prisma.FieldRef<"Consultation", 'String'>
   readonly status: Prisma.FieldRef<"Consultation", 'ConsultationStatus'>
+  readonly crmStatus: Prisma.FieldRef<"Consultation", 'String'>
+  readonly crmError: Prisma.FieldRef<"Consultation", 'String'>
+  readonly crmSyncedAt: Prisma.FieldRef<"Consultation", 'DateTime'>
   readonly createdAt: Prisma.FieldRef<"Consultation", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"Consultation", 'DateTime'>
 }

@@ -7,8 +7,14 @@ export async function POST(req: NextRequest) {
   const clientKey = req.headers.get('x-forwarded-for')?.split(',')[0]?.trim() || 'unknown'
 
   // notify: false: chat leads go to the database and Firmli only, so they don't
-  // spend notification email quota.
-  const result = await submitLeadForm(body, (lead) => saveConsultationLead(lead, { notify: false }), clientKey)
+  // spend notification email quota. channel: 'chat' sends them to Firmli's own
+  // "AI Chatbot" form and UTM source, so they can be told apart from the
+  // consultation form's leads.
+  const result = await submitLeadForm(
+    body,
+    (lead) => saveConsultationLead(lead, { notify: false, channel: 'chat' }),
+    clientKey,
+  )
 
   const status = result.success ? 200 : result.code === 'rate' ? 429 : result.code === 'failed' ? 502 : 400
   return NextResponse.json(result, { status })

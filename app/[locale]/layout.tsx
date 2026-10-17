@@ -2,6 +2,8 @@ import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
 import { Noto_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
+import { languageOf } from "@/i18n/languages"
+import { routing } from "@/i18n/routing"
 import Navbar from "@/shared/components/layout/Navbar"
 import Footer from "@/shared/components/layout/Footer"
 import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
@@ -9,11 +11,31 @@ import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { CookieConsent, GoogleAnalytics, MetaPixel } from "@/shared/components/consent"
 
+const SCRIPT_FONT_CLASS = {
+  latin: 'font-sans',
+  thai: 'font-thai',
+  myanmar: 'font-myanmar',
+  vietnamese: 'font-vietnamese',
+} as const
+
 const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', display: 'swap' })
 // preload:false — these script fonts aren't preloaded on every page (the audience is
 // English-primary); they load on demand only when Thai/Burmese glyphs actually render.
 const notoSansThai = Noto_Sans_Thai({ subsets: ['thai'], variable: '--font-thai', display: 'swap', preload: false })
 const notoSansMyanmar = Noto_Sans_Myanmar({ subsets: ['myanmar'], variable: '--font-myanmar', display: 'swap', preload: false })
+// The Latin file above has no Vietnamese tone-mark letters. This second Noto Sans
+// carries only those, loaded on demand, and the Vietnamese font stack lists it
+// after the Latin one, so each character is drawn from whichever file has it.
+const notoSansVietnamese = Noto_Sans({ subsets: ['vietnamese'], variable: '--font-vi-glyphs', display: 'swap', preload: false })
+
+export function generateStaticParams() {
+  return routing.locales.map((locale) => ({ locale }))
+}
+
+/** The assessment's strings and the career catalog are large (the catalog alone is
+ *  63 KB in Thai) and used only on the assessment pages, so the pages that do not
+ *  need them are not sent them. career-assessment/layout.tsx adds them back. */
+const ASSESSMENT_NAMESPACES = ['careerAssessment', 'careerCatalog']
 
 export default async function LocaleLayout({
   children,
@@ -24,7 +46,10 @@ export default async function LocaleLayout({
 }) {
   const { locale } = await params
   setRequestLocale(locale)
-  const messages = await getMessages()
+  const allMessages = await getMessages()
+  const messages = Object.fromEntries(
+    Object.entries(allMessages).filter(([namespace]) => !ASSESSMENT_NAMESPACES.includes(namespace)),
+  )
 
   // Noto Sans (Latin) has no Thai or Myanmar glyphs, so those locales were
   // silently falling back to whatever script-capable font the OS happened to
@@ -33,14 +58,13 @@ export default async function LocaleLayout({
   // actually built for its script; the family's own fallback chain (see
   // globals.css) still lands back on Noto Sans for any Latin mixed into the
   // same string.
-  const scriptFontClass =
-    locale === 'th' ? 'font-thai' : locale === 'my' ? 'font-myanmar' : 'font-sans'
+  const scriptFontClass = SCRIPT_FONT_CLASS[languageOf(locale).script]
 
   return (
     <html
       lang={locale}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable} [overflow-x:clip]`}
+      className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable} ${notoSansVietnamese.variable} [overflow-x:clip]`}
     >
       {/* overflow-x:clip, not overflow-x-hidden (= overflow-x: hidden): per the
           CSS overflow spec, setting one axis to hidden/auto/scroll forces the

@@ -208,10 +208,17 @@
             "hungary": "Hungary",
             "finland": "Finland",
             "china": "China",
-            "sweden": "Sweden",
             "uae": "UAE",
             "japan": "Japan",
-            "korea": "Korea"
+            "korea": "Korea",
+            "belgium": "Belgium",
+            "france": "France",
+            "grenada": "Grenada",
+            "italy": "Italy",
+            "netherlands": "Netherlands",
+            "spain": "Spain",
+            "vietnam": "Vietnam",
+            "other": "Other"
           },
           "placeholder": "Select a country"
         },
@@ -295,7 +302,7 @@
       "body": "Every counsellor brings years of hands-on experience placing students, with a clear read on what your grades and budget can actually get you. It's the same team behind every placement below.",
       "statCount": "3,000+",
       "statLabel": "students placed since 2019",
-      "imageAlt": "A Saturday Education counsellor in a one-on-one consultation with a student",
+      "imageAlt": "Saturday Education counsellors having a discussion in the office",
       "supportTitle": "Post-admission support",
       "supportBody": "We stay involved through housing, arrival and the first term, not just the offer.",
       "pricingTitle": "Transparent pricing",
@@ -426,7 +433,23 @@
       "bookShort": "Book Consultation",
       "takeAssessmentShort": "Take assessment",
       "interestedBodyShort": "Our certified counsellors evaluate your academic profile to shortlist accredited university degrees.",
-      "close": "Close dialog"
+      "close": "Close dialog",
+      "researching": "Researching",
+      "researchStep1": "Scanning labour-market signals",
+      "researchStep2": "Projecting demand over the next decade",
+      "researchStep3": "Mapping the skills that matter",
+      "researchStep4": "Compiling the outlook",
+      "invalidTitle": "That doesn't look like a career",
+      "invalidBody": "We couldn't find a career called \"{query}\". Try another job title, or pick one from the list.",
+      "invalidAction": "Try another career",
+      "busyTitle": "Our research service is busy",
+      "busyBody": "It's getting a lot of requests right now. Please try again in a moment.",
+      "busyAction": "Try again",
+      "errorTitle": "Something went wrong",
+      "errorBody": "We couldn't research this career just now. Please try again in a moment.",
+      "errorAction": "Retry",
+      "dialogLabel": "{query} outlook",
+      "getOutlookFor": "Get outlook for “{query}”"
     },
     "sections": {
       "riasecTitle": "Part 1 · What energises you?",
@@ -584,7 +607,11 @@
       "downloading": "Downloading…",
       "copyLink": "Copy link",
       "copied": "Copied!",
-      "orShareVia": "Or share via"
+      "orShareVia": "Or share via",
+      "close": "Close",
+      "shareWhatsapp": "Share on WhatsApp",
+      "shareFacebook": "Share on Facebook",
+      "shareTelegram": "Share on Telegram"
     }
   },
   "nav": {
@@ -596,7 +623,8 @@
     "aboutUs": "About",
     "bookConsultation": "Book Free Consultation",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "mainNavigation": "Main navigation"
   },
   "hero": {
     "titleLine1": "Your Global Education Journey",
@@ -633,7 +661,7 @@
   },
   "footer": {
     "companyName": "Saturday Education Consulting",
-    "tagline": "Your trusted partner for international education. Guiding Myanmar students to achieve their dreams of studying abroad.",
+    "tagline": "Your trusted partner for international education. Guiding students to achieve their dreams of studying abroad.",
     "services": {
       "heading": "Our Services",
       "counseling": "Education Counseling",
@@ -674,7 +702,7 @@
       "description": "We've helped 3,000+ students secure admissions in top universities worldwide. Expert guidance for study abroad, scholarships, visa support, and more."
     },
     "universities": {
-      "title": "University Finder — Compare Top Universities Worldwide | Saturday Education",
+      "title": "University Finder — Compare Top Universities Worldwide",
       "description": "Search and compare universities across the UK, USA, Australia, Canada, and more. Find the perfect program for your study abroad journey."
     },
     "courseFinder": {
@@ -682,20 +710,24 @@
       "description": "Search thousands of programs at universities and colleges worldwide. Filter by country, institution, study level, intake, duration and language."
     },
     "destinations": {
-      "title": "Study Destinations — Explore Top Countries for Education | Saturday Education",
+      "title": "Study Destinations — Explore Top Countries for Education",
       "description": "Discover the best countries for international students. Compare education systems, costs, visa processes, and career opportunities."
     },
     "careerAssessment": {
-      "title": "Career Assessment | Saturday Education",
+      "title": "Career Assessment",
       "description": "Take our free Career Assessment to understand your interests and personality — our counsellors will personally review your profile and guide you."
     },
     "about": {
-      "title": "About Us | Saturday Education",
+      "title": "About Us",
       "description": "Independent, certified study abroad guidance from Saturday Education. Meet the advisors behind every student placement in Yangon and Bangkok."
+    },
+    "destinationDetail": {
+      "title": "Study in {country}"
     }
   },
   "chatWidget": {
     "title": "Study Abroad Advisor",
+    "letsChat": "Let's Chat",
     "status": "Online",
     "welcomeMessage": "Hi there! 👋 I'm your Study Abroad Advisor. I can help you find the right university, compare destinations, and guide you through the application process. How can I help you today?",
     "inputPlaceholder": "Type your message...",
@@ -733,7 +765,11 @@
       "gateTitle": "Let a counsellor help with your options",
       "gateSubtitle": "Share your details and a counsellor will go through universities and next steps that fit you within 1 business day. You can keep chatting right after.",
       "gatePlaceholder": "Share your details above to continue"
-    }
+    },
+    "clearChat": "Clear chat history",
+    "closeChat": "Close chat",
+    "sendMessage": "Send message",
+    "openChat": "Open chat"
   },
   "destinations": {
     "heroTitle": "Learn in depth about your destination of choice.",
@@ -880,5 +916,20 @@
     "locations": "Yangon · Bangkok",
     "phone": "+95 9 765 929 492",
     "phoneHref": "tel:+959765929492"
+  },
+  "phoneSelect": {
+    "searchPlaceholder": "Search countries",
+    "noResults": "No countries found"
+  },
+  "errors": {
+    "errorEyebrow": "Something went wrong",
+    "errorTitle": "An unexpected error occurred",
+    "errorBody": "Please try again, or head back to the homepage while we look into it.",
+    "retry": "Try again",
+    "home": "Go to homepage",
+    "notFoundEyebrow": "Error 404",
+    "notFoundTitle": "This page does not exist",
+    "notFoundBody": "The page you are looking for may have moved, or the link that brought you here may be out of date.",
+    "tryOne": "Or try one of these"
   }
 }

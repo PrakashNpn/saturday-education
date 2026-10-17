@@ -3,6 +3,7 @@
 
 import { RIASEC_INFO } from '../data/riasecFieldMap'
 import type { AssessmentScores, RecommendationTree, MatchedCareer } from '../types'
+import type { LocaleCode } from '@/i18n/languages'
 
 const TRAIT_LABELS: Record<string, string> = {
   O: 'Openness',
@@ -34,11 +35,17 @@ function band(pct: number): string {
 // studentRead unless the requirement was restated right at the point it writes that field,
 // most likely because the JSON schema's own English example text for studentRead otherwise
 // anchors it. Repetition at the point of generation, not just once earlier, fixed it.
+const STUDENT_READ_LANGUAGE: Record<LocaleCode, string> = {
+  en: 'English',
+  th: 'Thai',
+  vi: 'Vietnamese',
+  fil: 'Filipino, written the way Filipinos naturally write today, with common English terms such as "Business", "Engineering" and "Enterprising" kept in English where Filipinos normally use them',
+  id: 'Indonesian (Bahasa Indonesia)',
+  my: 'Burmese, using the heavy code-switch register common on Myanmar websites (Burmese grammar and sentence particles, with career/field/subject terms such as "Business", "Engineering", "Enterprising" kept in English rather than translated)',
+}
+
 function studentReadLanguage(locale?: string): string {
-  if (locale === 'th') return 'Thai'
-  if (locale === 'my')
-    return 'Burmese, using the heavy code-switch register common on Myanmar websites (Burmese grammar and sentence particles, with career/field/subject terms such as "Business", "Engineering", "Enterprising" kept in English rather than translated)'
-  return 'English'
+  return STUDENT_READ_LANGUAGE[locale as LocaleCode] ?? STUDENT_READ_LANGUAGE.en
 }
 
 export function buildCounselorPrompt(

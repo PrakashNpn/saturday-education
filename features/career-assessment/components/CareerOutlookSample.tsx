@@ -3,6 +3,7 @@
 import { useTranslations } from 'next-intl'
 import { motion, useReducedMotion } from 'framer-motion'
 import type { OutlookView } from '@/shared/lib/careers/outlookMaster'
+import { useCareerText } from '@/shared/lib/careers/useCareerText'
 import { Link } from '@/i18n/navigation'
 import { workStyleOf } from '../utils/workStyle'
 
@@ -31,6 +32,7 @@ function GraduationIcon() {
 }
 
 function SkillList({ skills }: { skills: string[] }) {
+  const text = useCareerText()
   return (
     <ol className="space-y-2.5">
       {skills.map((skill, i) => (
@@ -41,7 +43,7 @@ function SkillList({ skills }: { skills: string[] }) {
           <span className="shrink-0 font-mono text-min font-medium text-action">
             {String(i + 1).padStart(2, '0')}
           </span>
-          <span className="leading-snug">{skill}</span>
+          <span className="leading-snug">{text.skill(skill)}</span>
         </li>
       ))}
     </ol>
@@ -50,6 +52,7 @@ function SkillList({ skills }: { skills: string[] }) {
 
 export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Props) {
   const t = useTranslations('careerAssessment.outlook')
+  const text = useCareerText()
   const prefersReducedMotion = useReducedMotion()
 
   const trend = career.outlook.trend
@@ -80,10 +83,10 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
       >
         <div>
           <h2 className="text-title leading-tight font-medium tracking-tight text-primary-text">
-            {career.title}
+            {text.title(career.slug, career.title)}
           </h2>
           <p className="mt-1.5 text-body leading-relaxed font-normal text-secondary-text">
-            {career.summary}
+            {text.summary(career.slug, career.summary)}
           </p>
           <div className="mt-3 flex flex-wrap items-center gap-1.5">
             {career.relatedFields.map((field) => (
@@ -92,7 +95,7 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
                 className="inline-flex items-center gap-1 rounded-[4px] border border-emerald-500/25 bg-emerald-500/10 px-2 py-0.5 text-min font-medium text-emerald-700"
               >
                 <GraduationIcon />
-                {field}
+                {text.field(field)}
               </span>
             ))}
           </div>
@@ -106,7 +109,7 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
                   {t('demandNow')}
                 </p>
                 <p className="text-label leading-tight font-medium text-primary-text">
-                  {career.outlook.demand}
+                  {text.demand(career.outlook.demand)}
                 </p>
               </div>
               <div className="p-3 sm:p-3.5">
@@ -119,7 +122,7 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
                     {growth}%
                   </p>
                   <span className="rounded-full bg-action px-2 py-0.5 text-min leading-none font-medium text-white shadow-2xs">
-                    {career.outlook.growthLabel}
+                    {text.growth(career.outlook.growthLabel)}
                   </span>
                 </div>
               </div>
@@ -141,7 +144,7 @@ export function CareerOutlookSample({ career, horizonYears, onStart, tone }: Pro
                   })}
                 </h3>
                 <p className="mt-1 text-label leading-relaxed font-normal text-secondary-text">
-                  {career.outlook.marketNote}
+                  {text.note(career.slug, career.outlook.marketNote)}
                 </p>
               </div>
 

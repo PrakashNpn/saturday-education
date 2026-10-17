@@ -1,20 +1,7 @@
 import { prisma } from '@/shared/lib/db/prisma'
 import { getFirmliInstitutionCountsByName } from '@/shared/lib/courseFinder/firmliClient'
 import type { CountryCardData, CountryDetailData } from '../types'
-
-/**
- * Picks the translated value for `locale`, falling back to the English
- * `base` when that field hasn't been translated for this country yet (the
- * `th`/`my` columns are null until someone fills them in via the admin
- * dashboard). English itself has no override column, so it always resolves
- * to `base`. Generic so a non-nullable base (e.g. a FAQ's `question`) still
- * types as non-nullable coming out, not widened to `string | null`.
- */
-function localize<T extends string | null>(base: T, th: string | null, my: string | null, locale: string): T {
-  if (locale === 'th' && th !== null) return th as T
-  if (locale === 'my' && my !== null) return my as T
-  return base
-}
+import { columns, localize } from '../utils/localize'
 
 /**
  * `locale` defaults to English so the admin dashboard's calls (which don't
@@ -34,6 +21,9 @@ export async function getAllCountries(locale: string = 'en'): Promise<CountryCar
       tagline: true,
       taglineTh: true,
       taglineMy: true,
+      taglineVi: true,
+      taglineFil: true,
+      taglineIdn: true,
       shortDescription: true,
       institutionCount: true,
       isFeatured: true,
@@ -48,7 +38,7 @@ export async function getAllCountries(locale: string = 'en'): Promise<CountryCar
 
   return rows.map((row) => ({
     ...row,
-    tagline: localize(row.tagline, row.taglineTh, row.taglineMy, locale),
+    tagline: localize(row.tagline, columns(row.taglineTh, row.taglineMy, row.taglineVi, row.taglineFil, row.taglineIdn), locale),
     firmliInstitutionCount: counts.get(row.name) ?? null,
   })) as unknown as CountryCardData[]
 }
@@ -73,22 +63,23 @@ export async function getCountryBySlug(slug: string, locale: string): Promise<Co
 
   return {
     ...row,
-    tagline: localize(row.tagline, row.taglineTh, row.taglineMy, locale),
-    overview: localize(row.overview, row.overviewTh, row.overviewMy, locale),
+    tagline: localize(row.tagline, columns(row.taglineTh, row.taglineMy, row.taglineVi, row.taglineFil, row.taglineIdn), locale),
+    overview: localize(row.overview, columns(row.overviewTh, row.overviewMy, row.overviewVi, row.overviewFil, row.overviewIdn), locale),
+    workRights: localize(row.workRights, columns(row.workRightsTh, row.workRightsMy, row.workRightsVi, row.workRightsFil, row.workRightsIdn), locale),
     advantages: row.advantages.map((advantage) => ({
       ...advantage,
-      title: localize(advantage.title, advantage.titleTh, advantage.titleMy, locale),
-      description: localize(advantage.description, advantage.descriptionTh, advantage.descriptionMy, locale),
+      title: localize(advantage.title, columns(advantage.titleTh, advantage.titleMy, advantage.titleVi, advantage.titleFil, advantage.titleIdn), locale),
+      description: localize(advantage.description, columns(advantage.descriptionTh, advantage.descriptionMy, advantage.descriptionVi, advantage.descriptionFil, advantage.descriptionIdn), locale),
     })),
     processSteps: row.processSteps.map((step) => ({
       ...step,
-      title: localize(step.title, step.titleTh, step.titleMy, locale),
-      description: localize(step.description, step.descriptionTh, step.descriptionMy, locale),
+      title: localize(step.title, columns(step.titleTh, step.titleMy, step.titleVi, step.titleFil, step.titleIdn), locale),
+      description: localize(step.description, columns(step.descriptionTh, step.descriptionMy, step.descriptionVi, step.descriptionFil, step.descriptionIdn), locale),
     })),
     faqs: row.faqs.map((faq) => ({
       ...faq,
-      question: localize(faq.question, faq.questionTh, faq.questionMy, locale),
-      answer: localize(faq.answer, faq.answerTh, faq.answerMy, locale),
+      question: localize(faq.question, columns(faq.questionTh, faq.questionMy, faq.questionVi, faq.questionFil, faq.questionIdn), locale),
+      answer: localize(faq.answer, columns(faq.answerTh, faq.answerMy, faq.answerVi, faq.answerFil, faq.answerIdn), locale),
     })),
   } as unknown as CountryDetailData
 }

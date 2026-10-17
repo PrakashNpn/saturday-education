@@ -8,6 +8,9 @@ const nextConfig: NextConfig = {
   // by the server compiler — otherwise production builds can break PDF generation.
   serverExternalPackages: ['@react-pdf/renderer'],
   images: {
+    // 85 is used for the photographic images that need to look crisp (see WhySaturdaySection);
+    // every width and quality combination is a separate optimised copy, so keep this list short.
+    qualities: [75, 85],
     remotePatterns: [
       {
         protocol: 'https',

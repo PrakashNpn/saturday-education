@@ -180,7 +180,7 @@ export default function TestimonialsSection() {
                       )}
                       <span>
                         <span className="block font-medium text-primary-text">{review.name}</span>
-                        <span className="text-muted-text">{review.program}</span>
+                        <span className="text-secondary-text">{review.program}</span>
                       </span>
                     </figcaption>
                   </div>

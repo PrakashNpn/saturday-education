@@ -1,30 +1,16 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { formatNumber } from '@/shared/utils/formatNumber'
 import type { CountryDetailData } from '../types'
+import { splitWorkRights } from '../utils/workRights'
 
 interface Props {
   country: CountryDetailData
 }
 
-/** Fixed grouping rather than the server's default locale, so the number a
- *  visitor sees does not depend on which machine rendered the page. */
-const groupDigits = (n: number) => n.toLocaleString('en-US')
-
-/** Splits a work-rights sentence into short bullet points at its natural
- *  clause breaks (";" and ". ") instead of showing it as one dense run-on
- *  sentence. Every country's value follows this pattern (hours during study;
- *  then a post-study clause), so this holds up across all of them rather
- *  than being tuned to one example. Also strips any stray em dash a clause
- *  slipped in with — left distinct from en dashes, which this same data
- *  legitimately uses for numeric ranges ("2–4 years") elsewhere. */
-function splitWorkRights(text: string): string[] {
-  return text
-    .split(/[;.]\s+/)
-    .map((s) => s.trim().replace(/[.;]+$/, '').replace(/\s*—\s*/g, ', '))
-    .filter(Boolean)
-}
-
 export async function CountryOverview({ country }: Props) {
   const t = await getTranslations('destinations')
+  const locale = await getLocale()
+  const groupDigits = (n: number) => formatNumber(n, locale)
 
   // Six facts in the design's order. Anything the country has no data for is
   // dropped rather than shown blank.

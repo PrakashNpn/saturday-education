@@ -1,36 +1,62 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# Saturday Education
 
-## Getting Started
+The website for Saturday Education Consulting, a study abroad consultancy for students from Myanmar, Thailand and the wider region. It has a landing page, country and destination guides, a course finder (embedded from Firmli), an AI advisor chat, and a career assessment that produces a PDF report for counsellors.
 
-First, run the development server:
+Languages: English, Thai, Burmese, Vietnamese, Filipino and Indonesian.
+
+**Stack:** Next.js 16 (App Router), TypeScript, Tailwind v4, Prisma 7 on Supabase Postgres, next-intl, Anthropic API, Resend, Firmli CRM, hosted on Vercel.
+
+## Getting started
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+npm install
+npm run dev        # http://localhost:3000
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Create `.env.local` with the variables below. `.env.local` is not committed.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+| Variable | Used for |
+|---|---|
+| `DATABASE_URL`, `DIRECT_URL` | Supabase Postgres (pooled connection for the app, direct for Prisma) |
+| `NEXT_PUBLIC_SUPABASE_URL`, `SUPABASE_SERVICE_ROLE_KEY` | Supabase storage (assessment share cards) |
+| `ANTHROPIC_API_KEY` | AI advisor, comparison summary, career assessment |
+| `RESEND_API_KEY`, `CONSULTATION_NOTIFICATION_EMAIL`, `CAREER_LEADS_EMAIL` | Notification emails |
+| `CRM_ALERT_EMAIL` | Where "lead did not reach Firmli" alerts go (defaults to marketing@saturdayeducation.com) |
+| `FIRMLI_CLIENT_NUMBER`, `FIRMLI_FORM_NUMBER`, `FIRMLI_UTM_NUMBER` | Firmli lead form for the consultation form |
+| `FIRMLI_CHAT_FORM_NUMBER`, `FIRMLI_CHAT_UTM_NUMBER` | Firmli lead form for the AI chatbot (falls back to the consultation form if unset) |
+| `NEXT_PUBLIC_SITE_URL` | The site's public address for the sitemap, robots, language tags and share links. Set it to `https://www.saturdayeducation.com` (no trailing slash) |
+| `NEXT_PUBLIC_GA_ID`, `NEXT_PUBLIC_META_PIXEL_ID` | Analytics, loaded only after cookie consent |
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+## Commands
 
-## Learn More
+```bash
+npm run typecheck   # tsc --noEmit
+npm run lint        # eslint
+npm test            # unit tests (Node test runner via tsx), no database or network
+npm run build       # production build
+```
 
-To learn more about Next.js, take a look at the following resources:
+Run `npm run typecheck`, `npm run lint` and `npm test` before committing.
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Database
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+The production database is live, so **migrations, seeds and data changes are never run from the codebase**. Schema changes are written as SQL in `prisma/migrations/` and run by hand in the Supabase SQL editor before the code that needs them is deployed. Translations and image URLs are also changed with SQL (`prisma/translations/`, `prisma/snippets/`). After a schema change, run `npx prisma generate` and commit the updated `generated/` folder (the deploy relies on it).
 
-## Deploy on Vercel
+## Project layout
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+```
+app/        routing only (thin pages)
+features/   business areas: landing, destination, consultation, ai-advisor,
+            career-assessment, course-finder, about
+shared/     cross-cutting code: UI pieces, constants, hooks, lib (db, crm, ai, careers), utils
+i18n/       languages, routing, navigation
+messages/   UI text, one file per language
+prisma/     schema, migrations, seeds, translation SQL
+tests/      unit tests
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+`AGENTS.md` is the detailed guide to conventions, architecture rules, i18n, caching and performance rules. Read it before changing code.
+
+## Deploying
+
+Pushing to the main branch deploys on Vercel. Before a deploy that adds a database column, run its SQL in Supabase first. Pages are prebuilt and refresh at most once a day, so a content change made in the database shows within a day or at the next deploy.

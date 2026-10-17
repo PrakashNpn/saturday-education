@@ -2,10 +2,8 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useTranslations } from 'next-intl'
 import { ChevronDown, Search } from 'lucide-react'
-import * as Flags from 'country-flag-icons/react/3x2'
-
-type FlagComponent = React.ComponentType<{ title?: string; className?: string }>
 
 interface Option {
   value?: string
@@ -34,14 +32,28 @@ interface Placement {
   dropUp: boolean
 }
 
+/** Flags are the small SVGs in public/images/flags-svg (from the country-flag-icons
+ *  package, MIT), fetched only when a flag is drawn. They used to be the package's
+ *  React components, which put all ~250 flags (about 230 KB) into the page's JavaScript. */
 function FlagIcon({ code }: { code?: string }) {
-  const Flag = code ? (Flags as Record<string, FlagComponent>)[code] : undefined
-  if (!Flag) {
+  if (!code || !/^[A-Z]{2}$/.test(code)) {
     // "International" (no country selected yet) — a plain placeholder,
     // same footprint as a real flag so the trigger doesn't jump in size.
     return <span aria-hidden="true" className="block size-4 shrink-0 rounded-[2px] bg-surface-1" />
   }
-  return <Flag title={code} className="size-4 shrink-0 rounded-[2px]" />
+  return (
+    // eslint-disable-next-line @next/next/no-img-element -- a 16px SVG flag; next/image adds nothing here
+    <img
+      src={`/images/flags-svg/${code}.svg`}
+      alt=""
+      title={code}
+      width={16}
+      height={16}
+      loading="lazy"
+      decoding="async"
+      className="size-4 shrink-0 rounded-[2px] object-contain"
+    />
+  )
 }
 
 /**
@@ -64,6 +76,7 @@ export function PhoneCountrySelect({
   readOnly,
   'aria-label': ariaLabel,
 }: Props) {
+  const t = useTranslations('phoneSelect')
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [place, setPlace] = useState<Placement | null>(null)
@@ -176,7 +189,7 @@ export function PhoneCountrySelect({
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search countries"
+                  placeholder={t('searchPlaceholder')}
                   className="w-full rounded-[4px] border border-stroke py-1.5 pr-3 pl-8 text-label outline-none focus:border-action focus:ring-2 focus:ring-action/15"
                 />
               </div>
@@ -201,7 +214,7 @@ export function PhoneCountrySelect({
                 </button>
               ))}
               {filtered.length === 0 && (
-                <p className="px-3.5 py-3 text-center text-label text-muted-text">No countries found</p>
+                <p className="px-3.5 py-3 text-center text-label text-muted-text">{t('noResults')}</p>
               )}
             </div>
           </div>,

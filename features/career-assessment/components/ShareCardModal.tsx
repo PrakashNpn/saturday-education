@@ -139,7 +139,7 @@ export function ShareCardModal({ imageUrl, resultsUrl, onClose }: Props) {
         <button
           type="button"
           onClick={onClose}
-          aria-label="Close"
+          aria-label={t('close')}
           className="absolute top-4 right-4 cursor-pointer text-muted-text transition-colors hover:text-primary-text"
         >
           <X size={20} />
@@ -174,13 +174,13 @@ export function ShareCardModal({ imageUrl, resultsUrl, onClose }: Props) {
 
         <p className="mb-3 text-center text-min text-muted-text">{t('orShareVia')}</p>
         <div className="flex items-center justify-center gap-3">
-          <a href={waHref} target="_blank" rel="noopener noreferrer" aria-label="Share on WhatsApp" className={iconLinkCls}>
+          <a href={waHref} target="_blank" rel="noopener noreferrer" aria-label={t('shareWhatsapp')} className={iconLinkCls}>
             <WhatsAppIcon />
           </a>
-          <a href={fbHref} target="_blank" rel="noopener noreferrer" aria-label="Share on Facebook" className={iconLinkCls}>
+          <a href={fbHref} target="_blank" rel="noopener noreferrer" aria-label={t('shareFacebook')} className={iconLinkCls}>
             <FacebookIcon />
           </a>
-          <a href={tgHref} target="_blank" rel="noopener noreferrer" aria-label="Share on Telegram" className={iconLinkCls}>
+          <a href={tgHref} target="_blank" rel="noopener noreferrer" aria-label={t('shareTelegram')} className={iconLinkCls}>
             <TelegramIcon />
           </a>
         </div>

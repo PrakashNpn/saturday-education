@@ -177,6 +177,8 @@
   --font-sans: "Noto Sans", system-ui, sans-serif;
   --font-thai: "Noto Sans Thai", "Noto Sans", system-ui, sans-serif;
   --font-myanmar: "Noto Sans Myanmar", "Noto Sans", system-ui, sans-serif;
+  /* Latin from the main Noto Sans, tone-mark letters from the Vietnamese file. */
+  --font-vietnamese: var(--font-sans), var(--font-vi-glyphs), system-ui, sans-serif;
 
   /* ── Shape ────────────────────────────────────────────────────────────────
      Buttons stay a full pill. Everything else is a restrained 8px: never
