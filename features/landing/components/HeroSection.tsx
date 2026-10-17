@@ -13,16 +13,19 @@ const EASE = [0, 0, 0.2, 1] as const
 const STAGGER = 0.084
 
 // Raw values rather than tokens: these are tuned against the photo behind them
-// and are used nowhere else. AQUA marks the brand name, TURQUOISE the numbers,
+// and are used nowhere else. AQUA marks the brand name (a brighter cyan than the numbers,
+// so the name stands out from the white headline), TURQUOISE the numbers (a light aqua:
+// the photo behind them is mid-tone, so a deeper teal blended into it; measured, #5EEAD4
+// reads about 25% better than the earlier #2DD4BF),
 // SKY the small supporting text (it is --color-light).
-const AQUA = '#52D8EA'
-const TURQUOISE = '#2DD4BF'
+const AQUA = '#3AE3F7'
+const TURQUOISE = '#5EEAD4'
 const SKY = '#C5F8FF'
 
 // The text shadows carry part of the legibility now that the photo behind the copy is
-// lighter (see CLARITY), so they are a little stronger than the first approved look.
-const SHADOW_HEADLINE = '0 2px 22px rgba(0,51,58,.62),0 1px 3px rgba(0,51,58,.44)'
-const SHADOW_NAME = '0 2px 20px rgba(0,51,58,.55),0 1px 3px rgba(0,51,58,.42)'
+// lighter (see CLARITY). The subtitle's is a little stronger than the first approved look;
+// the headline and brand name have none: any shadow made a dark halo round the large
+// letters, so they rely on the overlay behind them instead.
 const SHADOW_NUMBER = '0 2px 14px rgba(0,51,58,.9),0 1px 3px rgba(0,51,58,.75)'
 const SHADOW_SOFT = '0 1px 12px rgba(0,51,58,.68),0 1px 2px rgba(0,51,58,.46)'
 const SHADOW_LABEL = '0 1px 10px rgba(0,51,58,.8)'
@@ -31,17 +34,17 @@ const SHADOW_LABEL = '0 1px 10px rgba(0,51,58,.8)'
 // first approved look; 100 is the photo almost bare. The dark areas sit only
 // behind the copy (the bright wall at the top of the photo is where white text
 // needs them), and the lower half, where the people are, is left clear.
-// Raised from 83 to 84 in October 2026, together with the teal tint below, because the
-// top middle read as too dark: that is about 14% more light there and on the faces.
-// Measured against the photo, white text is already close to its readable limit on the
-// brightest part of the wall (a higher value made the headline and subtitle too weak),
-// so going further needs a darker photo, not a weaker overlay.
-const CLARITY = 84
+// Still 83: in October 2026 the top middle read as too dark, and the fix was the teal tint
+// below (about 20% more light there and on the faces) rather than a higher number. 84 with a
+// deeper tint (about 14%) was tried first. Measured against the photo, white text is already
+// close to its readable limit on the brightest part of the wall (86 made the headline and
+// subtitle too weak), so going further needs a darker photo, not a weaker overlay.
+const CLARITY = 83
 
 // The overlay colour (R,G,B) is the brand teal, deepened, rather than the near-black
 // teal used by the text shadows: over the white wall it gives a clean teal instead of
 // a grey, so the same strength looks lighter and more on brand.
-const OVERLAY = '4,66,78'
+const OVERLAY = '8,78,90'
 
 // The overlay strengths at clarity 75 and at clarity 100; every other value
 // is a straight line between the two.
@@ -54,7 +57,15 @@ const mix = (key: keyof typeof AT_75) => {
 const a = (value: number) => Math.max(0, value).toFixed(3)
 
 const WASH = `linear-gradient(180deg,rgba(23,126,141,${a(mix('washTop'))}) 0%,rgba(${OVERLAY},${a(mix('washBottom'))}) 100%)`
-const POOL_TOP = `radial-gradient(ellipse 62% 44% at 50% 24%,rgba(${OVERLAY},${a(mix('poolTop'))}) 0%,rgba(${OVERLAY},${a(mix('poolTop') * 0.7)}) 55%,rgba(${OVERLAY},0) 100%)`
+// The oval behind the title. On wider screens it is 15% weaker (TITLE_LIGHTEN) so the title
+// area reads lighter; measured, that costs about 0.5 of contrast for the white title and the
+// cyan name (3.2:1 to 2.7:1 typical), so it is the limit: 0.72 made the name fade into the
+// photo. Phones keep the full strength because their title area is already at about 2.8:1.
+const TITLE_LIGHTEN = 0.85
+const poolTop = (strength: number) =>
+  `radial-gradient(ellipse 62% 44% at 50% 24%,rgba(${OVERLAY},${a(mix('poolTop') * strength)}) 0%,rgba(${OVERLAY},${a(mix('poolTop') * strength * 0.7)}) 55%,rgba(${OVERLAY},0) 100%)`
+const POOL_TOP = poolTop(1)
+const POOL_TOP_WIDE = poolTop(TITLE_LIGHTEN)
 const POOL_MID = `radial-gradient(ellipse 56% 30% at 50% 68%,rgba(${OVERLAY},${a(mix('poolMid'))}) 0%,rgba(${OVERLAY},${a(mix('poolMid') * 0.5)}) 60%,rgba(${OVERLAY},0) 100%)`
 
 interface Props {
@@ -104,7 +115,8 @@ export default function HeroSection({ courseFinder }: Props) {
           className="object-cover [object-position:50%_38%] [filter:saturate(1.08)_contrast(1.05)_brightness(1.04)] max-tablet:[object-position:36%_38%]"
         />
         <div aria-hidden="true" className="absolute inset-0" style={{ background: WASH }} />
-        <div aria-hidden="true" className="absolute inset-0" style={{ background: POOL_TOP }} />
+        <div aria-hidden="true" className="absolute inset-0 tablet:hidden" style={{ background: POOL_TOP }} />
+        <div aria-hidden="true" className="absolute inset-0 hidden tablet:block" style={{ background: POOL_TOP_WIDE }} />
         <div aria-hidden="true" className="absolute inset-0" style={{ background: POOL_MID }} />
 
         <div className="relative mx-auto flex max-w-wrap flex-col items-center text-center">
@@ -122,12 +134,14 @@ export default function HeroSection({ courseFinder }: Props) {
               'mt-4 font-semibold tracking-[-0.03em] text-white',
               'text-[clamp(1.875rem,1.2rem+2.6vw,3.125rem)] leading-[1.1]',
             )}
-            style={{ textShadow: SHADOW_HEADLINE }}
-          >
+>
             {t('titleLine1')}
             {t('titleLine2') && ` ${t('titleLine2')}`}
             <br />
-            <span style={{ color: AQUA, textShadow: SHADOW_NAME }}>
+            {/* Heavier (650, between the title's 600 and bold) and a little larger than the line
+                above it, in the brighter AQUA, so the brand name is the first thing the eye lands on.
+                The body font is variable, so in-between weights are real. */}
+            <span className="text-[1.08em] font-[650]" style={{ color: AQUA }}>
               {/* Non-breaking space between the first two words only, so a
                   narrow phone breaks before "Consulting" and not mid-name. */}
               {t('titleHighlight').replace(' ', '\u00A0')}
