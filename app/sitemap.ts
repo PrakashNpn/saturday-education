@@ -1,4 +1,5 @@
 import type { MetadataRoute } from 'next'
+import { routing } from '@/i18n/routing'
 
 export default function sitemap(): MetadataRoute.Sitemap {
   const baseUrl = process.env.NEXT_PUBLIC_SITE_URL || 'https://saturdayeducation.com'
@@ -20,11 +21,12 @@ export default function sitemap(): MetadataRoute.Sitemap {
       changeFrequency: page.changeFrequency,
       priority: page.priority,
       alternates: {
-        languages: {
-          en: `${baseUrl}${page.path}`,
-          th: `${baseUrl}/th${page.path}`,
-          my: `${baseUrl}/my${page.path}`,
-        },
+        languages: Object.fromEntries(
+          routing.locales.map((locale) => [
+            locale,
+            locale === routing.defaultLocale ? `${baseUrl}${page.path}` : `${baseUrl}/${locale}${page.path}`,
+          ]),
+        ),
       },
     })
   }

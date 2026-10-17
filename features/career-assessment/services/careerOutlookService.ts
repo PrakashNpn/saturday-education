@@ -5,12 +5,18 @@ import Anthropic from '@anthropic-ai/sdk'
 import { prisma } from '@/shared/lib/db/prisma'
 import { findCareerByQuery } from '@/shared/lib/careers/catalog'
 import { buildCareerOutlookPrompt } from '../prompts/careerOutlookPrompt'
+import { buildCareerTranslationPrompt } from '../prompts/careerTranslationPrompt'
 import {
+  applyTranslation,
   catalogCareerToMaster,
   coerceMasterFromAI,
+  coerceTranslation,
   normalizeQuery,
   slugify,
+  toTranslationLocale,
   type CareerOutlookMaster,
+  type MasterTranslation,
+  type TranslationLocale,
 } from '@/shared/lib/careers/outlookMaster'
 
 const MODEL = 'claude-sonnet-4-6'
@@ -37,7 +43,9 @@ function isTransient(error: unknown): boolean {
  * The cache is keyed per-career (canonical slug + aliases); horizon is derived
  * client-side from the single master, so there is one row per career.
  */
-export async function getCareerOutlook(rawQuery: string): Promise<OutlookResult> {
+export async function getCareerOutlook(rawQuery: string, rawLocale?: string): Promise<OutlookResult> {
+  // English (or anything unrecognised) keeps the master as generated.
+  const locale = toTranslationLocale(rawLocale)
   const query = normalizeQuery(String(rawQuery ?? '')).slice(0, MAX_QUERY_LEN)
   if (query.length < 2) return { status: 'not-a-career' }
   const slug = slugify(query)
@@ -50,7 +58,9 @@ export async function getCareerOutlook(rawQuery: string): Promise<OutlookResult>
 
   // 1. Cache lookup (tolerates a missing table — just falls through to generate).
   const cached = await readCache(slug, query)
-  if (cached) return { status: 'ok', master: cached }
+  if (cached) {
+    return { status: 'ok', master: await localizeMaster(cached.master, cached.translations, locale) }
+  }
 
   // 2. Generate via Claude (single call validates + produces the master).
   if (!process.env.ANTHROPIC_API_KEY) return { status: 'error' }
@@ -88,11 +98,64 @@ export async function getCareerOutlook(rawQuery: string): Promise<OutlookResult>
 
   // 3. Cache write (best-effort; never blocks the response on a DB issue).
   await writeCache(master, query)
-  return { status: 'ok', master }
+  return { status: 'ok', master: await localizeMaster(master, null, locale) }
 }
 
-/** Reads a cached master by canonical slug or a previously-seen alias. */
-async function readCache(slug: string, alias: string): Promise<CareerOutlookMaster | null> {
+/**
+ * Returns the master in the visitor's language. Catalog careers never come here
+ * (their text is translated client-side). A stored translation is used when it
+ * validates; otherwise one small AI call makes it and saves it beside the English.
+ * Any failure falls back to the English master so the page never breaks.
+ */
+async function localizeMaster(
+  master: CareerOutlookMaster,
+  stored: unknown,
+  locale: TranslationLocale | null,
+): Promise<CareerOutlookMaster> {
+  if (!locale) return master
+  const saved = stored && typeof stored === 'object' ? (stored as Record<string, unknown>)[locale] : null
+  const fromCache = coerceTranslation(saved, master)
+  if (fromCache) return applyTranslation(master, fromCache)
+
+  const fresh = await translateMaster(master, locale)
+  if (!fresh) return master
+  await writeTranslation(master.slug, locale, fresh)
+  return applyTranslation(master, fresh)
+}
+
+/** One bounded call that translates only the display text. Null on any failure. */
+async function translateMaster(
+  master: CareerOutlookMaster,
+  locale: TranslationLocale,
+): Promise<MasterTranslation | null> {
+  if (!process.env.ANTHROPIC_API_KEY) return null
+  try {
+    const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY, maxRetries: 1, timeout: 30_000 })
+    const res = await client.messages.create({
+      model: MODEL,
+      max_tokens: 4000, // Burmese and Thai take many tokens per word
+      messages: [{ role: 'user', content: buildCareerTranslationPrompt(master, locale) }],
+    })
+    const text = res.content
+      .filter((b): b is Anthropic.TextBlock => b.type === 'text')
+      .map((b) => b.text)
+      .join('')
+      .trim()
+    const start = text.indexOf('{')
+    const end = text.lastIndexOf('}')
+    if (start === -1 || end === -1) return null
+    return coerceTranslation(JSON.parse(text.slice(start, end + 1)) as unknown, master)
+  } catch (error) {
+    console.warn('Career outlook translation skipped:', error instanceof Error ? error.message : error)
+    return null
+  }
+}
+
+/** Reads a cached master (and any stored translations) by canonical slug or a previously-seen alias. */
+async function readCache(
+  slug: string,
+  alias: string,
+): Promise<{ master: CareerOutlookMaster; translations: unknown } | null> {
   try {
     const rows = await prisma.$queryRaw<Array<{ payload: unknown }>>`
       SELECT payload FROM career_outlook_cache
@@ -101,7 +164,9 @@ async function readCache(slug: string, alias: string): Promise<CareerOutlookMast
     `
     const payload = rows[0]?.payload
     if (!payload || typeof payload !== 'object') return null
-    return coerceMasterFromAI(payload, slug)
+    const master = coerceMasterFromAI(payload, slug)
+    if (!master) return null
+    return { master, translations: (payload as Record<string, unknown>).i18n ?? null }
   } catch {
     // Table missing or DB unreachable → behave as a cache miss.
     return null
@@ -125,5 +190,24 @@ async function writeCache(master: CareerOutlookMaster, alias: string): Promise<v
   } catch (error) {
     // Non-fatal: a missing table or write error must not break the user's request.
     console.warn('Career outlook cache write skipped:', error instanceof Error ? error.message : error)
+  }
+}
+
+/**
+ * Stores a translation inside the same JSON payload (key `i18n`), so no schema
+ * change is needed. Best-effort, like the master write.
+ */
+async function writeTranslation(slug: string, locale: TranslationLocale, tr: MasterTranslation): Promise<void> {
+  try {
+    await prisma.$executeRaw`
+      UPDATE career_outlook_cache
+      SET payload = payload || jsonb_build_object(
+        'i18n',
+        COALESCE(payload->'i18n', '{}'::jsonb) || jsonb_build_object(${locale}::text, ${JSON.stringify(tr)}::jsonb)
+      )
+      WHERE slug = ${slug}
+    `
+  } catch (error) {
+    console.warn('Career outlook translation write skipped:', error instanceof Error ? error.message : error)
   }
 }

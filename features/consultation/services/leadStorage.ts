@@ -61,7 +61,7 @@ const CONSULTATION_TYPE_MAP: Record<string, 'ONLINE' | 'IN_PERSON'> = {
  */
 export async function saveConsultationLead(
   data: ConsultationInput,
-  options: { notify: boolean },
+  options: { notify: boolean; channel?: 'consultation' | 'chat' },
 ) {
   if (!data.fullName?.trim() || !data.email?.trim()) {
     return { success: false, error: 'Name and email are required.' }
@@ -92,7 +92,7 @@ export async function saveConsultationLead(
     // slow CRM call doesn't add to how long the user waits.
     await Promise.all([
       options.notify ? sendNotificationEmail(data) : Promise.resolve(),
-      syncToFirmliCRM(data),
+      syncToFirmliCRM(data, options.channel),
     ])
 
     return { success: true }
@@ -102,7 +102,7 @@ export async function saveConsultationLead(
   }
 }
 
-async function syncToFirmliCRM(data: ConsultationInput) {
+async function syncToFirmliCRM(data: ConsultationInput, channel: 'consultation' | 'chat' = 'consultation') {
   try {
     await createFirmliLead({
       fullName: data.fullName.trim(),
@@ -110,7 +110,7 @@ async function syncToFirmliCRM(data: ConsultationInput) {
       phone: data.phone?.trim() || null,
       targetCountry: data.targetCountry || null,
       message: data.message?.trim() || null,
-    })
+    }, { channel })
   } catch (error) {
     console.error('Firmli CRM sync error:', error)
   }

@@ -10,7 +10,7 @@ You help with:
 Countries and regions you cover: UK, USA, Canada, Australia, New Zealand, Germany, Ireland, Malaysia, Singapore, Thailand, Switzerland, Netherlands, UAE, Spain, and Grenada.
 
 How to respond:
-- Always reply in the SAME language as the student's latest message. If they write in Burmese, reply in Burmese; if Thai, reply in Thai; if English, reply in English. You can write fluently in Burmese, Thai, and English, so never say you can only use English, and never switch the language on your own.
+- Always reply in the SAME language as the student's latest message. If they write in Burmese, reply in Burmese; if Thai, reply in Thai; if Vietnamese, reply in Vietnamese; if Filipino or Tagalog, reply in Filipino; if Indonesian, reply in Indonesian; if English, reply in English. You can write fluently in Burmese, Thai, Vietnamese, Filipino, Indonesian, and English, so never say you can only use English, and never switch the language on your own.
 - Write like you're texting a friend: short, warm, natural sentences
 - Never use markdown: no **bold**, no bullet points, no numbered lists, no headers
 - Never use dashes as punctuation. No em dashes and no en dashes. Use commas or full stops instead, and write number ranges with the word "to" (for example "2 to 4")
@@ -41,13 +41,21 @@ const LANGUAGE_BY_LOCALE: Record<string, string> = {
   en: 'English',
   th: 'Thai',
   my: 'Burmese',
+  vi: 'Vietnamese',
+  fil: 'Filipino',
+  id: 'Indonesian',
 }
 
 /** The system prompt with a language directive appended for the active locale, so
  *  the advisor replies in the student's language rather than always in English. */
+const STYLE_BY_LOCALE: Record<string, string> = {
+  fil: `\n\nWhen you reply in Filipino, write natural Filipino with common English words mixed in the way Filipinos speak (Taglish is fine), but keep the main sentences in Filipino rather than answering in English.`,
+  my: `\n\nWhen you reply in Burmese, use a friendly spoken style (such as -ပါတယ်, -တယ်) and keep country, university and subject names in English.`,
+}
+
 export function buildSystemPrompt(locale?: string): string {
   const language = (locale && LANGUAGE_BY_LOCALE[locale]) || 'English'
   return `${SYSTEM_PROMPT}
 
-Match the student's language on every reply. If a message is too short to tell what language it is, default to ${language}.`
+Match the student's language on every reply. If a message is too short to tell what language it is, default to ${language}.${(locale && STYLE_BY_LOCALE[locale]) || ''}`
 }

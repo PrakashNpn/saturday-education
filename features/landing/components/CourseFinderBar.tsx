@@ -2,9 +2,10 @@
 
 import { useState } from 'react'
 import Image from 'next/image'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { useRouter } from '@/i18n/navigation'
 import { CustomDropdown } from '@/shared/components/common'
+import { formatNumber } from '@/shared/utils/formatNumber'
 import { FLAG_CODES } from '../utils/flagCodes'
 
 // The lists come from the Course Finder feature and are passed in by the page,
@@ -28,7 +29,6 @@ const POPULAR = ['Germany', 'Canada', 'Ireland', 'New Zealand', 'Malaysia', 'Tha
 /** Chips read better short; everything else uses Firmli's name as it is. */
 const SHORT_NAME: Record<string, string> = { 'United Kingdom': 'UK', 'United States': 'USA' }
 
-const formatCount = (value: number) => value.toLocaleString('en-US')
 
 // A small touch on the shared glass field, for this card only: a soft
 // teal-tinted hairline, a bright edge along the top, a faint inner shade along
@@ -60,6 +60,7 @@ export default function CourseFinderBar({ options }: Props) {
   const t = useTranslations('Landing.courseSearch')
   const th = useTranslations('heroLiquid')
   const router = useRouter()
+  const locale = useLocale()
 
   const [country, setCountry] = useState('')
   const [level, setLevel] = useState('')
@@ -198,8 +199,8 @@ export default function CourseFinderBar({ options }: Props) {
         <p className="text-center text-label text-secondary-text">
           {options.counts
             ? t('statBanner', {
-                programs: formatCount(options.counts.programs),
-                institutions: formatCount(options.counts.institutions),
+                programs: formatNumber(options.counts.programs, locale),
+                institutions: formatNumber(options.counts.institutions, locale),
               })
             : t('statBannerNoCounts')}
         </p>

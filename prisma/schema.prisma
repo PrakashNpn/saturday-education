@@ -64,14 +64,22 @@ model Country {
   shortDescription      String?  @map("short_description")
   tagline               String?
   // Translated prose. Null until translated for that locale — the read path
-  // falls back to the English `tagline` when so.
+  // falls back to the English `tagline` when so. Th/My: Thai, Burmese. Vi, Fil
+  // and Idn: Vietnamese, Filipino, Indonesian (Idn rather than Id, which would
+  // read as a foreign key; the locale code itself is still `id`).
   taglineTh             String?  @map("tagline_th")
   taglineMy             String?  @map("tagline_my")
+  taglineVi              String?  @map("tagline_vi")
+  taglineFil             String?  @map("tagline_fil")
+  taglineIdn             String?  @map("tagline_idn")
   overview              String?  @db.Text
   // Translated prose. Null until a country's overview has been translated for
   // that locale — the read path falls back to `overview` (English) when so.
   overviewTh            String?  @map("overview_th") @db.Text
   overviewMy            String?  @map("overview_my") @db.Text
+  overviewVi             String?  @map("overview_vi") @db.Text
+  overviewFil            String?  @map("overview_fil") @db.Text
+  overviewIdn            String?  @map("overview_idn") @db.Text
 
   // Key Stats
   institutionCount      String?  @map("institution_count")
@@ -84,6 +92,14 @@ model Country {
   // Immigration & Costs
   visaProcessingTime    String?  @map("visa_processing_time")
   workRights            String?  @map("work_rights")
+  // Translated work-rights text. Null until translated for that locale; the read
+  // path falls back to the English `workRights` when so. Idn is Indonesian (the
+  // locale code is `id`; the column suffix avoids reading as a foreign key).
+  workRightsTh          String?  @map("work_rights_th")
+  workRightsMy          String?  @map("work_rights_my")
+  workRightsVi          String?  @map("work_rights_vi")
+  workRightsFil         String?  @map("work_rights_fil")
+  workRightsIdn         String?  @map("work_rights_idn")
   costOfLivingMinUSD    Int?     @map("cost_of_living_min_usd")
   costOfLivingMaxUSD    Int?     @map("cost_of_living_max_usd")
   currencyCode          String?  @map("currency_code")
@@ -120,8 +136,14 @@ model CountryAdvantage {
   // falls back to the English `title`/`description` when so.
   titleTh       String? @map("title_th")
   titleMy       String? @map("title_my")
+  titleVi        String?  @map("title_vi")
+  titleFil       String?  @map("title_fil")
+  titleIdn       String?  @map("title_idn")
   descriptionTh String? @map("description_th") @db.Text
   descriptionMy String? @map("description_my") @db.Text
+  descriptionVi  String?  @map("description_vi") @db.Text
+  descriptionFil String?  @map("description_fil") @db.Text
+  descriptionIdn String?  @map("description_idn") @db.Text
   imageUrl      String? @map("image_url")
   order         Int     @default(0)
 
@@ -148,8 +170,14 @@ model CountryProcessStep {
   // falls back to the English `title`/`description` when so.
   titleTh       String? @map("title_th")
   titleMy       String? @map("title_my")
+  titleVi        String?  @map("title_vi")
+  titleFil       String?  @map("title_fil")
+  titleIdn       String?  @map("title_idn")
   descriptionTh String? @map("description_th") @db.Text
   descriptionMy String? @map("description_my") @db.Text
+  descriptionVi  String?  @map("description_vi") @db.Text
+  descriptionFil String?  @map("description_fil") @db.Text
+  descriptionIdn String?  @map("description_idn") @db.Text
 
   countryId     String  @map("country_id")
   country       Country @relation(fields: [countryId], references: [id], onDelete: Cascade)
@@ -174,8 +202,14 @@ model CountryFAQ {
   // falls back to the English `question`/`answer` when so.
   questionTh  String? @map("question_th")
   questionMy  String? @map("question_my")
+  questionVi   String?  @map("question_vi")
+  questionFil  String?  @map("question_fil")
+  questionIdn  String?  @map("question_idn")
   answerTh    String? @map("answer_th") @db.Text
   answerMy    String? @map("answer_my") @db.Text
+  answerVi     String?  @map("answer_vi") @db.Text
+  answerFil    String?  @map("answer_fil") @db.Text
+  answerIdn    String?  @map("answer_idn") @db.Text
   order       Int     @default(0)
 
   countryId   String  @map("country_id")

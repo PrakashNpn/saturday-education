@@ -14,6 +14,10 @@ const notoSans = Noto_Sans({ subsets: ['latin'], variable: '--font-sans', displa
 // English-primary); they load on demand only when Thai/Burmese glyphs actually render.
 const notoSansThai = Noto_Sans_Thai({ subsets: ['thai'], variable: '--font-thai', display: 'swap', preload: false })
 const notoSansMyanmar = Noto_Sans_Myanmar({ subsets: ['myanmar'], variable: '--font-myanmar', display: 'swap', preload: false })
+// The Latin file above has no Vietnamese tone-mark letters. This second Noto Sans
+// carries only those, loaded on demand, and the Vietnamese font stack lists it
+// after the Latin one, so each character is drawn from whichever file has it.
+const notoSansVietnamese = Noto_Sans({ subsets: ['vietnamese'], variable: '--font-vi-glyphs', display: 'swap', preload: false })
 
 export default async function LocaleLayout({
   children,
@@ -34,13 +38,19 @@ export default async function LocaleLayout({
   // globals.css) still lands back on Noto Sans for any Latin mixed into the
   // same string.
   const scriptFontClass =
-    locale === 'th' ? 'font-thai' : locale === 'my' ? 'font-myanmar' : 'font-sans'
+    locale === 'th'
+      ? 'font-thai'
+      : locale === 'my'
+        ? 'font-myanmar'
+        : locale === 'vi'
+          ? 'font-vietnamese'
+          : 'font-sans'
 
   return (
     <html
       lang={locale}
       dir={locale === 'ar' ? 'rtl' : 'ltr'}
-      className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable} [overflow-x:clip]`}
+      className={`${notoSans.variable} ${notoSansThai.variable} ${notoSansMyanmar.variable} ${notoSansVietnamese.variable} [overflow-x:clip]`}
     >
       {/* overflow-x:clip, not overflow-x-hidden (= overflow-x: hidden): per the
           CSS overflow spec, setting one axis to hidden/auto/scroll forces the

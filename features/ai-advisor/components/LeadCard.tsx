@@ -11,7 +11,12 @@ import { LEAD_COUNTRIES } from '../utils/leadCountries'
 
 // Same rule as the website form: the site's own locale is the only signal for
 // which country's dial code to pre-select before the visitor picks one.
-const DEFAULT_PHONE_COUNTRY: Record<string, 'MM' | 'TH'> = { th: 'TH' }
+const DEFAULT_PHONE_COUNTRY: Record<string, 'MM' | 'TH' | 'VN' | 'PH' | 'ID'> = {
+  th: 'TH',
+  vi: 'VN',
+  fil: 'PH',
+  id: 'ID',
+}
 
 const INPUT =
   'w-full rounded-xl border border-action/15 bg-white px-3 py-1.5 text-sm text-primary-text placeholder:text-muted-text transition-colors hover:border-action/30 focus:border-action/40 focus:ring-2 focus:ring-action/20 focus:outline-none'

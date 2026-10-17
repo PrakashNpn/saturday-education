@@ -36,6 +36,10 @@ function band(pct: number): string {
 // anchors it. Repetition at the point of generation, not just once earlier, fixed it.
 function studentReadLanguage(locale?: string): string {
   if (locale === 'th') return 'Thai'
+  if (locale === 'vi') return 'Vietnamese'
+  if (locale === 'fil')
+    return 'Filipino, written the way Filipinos naturally write today, with common English terms such as "Business", "Engineering" and "Enterprising" kept in English where Filipinos normally use them'
+  if (locale === 'id') return 'Indonesian (Bahasa Indonesia)'
   if (locale === 'my')
     return 'Burmese, using the heavy code-switch register common on Myanmar websites (Burmese grammar and sentence particles, with career/field/subject terms such as "Business", "Engineering", "Enterprising" kept in English rather than translated)'
   return 'English'

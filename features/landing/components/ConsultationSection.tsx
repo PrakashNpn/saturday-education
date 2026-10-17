@@ -17,8 +17,11 @@ import { CustomDropdown, PhoneCountrySelect } from '@/shared/components/common'
 // Myanmar students regardless of which locale they're browsing in — the
 // phone placeholder itself ("+95 9 XXX XXX XXX") already assumes that even
 // on the English site.
-const DEFAULT_COUNTRY_BY_LOCALE: Record<string, 'MM' | 'TH'> = {
+const DEFAULT_COUNTRY_BY_LOCALE: Record<string, 'MM' | 'TH' | 'VN' | 'PH' | 'ID'> = {
   th: 'TH',
+  vi: 'VN',
+  fil: 'PH',
+  id: 'ID',
 }
 const FALLBACK_DEFAULT_COUNTRY = 'MM'
 

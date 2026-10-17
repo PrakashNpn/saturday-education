@@ -1,13 +1,10 @@
-import { getTranslations } from 'next-intl/server'
+import { getLocale, getTranslations } from 'next-intl/server'
+import { formatNumber } from '@/shared/utils/formatNumber'
 import type { CountryDetailData } from '../types'
 
 interface Props {
   country: CountryDetailData
 }
-
-/** Fixed grouping rather than the server's default locale, so the number a
- *  visitor sees does not depend on which machine rendered the page. */
-const groupDigits = (n: number) => n.toLocaleString('en-US')
 
 /** Splits a work-rights sentence into short bullet points at its natural
  *  clause breaks (";" and ". ") instead of showing it as one dense run-on
@@ -25,6 +22,8 @@ function splitWorkRights(text: string): string[] {
 
 export async function CountryOverview({ country }: Props) {
   const t = await getTranslations('destinations')
+  const locale = await getLocale()
+  const groupDigits = (n: number) => formatNumber(n, locale)
 
   // Six facts in the design's order. Anything the country has no data for is
   // dropped rather than shown blank.

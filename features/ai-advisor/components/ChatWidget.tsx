@@ -206,7 +206,7 @@ export default function ChatWidget() {
                       <button
                         onClick={clearHistory}
                         className="text-white/50 hover:text-white/90 text-xs transition-colors"
-                        aria-label="Clear chat history"
+                        aria-label={t('clearChat')}
                       >
                         Clear
                       </button>
@@ -214,7 +214,7 @@ export default function ChatWidget() {
                     <button
                       onClick={() => setIsOpen(false)}
                       className="text-white/60 hover:text-white transition-colors"
-                      aria-label="Close chat"
+                      aria-label={t('closeChat')}
                     >
                       <X size={18} />
                     </button>
@@ -289,7 +289,7 @@ export default function ChatWidget() {
                     onClick={handleSend}
                     disabled={!inputValue.trim() || isStreaming || gated}
                     className="w-9 h-9 rounded-full bg-gradient-to-br from-action-hover to-action flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_4px_16px_rgba(23,126,141,0.5)] hover:scale-105 active:scale-95 shadow-[0_2px_10px_rgba(23,126,141,0.3)]"
-                    aria-label="Send message"
+                    aria-label={t('sendMessage')}
                   >
                     <Send size={15} className="text-white" />
                   </button>
@@ -317,7 +317,7 @@ export default function ChatWidget() {
               exit={{   opacity: 0, y: 12,  scale: 0.93 }}
               transition={{ type: 'spring', stiffness: 380, damping: 28 }}
               onClick={() => setIsOpen(true)}
-              aria-label="Open chat"
+              aria-label={t('openChat')}
               // absolute + anchored to the parent's own corner: without this,
               // the brief moment both this and the X button exist together
               // (now that they cross-fade instead of waiting their turn)
@@ -395,7 +395,7 @@ export default function ChatWidget() {
               exit={{   opacity: 0, scale: 0.7, rotate:  90  }}
               transition={{ type: 'spring', stiffness: 400, damping: 26 }}
               onClick={() => setIsOpen(false)}
-              aria-label="Close chat"
+              aria-label={t('closeChat')}
               className="absolute right-0 bottom-0 w-11 h-11 rounded-full flex items-center justify-center
                 bg-gradient-to-br from-action-hover to-action
                 shadow-[0_4px_20px_rgba(23,126,141,0.5)] cursor-pointer

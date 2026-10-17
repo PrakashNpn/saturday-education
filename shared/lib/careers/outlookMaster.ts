@@ -223,3 +223,78 @@ export function deriveHorizonView(master: CareerOutlookMaster, horizon: Horizon)
     relatedFields: master.relatedFields,
   }
 }
+
+// ── Translation of AI-coined careers ─────────────────────────────────────────
+// Catalog careers are translated client-side from the message files. A career
+// the AI coins (typed outside the catalog) is translated once per locale by a
+// second AI call and stored beside the English master, so only the text fields
+// below are ever replaced; numbers, codes, sources and the slug never change.
+
+export const TRANSLATION_LOCALES = ['th', 'my', 'vi', 'fil', 'id'] as const
+export type TranslationLocale = (typeof TRANSLATION_LOCALES)[number]
+
+export function toTranslationLocale(locale: unknown): TranslationLocale | null {
+  return (TRANSLATION_LOCALES as readonly string[]).includes(String(locale))
+    ? (locale as TranslationLocale)
+    : null
+}
+
+export interface MasterTranslation {
+  title: string
+  summary: string
+  field: string
+  exampleRoles: string[]
+  requiredSkills: string[]
+  niceToHaveSkills: string[]
+  relatedFields: string[]
+  marketNoteNear: string
+  marketNoteLong: string
+}
+
+const isCatalogField = (v: string) => (CAREER_FIELDS as string[]).includes(v)
+
+/** A translated string, or the English original when the model returned nothing usable. */
+function pickText(translated: unknown, original: string, max: number): string {
+  const t = deDash(str(translated)).slice(0, max)
+  return t || original
+}
+
+/** Item-by-item merge; a length mismatch means the model lost its place, so keep the English list. */
+function pickList(translated: unknown, original: string[], max: number): string[] {
+  if (!Array.isArray(translated) || translated.length !== original.length) return original
+  return original.map((o, i) => pickText(translated[i], o, max))
+}
+
+/**
+ * Validates an untrusted translation (model output or a stored blob) against its
+ * English master. Fields that the catalog already translates on the client (the
+ * thirteen field names) are left in English so both paths read the same.
+ */
+export function coerceTranslation(raw: unknown, master: CareerOutlookMaster): MasterTranslation | null {
+  if (!raw || typeof raw !== 'object') return null
+  const r = raw as Record<string, unknown>
+  const title = deDash(str(r.title)).slice(0, 120)
+  const summary = deDash(str(r.summary)).slice(0, 400)
+  if (!title || !summary) return null
+
+  const masterField = String(master.field)
+  return {
+    title,
+    summary,
+    field: isCatalogField(masterField) ? masterField : pickText(r.field, masterField, 60),
+    exampleRoles: pickList(r.exampleRoles, master.exampleRoles, 120),
+    requiredSkills: pickList(r.requiredSkills, master.requiredSkills, 120),
+    niceToHaveSkills: pickList(r.niceToHaveSkills, master.niceToHaveSkills, 120),
+    relatedFields: master.relatedFields.map((f, i) =>
+      isCatalogField(f)
+        ? f
+        : pickText(Array.isArray(r.relatedFields) ? r.relatedFields[i] : '', f, 80),
+    ),
+    marketNoteNear: pickText(r.marketNoteNear, master.marketNoteNear, 500),
+    marketNoteLong: pickText(r.marketNoteLong, master.marketNoteLong, 500),
+  }
+}
+
+export function applyTranslation(master: CareerOutlookMaster, tr: MasterTranslation): CareerOutlookMaster {
+  return { ...master, ...tr }
+}

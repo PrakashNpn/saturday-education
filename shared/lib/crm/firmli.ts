@@ -2,10 +2,17 @@
 // Add these in Vercel's environment settings (no NEXT_PUBLIC_ prefix; this
 // never runs in the browser, unlike Firmli's own embeddable widget):
 //   FIRMLI_CLIENT_NUMBER = c191z26royal58
-//   FIRMLI_FORM_NUMBER   = FRM1790061849437W26JWECS31
-//   FIRMLI_UTM_NUMBER    = UTM1790583080779Q26HZFCX32
+//   FIRMLI_FORM_NUMBER   = FRM1790061849437W26JWECS31   ("Website Form", consultation form)
+//   FIRMLI_UTM_NUMBER    = UTM1790583080779Q26HZFCX32   (source "Website")
+// The AI chatbot has its own Firmli form and UTM source so its leads can be told
+// apart from the consultation form's. If these two are unset, chat leads fall
+// back to the consultation form above, so nothing is lost before they are set:
+//   FIRMLI_CHAT_FORM_NUMBER = FRM1792068158127E26EXDHR92   ("AI Chatbot - Website Form")
+//   FIRMLI_CHAT_UTM_NUMBER  = UTM1792207569261M26WXWZI49   (source "AIChatbot_website")
 const FIRMLI_CLIENT_NUMBER = process.env.FIRMLI_CLIENT_NUMBER
 const FIRMLI_FORM_NUMBER = process.env.FIRMLI_FORM_NUMBER
+const FIRMLI_CHAT_FORM_NUMBER = process.env.FIRMLI_CHAT_FORM_NUMBER
+const FIRMLI_CHAT_UTM_NUMBER = process.env.FIRMLI_CHAT_UTM_NUMBER
 // Optional, like Firmli's own widget treats it — tags the lead's UTM source
 // in their CRM (this specific value maps to "Website" on their end; leads
 // sent without it were showing up there as "Email").
@@ -37,6 +44,40 @@ const FIRMLI_COUNTRY_IDS: Record<string, number> = {
   uae: 229,
 }
 
+// The chat form's destination field is a multi-select whose values are the
+// country NAMES (not ids), from GET /v1/dropdowns/destination-countries-dropdown
+// ?text_only=true. Keys are the lead form's country keys; one with no entry here
+// is sent without a destination.
+const FIRMLI_COUNTRY_NAMES: Record<string, string> = {
+  uk: 'United Kingdom',
+  usa: 'United States',
+  australia: 'Australia',
+  canada: 'Canada',
+  newZealand: 'New Zealand',
+  singapore: 'Singapore',
+  switzerland: 'Switzerland',
+  ireland: 'Ireland',
+  thailand: 'Thailand',
+  germany: 'Germany',
+  malaysia: 'Malaysia',
+  netherlands: 'Netherlands',
+  spain: 'Spain',
+  uae: 'United Arab Emirates',
+  hungary: 'Hungary',
+  finland: 'Finland',
+  china: 'China',
+  japan: 'Japan',
+  korea: 'South Korea',
+  vietnam: 'Vietnam',
+}
+
+// Firmli's "Additional Inquiry" is a short text field, not a textarea, so the
+// chat transcript note is trimmed for the CRM (the database keeps the full text).
+const CHAT_INQUIRY_MAX = 250
+
+/** Which Firmli form a lead goes to: the consultation form, or the AI chatbot's own. */
+export type FirmliChannel = 'consultation' | 'chat'
+
 interface FirmliLeadInput {
   fullName: string
   email: string
@@ -62,27 +103,44 @@ function headers() {
  * if Firmli changes it without notice — callers should treat failures here
  * as non-fatal.
  */
-export async function createFirmliLead(data: FirmliLeadInput): Promise<void> {
+export async function createFirmliLead(
+  data: FirmliLeadInput,
+  options: { channel?: FirmliChannel } = {},
+): Promise<void> {
   if (!FIRMLI_CLIENT_NUMBER || !FIRMLI_FORM_NUMBER) {
     console.warn('FIRMLI_CLIENT_NUMBER / FIRMLI_FORM_NUMBER not set — skipping Firmli CRM sync.')
     return
   }
 
-  const submittedData: Record<string, string | number> = {
+  // The chatbot has its own form and UTM source, but only when both are set;
+  // otherwise it keeps using the consultation form so leads still arrive.
+  const useChatForm = options.channel === 'chat' && !!FIRMLI_CHAT_FORM_NUMBER && !!FIRMLI_CHAT_UTM_NUMBER
+
+  const submittedData: Record<string, string | number | string[]> = {
     first_name: data.fullName,
     email: data.email,
   }
   if (data.phone) submittedData.mobile = data.phone
-  if (data.message) submittedData.note = data.message
-  // Firmli's API rejects this as a number ("must be a string"), even though
-  // it's a numeric ID in their own dropdown response.
-  const countryId = data.targetCountry ? FIRMLI_COUNTRY_IDS[data.targetCountry] : undefined
-  if (countryId) submittedData.destination_country_id = String(countryId)
+
+  if (useChatForm) {
+    // "AI Chatbot - Website Form": different field names from the consultation form.
+    if (data.message) submittedData.additional_inquiry = data.message.slice(0, CHAT_INQUIRY_MAX)
+    const countryName = data.targetCountry ? FIRMLI_COUNTRY_NAMES[data.targetCountry] : undefined
+    if (countryName) submittedData.destination_of_interest = [countryName]
+  } else {
+    if (data.message) submittedData.note = data.message
+    // Firmli's API rejects this as a number ("must be a string"), even though
+    // it's a numeric ID in their own dropdown response.
+    const countryId = data.targetCountry ? FIRMLI_COUNTRY_IDS[data.targetCountry] : undefined
+    if (countryId) submittedData.destination_country_id = String(countryId)
+  }
 
   const payload = {
     data: submittedData,
-    form_identifier: FIRMLI_FORM_NUMBER,
-    ...(FIRMLI_UTM_NUMBER && { utm_identifier: FIRMLI_UTM_NUMBER }),
+    form_identifier: useChatForm ? FIRMLI_CHAT_FORM_NUMBER : FIRMLI_FORM_NUMBER,
+    ...(useChatForm
+      ? { utm_identifier: FIRMLI_CHAT_UTM_NUMBER }
+      : FIRMLI_UTM_NUMBER && { utm_identifier: FIRMLI_UTM_NUMBER }),
   }
 
   const encryptRes = await fetch(`${apiBase()}/test-path/encrypt-data`, {

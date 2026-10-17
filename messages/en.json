@@ -426,7 +426,23 @@
       "bookShort": "Book Consultation",
       "takeAssessmentShort": "Take assessment",
       "interestedBodyShort": "Our certified counsellors evaluate your academic profile to shortlist accredited university degrees.",
-      "close": "Close dialog"
+      "close": "Close dialog",
+      "researching": "Researching",
+      "researchStep1": "Scanning labour-market signals",
+      "researchStep2": "Projecting demand over the next decade",
+      "researchStep3": "Mapping the skills that matter",
+      "researchStep4": "Compiling the outlook",
+      "invalidTitle": "That doesn't look like a career",
+      "invalidBody": "We couldn't find a career called \"{query}\". Try another job title, or pick one from the list.",
+      "invalidAction": "Try another career",
+      "busyTitle": "Our research service is busy",
+      "busyBody": "It's getting a lot of requests right now. Please try again in a moment.",
+      "busyAction": "Try again",
+      "errorTitle": "Something went wrong",
+      "errorBody": "We couldn't research this career just now. Please try again in a moment.",
+      "errorAction": "Retry",
+      "dialogLabel": "{query} outlook",
+      "getOutlookFor": "Get outlook for “{query}”"
     },
     "sections": {
       "riasecTitle": "Part 1 · What energises you?",
@@ -584,7 +600,11 @@
       "downloading": "Downloading…",
       "copyLink": "Copy link",
       "copied": "Copied!",
-      "orShareVia": "Or share via"
+      "orShareVia": "Or share via",
+      "close": "Close",
+      "shareWhatsapp": "Share on WhatsApp",
+      "shareFacebook": "Share on Facebook",
+      "shareTelegram": "Share on Telegram"
     }
   },
   "nav": {
@@ -596,7 +616,8 @@
     "aboutUs": "About",
     "bookConsultation": "Book Free Consultation",
     "openMenu": "Open menu",
-    "closeMenu": "Close menu"
+    "closeMenu": "Close menu",
+    "mainNavigation": "Main navigation"
   },
   "hero": {
     "titleLine1": "Your Global Education Journey",
@@ -633,7 +654,7 @@
   },
   "footer": {
     "companyName": "Saturday Education Consulting",
-    "tagline": "Your trusted partner for international education. Guiding Myanmar students to achieve their dreams of studying abroad.",
+    "tagline": "Your trusted partner for international education. Guiding students to achieve their dreams of studying abroad.",
     "services": {
       "heading": "Our Services",
       "counseling": "Education Counseling",
@@ -733,7 +754,11 @@
       "gateTitle": "Let a counsellor help with your options",
       "gateSubtitle": "Share your details and a counsellor will go through universities and next steps that fit you within 1 business day. You can keep chatting right after.",
       "gatePlaceholder": "Share your details above to continue"
-    }
+    },
+    "clearChat": "Clear chat history",
+    "closeChat": "Close chat",
+    "sendMessage": "Send message",
+    "openChat": "Open chat"
   },
   "destinations": {
     "heroTitle": "Learn in depth about your destination of choice.",
@@ -880,5 +905,20 @@
     "locations": "Yangon · Bangkok",
     "phone": "+95 9 765 929 492",
     "phoneHref": "tel:+959765929492"
+  },
+  "phoneSelect": {
+    "searchPlaceholder": "Search countries",
+    "noResults": "No countries found"
+  },
+  "errors": {
+    "errorEyebrow": "Something went wrong",
+    "errorTitle": "An unexpected error occurred",
+    "errorBody": "Please try again, or head back to the homepage while we look into it.",
+    "retry": "Try again",
+    "home": "Go to homepage",
+    "notFoundEyebrow": "Error 404",
+    "notFoundTitle": "This page does not exist",
+    "notFoundBody": "The page you are looking for may have moved, or the link that brought you here may be out of date.",
+    "tryOne": "Or try one of these"
   }
 }

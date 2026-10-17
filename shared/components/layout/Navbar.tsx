@@ -22,7 +22,9 @@ const NAV_LINKS: NavItem[] = [
 // the message files the way the rest of the nav's labels do. Myanmar is a
 // real routed locale but isn't offered here yet — its translations (UI
 // strings and the destination detail pages' database content) are drafted
-// but awaiting team review. Add it back once that review is done.
+// but awaiting team review. Add it back once that review is done. Vietnamese,
+// Filipino and Indonesian are listed while they are being reviewed locally;
+// check this list again before deploying.
 // flag is the country whose flag best represents the language, not the
 // locale code itself — reuses the same /images/flags assets the destination
 // pickers already use, English maps to the UK's "gb" rather than a locale
@@ -30,6 +32,9 @@ const NAV_LINKS: NavItem[] = [
 const LANGUAGE_OPTIONS = [
   { code: 'en', label: 'English', flag: 'gb' },
   { code: 'th', label: 'ไทย', flag: 'th' },
+  { code: 'vi', label: 'Tiếng Việt', flag: 'vn' },
+  { code: 'fil', label: 'Filipino', flag: 'ph' },
+  { code: 'id', label: 'Bahasa Indonesia', flag: 'id' },
 ] as const
 
 /** Clipped into a circle the same way DestinationCard's flag badges are,
@@ -181,7 +186,7 @@ export default function Navbar() {
             />
           </Link>
 
-          <nav aria-label="Main navigation">
+          <nav aria-label={t('mainNavigation')}>
             <ul className="flex items-center gap-1 max-tablet:hidden">
               {NAV_LINKS.map((item) => (
                 <li key={item.href}>

@@ -1,5 +1,5 @@
 'use client'
-import { useState, useRef, useEffect, useMemo } from 'react'
+import { useState, useRef, useEffect, useMemo, type ReactNode } from 'react'
 import { ChevronDown, Search } from 'lucide-react'
 import type { DropdownOption } from './CustomDropdown'
 
@@ -18,6 +18,8 @@ interface Props {
   className?: string
   /** Allow submitting free text that isn't in the options (passes the raw text to onChange). */
   allowCustom?: boolean
+  /** Label for the free-text row; receives the typed text. Defaults to English. */
+  customOptionLabel?: (query: string) => ReactNode
   variant?: Variant
   size?: 'default' | 'compact'
 }
@@ -67,6 +69,7 @@ export function SearchableDropdown({
   noResultsText = 'No results found',
   className,
   allowCustom = false,
+  customOptionLabel,
   variant = 'default',
   size = 'default',
 }: Props) {
@@ -162,7 +165,13 @@ export function SearchableDropdown({
               >
                 <Search className="h-3.5 w-3.5 flex-shrink-0" />
                 <span className="truncate">
-                  Get outlook for <span className="font-semibold">&ldquo;{trimmed}&rdquo;</span>
+                  {customOptionLabel ? (
+                    customOptionLabel(trimmed)
+                  ) : (
+                    <>
+                      Get outlook for <span className="font-semibold">&ldquo;{trimmed}&rdquo;</span>
+                    </>
+                  )}
                 </span>
               </button>
             )}

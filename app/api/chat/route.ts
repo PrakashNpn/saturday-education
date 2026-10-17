@@ -7,6 +7,22 @@ import type { Message } from '@/features/ai-advisor/types'
 
 const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
+// Shown in the chat bubble when the model call fails before anything streams.
+const FALLBACK_TEXT: Record<string, { busy: string; failed: string }> = {
+  en: {
+    busy: "I'm getting a lot of questions right now. Please try again in a moment.",
+    failed: "Sorry, I couldn't finish that. Please try again.",
+  },
+  th: { busy: 'ตอนนี้มีคำถามเข้ามามาก โปรดลองอีกครั้งในอีกสักครู่', failed: 'ขออภัย ตอบไม่เสร็จ โปรดลองอีกครั้ง' },
+  my: {
+    busy: 'အခု မေးခွန်းတွေ အရမ်းများနေပါတယ်။ ခဏနေရင် ပြန်စမ်းကြည့်ပါ။',
+    failed: 'စိတ်မကောင်းပါဘူး၊ အဖြေ မပြီးစီးခဲ့ပါဘူး။ ပြန်စမ်းကြည့်ပါ။',
+  },
+  vi: { busy: 'Hiện có rất nhiều câu hỏi. Vui lòng thử lại sau giây lát.', failed: 'Xin lỗi, mình chưa thể hoàn tất câu trả lời. Vui lòng thử lại.' },
+  fil: { busy: 'Maraming tanong ngayon. Pakisubukan ulit sa ilang sandali.', failed: 'Pasensya na, hindi ko natapos iyon. Pakisubukan ulit.' },
+  id: { busy: 'Saat ini banyak pertanyaan masuk. Silakan coba lagi sebentar lagi.', failed: 'Maaf, saya belum bisa menyelesaikannya. Silakan coba lagi.' },
+}
+
 export async function POST(req: NextRequest) {
   if (!process.env.ANTHROPIC_API_KEY) {
     return NextResponse.json({ error: 'API key not configured' }, { status: 500 })
@@ -30,8 +46,10 @@ export async function POST(req: NextRequest) {
       let reply = ''
       try {
         const stream = client.messages.stream({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 600,
+          // Haiku writes broken Burmese and slips into English for Filipino, so those
+          // two get the stronger model (same finding as the comparison advisor).
+          model: locale === 'my' || locale === 'fil' ? 'claude-sonnet-4-6' : 'claude-haiku-4-5-20251001',
+          max_tokens: locale === 'my' || locale === 'th' ? 1400 : 600,
           system: buildSystemPrompt(locale) + plan.directive,
           messages: trimmed,
         })
@@ -49,13 +67,8 @@ export async function POST(req: NextRequest) {
         if (!reply) {
           const status = err instanceof Anthropic.APIError ? err.status : undefined
           const busy = status === 429 || status === 529
-          controller.enqueue(
-            encoder.encode(
-              busy
-                ? "I'm getting a lot of questions right now. Please try again in a moment."
-                : "Sorry, I couldn't finish that. Please try again.",
-            ),
-          )
+          const text = FALLBACK_TEXT[locale ?? ''] ?? FALLBACK_TEXT.en
+          controller.enqueue(encoder.encode(busy ? text.busy : text.failed))
         }
       } finally {
         controller.close()

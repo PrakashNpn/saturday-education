@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import { getTranslations } from 'next-intl/server'
+import { routing } from '@/i18n/routing'
 import HeroSection from "@/features/landing/components/HeroSection"
 import CourseFinderBar from "@/features/landing/components/CourseFinderBar"
 
@@ -27,7 +28,9 @@ export async function generateMetadata({ params }: Props): Promise<Metadata> {
       description: t('home.description'),
     },
     alternates: {
-      languages: { en: '/', th: '/th', my: '/my' },
+      languages: Object.fromEntries(
+        routing.locales.map((l) => [l, l === routing.defaultLocale ? '/' : `/${l}`]),
+      ),
     },
   }
 }

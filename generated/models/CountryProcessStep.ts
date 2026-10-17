@@ -41,8 +41,14 @@ export type CountryProcessStepMinAggregateOutputType = {
   description: string | null
   titleTh: string | null
   titleMy: string | null
+  titleVi: string | null
+  titleFil: string | null
+  titleIdn: string | null
   descriptionTh: string | null
   descriptionMy: string | null
+  descriptionVi: string | null
+  descriptionFil: string | null
+  descriptionIdn: string | null
   countryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -55,8 +61,14 @@ export type CountryProcessStepMaxAggregateOutputType = {
   description: string | null
   titleTh: string | null
   titleMy: string | null
+  titleVi: string | null
+  titleFil: string | null
+  titleIdn: string | null
   descriptionTh: string | null
   descriptionMy: string | null
+  descriptionVi: string | null
+  descriptionFil: string | null
+  descriptionIdn: string | null
   countryId: string | null
   createdAt: Date | null
   updatedAt: Date | null
@@ -69,8 +81,14 @@ export type CountryProcessStepCountAggregateOutputType = {
   description: number
   titleTh: number
   titleMy: number
+  titleVi: number
+  titleFil: number
+  titleIdn: number
   descriptionTh: number
   descriptionMy: number
+  descriptionVi: number
+  descriptionFil: number
+  descriptionIdn: number
   countryId: number
   createdAt: number
   updatedAt: number
@@ -93,8 +111,14 @@ export type CountryProcessStepMinAggregateInputType = {
   description?: true
   titleTh?: true
   titleMy?: true
+  titleVi?: true
+  titleFil?: true
+  titleIdn?: true
   descriptionTh?: true
   descriptionMy?: true
+  descriptionVi?: true
+  descriptionFil?: true
+  descriptionIdn?: true
   countryId?: true
   createdAt?: true
   updatedAt?: true
@@ -107,8 +131,14 @@ export type CountryProcessStepMaxAggregateInputType = {
   description?: true
   titleTh?: true
   titleMy?: true
+  titleVi?: true
+  titleFil?: true
+  titleIdn?: true
   descriptionTh?: true
   descriptionMy?: true
+  descriptionVi?: true
+  descriptionFil?: true
+  descriptionIdn?: true
   countryId?: true
   createdAt?: true
   updatedAt?: true
@@ -121,8 +151,14 @@ export type CountryProcessStepCountAggregateInputType = {
   description?: true
   titleTh?: true
   titleMy?: true
+  titleVi?: true
+  titleFil?: true
+  titleIdn?: true
   descriptionTh?: true
   descriptionMy?: true
+  descriptionVi?: true
+  descriptionFil?: true
+  descriptionIdn?: true
   countryId?: true
   createdAt?: true
   updatedAt?: true
@@ -222,8 +258,14 @@ export type CountryProcessStepGroupByOutputType = {
   description: string | null
   titleTh: string | null
   titleMy: string | null
+  titleVi: string | null
+  titleFil: string | null
+  titleIdn: string | null
   descriptionTh: string | null
   descriptionMy: string | null
+  descriptionVi: string | null
+  descriptionFil: string | null
+  descriptionIdn: string | null
   countryId: string
   createdAt: Date
   updatedAt: Date
@@ -259,8 +301,14 @@ export type CountryProcessStepWhereInput = {
   description?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   titleTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   titleMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleVi?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleFil?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleIdn?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   descriptionTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   descriptionMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionVi?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionFil?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionIdn?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
@@ -274,8 +322,14 @@ export type CountryProcessStepOrderByWithRelationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   titleTh?: Prisma.SortOrderInput | Prisma.SortOrder
   titleMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleVi?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleFil?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleIdn?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionTh?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionVi?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionFil?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionIdn?: Prisma.SortOrderInput | Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -293,8 +347,14 @@ export type CountryProcessStepWhereUniqueInput = Prisma.AtLeast<{
   description?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   titleTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   titleMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleVi?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleFil?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleIdn?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   descriptionTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   descriptionMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionVi?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionFil?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionIdn?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
@@ -308,8 +368,14 @@ export type CountryProcessStepOrderByWithAggregationInput = {
   description?: Prisma.SortOrderInput | Prisma.SortOrder
   titleTh?: Prisma.SortOrderInput | Prisma.SortOrder
   titleMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleVi?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleFil?: Prisma.SortOrderInput | Prisma.SortOrder
+  titleIdn?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionTh?: Prisma.SortOrderInput | Prisma.SortOrder
   descriptionMy?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionVi?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionFil?: Prisma.SortOrderInput | Prisma.SortOrder
+  descriptionIdn?: Prisma.SortOrderInput | Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -330,8 +396,14 @@ export type CountryProcessStepScalarWhereWithAggregatesInput = {
   description?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
   titleTh?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
   titleMy?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  titleVi?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  titleFil?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  titleIdn?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
   descriptionTh?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
   descriptionMy?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  descriptionVi?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  descriptionFil?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
+  descriptionIdn?: Prisma.StringNullableWithAggregatesFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringWithAggregatesFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeWithAggregatesFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeWithAggregatesFilter<"CountryProcessStep"> | Date | string
@@ -344,8 +416,14 @@ export type CountryProcessStepCreateInput = {
   description?: string | null
   titleTh?: string | null
   titleMy?: string | null
+  titleVi?: string | null
+  titleFil?: string | null
+  titleIdn?: string | null
   descriptionTh?: string | null
   descriptionMy?: string | null
+  descriptionVi?: string | null
+  descriptionFil?: string | null
+  descriptionIdn?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
   country: Prisma.CountryCreateNestedOneWithoutProcessStepsInput
@@ -358,8 +436,14 @@ export type CountryProcessStepUncheckedCreateInput = {
   description?: string | null
   titleTh?: string | null
   titleMy?: string | null
+  titleVi?: string | null
+  titleFil?: string | null
+  titleIdn?: string | null
   descriptionTh?: string | null
   descriptionMy?: string | null
+  descriptionVi?: string | null
+  descriptionFil?: string | null
+  descriptionIdn?: string | null
   countryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -372,8 +456,14 @@ export type CountryProcessStepUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   country?: Prisma.CountryUpdateOneRequiredWithoutProcessStepsNestedInput
@@ -386,8 +476,14 @@ export type CountryProcessStepUncheckedUpdateInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -400,8 +496,14 @@ export type CountryProcessStepCreateManyInput = {
   description?: string | null
   titleTh?: string | null
   titleMy?: string | null
+  titleVi?: string | null
+  titleFil?: string | null
+  titleIdn?: string | null
   descriptionTh?: string | null
   descriptionMy?: string | null
+  descriptionVi?: string | null
+  descriptionFil?: string | null
+  descriptionIdn?: string | null
   countryId: string
   createdAt?: Date | string
   updatedAt?: Date | string
@@ -414,8 +516,14 @@ export type CountryProcessStepUpdateManyMutationInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -427,8 +535,14 @@ export type CountryProcessStepUncheckedUpdateManyInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   countryId?: Prisma.StringFieldUpdateOperationsInput | string
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
@@ -456,8 +570,14 @@ export type CountryProcessStepCountOrderByAggregateInput = {
   description?: Prisma.SortOrder
   titleTh?: Prisma.SortOrder
   titleMy?: Prisma.SortOrder
+  titleVi?: Prisma.SortOrder
+  titleFil?: Prisma.SortOrder
+  titleIdn?: Prisma.SortOrder
   descriptionTh?: Prisma.SortOrder
   descriptionMy?: Prisma.SortOrder
+  descriptionVi?: Prisma.SortOrder
+  descriptionFil?: Prisma.SortOrder
+  descriptionIdn?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -474,8 +594,14 @@ export type CountryProcessStepMaxOrderByAggregateInput = {
   description?: Prisma.SortOrder
   titleTh?: Prisma.SortOrder
   titleMy?: Prisma.SortOrder
+  titleVi?: Prisma.SortOrder
+  titleFil?: Prisma.SortOrder
+  titleIdn?: Prisma.SortOrder
   descriptionTh?: Prisma.SortOrder
   descriptionMy?: Prisma.SortOrder
+  descriptionVi?: Prisma.SortOrder
+  descriptionFil?: Prisma.SortOrder
+  descriptionIdn?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -488,8 +614,14 @@ export type CountryProcessStepMinOrderByAggregateInput = {
   description?: Prisma.SortOrder
   titleTh?: Prisma.SortOrder
   titleMy?: Prisma.SortOrder
+  titleVi?: Prisma.SortOrder
+  titleFil?: Prisma.SortOrder
+  titleIdn?: Prisma.SortOrder
   descriptionTh?: Prisma.SortOrder
   descriptionMy?: Prisma.SortOrder
+  descriptionVi?: Prisma.SortOrder
+  descriptionFil?: Prisma.SortOrder
+  descriptionIdn?: Prisma.SortOrder
   countryId?: Prisma.SortOrder
   createdAt?: Prisma.SortOrder
   updatedAt?: Prisma.SortOrder
@@ -548,8 +680,14 @@ export type CountryProcessStepCreateWithoutCountryInput = {
   description?: string | null
   titleTh?: string | null
   titleMy?: string | null
+  titleVi?: string | null
+  titleFil?: string | null
+  titleIdn?: string | null
   descriptionTh?: string | null
   descriptionMy?: string | null
+  descriptionVi?: string | null
+  descriptionFil?: string | null
+  descriptionIdn?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -561,8 +699,14 @@ export type CountryProcessStepUncheckedCreateWithoutCountryInput = {
   description?: string | null
   titleTh?: string | null
   titleMy?: string | null
+  titleVi?: string | null
+  titleFil?: string | null
+  titleIdn?: string | null
   descriptionTh?: string | null
   descriptionMy?: string | null
+  descriptionVi?: string | null
+  descriptionFil?: string | null
+  descriptionIdn?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -603,8 +747,14 @@ export type CountryProcessStepScalarWhereInput = {
   description?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   titleTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   titleMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleVi?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleFil?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  titleIdn?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   descriptionTh?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   descriptionMy?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionVi?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionFil?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
+  descriptionIdn?: Prisma.StringNullableFilter<"CountryProcessStep"> | string | null
   countryId?: Prisma.StringFilter<"CountryProcessStep"> | string
   createdAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
   updatedAt?: Prisma.DateTimeFilter<"CountryProcessStep"> | Date | string
@@ -617,8 +767,14 @@ export type CountryProcessStepCreateManyCountryInput = {
   description?: string | null
   titleTh?: string | null
   titleMy?: string | null
+  titleVi?: string | null
+  titleFil?: string | null
+  titleIdn?: string | null
   descriptionTh?: string | null
   descriptionMy?: string | null
+  descriptionVi?: string | null
+  descriptionFil?: string | null
+  descriptionIdn?: string | null
   createdAt?: Date | string
   updatedAt?: Date | string
 }
@@ -630,8 +786,14 @@ export type CountryProcessStepUpdateWithoutCountryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -643,8 +805,14 @@ export type CountryProcessStepUncheckedUpdateWithoutCountryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -656,8 +824,14 @@ export type CountryProcessStepUncheckedUpdateManyWithoutCountryInput = {
   description?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   titleMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  titleIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionTh?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   descriptionMy?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionVi?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionFil?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
+  descriptionIdn?: Prisma.NullableStringFieldUpdateOperationsInput | string | null
   createdAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
   updatedAt?: Prisma.DateTimeFieldUpdateOperationsInput | Date | string
 }
@@ -671,8 +845,14 @@ export type CountryProcessStepSelect<ExtArgs extends runtime.Types.Extensions.In
   description?: boolean
   titleTh?: boolean
   titleMy?: boolean
+  titleVi?: boolean
+  titleFil?: boolean
+  titleIdn?: boolean
   descriptionTh?: boolean
   descriptionMy?: boolean
+  descriptionVi?: boolean
+  descriptionFil?: boolean
+  descriptionIdn?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -686,8 +866,14 @@ export type CountryProcessStepSelectCreateManyAndReturn<ExtArgs extends runtime.
   description?: boolean
   titleTh?: boolean
   titleMy?: boolean
+  titleVi?: boolean
+  titleFil?: boolean
+  titleIdn?: boolean
   descriptionTh?: boolean
   descriptionMy?: boolean
+  descriptionVi?: boolean
+  descriptionFil?: boolean
+  descriptionIdn?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -701,8 +887,14 @@ export type CountryProcessStepSelectUpdateManyAndReturn<ExtArgs extends runtime.
   description?: boolean
   titleTh?: boolean
   titleMy?: boolean
+  titleVi?: boolean
+  titleFil?: boolean
+  titleIdn?: boolean
   descriptionTh?: boolean
   descriptionMy?: boolean
+  descriptionVi?: boolean
+  descriptionFil?: boolean
+  descriptionIdn?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
@@ -716,14 +908,20 @@ export type CountryProcessStepSelectScalar = {
   description?: boolean
   titleTh?: boolean
   titleMy?: boolean
+  titleVi?: boolean
+  titleFil?: boolean
+  titleIdn?: boolean
   descriptionTh?: boolean
   descriptionMy?: boolean
+  descriptionVi?: boolean
+  descriptionFil?: boolean
+  descriptionIdn?: boolean
   countryId?: boolean
   createdAt?: boolean
   updatedAt?: boolean
 }
 
-export type CountryProcessStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stepNumber" | "title" | "description" | "titleTh" | "titleMy" | "descriptionTh" | "descriptionMy" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryProcessStep"]>
+export type CountryProcessStepOmit<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = runtime.Types.Extensions.GetOmit<"id" | "stepNumber" | "title" | "description" | "titleTh" | "titleMy" | "titleVi" | "titleFil" | "titleIdn" | "descriptionTh" | "descriptionMy" | "descriptionVi" | "descriptionFil" | "descriptionIdn" | "countryId" | "createdAt" | "updatedAt", ExtArgs["result"]["countryProcessStep"]>
 export type CountryProcessStepInclude<ExtArgs extends runtime.Types.Extensions.InternalArgs = runtime.Types.Extensions.DefaultArgs> = {
   country?: boolean | Prisma.CountryDefaultArgs<ExtArgs>
 }
@@ -746,8 +944,14 @@ export type $CountryProcessStepPayload<ExtArgs extends runtime.Types.Extensions.
     description: string | null
     titleTh: string | null
     titleMy: string | null
+    titleVi: string | null
+    titleFil: string | null
+    titleIdn: string | null
     descriptionTh: string | null
     descriptionMy: string | null
+    descriptionVi: string | null
+    descriptionFil: string | null
+    descriptionIdn: string | null
     countryId: string
     createdAt: Date
     updatedAt: Date
@@ -1181,8 +1385,14 @@ export interface CountryProcessStepFieldRefs {
   readonly description: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly titleTh: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly titleMy: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly titleVi: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly titleFil: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly titleIdn: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly descriptionTh: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly descriptionMy: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly descriptionVi: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly descriptionFil: Prisma.FieldRef<"CountryProcessStep", 'String'>
+  readonly descriptionIdn: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly countryId: Prisma.FieldRef<"CountryProcessStep", 'String'>
   readonly createdAt: Prisma.FieldRef<"CountryProcessStep", 'DateTime'>
   readonly updatedAt: Prisma.FieldRef<"CountryProcessStep", 'DateTime'>

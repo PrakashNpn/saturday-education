@@ -1,9 +1,10 @@
 'use client'
 
 import { useEffect, useMemo, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { motion, useReducedMotion } from 'framer-motion'
 import { CAREERS, getCareerBySlug } from '@/shared/lib/careers/catalog'
+import { useCareerText } from '@/shared/lib/careers/useCareerText'
 import { catalogCareerToMaster, deriveHorizonView } from '@/shared/lib/careers/outlookMaster'
 import { SearchableDropdown, CustomDropdown, type DropdownOption } from '@/shared/components/common'
 import type { Horizon } from '@/shared/lib/careers/outlookMaster'
@@ -29,6 +30,8 @@ const EASE = [0, 0, 0.2, 1] as const
 
 export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
   const t = useTranslations('careerAssessment.outlook')
+  const text = useCareerText()
+  const locale = useLocale()
   const prefersReducedMotion = useReducedMotion()
   const [query, setQuery] = useState(DEFAULT_CAREER)
   const [horizon, setHorizon] = useState<Horizon>('10')
@@ -52,12 +55,14 @@ export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
     }
   }, [])
 
+  // The value stays the English title (it is the lookup key for the catalog and
+  // the AI cache); only the label is localised, and the list sorts by it.
   const careerOptions = useMemo<DropdownOption[]>(
     () =>
-      CAREERS.map((c) => ({ value: c.title, label: c.title })).sort((a, b) =>
-        a.label.localeCompare(b.label),
+      CAREERS.map((c) => ({ value: c.title, label: text.title(c.slug, c.title) })).sort((a, b) =>
+        a.label.localeCompare(b.label, locale),
       ),
-    [],
+    [text, locale],
   )
 
   const horizonOptions: DropdownOption[] = [
@@ -105,6 +110,7 @@ export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
                     options={careerOptions}
                     onChange={setQuery}
                     allowCustom
+                    customOptionLabel={(q) => t('getOutlookFor', { query: q })}
                     placeholder={t('careerPlaceholder')}
                     searchPlaceholder={t('careerSearchPlaceholder')}
                     noResultsText={t('careerNoResults')}
@@ -155,6 +161,7 @@ export function CareerOutlookExplorer({ onStart }: { onStart: () => void }) {
                       options={careerOptions}
                       onChange={setQuery}
                       allowCustom
+                      customOptionLabel={(q) => t('getOutlookFor', { query: q })}
                       placeholder={t('careerPlaceholder')}
                       searchPlaceholder={t('careerSearchPlaceholder')}
                       noResultsText={t('careerNoResults')}

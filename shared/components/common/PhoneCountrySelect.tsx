@@ -2,6 +2,7 @@
 
 import { useEffect, useMemo, useRef, useState } from 'react'
 import { createPortal } from 'react-dom'
+import { useTranslations } from 'next-intl'
 import { ChevronDown, Search } from 'lucide-react'
 import * as Flags from 'country-flag-icons/react/3x2'
 
@@ -64,6 +65,7 @@ export function PhoneCountrySelect({
   readOnly,
   'aria-label': ariaLabel,
 }: Props) {
+  const t = useTranslations('phoneSelect')
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [place, setPlace] = useState<Placement | null>(null)
@@ -176,7 +178,7 @@ export function PhoneCountrySelect({
                   type="text"
                   value={query}
                   onChange={(e) => setQuery(e.target.value)}
-                  placeholder="Search countries"
+                  placeholder={t('searchPlaceholder')}
                   className="w-full rounded-[4px] border border-stroke py-1.5 pr-3 pl-8 text-label outline-none focus:border-action focus:ring-2 focus:ring-action/15"
                 />
               </div>
@@ -201,7 +203,7 @@ export function PhoneCountrySelect({
                 </button>
               ))}
               {filtered.length === 0 && (
-                <p className="px-3.5 py-3 text-center text-label text-muted-text">No countries found</p>
+                <p className="px-3.5 py-3 text-center text-label text-muted-text">{t('noResults')}</p>
               )}
             </div>
           </div>,

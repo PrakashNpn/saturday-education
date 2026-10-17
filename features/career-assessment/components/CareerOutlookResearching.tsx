@@ -1,18 +1,14 @@
 'use client'
 
 import { useEffect, useState, type CSSProperties } from 'react'
+import { useTranslations } from 'next-intl'
 import { motion, AnimatePresence } from 'framer-motion'
 
 // Premium "researching" state: a shimmering skeleton in the SHAPE of the real
 // report, so the wait previews the result and morphs cleanly into it rather than
 // rearranging when the data lands. Every block below sits at the same size and
 // position as its counterpart in ModalBody.
-const STEPS = [
-  'Scanning labour-market signals',
-  'Projecting demand over the next decade',
-  'Mapping the skills that matter',
-  'Compiling the outlook',
-]
+const STEP_KEYS = ['researchStep1', 'researchStep2', 'researchStep3', 'researchStep4'] as const
 
 /** Six bars, matching the six points a derived horizon always returns. */
 const BAR_HEIGHTS = [42, 58, 50, 70, 62, 82]
@@ -44,9 +40,10 @@ function PanelHead() {
 }
 
 export function CareerOutlookResearching({ query }: { query: string }) {
+  const t = useTranslations('careerAssessment.outlook')
   const [step, setStep] = useState(0)
   useEffect(() => {
-    const id = window.setInterval(() => setStep((s) => (s + 1) % STEPS.length), 1500)
+    const id = window.setInterval(() => setStep((s) => (s + 1) % STEP_KEYS.length), 1500)
     return () => window.clearInterval(id)
   }, [])
 
@@ -65,7 +62,7 @@ export function CareerOutlookResearching({ query }: { query: string }) {
         <div>
           <span className="inline-flex items-center gap-1.5 rounded-full bg-tint px-2 py-0.5 text-min font-medium tracking-wider text-action uppercase">
             <span className="size-1.5 animate-pulse rounded-full bg-action" />
-            Researching
+            {t('researching')}
           </span>
           <h2 className="mt-1.5 truncate pr-10 text-title leading-tight font-medium tracking-tight text-primary-text capitalize">
             {query}
@@ -82,7 +79,7 @@ export function CareerOutlookResearching({ query }: { query: string }) {
                 transition={{ duration: 0.3 }}
                 className="text-body font-normal text-secondary-text"
               >
-                {STEPS[step]}…
+                {t(STEP_KEYS[step])}…
               </motion.p>
             </AnimatePresence>
           </div>

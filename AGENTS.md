@@ -29,11 +29,21 @@ ALWAYS use: import { Link, useRouter, redirect, usePathname } from "@/i18n/navig
 ## i18n Routing (localePrefix: 'as-needed')
 - English = / (no prefix) — /en auto-redirects to /
 - Thai = /th prefix
-- Burmese = /my prefix
+- Burmese = /my prefix (hidden from the language switcher)
+- Vietnamese = /vi, Filipino = /fil, Indonesian = /id (code `id`, but DB columns use
+  the suffix `_idn`; Prisma fields `*Vi`, `*Fil`, `*Idn`)
+- i18n/request.ts deep-merges the locale file over `messages/en.json`, so a missing
+  or empty key falls back to English instead of showing a raw key
+- DB translations: nullable `*_th/_my/_vi/_fil/_idn` columns, `localize()` in
+  destinationService falls back to English. New columns must be created by running
+  prisma/migrations/20261016090000_add_vi_fil_idn_translations/migration.sql in
+  Supabase BEFORE deploying code that selects them (never run it from the agent)
+- Numbers: shared/utils/formatNumber.ts (vi-VN, id-ID, fil-PH; others en-US)
 - Config in: i18n/routing.ts (defineRouting), i18n/navigation.ts (createNavigation)
 - i18n/request.ts (getRequestConfig) — REQUIRED, next.config.ts plugin points here directly
 - app/layout.tsx = minimal pass-through (NO html/body) — html/body is in [locale]/layout.tsx
-- Fonts: Noto Sans (all scripts — covers Latin, Thai, Myanmar, Arabic)
+- Fonts: Noto Sans (Latin) plus a second Noto Sans Vietnamese-subset instance
+  (`font-vietnamese`, preload off) for `vi`; Thai and Myanmar use their own Noto fonts
 
 ## Zod v4 Import
 import * as z from "zod"   ← NOT import { z } from "zod"
@@ -151,8 +161,13 @@ look, `'field'` matches the new form controls) and `FallbackImage`.
   skeletons, the error page, and cookie consent. Pending: chat widget, legal
   pages
 - Phase 5 🔄 Admin dashboard — countries and universities CRUD, plus login
-- Phase 6 ⬜ Internationalization — routing and config are done, but roughly 73%
-  of strings are still English in both `th` and `my`
+- Phase 6 🔄 Internationalization — UI messages are complete in all five non-English
+  locales (`th`, `my`, `vi`, `fil`, `id`), all 22 country pages are translated, and the
+  career outlook catalog is translated for th/vi/fil/id, and for my as summaries and market notes only (career names, skills and labels stay English in the Burmese code-switch register); typed careers for all five via
+  an AI call cached in the cache JSON). Still English by design: legal pages, the PDF
+  report, archetype/chart labels, the 150 assessment questions, the root 404. Not done: country stats strings
+  (tuition range; work rights is done), university/program content (not planned),
+  native-speaker review
 - Phase 7 ⬜ Hardening and launch
 
 A blog, a student portal and a public Universities section were previously

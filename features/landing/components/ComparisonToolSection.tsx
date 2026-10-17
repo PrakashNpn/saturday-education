@@ -1,7 +1,8 @@
 'use client'
 
 import { useCallback, useEffect, useId, useMemo, useRef, useState } from 'react'
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
+import { formatNumber } from '@/shared/utils/formatNumber'
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import type { ComparisonUniversity } from '@/features/landing/services/comparison-service'
 
@@ -32,7 +33,6 @@ const USD_PER_UNIT: Record<string, number> = {
   VND: 0.000039,
 }
 
-const group = (value: number) => Math.round(value).toLocaleString('en-US')
 
 const EASE = [0, 0, 0.2, 1] as const
 
@@ -188,6 +188,8 @@ function UniversityDetails({
   onToggleCurrency: () => void
 }) {
   const t = useTranslations('Landing.comparisonTool')
+  const locale = useLocale()
+  const group = (value: number) => formatNumber(Math.round(value), locale)
   const prefersReducedMotion = useReducedMotion()
   const { tuition } = university
 
@@ -316,6 +318,7 @@ function AdvisorSkeleton() {
 
 export default function ComparisonToolSection({ universities }: Props) {
   const t = useTranslations('Landing.comparisonTool')
+  const locale = useLocale()
 
   const [leftId, setLeftId] = useState(universities[0]?.id ?? '')
   const [rightId, setRightId] = useState(universities[1]?.id ?? '')
@@ -394,7 +397,7 @@ export default function ComparisonToolSection({ universities }: Props) {
       const response = await fetch('/api/comparison-summary', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ uni1, uni2 }),
+        body: JSON.stringify({ uni1, uni2, locale }),
         signal: controller.signal,
       })
       if (!response.ok || !response.body) throw new Error('request failed')
@@ -420,7 +423,7 @@ export default function ComparisonToolSection({ universities }: Props) {
     } finally {
       if (!controller.signal.aborted) setLoading(false)
     }
-  }, [leftId, rightId, universities])
+  }, [leftId, rightId, universities, locale])
 
   // Changing either university invalidates whatever is on screen. If the panel
   // is open the analysis is re-run; if it is closed the stale result is simply
