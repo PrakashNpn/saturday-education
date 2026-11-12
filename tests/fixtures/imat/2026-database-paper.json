@@ -1,0 +1,1843 @@
+{
+  "source": {
+    "url": "https://accessoprogrammato.mur.gov.it/compiti/CompitoInglese2026.pdf"
+  },
+  "paper": {
+    "sections": [
+      {
+        "id": "reading",
+        "count": 4
+      },
+      {
+        "id": "reasoning",
+        "count": 5
+      },
+      {
+        "id": "biology",
+        "count": 23
+      },
+      {
+        "id": "chemistry",
+        "count": 15
+      },
+      {
+        "id": "physicsMath",
+        "count": 13
+      }
+    ]
+  },
+  "questions": [
+    {
+      "stableKey": "imat-2026-q01",
+      "originalNumber": 1,
+      "sourcePage": 1,
+      "section": "reading",
+      "prompt": "According to the text, the phenomenon of fake news:",
+      "passage": {
+        "stableKey": "imat-2026-passage-01",
+        "text": "Fake news is not a new problem in communication. Deceptive communication has always existed: after the first sin recounted in the Bible, Adam and Eve clumsily try to hide their transgression from God; soon afterwards, Cain once again tries to deceive God about the murder of his brother Abel. The insightful scholar Gregory Bateson (1972; Italian trans. 1976, pp. 160–161) observed that animals communicate with a naturalness and innocence that human beings have lost, since human behaviour \"is corrupted by deceit — even self-deceit — by purpose, and by self-consciousness.” The capacity to lie is therefore bound up with the superior cognitive abilities of human beings and presupposes a high degree of awareness and reflexivity. This makes human communication immensely richer and more multifaceted than animal communication, but at the same time more demanding, opaque, duplicitous, and exposed to the risk of domination and deception.\n\nTracing back through the history of fake news, the historian Robert Darnton (2017) assembled a selection of cases ranging from the early Middle Ages to eighteenth-century France, among which the malicious rumours that shaped the reputation and fate of Queen Marie Antoinette are particularly striking. Again with reference to France, the historian of the Revolution Georges Lefebvre devoted a famous book to the phenomenon of the “Great Fear”, which spread with lightning speed through certain rural regions in the summer of 1789 on the basis of unchecked rumours about an aristocratic conspiracy, an imminent foreign invasion, and bands of brigands who were killing people and destroying crops; these rumours led the peasants to arm themselves and rise up against the aristocracy (1932).\n\nBut all ages have had their share of fake news, including important cases, such as the forged Donation of Constantine, a medieval apocryphal document used to legitimise the temporal power of the Church and only debunked many centuries later, in 1517, by the humanist Lorenzo Valla on the basis of its historical and linguistic inconsistencies.",
+        "attribution": "Translated from G. Gili e G. Maddalena, Post-verità e fake news: radici, significati attuali, inattesi protagonisti e probabili vittime, in Media Education. Studi, ricerche e buone pratiche, 9 (2018), pp. 1-16"
+      },
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Has always existed, albeit in different forms"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Is the result of a historical process that began in the Middle Ages"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Is due to the human capacity to always distinguish the truth"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Acquired a different role in the modern age, because only in the modern age have people come to understand that human beings and animals are distinct"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Has deep historical roots, but technically began in 1789"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q02",
+      "originalNumber": 2,
+      "sourcePage": 2,
+      "section": "reading",
+      "prompt": "In which of the following does Aleramo identify the reason why mothers’ self-sacrifice is perpetuated?",
+      "passage": {
+        "stableKey": "imat-2026-passage-02",
+        "text": "Read the text and answer the question only on the basis of the information it contains explicitly or implicitly and not on what you already know about the topic. Why is it that we worship sacrifice in a mother? Where did this inhuman idea of maternal self-immolation come from? From mother to daughter, for centuries, servitude has been handed on. It is a monstrous chain. At some point in life, all of us become conscious of all that the woman who bore us did for our sake; and with that consciousness comes the remorse of not having adequately repaid her total sacrifice. Then we lavish upon our children all that we did not give our mothers, denying ourselves and offering a fresh example of mortification, of self-annihilation. If only, once and for all, that fatal chain were broken, and a mother did not suppress the woman within herself, and a child were to behold in her an example of dignity. Then one would begin to understand that the duty of parents begins long before the birth of their children, and that their responsibility must be felt beforehand, precisely at that moment when selfish life presses most imperiously, most seductively.",
+        "attribution": "Translated from S. Aleramo, Una Donna, Feltrinelli, Milano, 2002"
+      },
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "From one generation to the next, women hand down a condition of servitude associated with motherhood"
+        },
+        {
+          "sourceKey": "B",
+          "text": "From one generation to the next, women deny their own children and offer an example of mortification"
+        },
+        {
+          "sourceKey": "C",
+          "text": "From one generation to the next, a condition is handed down that leads daughters to rebel against their mothers"
+        },
+        {
+          "sourceKey": "D",
+          "text": "From one generation to the next, children learn from their mothers an example of dignity"
+        },
+        {
+          "sourceKey": "E",
+          "text": "From one generation to the next, parental responsibility, especially that of mothers, begins before a child is born"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q03",
+      "originalNumber": 3,
+      "sourcePage": 2,
+      "section": "reading",
+      "prompt": "The polycentric character of Italian culture is primarily due to:",
+      "passage": {
+        "stableKey": "imat-2026-passage-03",
+        "text": "Read the text and answer the question only on the basis of the information it contains explicitly or implicitly and not on what you already know about the topic. “[…] The enduring European pre-eminence of Italian literature has coincided with its ability to act as a crossroads of cultures. We forget this too often, just as we forget the fact that the very first book printed in Arabic type was produced not in Syria or Egypt, but in Rome in 1514. […] It is the cities that have been the pivot around which the history of our country has turned, and not only its literary history. If books are readily written in villas, it is in the bustle of urban centres that people meet and ideas spread.”",
+        "attribution": "Translated from Luzzatto, Pedullà, Atlante della letteratura italiana, Introduzione, Einaudi, Torino, 2010-2012"
+      },
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The flourishing of cities, where people meet and ideas spread."
+        },
+        {
+          "sourceKey": "B",
+          "text": "both the flourishing of cities and the tranquillity of villas outside the city"
+        },
+        {
+          "sourceKey": "C",
+          "text": "the flourishing of cities, where people meet and books are written"
+        },
+        {
+          "sourceKey": "D",
+          "text": "the possibility of writing in peace in order to sustain literary life in the cities"
+        },
+        {
+          "sourceKey": "E",
+          "text": "the spread of ideas between town and countryside"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q04",
+      "originalNumber": 4,
+      "sourcePage": 2,
+      "section": "reading",
+      "prompt": "The economic system in which digital technologies, the Internet and ICT (nformation and Communication Technologies) are central to production, distribution and exchange is commonly referred to as:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The digital economy"
+        },
+        {
+          "sourceKey": "B",
+          "text": "The technological economy"
+        },
+        {
+          "sourceKey": "C",
+          "text": "The global economy"
+        },
+        {
+          "sourceKey": "D",
+          "text": "The big data economy"
+        },
+        {
+          "sourceKey": "E",
+          "text": "The mobile systems economy"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q05",
+      "originalNumber": 5,
+      "sourcePage": 3,
+      "section": "reasoning",
+      "prompt": "In the sequence 1, 2, 5, x, 29, 70, 169, …, what is the value of x?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "12"
+        },
+        {
+          "sourceKey": "B",
+          "text": "24"
+        },
+        {
+          "sourceKey": "C",
+          "text": "8"
+        },
+        {
+          "sourceKey": "D",
+          "text": "16"
+        },
+        {
+          "sourceKey": "E",
+          "text": "11"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q06",
+      "originalNumber": 6,
+      "sourcePage": 3,
+      "section": "reasoning",
+      "prompt": "Which of the following is a true logical proposition?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "A hexagon has nine diagonals"
+        },
+        {
+          "sourceKey": "B",
+          "text": "A triangle has two diagonals"
+        },
+        {
+          "sourceKey": "C",
+          "text": "A square has three diagonals"
+        },
+        {
+          "sourceKey": "D",
+          "text": "A pentagon has six diagonals"
+        },
+        {
+          "sourceKey": "E",
+          "text": "An octagon has eighteen diagonals"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q07",
+      "originalNumber": 7,
+      "sourcePage": 3,
+      "section": "reasoning",
+      "prompt": "If s = 3t and t = 9u then:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "u = s/27"
+        },
+        {
+          "sourceKey": "B",
+          "text": "s = 18u"
+        },
+        {
+          "sourceKey": "C",
+          "text": "u = 27s"
+        },
+        {
+          "sourceKey": "D",
+          "text": "s = 3u"
+        },
+        {
+          "sourceKey": "E",
+          "text": "t = 27s"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q08",
+      "originalNumber": 8,
+      "sourcePage": 3,
+      "section": "reasoning",
+      "prompt": "20% of a company's employees work part-time. The rest work full-time. At the end of the year, 20% of the full-time employees receive a bonus. If 48 employees received the bonus, how many employees does the company have?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "300"
+        },
+        {
+          "sourceKey": "B",
+          "text": "600"
+        },
+        {
+          "sourceKey": "C",
+          "text": "1200"
+        },
+        {
+          "sourceKey": "D",
+          "text": "150"
+        },
+        {
+          "sourceKey": "E",
+          "text": "96"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q09",
+      "originalNumber": 9,
+      "sourcePage": 3,
+      "section": "reasoning",
+      "prompt": "Based on the statements: “Some felines are carnivores. Carnivores eat meat.” Which of the following statements is correct?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Some animals are carnivores"
+        },
+        {
+          "sourceKey": "B",
+          "text": "All animals eat meat"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Not all animals eat meat"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Meat is the favourite food of animals"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Animals cannot survive without meat"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q10",
+      "originalNumber": 10,
+      "sourcePage": 3,
+      "section": "biology",
+      "prompt": "What is the main function of red blood cells in the blood?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To transport oxygen to the tissues"
+        },
+        {
+          "sourceKey": "B",
+          "text": "To regulate body temperature"
+        },
+        {
+          "sourceKey": "C",
+          "text": "To fight infections"
+        },
+        {
+          "sourceKey": "D",
+          "text": "To clot the blood"
+        },
+        {
+          "sourceKey": "E",
+          "text": "To transport CO₂ to the liver"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q11",
+      "originalNumber": 11,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "Which structure of the respiratory system is the primary site of gas exchange?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Alveoli"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Trachea"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Diaphragm"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Aorta"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Left atrium of the heart"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q12",
+      "originalNumber": 12,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "What is the primary function of flagella in prokaryotic cells?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To allow the cell to move"
+        },
+        {
+          "sourceKey": "B",
+          "text": "To help the cell adhere to other cells"
+        },
+        {
+          "sourceKey": "C",
+          "text": "To facilitate the exchange of genetic material between cells"
+        },
+        {
+          "sourceKey": "D",
+          "text": "To transport materials within the cell"
+        },
+        {
+          "sourceKey": "E",
+          "text": "To aid in cell division"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q13",
+      "originalNumber": 13,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "What is the primary digestive function of the stomach?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To break down food using enzymes and acids"
+        },
+        {
+          "sourceKey": "B",
+          "text": "To absorb nutrients"
+        },
+        {
+          "sourceKey": "C",
+          "text": "To filter toxins"
+        },
+        {
+          "sourceKey": "D",
+          "text": "To produce bile"
+        },
+        {
+          "sourceKey": "E",
+          "text": "To transport food to the large intestine"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q14",
+      "originalNumber": 14,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "What is the primary site of protein translation in prokaryotic cells?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "On ribosomes in the cytoplasm"
+        },
+        {
+          "sourceKey": "B",
+          "text": "On the plasma membrane"
+        },
+        {
+          "sourceKey": "C",
+          "text": "In the nucleus"
+        },
+        {
+          "sourceKey": "D",
+          "text": "In the flagellum"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Between the plasma membrane and the cell wall"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q15",
+      "originalNumber": 15,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "Which main components make up the plasma membrane?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Phospholipids and proteins"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Carbohydrates and DNA"
+        },
+        {
+          "sourceKey": "C",
+          "text": "RNA and amino acids"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Fatty acids and sugars"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Lipids and glycogen"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q16",
+      "originalNumber": 16,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "What is the primary function of channel proteins in the cell membrane?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To permit specific substances to pass through the membrane"
+        },
+        {
+          "sourceKey": "B",
+          "text": "To store energy for active transport"
+        },
+        {
+          "sourceKey": "C",
+          "text": "To catalyse protein synthesis"
+        },
+        {
+          "sourceKey": "D",
+          "text": "To regulate membrane fluidity"
+        },
+        {
+          "sourceKey": "E",
+          "text": "To transfer DNA out of the cell"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q17",
+      "originalNumber": 17,
+      "sourcePage": 4,
+      "section": "biology",
+      "prompt": "What is the primary function of a tendon?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To connect muscles to bones"
+        },
+        {
+          "sourceKey": "B",
+          "text": "To protect the heart"
+        },
+        {
+          "sourceKey": "C",
+          "text": "To transmit nervous impulses to the muscle"
+        },
+        {
+          "sourceKey": "D",
+          "text": "To store energy for the muscle"
+        },
+        {
+          "sourceKey": "E",
+          "text": "To control the production of actin"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q18",
+      "originalNumber": 18,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "Restriction enzymes are:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Endonucleases"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Isomerases"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Oxidoreductases"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Ligases"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Transferases"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q19",
+      "originalNumber": 19,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "A bacterium is said to be transformed when:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "It has taken up foreign DNA directly from the environment"
+        },
+        {
+          "sourceKey": "B",
+          "text": "It is engulfed by a macrophage through phagocytosis"
+        },
+        {
+          "sourceKey": "C",
+          "text": "It has a cell wall similar to that of plant cells"
+        },
+        {
+          "sourceKey": "D",
+          "text": "It is able to grow under anaerobic conditions"
+        },
+        {
+          "sourceKey": "E",
+          "text": "It undergoes gene mutations caused by mutagens"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q20",
+      "originalNumber": 20,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "The epiglottis is primarily composed of:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Cartilage"
+        },
+        {
+          "sourceKey": "B",
+          "text": "A gland"
+        },
+        {
+          "sourceKey": "C",
+          "text": "A nerve"
+        },
+        {
+          "sourceKey": "D",
+          "text": "A vertebra"
+        },
+        {
+          "sourceKey": "E",
+          "text": "A muscle"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q21",
+      "originalNumber": 21,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "Which hormone primarily stimulates uterine contractions during labour?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Oxytocin"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Thyrotropin"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Luteinising hormone"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Insulin"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Follicle-stimulating hormone"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q22",
+      "originalNumber": 22,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "What is the primary role of carbohydrates in cellular catabolism?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "They are broken down to produce energy for cellular activities"
+        },
+        {
+          "sourceKey": "B",
+          "text": "They are used exclusively for protein synthesis"
+        },
+        {
+          "sourceKey": "C",
+          "text": "They are used only as an energy reserve"
+        },
+        {
+          "sourceKey": "D",
+          "text": "They are not involved in energy metabolism"
+        },
+        {
+          "sourceKey": "E",
+          "text": "They are converted into fats for storage"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q23",
+      "originalNumber": 23,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "Which of the following statements about metabolism is true?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "It includes both catabolism and anabolism"
+        },
+        {
+          "sourceKey": "B",
+          "text": "It is a process that occurs only in animal cells"
+        },
+        {
+          "sourceKey": "C",
+          "text": "It does not involve chemical reactions"
+        },
+        {
+          "sourceKey": "D",
+          "text": "It focuses only on the synthesis of molecules"
+        },
+        {
+          "sourceKey": "E",
+          "text": "It occurs only in the presence of sunlight"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q24",
+      "originalNumber": 24,
+      "sourcePage": 5,
+      "section": "biology",
+      "prompt": "What is the main function of enzymes in metabolic reactions?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To speed up reactions without being consumed"
+        },
+        {
+          "sourceKey": "B",
+          "text": "To increase the reaction temperature"
+        },
+        {
+          "sourceKey": "C",
+          "text": "To be transformed into substrates"
+        },
+        {
+          "sourceKey": "D",
+          "text": "To provide chemical energy for the reactions"
+        },
+        {
+          "sourceKey": "E",
+          "text": "To be consumed during the process"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q25",
+      "originalNumber": 25,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Photosynthesis takes place in which cell organelle?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Chloroplast"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Mitochondrion"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Nucleus"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Ribosome"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Endoplasmic reticulum"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q26",
+      "originalNumber": 26,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Which organelles are the main site of cellular respiration in eukaryotic cells?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Mitochondria"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Chloroplasts"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Ribosomes"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Lysosomes"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Endoplasmic reticulum"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q27",
+      "originalNumber": 27,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Which of the following features distinguishes meiosis from mitosis?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The production of genetically diverse haploid cells"
+        },
+        {
+          "sourceKey": "B",
+          "text": "The production of cells is identical to the parent cell"
+        },
+        {
+          "sourceKey": "C",
+          "text": "It occurs only in unicellular organisms"
+        },
+        {
+          "sourceKey": "D",
+          "text": "It requires the use of microtubules"
+        },
+        {
+          "sourceKey": "E",
+          "text": "It occurs in somatic cells"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q28",
+      "originalNumber": 28,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Which of the following statements about the chromosomal theory of inheritance is true?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Genes are located on chromosomes"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Genes are found only in RNA"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Chromosomes do not contain genes"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Genes are independent of chromosomes"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Chromosome segregation does not occur during meiosis"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q29",
+      "originalNumber": 29,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Which technique was used by Rosalind Franklin to obtain images of DNA?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "X-ray crystallography"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Magnetic resonance imaging"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Electron microscopy"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Chromatography"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Electrophoresis"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q30",
+      "originalNumber": 30,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Which of the following statements correctly describes the structure of DNA?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "It has a double-stranded helical structure."
+        },
+        {
+          "sourceKey": "B",
+          "text": "It consists of a single chain of nucleotides"
+        },
+        {
+          "sourceKey": "C",
+          "text": "It has no hydrogen bonds between the bases"
+        },
+        {
+          "sourceKey": "D",
+          "text": "It contains only two nitrogenous bases"
+        },
+        {
+          "sourceKey": "E",
+          "text": "It is made up of three nucleotide strands"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q31",
+      "originalNumber": 31,
+      "sourcePage": 6,
+      "section": "biology",
+      "prompt": "Which of the following statements about the haemoglobin in patients with sickle-cell anaemia is true?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Their haemoglobin has a different structure from normal haemoglobin"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Their haemoglobin does not transport oxygen"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Their haemoglobin is identical to that found in all individuals"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Their haemoglobin is produced in greater quantities"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Their haemoglobin does not undergo mutations"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q32",
+      "originalNumber": 32,
+      "sourcePage": 7,
+      "section": "biology",
+      "prompt": "Which of the following statements about the structure of messenger RNA is true?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "mRNA consists of a single polynucleotide strand"
+        },
+        {
+          "sourceKey": "B",
+          "text": "mRNA consists of two polynucleotide strands"
+        },
+        {
+          "sourceKey": "C",
+          "text": "mRNA contains the nitrogenous base thymine"
+        },
+        {
+          "sourceKey": "D",
+          "text": "mRNA is longer than DNA"
+        },
+        {
+          "sourceKey": "E",
+          "text": "mRNA does not carry information for protein synthesis"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q33",
+      "originalNumber": 33,
+      "sourcePage": 7,
+      "section": "chemistry",
+      "prompt": "Which of the following statements about the Mg²⁺ ion is correct?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The ion has 8 electrons in its outermost electron shell"
+        },
+        {
+          "sourceKey": "B",
+          "text": "The Mg²⁺ ion has a larger radius than the Mg atom"
+        },
+        {
+          "sourceKey": "C",
+          "text": "The ion has two more electrons than the neutral atom"
+        },
+        {
+          "sourceKey": "D",
+          "text": "The two chemical species (the ion and the neutral atom) have the same number of protons, electrons, and neutrons"
+        },
+        {
+          "sourceKey": "E",
+          "text": "None of the other statements is correct"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q34",
+      "originalNumber": 34,
+      "sourcePage": 7,
+      "section": "chemistry",
+      "prompt": "Balance the following reaction equation: Cu + HNO₃ → Cu(NO₃)₂ + NO + H₂O",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "3, 8, 3, 2, 4"
+        },
+        {
+          "sourceKey": "B",
+          "text": "2, 6, 3, 2, 4"
+        },
+        {
+          "sourceKey": "C",
+          "text": "3, 8, 3, 2, 6"
+        },
+        {
+          "sourceKey": "D",
+          "text": "3, 8, 3, 1, 4"
+        },
+        {
+          "sourceKey": "E",
+          "text": "None of the other options is correct"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q35",
+      "originalNumber": 35,
+      "sourcePage": 7,
+      "section": "chemistry",
+      "prompt": "The rate law for the reaction A + B → C is:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "To be determined experimentally"
+        },
+        {
+          "sourceKey": "B",
+          "text": "v = k [A] [B]"
+        },
+        {
+          "sourceKey": "C",
+          "text": "v = k [C]"
+        },
+        {
+          "sourceKey": "D",
+          "text": "v = k [A] [B] / [C]"
+        },
+        {
+          "sourceKey": "E",
+          "text": "v = k [C] / ([A] [B])"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q36",
+      "originalNumber": 36,
+      "sourcePage": 7,
+      "section": "chemistry",
+      "prompt": "How many valence electrons does the Cl⁻ anion have?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "8"
+        },
+        {
+          "sourceKey": "B",
+          "text": "7"
+        },
+        {
+          "sourceKey": "C",
+          "text": "6"
+        },
+        {
+          "sourceKey": "D",
+          "text": "17"
+        },
+        {
+          "sourceKey": "E",
+          "text": "35"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q37",
+      "originalNumber": 37,
+      "sourcePage": 7,
+      "section": "chemistry",
+      "prompt": "When sodium bromide is dissolved in water, the result is:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "A neutral aqueous solution"
+        },
+        {
+          "sourceKey": "B",
+          "text": "A weakly acidic aqueous solution"
+        },
+        {
+          "sourceKey": "C",
+          "text": "A weakly basic aqueous solution"
+        },
+        {
+          "sourceKey": "D",
+          "text": "A strongly acidic aqueous solution"
+        },
+        {
+          "sourceKey": "E",
+          "text": "A strongly basic aqueous solution"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q38",
+      "originalNumber": 38,
+      "sourcePage": 7,
+      "section": "chemistry",
+      "prompt": "When sodium acetate is dissolved in water, the result is:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "A basic aqueous solution"
+        },
+        {
+          "sourceKey": "B",
+          "text": "An acidic aqueous solution"
+        },
+        {
+          "sourceKey": "C",
+          "text": "A neutral aqueous solution"
+        },
+        {
+          "sourceKey": "D",
+          "text": "An alcoholic solution"
+        },
+        {
+          "sourceKey": "E",
+          "text": "No solution is formed because it does not dissolve"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q39",
+      "originalNumber": 39,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "Balance the following redox equation: PbBr₂ + FeBr₃ → PbBr₄ + FeBr₂",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "PbBr₂ + 2 FeBr₃ → PbBr₄ + 2 FeBr₂"
+        },
+        {
+          "sourceKey": "B",
+          "text": "2 PbBr₂ + FeBr₃ → 2 PbBr₄ + FeBr₂"
+        },
+        {
+          "sourceKey": "C",
+          "text": "PbBr₂ + 3 FeBr₃ → PbBr₄ + 3 FeBr₂"
+        },
+        {
+          "sourceKey": "D",
+          "text": "3 PbBr₂ + FeBr₃ → 3 PbBr₄ + FeBr₂"
+        },
+        {
+          "sourceKey": "E",
+          "text": "2 PbBr₂ + 3 FeBr₃ → 2 PbBr₄ + 3 FeBr₂"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q40",
+      "originalNumber": 40,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "Balance the following disproportionation reaction: KIO₂ ⇌ KI + KIO₃",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "3 KIO₂ ⇌ KI + 2 KIO₃"
+        },
+        {
+          "sourceKey": "B",
+          "text": "3 KIO₂ ⇌ 2 KI + KIO₃"
+        },
+        {
+          "sourceKey": "C",
+          "text": "4 KIO₂ ⇌ 3 KI + KIO₃"
+        },
+        {
+          "sourceKey": "D",
+          "text": "4 KIO₂ ⇌ 2 KI + KIO₃"
+        },
+        {
+          "sourceKey": "E",
+          "text": "5 KIO₂ ⇌ 3 KI + 2 KIO₃"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q41",
+      "originalNumber": 41,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "HClO is:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "An oxyacid"
+        },
+        {
+          "sourceKey": "B",
+          "text": "An acidic oxide"
+        },
+        {
+          "sourceKey": "C",
+          "text": "A hydrohalic acid"
+        },
+        {
+          "sourceKey": "D",
+          "text": "An acidic hydroxide"
+        },
+        {
+          "sourceKey": "E",
+          "text": "An acid anhydride"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q42",
+      "originalNumber": 42,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "Substance A has a higher boiling point than Substance B if:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The intermolecular forces in A are stronger than those in B"
+        },
+        {
+          "sourceKey": "B",
+          "text": "The intermolecular forces in A are weaker than those in B"
+        },
+        {
+          "sourceKey": "C",
+          "text": "The intramolecular forces in A are stronger than those in B"
+        },
+        {
+          "sourceKey": "D",
+          "text": "The intramolecular forces in A are weaker than those in B"
+        },
+        {
+          "sourceKey": "E",
+          "text": "The intramolecular forces in A are stronger than those in B, but the intermolecular forces in A are weaker than those in B"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q43",
+      "originalNumber": 43,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "Pentanones are:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Ketones"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Lactones"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Alcohols"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Hydroxyketones"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Carboxylic acids"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q44",
+      "originalNumber": 44,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "Ethene is:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "An alkene"
+        },
+        {
+          "sourceKey": "B",
+          "text": "An alkyne"
+        },
+        {
+          "sourceKey": "C",
+          "text": "A diene"
+        },
+        {
+          "sourceKey": "D",
+          "text": "An alkenyne"
+        },
+        {
+          "sourceKey": "E",
+          "text": "A non-existent molecule"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q45",
+      "originalNumber": 45,
+      "sourcePage": 8,
+      "section": "chemistry",
+      "prompt": "C₃H₆O can be:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "An alcohol, an aldehyde, or a ketone"
+        },
+        {
+          "sourceKey": "B",
+          "text": "An alcohol or an aldehyde, but not a ketone"
+        },
+        {
+          "sourceKey": "C",
+          "text": "An alcohol or a ketone, but not an aldehyde"
+        },
+        {
+          "sourceKey": "D",
+          "text": "An aldehyde or a ketone, but not an alcohol"
+        },
+        {
+          "sourceKey": "E",
+          "text": "An alcohol, but neither an aldehyde nor a ketone"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q46",
+      "originalNumber": 46,
+      "sourcePage": 9,
+      "section": "chemistry",
+      "prompt": "For an ideal gas undergoing an isothermal process, what happens as the volume increases?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The pressure decreases in inverse proportion"
+        },
+        {
+          "sourceKey": "B",
+          "text": "The pressure decreases in direct proportion"
+        },
+        {
+          "sourceKey": "C",
+          "text": "The pressure increases in direct proportion"
+        },
+        {
+          "sourceKey": "D",
+          "text": "The temperature increases"
+        },
+        {
+          "sourceKey": "E",
+          "text": "The pressure remains unchanged"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q47",
+      "originalNumber": 47,
+      "sourcePage": 9,
+      "section": "chemistry",
+      "prompt": "In an exothermic reaction:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "The products have lower chemical potential energy than the reactants"
+        },
+        {
+          "sourceKey": "B",
+          "text": "The reactants have lower chemical potential energy than the products"
+        },
+        {
+          "sourceKey": "C",
+          "text": "The products have the same chemical potential energy as the reactants"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Heat is absorbed from the surroundings"
+        },
+        {
+          "sourceKey": "E",
+          "text": "The reaction rate is always very high"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q48",
+      "originalNumber": 48,
+      "sourcePage": 9,
+      "section": "physicsMath",
+      "prompt": "Which physical quantity measures how quickly a point particle changes its position over time?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Velocity"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Acceleration"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Centripetal acceleration"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Frequency"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Natural angular frequency"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q49",
+      "originalNumber": 49,
+      "sourcePage": 9,
+      "section": "physicsMath",
+      "prompt": "In which case of relative motion between two observers are Galilean transformations valid?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Uniform rectilinear motion of one observer relative to the other"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Uniformly accelerated rectilinear motion of one observer relative to the other"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Rotational motion of one observer relative to the other at constant angular velocity"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Combined rotational and translational motion of one observer relative to the other"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Non-uniform rectilinear motion of one observer relative to the other"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q50",
+      "originalNumber": 50,
+      "sourcePage": 9,
+      "section": "physicsMath",
+      "prompt": "What is the kinetic energy of an object of mass 20 kg moving at 36 km/h?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "1000 J"
+        },
+        {
+          "sourceKey": "B",
+          "text": "2000 J"
+        },
+        {
+          "sourceKey": "C",
+          "text": "2500 J"
+        },
+        {
+          "sourceKey": "D",
+          "text": "720 J"
+        },
+        {
+          "sourceKey": "E",
+          "text": "200 J"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q51",
+      "originalNumber": 51,
+      "sourcePage": 9,
+      "section": "physicsMath",
+      "prompt": "If a point particle slides down an inclined plane with friction, its mechanical energy:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "decreases"
+        },
+        {
+          "sourceKey": "B",
+          "text": "increases"
+        },
+        {
+          "sourceKey": "C",
+          "text": "remains constant"
+        },
+        {
+          "sourceKey": "D",
+          "text": "doubles"
+        },
+        {
+          "sourceKey": "E",
+          "text": "becomes zero"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q52",
+      "originalNumber": 52,
+      "sourcePage": 10,
+      "section": "physicsMath",
+      "prompt": "To what depth must one dive in the sea for the pressure to double relative to that at the surface?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "Approximately 10m"
+        },
+        {
+          "sourceKey": "B",
+          "text": "Approximately 2m"
+        },
+        {
+          "sourceKey": "C",
+          "text": "Approximately 5m"
+        },
+        {
+          "sourceKey": "D",
+          "text": "Approximately 15m"
+        },
+        {
+          "sourceKey": "E",
+          "text": "Approximately 20m"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q53",
+      "originalNumber": 53,
+      "sourcePage": 10,
+      "section": "physicsMath",
+      "prompt": "What is the electric charge of a hydrogen atom?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "0 C"
+        },
+        {
+          "sourceKey": "B",
+          "text": "+1 nC"
+        },
+        {
+          "sourceKey": "C",
+          "text": "+2 nC"
+        },
+        {
+          "sourceKey": "D",
+          "text": "+1 mC"
+        },
+        {
+          "sourceKey": "E",
+          "text": "−2 pC"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q54",
+      "originalNumber": 54,
+      "sourcePage": 10,
+      "section": "physicsMath",
+      "prompt": "Two waves are said to be coherent if:",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "their phase difference remains constant over time"
+        },
+        {
+          "sourceKey": "B",
+          "text": "the phase difference varies randomly over time"
+        },
+        {
+          "sourceKey": "C",
+          "text": "their wavelength lies in the visible region"
+        },
+        {
+          "sourceKey": "D",
+          "text": "they have the same intensity"
+        },
+        {
+          "sourceKey": "E",
+          "text": "they have the same amplitude"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q55",
+      "originalNumber": 55,
+      "sourcePage": 10,
+      "section": "physicsMath",
+      "prompt": "Which is the solution to the inequality x² − 6x + 5 ≤ 0?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "1 ≤ x ≤ 5"
+        },
+        {
+          "sourceKey": "B",
+          "text": "x ≤ 1 ; x ≥ 5"
+        },
+        {
+          "sourceKey": "C",
+          "text": "x ≤ −5 ; x ≥ −1"
+        },
+        {
+          "sourceKey": "D",
+          "text": "−5 ≤ x ≤ −1"
+        },
+        {
+          "sourceKey": "E",
+          "text": "None of the other options are correct"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q56",
+      "originalNumber": 56,
+      "sourcePage": 10,
+      "section": "physicsMath",
+      "prompt": "Given f(x) = eˣ, which of the following gives the solutions to the inequality f(x) > 0?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "All real numbers"
+        },
+        {
+          "sourceKey": "B",
+          "text": "No real numbers"
+        },
+        {
+          "sourceKey": "C",
+          "text": "All positive real numbers"
+        },
+        {
+          "sourceKey": "D",
+          "text": "All real numbers greater than or equal to 1"
+        },
+        {
+          "sourceKey": "E",
+          "text": "All real numbers greater than 1"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q57",
+      "originalNumber": 57,
+      "sourcePage": 10,
+      "section": "physicsMath",
+      "prompt": "A circle has the equation x² + y² + 5x + 4y = 0. Which of the following statements is true?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "It passes through the origin"
+        },
+        {
+          "sourceKey": "B",
+          "text": "It has its centre at the origin"
+        },
+        {
+          "sourceKey": "C",
+          "text": "It has zero radius"
+        },
+        {
+          "sourceKey": "D",
+          "text": "It is centred on the y-axis"
+        },
+        {
+          "sourceKey": "E",
+          "text": "It is centred on the x-axis"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q58",
+      "originalNumber": 58,
+      "sourcePage": 11,
+      "section": "physicsMath",
+      "prompt": "A bag contains 12 balls that are indistinguishable by touch, 5 of which are red. Two balls are drawn without replacement. What is the probability that no red ball is drawn?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "7/22"
+        },
+        {
+          "sourceKey": "B",
+          "text": "49/144"
+        },
+        {
+          "sourceKey": "C",
+          "text": "49/132"
+        },
+        {
+          "sourceKey": "D",
+          "text": "25/132"
+        },
+        {
+          "sourceKey": "E",
+          "text": "15/22"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q59",
+      "originalNumber": 59,
+      "sourcePage": 11,
+      "section": "physicsMath",
+      "prompt": "The parabola with equation y = kx² − x + 30 passes through the point (5,0). What is the value of k?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "−1"
+        },
+        {
+          "sourceKey": "B",
+          "text": "1"
+        },
+        {
+          "sourceKey": "C",
+          "text": "2"
+        },
+        {
+          "sourceKey": "D",
+          "text": "−2"
+        },
+        {
+          "sourceKey": "E",
+          "text": "3"
+        }
+      ]
+    },
+    {
+      "stableKey": "imat-2026-q60",
+      "originalNumber": 60,
+      "sourcePage": 11,
+      "section": "physicsMath",
+      "prompt": "Which is the solution to the following equation: log₁₀x = 6?",
+      "passage": null,
+      "options": [
+        {
+          "sourceKey": "A",
+          "text": "1000000"
+        },
+        {
+          "sourceKey": "B",
+          "text": "100000"
+        },
+        {
+          "sourceKey": "C",
+          "text": "10000"
+        },
+        {
+          "sourceKey": "D",
+          "text": "60"
+        },
+        {
+          "sourceKey": "E",
+          "text": "600"
+        }
+      ]
+    }
+  ]
+}

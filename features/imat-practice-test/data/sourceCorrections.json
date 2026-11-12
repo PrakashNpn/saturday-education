@@ -1,0 +1,135 @@
+[
+  {
+    "id": "imat-2013-q5-source-correction-v1",
+    "year": 2013,
+    "number": 5,
+    "prompt": "The pasta that I buy in the local supermarket usually costs €1.60 per packet. This week the packet is marked '€0.20 off normal price'. In addition the following sign is on display '10% off all bills when you spend €10 or more'. Assuming that I spend over €10 altogether, how much will the packet of pasta cost?",
+    "options": [
+      {
+        "key": "A",
+        "text": "€1.26"
+      },
+      {
+        "key": "B",
+        "text": "€1.12"
+      },
+      {
+        "key": "C",
+        "text": "€1.24"
+      },
+      {
+        "key": "D",
+        "text": "€1.30"
+      },
+      {
+        "key": "E",
+        "text": "€1.18"
+      }
+    ],
+    "image": null,
+    "correctKey": "A",
+    "reason": "The item name changes from pasta to cereal in the source. Use pasta consistently.",
+    "explanation": "The reduced price is €1.60 − €0.20 = €1.40. Applying the additional 10% discount gives €1.40 × 0.90 = €1.26."
+  },
+  {
+    "id": "imat-2013-q54-source-correction-v1",
+    "year": 2013,
+    "number": 54,
+    "prompt": "A uniform beam, 3.0m long, of weight 100N has a 300N weight placed 0.50m from one end. The beam is suspended by a string 1.0m from the same end. A diagram of the weights placed on the beam is given below: How far from the other end must a weight of 80N be placed for the beam to be balanced?",
+    "options": [
+      {
+        "key": "A",
+        "text": "0.75m"
+      },
+      {
+        "key": "B",
+        "text": "1.25m"
+      },
+      {
+        "key": "C",
+        "text": "2.25m"
+      },
+      {
+        "key": "D",
+        "text": "1.875m"
+      },
+      {
+        "key": "E",
+        "text": "0.125m"
+      }
+    ],
+    "image": {
+      "src": "/images/imat/2013/q54-corrected.svg",
+      "alt": "A 3.0 m uniform beam. From its left end: 300 N load at 0.50 m, supporting string at 1.0 m, beam weight 100 N at its centre, and an 80 N load at an unknown distance from its right end.",
+      "width": 900,
+      "height": 350
+    },
+    "correctKey": "A",
+    "reason": "The original figure places the load and support at distances inconsistent with the text. Replace the figure to follow the stated 0.50 m load and 1.0 m support positions.",
+    "explanation": "Take moments about the string, 1.0 m from the left end. The 300 N load produces 300 × 0.50 = 150 N m anticlockwise. The beam weight acts at its centre, producing 100 × 0.50 = 50 N m clockwise. The 80 N load must therefore act 100/80 = 1.25 m to the right of the string, at 2.25 m from the left end. Its distance from the right end is 3.0 − 2.25 = 0.75 m."
+  },
+  {
+    "id": "imat-2024-q55-source-correction-v1",
+    "year": 2024,
+    "number": 55,
+    "prompt": "A boat is moving in a uniform straight motion at a certain speed v. If a braking force of 210 N is applied for a distance of 5 m, how much power is developed by the braking force?",
+    "options": [
+      {
+        "key": "A",
+        "text": "210 W"
+      },
+      {
+        "key": "B",
+        "text": "105 W"
+      },
+      {
+        "key": "C",
+        "text": "1050 W"
+      },
+      {
+        "key": "D",
+        "text": "8,4 W"
+      },
+      {
+        "key": "E",
+        "text": "Cannot be determined from the information given"
+      }
+    ],
+    "image": null,
+    "correctKey": "E",
+    "reason": "No numerical speed or elapsed time is given, so no numerical power follows. Replace option E with the missing-data answer; do not invent a speed.",
+    "explanation": "The braking force does work of magnitude 210 × 5 = 1050 J. Power is work divided by time, or force multiplied by speed at an instant. Neither a numerical speed nor the elapsed time is specified, so a numerical power cannot be determined."
+  },
+  {
+    "id": "imat-2025-q52-source-correction-v1",
+    "year": 2025,
+    "number": 52,
+    "prompt": "In a rectangle ABCD the base AB is 5/4 of the height BC and the perimeter is 72 cm. What are the dimensions of the rectangle?",
+    "options": [
+      {
+        "key": "A",
+        "text": "AB = 20 cm; BC = 16 cm"
+      },
+      {
+        "key": "B",
+        "text": "AB = 10 cm; BC = 8 cm"
+      },
+      {
+        "key": "C",
+        "text": "AB = 12 cm; BC = 10 cm"
+      },
+      {
+        "key": "D",
+        "text": "AB = 18 cm; BC = 16 cm"
+      },
+      {
+        "key": "E",
+        "text": "AB = 20 cm; BC = 18 cm"
+      }
+    ],
+    "image": null,
+    "correctKey": "A",
+    "reason": "The perimeter is in centimetres but all dimensions in the source choices are labelled in metres. Use centimetres consistently in every choice.",
+    "explanation": "Let BC = h cm and AB = 5h/4 cm. Since 2(5h/4 + h) = 72, 9h/2 = 72 and h = 16. Thus BC = 16 cm and AB = 20 cm."
+  }
+]

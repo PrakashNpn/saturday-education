@@ -36,6 +36,7 @@ export function generateStaticParams() {
  *  63 KB in Thai) and used only on the assessment pages, so the pages that do not
  *  need them are not sent them. career-assessment/layout.tsx adds them back. */
 const ASSESSMENT_NAMESPACES = ['careerAssessment', 'careerCatalog']
+const PAGE_ONLY_NAMESPACES = [...ASSESSMENT_NAMESPACES, 'imat']
 
 export default async function LocaleLayout({
   children,
@@ -48,7 +49,7 @@ export default async function LocaleLayout({
   setRequestLocale(locale)
   const allMessages = await getMessages()
   const messages = Object.fromEntries(
-    Object.entries(allMessages).filter(([namespace]) => !ASSESSMENT_NAMESPACES.includes(namespace)),
+    Object.entries(allMessages).filter(([namespace]) => !PAGE_ONLY_NAMESPACES.includes(namespace)),
   )
 
   // Noto Sans (Latin) has no Thai or Myanmar glyphs, so those locales were
@@ -77,13 +78,13 @@ export default async function LocaleLayout({
       <body className={`bg-canvas text-primary-text ${scriptFontClass} text-body font-light leading-[1.65] antialiased flex min-h-screen flex-col [overflow-x:clip]`}>
         <NextIntlClientProvider messages={messages}>
           <NextTopLoader color="linear-gradient(to right, var(--color-action-hover), var(--color-action))" height={3} showSpinner={false} shadow="none" />
-          <Navbar />
+          <div data-site-chrome className="contents"><Navbar /></div>
           <div className="flex-1 flex flex-col">
             {children}
           </div>
-          <Footer />
-          <ChatWidget />
-          <CookieConsent />
+          <div data-site-chrome className="contents"><Footer /></div>
+          <div data-site-chrome className="contents"><ChatWidget /></div>
+          <div data-site-chrome className="contents"><CookieConsent /></div>
           <GoogleAnalytics />
           <MetaPixel />
         </NextIntlClientProvider>

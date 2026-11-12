@@ -1,0 +1,24 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 350" width="900" height="350" role="img" aria-labelledby="title desc">
+  <title id="title">Beam and load positions consistent with the question</title>
+  <desc id="desc">A 3.0 metre uniform beam has a 300 newton load 0.50 metres from the left end, a supporting string 1.0 metre from the left end, its 100 newton weight at the centre, and an 80 newton load an unknown distance from the right end. The 80 newton load position is schematic.</desc>
+  <defs>
+    <marker id="arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto-start-reverse"><path d="M0 0 10 5 0 10Z" fill="#404040"/></marker>
+  </defs>
+  <rect width="900" height="350" fill="white"/>
+  <g fill="none" stroke="#404040" stroke-width="2">
+    <path d="M70 180H830" stroke-width="6"/>
+    <path d="M323.33 35V180" stroke-width="3"/>
+    <path d="M196.67 180V266M450 180V266M690 180V266" marker-end="url(#arrow)"/>
+    <path d="M70 180V45M830 180V45M196.67 180V128M323.33 180V78M690 180V128" stroke="#a3a3a3" stroke-dasharray="4 4"/>
+    <path d="M70 55H830" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M70 140H196.67" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M690 140H830" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+    <path d="M70 90H323.33" marker-start="url(#arrow)" marker-end="url(#arrow)"/>
+  </g>
+  <g font-family="Arial, sans-serif" fill="#141414" font-size="22" text-anchor="middle">
+    <text x="450" y="43">3.0 m</text><text x="133" y="128">0.50 m</text><text x="197" y="78">1.0 m</text><text x="760" y="128">? m</text>
+    <text x="196.67" y="300">300 N</text><text x="450" y="300">100 N</text><text x="690" y="300">80 N</text>
+    <text x="450" y="326" font-size="17">beam weight</text><text x="340" y="23" text-anchor="start">string</text>
+    <text x="70" y="332" text-anchor="start" font-size="16" fill="#737373">Schematic: load position to be determined</text>
+  </g>
+</svg>
