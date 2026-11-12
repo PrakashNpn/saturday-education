@@ -28,15 +28,15 @@ beforeEach(() => {
 })
 
 describe('submitLeadForm validation', () => {
-  test('a valid form is saved with a normalised phone, lowercase email and chat note', async () => {
+  test('a valid registration saves normalised contact details without chat context', async () => {
     const { client, email } = fresh()
     const res = await submitLeadForm(form(email.toUpperCase()), ok, client)
     assert.deepEqual(res, { success: true })
     assert.equal(saved.length, 1)
     assert.equal(saved[0].email, email)
     assert.equal(saved[0].phone, '+66812345678')
-    assert.equal(saved[0].targetCountry, 'uk')
-    assert.equal(saved[0].message, '[Via AI chatbot] Student said: "I want to study nursing in the UK"')
+    assert.ok(!('targetCountry' in saved[0]))
+    assert.equal(saved[0].message, '[Via AI chatbot]')
   })
 
   test('rejects a short name, a bad email and a phone with no country code', async () => {
@@ -95,29 +95,18 @@ describe('submitLeadForm protection', () => {
   })
 })
 
-describe('submitLeadForm country and message', () => {
-  test('an unknown country becomes other and a missing one stays unset', async () => {
-    const a = fresh()
-    await submitLeadForm(form(a.email, { targetCountry: 'atlantis' }), ok, a.client)
-    const b = fresh()
-    await submitLeadForm(form(b.email, { targetCountry: '' }), ok, b.client)
-    assert.equal(saved[0].targetCountry, 'other')
-    assert.equal(saved[1].targetCountry, undefined)
+describe('upfront contact registration', () => {
+  test('does not store transcripts or guessed destinations supplied by legacy clients', async () => {
+    const { client, email } = fresh()
+    await submitLeadForm(form(email, { targetCountry: 'uk', said: ['Private conversation text'] }), ok, client)
+    assert.equal(saved[0].message, '[Via AI chatbot]')
+    assert.ok(!('targetCountry' in saved[0]))
+    assert.ok(!JSON.stringify(saved[0]).includes('Private conversation text'))
   })
 
-  test('the note keeps the last 6 lines, trims each to 200 characters and stays within 600', async () => {
+  test('accepts just contact details without questions, a destination or OTP', async () => {
     const { client, email } = fresh()
-    const said = Array.from({ length: 9 }, (_, i) => `line${i} ${'x'.repeat(300)}`)
-    await submitLeadForm(form(email, { said }), ok, client)
-    const msg = saved[0].message!
-    assert.ok(msg.length <= 600)
-    assert.ok(!msg.includes('line0'))
-    assert.ok(msg.startsWith('[Via AI chatbot] Student said:'))
-  })
-
-  test('with nothing said the note is just the channel tag', async () => {
-    const { client, email } = fresh()
-    await submitLeadForm(form(email, { said: undefined }), ok, client)
+    assert.deepEqual(await submitLeadForm({ fullName: 'Aye Chan', email, phone: '+66812345678' }, ok, client), { success: true })
     assert.equal(saved[0].message, '[Via AI chatbot]')
   })
 })

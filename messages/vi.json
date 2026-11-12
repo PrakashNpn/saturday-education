@@ -294,7 +294,7 @@
     },
     "partners": {
       "eyebrow": "Trường đại học đối tác",
-      "headline": "Hơn 700 mối quan hệ trực tiếp trên toàn thế giới."
+      "headline": "Hơn 900 mối quan hệ trực tiếp trên toàn thế giới."
     },
     "whySaturday": {
       "eyebrow": "Vì sao chọn Saturday Education",
@@ -651,7 +651,7 @@
     "eyebrow": "Tư vấn du học",
     "bookConsultation": "Đặt lịch tư vấn miễn phí",
     "careerAssessment": "Làm bài đánh giá nghề nghiệp",
-    "partnersCount": "700+",
+    "partnersCount": "900+",
     "partnersLabel": "trường đại học đối tác",
     "popular": "Phổ biến",
     "destinationLabel": "Điểm đến",
@@ -747,6 +747,7 @@
       "counsellor": "Trao đổi với chuyên viên tư vấn"
     },
     "lead": {
+      "loading": "Đang tải biểu mẫu liên hệ...",
       "title": "Trao đổi với chuyên viên tư vấn",
       "subtitle": "Hãy để lại thông tin, chuyên viên tư vấn sẽ liên hệ với bạn trong vòng 1 ngày làm việc.",
       "nameLabel": "Họ và tên",
@@ -756,7 +757,7 @@
       "phoneLabel": "Số điện thoại",
       "phonePlaceholder": "Số điện thoại",
       "privacy": "Khi gửi, bạn đồng ý với <link>Chính sách quyền riêng tư</link> của chúng tôi.",
-      "submit": "Gửi cho chuyên viên tư vấn",
+      "submit": "Bắt đầu trò chuyện",
       "submitting": "Đang gửi...",
       "orMessage": "hoặc nhắn tin cho chúng tôi qua",
       "whatsapp": "WhatsApp",
@@ -770,8 +771,8 @@
         "rate": "Bạn đã thử quá nhiều lần. Vui lòng thử lại sau hoặc nhắn tin cho chúng tôi qua WhatsApp.",
         "failed": "Đã xảy ra lỗi. Vui lòng thử lại hoặc nhắn tin cho chúng tôi qua WhatsApp."
       },
-      "gateTitle": "Để chuyên viên tư vấn giúp bạn chọn hướng đi",
-      "gateSubtitle": "Hãy để lại thông tin, chuyên viên tư vấn sẽ cùng bạn xem các trường và bước tiếp theo phù hợp trong vòng 1 ngày làm việc. Bạn vẫn có thể tiếp tục trò chuyện ngay sau đó.",
+      "gateTitle": "Trước khi bắt đầu",
+      "gateSubtitle": "Chia sẻ thông tin để trò chuyện với cố vấn AI. Chuyên viên tư vấn có thể liên hệ để hỗ trợ kế hoạch du học của bạn.",
       "gatePlaceholder": "Hãy chia sẻ thông tin ở trên để tiếp tục"
     },
     "clearChat": "Xóa lịch sử trò chuyện",
@@ -1667,6 +1668,44 @@
       "selectionDetails": "Cách chọn câu hỏi",
       "paperDetails": "Về các đề thi này",
       "sourceCorrections": "Các lỗi nhỏ trong đề gốc đã được sửa để phục vụ luyện tập."
+    }
+  }
+,
+  "educationEvent": {
+    "destinationLabel": "Quốc gia du học",
+    "detailsTitle": "Thông tin sự kiện",
+    "eyebrow": "Ngày hội du học Canada",
+    "description": "Đăng ký Myanmar First Canada Education Fair 2026 tại Pan-Pacific Hotel Yangon ngày 15 tháng 11, từ 13:00 đến 16:00.",
+    "intro": "Bắt đầu bước tiếp theo trên hành trình du học Canada. Đăng ký để đội ngũ tư vấn giúp bạn tìm hiểu các lựa chọn.",
+    "dateLabel": "Ngày",
+    "date": "Chủ nhật, 15 tháng 11 năm 2026",
+    "timeLabel": "Giờ",
+    "yangonTime": "Giờ Yangon",
+    "venueLabel": "Địa điểm",
+    "help": "Cần hỗ trợ đăng ký? Hãy liên hệ đội ngũ của chúng tôi tại sự kiện.",
+    "formEyebrow": "Đăng ký sự kiện",
+    "formTitle": "Đăng ký tham dự",
+    "formIntro": "Chia sẻ thông tin liên hệ để chuyên viên tư vấn hỗ trợ bạn.",
+    "name": "Họ và tên",
+    "email": "Địa chỉ email",
+    "phone": "Điện thoại / WhatsApp",
+    "phonePlaceholder": "Số điện thoại của bạn",
+    "consent": "Khi đăng ký, bạn đồng ý với <link>Chính sách quyền riêng tư</link> và việc liên hệ về sự kiện, du học.",
+    "submit": "Gửi đăng ký",
+    "submitting": "Đang gửi...",
+    "successTitle": "Đã nhận đăng ký",
+    "successBody": "Cảm ơn bạn đã đăng ký ngày hội du học Canada. Đội ngũ chúng tôi rất mong được đón tiếp bạn.",
+    "showConfirmation": "Bạn đang ở sự kiện? Hãy xuất trình xác nhận này cho đội ngũ của chúng tôi.",
+    "home": "Về trang chủ",
+    "errors": {
+      "destination": "Vui lòng chọn quốc gia du học.",
+      "name": "Vui lòng nhập họ và tên.",
+      "email": "Vui lòng nhập email hợp lệ.",
+      "phone": "Vui lòng nhập số điện thoại hợp lệ kèm mã quốc gia.",
+      "consent": "Vui lòng xem thông báo quyền riêng tư và gửi lại.",
+      "invalid": "Vui lòng kiểm tra thông tin và thử lại.",
+      "rate": "Quá nhiều lần thử. Hãy chờ hoặc nhờ đội ngũ tại sự kiện hỗ trợ.",
+      "failed": "Chưa thể xác nhận đăng ký. Hãy thử lại. Thông tin bạn đã nhập vẫn được giữ lại."
     }
   }
 }

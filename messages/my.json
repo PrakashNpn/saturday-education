@@ -294,7 +294,7 @@
     },
     "partners": {
       "eyebrow": "Partner Universities",
-      "headline": "Worldwide မှာ Direct Relationship 700+ ။"
+      "headline": "Worldwide မှာ Direct Relationship 900+ ။"
     },
     "whySaturday": {
       "eyebrow": "ဘာကြောင့် Saturday Education လဲ",
@@ -396,6 +396,7 @@
       "counsellor": "Counsellor နဲ့ ပြောချင်ပါတယ်"
     },
     "lead": {
+      "loading": "ဆက်သွယ်ရန် Form ကို ဖွင့်နေပါတယ်...",
       "title": "Counsellor နဲ့ ပြောရန်",
       "subtitle": "သင့်အချက်အလက်တွေ ထားခဲ့ပါ။ Counsellor က အလုပ်ရက် ၁ ရက်အတွင်း ပြန်ဆက်သွယ်ပါမယ်။",
       "nameLabel": "အမည်အပြည့်အစုံ",
@@ -405,7 +406,7 @@
       "phoneLabel": "ဖုန်းနံပါတ်",
       "phonePlaceholder": "ဖုန်းနံပါတ်",
       "privacy": "ပို့ခြင်းအားဖြင့် ကျွန်ုပ်တို့ရဲ့ <link>Privacy Policy</link> ကို သဘောတူရာရောက်ပါတယ်။",
-      "submit": "Counsellor ဆီ ပို့ရန်",
+      "submit": "စကားစပြောရန်",
       "submitting": "ပို့နေပါတယ်...",
       "orMessage": "ဒါမှမဟုတ် ဒီမှာ Message ပို့ရန်",
       "whatsapp": "WhatsApp",
@@ -419,8 +420,8 @@
         "rate": "ကြိုးစားမှု များလွန်းပါတယ်။ နောက်မှ ပြန်ကြိုးစားပါ၊ ဒါမှမဟုတ် WhatsApp မှာ Message ပို့ပါ။",
         "failed": "တစ်ခုခု မှားသွားပါတယ်။ ပြန်ကြိုးစားပါ၊ ဒါမှမဟုတ် WhatsApp မှာ Message ပို့ပါ။"
       },
-      "gateTitle": "Counsellor ကို သင့်ရွေးချယ်စရာတွေ ကူကြည့်ခိုင်းပါ",
-      "gateSubtitle": "သင့်အချက်အလက် ထားခဲ့ပါ။ Counsellor က သင့်နဲ့ကိုက်ညီတဲ့ University တွေနဲ့ နောက်အဆင့်တွေကို အလုပ်ရက် ၁ ရက်အတွင်း ကူညီပြီး ဆက်သွယ်ပါမယ်။ ပြီးရင် ဆက်ပြောနိုင်ပါတယ်။",
+      "gateTitle": "စကားမပြောခင်",
+      "gateSubtitle": "AI advisor နဲ့ စကားပြောဖို့ သင့်အချက်အလက်တွေ ဖြည့်ပေးပါ။ သင့်ရဲ့ ပညာရေးအစီအစဉ်အတွက် Counsellor က ဆက်သွယ်ကူညီပေးနိုင်ပါတယ်။",
       "gatePlaceholder": "ဆက်ပြောရန် အပေါ်က အချက်အလက် ဖြည့်ပါ"
     },
     "clearChat": "Chat History ကို ရှင်းရန်",
@@ -450,7 +451,7 @@
     "eyebrow": "Study Abroad Counselling",
     "bookConsultation": "Free Consultation ကို Book လုပ်ရန်",
     "careerAssessment": "Career Assessment လုပ်ရန်",
-    "partnersCount": "700+",
+    "partnersCount": "900+",
     "partnersLabel": "Partner University",
     "popular": "လူကြိုက်များ",
     "destinationLabel": "Destination",
@@ -1281,6 +1282,44 @@
       "selectionDetails": "မေးခွန်းရွေးပုံ",
       "paperDetails": "ဒီ paper တွေအကြောင်း",
       "sourceCorrections": "လေ့ကျင့်ရန်အတွက် မူရင်းမေးခွန်းများရှိ အသေးစားအမှားများကို ပြင်ဆင်ထားပါသည်။"
+    }
+  }
+,
+  "educationEvent": {
+    "destinationLabel": "ပညာသင်ယူမည့်နိုင်ငံ",
+    "detailsTitle": "ပွဲအချက်အလက်များ",
+    "eyebrow": "Canada ပညာရေးပြပွဲ",
+    "description": "Myanmar First Canada Education Fair 2026 ကို နိုဝင်ဘာ ၁၅ ရက်၊ နေ့လယ် ၁ နာရီမှ ညနေ ၄ နာရီအထိ ရန်ကုန် Pan-Pacific Hotel တွင် တက်ရောက်ရန် စာရင်းသွင်းပါ။",
+    "intro": "Canada မှာ ပညာသင်ယူဖို့ နောက်တစ်ဆင့်ကို စတင်လိုက်ပါ။ သင့်အတွက် သင့်တော်တဲ့ ရွေးချယ်စရာတွေကို ကူညီပေးနိုင်ဖို့ ဒီမှာ စာရင်းသွင်းပါ။",
+    "dateLabel": "ရက်စွဲ",
+    "date": "တနင်္ဂနွေနေ့၊ ၂၀၂၆ နိုဝင်ဘာ ၁၅ ရက်",
+    "timeLabel": "အချိန်",
+    "yangonTime": "ရန်ကုန်အချိန်",
+    "venueLabel": "နေရာ",
+    "help": "စာရင်းသွင်းဖို့ အကူအညီလိုရင် ပွဲမှာရှိတဲ့ ကျွန်ုပ်တို့အဖွဲ့ကို မေးမြန်းနိုင်ပါတယ်။",
+    "formEyebrow": "ပွဲတက်ရောက်ရန် စာရင်းသွင်းခြင်း",
+    "formTitle": "ပွဲတက်ရောက်ရန် စာရင်းသွင်းပါ",
+    "formIntro": "Counsellor တွေက ကူညီပေးနိုင်ဖို့ သင့်ဆက်သွယ်ရန် အချက်အလက်တွေ ဖြည့်ပေးပါ။",
+    "name": "အမည်အပြည့်အစုံ",
+    "email": "Email လိပ်စာ",
+    "phone": "ဖုန်း / WhatsApp",
+    "phonePlaceholder": "သင့်ဖုန်းနံပါတ်",
+    "consent": "စာရင်းသွင်းခြင်းဖြင့် <link>Privacy Policy</link> နဲ့ ပွဲ၊ ပညာရေးဆိုင်ရာ ဆက်သွယ်မှုတွေကို သဘောတူပါတယ်။",
+    "submit": "စာရင်းသွင်းရန်",
+    "submitting": "ပို့နေပါတယ်...",
+    "successTitle": "စာရင်းသွင်းပြီးပါပြီ",
+    "successBody": "Canada ပညာရေးပြပွဲအတွက် စာရင်းသွင်းပေးလို့ ကျေးဇူးတင်ပါတယ်။ ကျွန်ုပ်တို့အဖွဲ့က ကြိုဆိုပါတယ်။",
+    "showConfirmation": "ပွဲကို ရောက်နေပြီလား။ ဒီအတည်ပြုချက်ကို ကျွန်ုပ်တို့အဖွဲ့ကို ပြနိုင်ပါတယ်။",
+    "home": "ပင်မစာမျက်နှာသို့",
+    "errors": {
+      "destination": "ပညာသင်ယူမည့်နိုင်ငံကို ရွေးပေးပါ။",
+      "name": "အမည်အပြည့်အစုံ ဖြည့်ပေးပါ။",
+      "email": "မှန်ကန်တဲ့ Email လိပ်စာ ဖြည့်ပေးပါ။",
+      "phone": "နိုင်ငံကုဒ်ပါတဲ့ မှန်ကန်တဲ့ ဖုန်းနံပါတ် ဖြည့်ပေးပါ။",
+      "consent": "Privacy အသိပေးချက်ကို ဖတ်ပြီး ပြန်ပို့ပေးပါ။",
+      "invalid": "အချက်အလက်တွေ စစ်ပြီး ပြန်ကြိုးစားပါ။",
+      "rate": "ကြိုးစားမှု များလွန်းနေပါတယ်။ ခဏစောင့်ပါ၊ ဒါမှမဟုတ် ပွဲမှာရှိတဲ့ အဖွဲ့ကို အကူအညီတောင်းပါ။",
+      "failed": "စာရင်းသွင်းမှုကို အတည်မပြုနိုင်သေးပါ။ ပြန်ကြိုးစားပါ။ ဖြည့်ထားတဲ့ အချက်အလက်တွေ ဆက်ရှိနေပါမယ်။"
     }
   }
 }

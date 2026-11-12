@@ -14,14 +14,12 @@
 // react-phone-number-input: that package ships React components and crashes
 // when loaded in a route handler.
 import { isValidPhoneNumber, parsePhoneNumberFromString } from 'libphonenumber-js/min'
-import { isCountryKey, OTHER_COUNTRY } from '@/shared/constants/destinationCountries'
 import { LEAD_KNOWN_MARKER, LEAD_SAVED_MARKER } from '../utils/leadMarkers'
 
 export type LeadSubmission = {
   fullName: string
   email: string
   phone: string
-  targetCountry?: string
   message?: string
 }
 
@@ -51,24 +49,9 @@ function prune(now: number) {
 }
 
 const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
-const MESSAGE_LIMIT = 600
-const SAID_LIMIT = 6
 
 function asString(value: unknown): string {
   return typeof value === 'string' ? value.trim() : ''
-}
-
-/** What the student asked in the chat, as a note for the counsellor. The form
- *  has no free-text field, so the conversation is the context. */
-function buildMessage(said: unknown): string {
-  const lines = (Array.isArray(said) ? said : [])
-    .map(asString)
-    .map((line) => line.replace(/[\u0000-\u001f]+/g, ' ').slice(0, 200))
-    .filter(Boolean)
-    .slice(-SAID_LIMIT)
-  const quoted = lines.map((line) => `"${line}"`).join(' | ')
-  const note = quoted ? `[Via AI chatbot] Student said: ${quoted}` : '[Via AI chatbot]'
-  return note.slice(0, MESSAGE_LIMIT)
 }
 
 export async function submitLeadForm(
@@ -85,7 +68,6 @@ export async function submitLeadForm(
   const fullName = asString(input.fullName).slice(0, 100)
   const email = asString(input.email).toLowerCase().slice(0, 254)
   const phoneRaw = asString(input.phone)
-  const country = asString(input.targetCountry)
 
   if (fullName.length < 2) return { success: false, code: 'name' }
   if (!EMAIL_RE.test(email)) return { success: false, code: 'email' }
@@ -108,19 +90,13 @@ export async function submitLeadForm(
   if (hits.length >= MAX_PER_CLIENT_PER_WINDOW) return { success: false, code: 'rate' }
   clientHits.set(clientKey, [...hits, now])
 
-  // No country given stays unset rather than being recorded as "Other".
-  const targetCountry = !country
-    ? undefined
-    : isCountryKey(country)
-      ? country
-      : OTHER_COUNTRY
-
   const outcome = await submit({
     fullName,
     email,
     phone,
-    targetCountry,
-    message: buildMessage(input.said),
+    // Contact registration happens before chatting; do not ingest transcripts
+    // or guessed destinations from older clients.
+    message: '[Via AI chatbot]',
   })
   if (!outcome.success) return { success: false, code: 'failed' }
 
@@ -138,7 +114,7 @@ export type LeadTurnPlan = {
  * second step the prompt allows. Before that it is off the table for the reply:
  * offering it first sends a student away from the chat before any details are
  * collected. The details themselves are asked for by the chat window, which
- * requires them after a few answers.
+ * requires them before the first question.
  */
 export function planLeadTurn(messages: { role: string; content: string }[]): LeadTurnPlan {
   const sent = messages.some(

@@ -44,7 +44,10 @@ const FIRMLI_COUNTRY_NAMES: Record<string, string> = Object.fromEntries(
 const CHAT_INQUIRY_MAX = 250
 
 /** Which Firmli form a lead goes to: the consultation form, or the AI chatbot's own. */
-export type FirmliChannel = 'consultation' | 'chat'
+export type FirmliChannel = 'consultation' | 'chat' | 'event'
+
+/** Server-owned event campaign. Event submissions never fall back to website attribution. */
+export interface FirmliCampaign { clientNumber: string; formNumber: string; utmNumber: string }
 
 interface FirmliLeadInput {
   fullName: string
@@ -54,10 +57,10 @@ interface FirmliLeadInput {
   message?: string | null
 }
 
-function headers() {
+function headers(clientNumber: string) {
   return {
     'Content-Type': 'application/json',
-    'fi-client-number': FIRMLI_CLIENT_NUMBER!.toUpperCase(),
+    'fi-client-number': clientNumber.toUpperCase(),
   }
 }
 
@@ -73,9 +76,15 @@ function headers() {
  */
 export async function createFirmliLead(
   data: FirmliLeadInput,
-  options: { channel?: FirmliChannel } = {},
+  options: { channel?: FirmliChannel; campaign?: FirmliCampaign } = {},
 ): Promise<'sent' | 'skipped'> {
-  if (!FIRMLI_CLIENT_NUMBER || !FIRMLI_FORM_NUMBER) {
+  const campaign = options.channel === 'event' ? options.campaign : undefined
+  if (options.channel === 'event' && (!campaign?.clientNumber || !campaign.formNumber || !campaign.utmNumber)) {
+    throw new Error('Event Firmli campaign is not configured')
+  }
+  const clientNumber = campaign?.clientNumber ?? FIRMLI_CLIENT_NUMBER
+  const formNumber = campaign?.formNumber ?? FIRMLI_FORM_NUMBER
+  if (!clientNumber || !formNumber) {
     console.warn('FIRMLI_CLIENT_NUMBER / FIRMLI_FORM_NUMBER not set — skipping Firmli CRM sync.')
     return 'skipped'
   }
@@ -105,15 +114,16 @@ export async function createFirmliLead(
 
   const payload = {
     data: submittedData,
-    form_identifier: useChatForm ? FIRMLI_CHAT_FORM_NUMBER : FIRMLI_FORM_NUMBER,
-    ...(useChatForm
+    form_identifier: campaign?.formNumber ?? (useChatForm ? FIRMLI_CHAT_FORM_NUMBER : formNumber),
+    ...(campaign ? { utm_identifier: campaign.utmNumber } : useChatForm
       ? { utm_identifier: FIRMLI_CHAT_UTM_NUMBER }
       : FIRMLI_UTM_NUMBER && { utm_identifier: FIRMLI_UTM_NUMBER }),
   }
 
-  const encryptRes = await fetch(`${apiBase()}/test-path/encrypt-data`, {
+  const base = campaign ? `https://${clientNumber}-api.firmli.com/v1` : apiBase()
+  const encryptRes = await fetch(`${base}/test-path/encrypt-data`, {
     method: 'POST',
-    headers: headers(),
+    headers: headers(clientNumber),
     body: JSON.stringify(payload),
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   })
@@ -127,15 +137,15 @@ export async function createFirmliLead(
   }
   const content = `${encrypted.publicKey}^#^${encrypted.encryptedData}`
 
-  const saveRes = await fetch(`${apiBase()}/public/forms/save`, {
+  const saveRes = await fetch(`${base}/public/forms/save`, {
     method: 'POST',
-    headers: headers(),
+    headers: headers(clientNumber),
     body: JSON.stringify({ content }),
     signal: AbortSignal.timeout(REQUEST_TIMEOUT_MS),
   })
   if (!saveRes.ok) {
-    const body = await saveRes.text().catch(() => '')
-    throw new Error(`Firmli forms/save failed: ${saveRes.status} ${body}`)
+    // Responses can echo submitted contact fields; never persist/log them as errors.
+    throw new Error(`Firmli forms/save failed: ${saveRes.status}`)
   }
   return 'sent'
 }

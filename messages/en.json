@@ -294,7 +294,7 @@
     },
     "partners": {
       "eyebrow": "Partner universities",
-      "headline": "700+ direct relationships, worldwide."
+      "headline": "900+ direct relationships, worldwide."
     },
     "whySaturday": {
       "eyebrow": "Why Saturday Education",
@@ -651,7 +651,7 @@
     "eyebrow": "Study abroad counselling",
     "bookConsultation": "Book a free consultation",
     "careerAssessment": "Take the career assessment",
-    "partnersCount": "700+",
+    "partnersCount": "900+",
     "partnersLabel": "partner universities",
     "popular": "Popular",
     "destinationLabel": "Destination",
@@ -747,6 +747,7 @@
       "counsellor": "Talk to a counsellor"
     },
     "lead": {
+      "loading": "Loading the contact form...",
       "title": "Talk to a counsellor",
       "subtitle": "Leave your details and a counsellor will follow up within 1 business day.",
       "nameLabel": "Full name",
@@ -756,7 +757,7 @@
       "phoneLabel": "Phone number",
       "phonePlaceholder": "Phone number",
       "privacy": "By sending, you agree to our <link>Privacy Policy</link>.",
-      "submit": "Send to a counsellor",
+      "submit": "Start chatting",
       "submitting": "Sending...",
       "orMessage": "or message us on",
       "whatsapp": "WhatsApp",
@@ -770,8 +771,8 @@
         "rate": "Too many attempts. Please try again later or message us on WhatsApp.",
         "failed": "Something went wrong. Please try again or message us on WhatsApp."
       },
-      "gateTitle": "Let a counsellor help with your options",
-      "gateSubtitle": "Share your details and a counsellor will go through universities and next steps that fit you within 1 business day. You can keep chatting right after.",
+      "gateTitle": "Before we start",
+      "gateSubtitle": "Share your details to chat with our AI advisor. A counsellor may contact you to help with your study plans.",
       "gatePlaceholder": "Share your details above to continue"
     },
     "clearChat": "Clear chat history",
@@ -1159,6 +1160,44 @@
       "selectionDetails": "How questions are selected",
       "paperDetails": "About these papers",
       "sourceCorrections": "Minor source errors have been corrected for practice."
+    }
+  }
+,
+  "educationEvent": {
+    "destinationLabel": "Destination country",
+    "detailsTitle": "Event details",
+    "eyebrow": "Canada education fair",
+    "description": "Register for Myanmar First Canada Education Fair 2026 at Pan-Pacific Hotel Yangon on 15 November, 1 PM to 4 PM.",
+    "intro": "Welcome to your next step towards studying in Canada. Register here and our team can help you explore your options.",
+    "dateLabel": "Date",
+    "date": "Sunday, 15 November 2026",
+    "timeLabel": "Time",
+    "yangonTime": "Yangon time",
+    "venueLabel": "Venue",
+    "help": "Need help registering? Our team at the venue can assist you.",
+    "formEyebrow": "Event registration",
+    "formTitle": "Register for the fair",
+    "formIntro": "Share your contact details so our counsellors can assist you.",
+    "name": "Full name",
+    "email": "Email address",
+    "phone": "Phone / WhatsApp",
+    "phonePlaceholder": "Your phone number",
+    "consent": "By registering, you agree to our <link>Privacy Policy</link> and event and study-related follow-up.",
+    "submit": "Submit registration",
+    "submitting": "Submitting...",
+    "successTitle": "Registration received",
+    "successBody": "Thank you for registering for the Canada Education Fair. Our team looks forward to welcoming you.",
+    "showConfirmation": "At the venue? You can show this confirmation to our team.",
+    "home": "Back to home",
+    "errors": {
+      "destination": "Please select a destination country.",
+      "name": "Please enter your full name.",
+      "email": "Please enter a valid email address.",
+      "phone": "Please enter a valid phone number with its country code.",
+      "consent": "Please review the privacy notice and submit again.",
+      "invalid": "Please check your details and try again.",
+      "rate": "Too many attempts. Please wait or ask our team at the venue for help.",
+      "failed": "We could not confirm your registration. Please try again. Your entered details will stay here."
     }
   }
 }

@@ -683,3 +683,28 @@ model ImatLead {
   @@index([created_at])
   @@map("imat_leads")
 }
+
+// Owner creates this table with prisma/snippets/create-event-registrations.sql.
+model EventRegistration {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  eventKey String @map("event_key")
+  fullName String @map("full_name")
+  email String
+  phone String
+  locale String
+  destination String @default("canada")
+  registrationSource String @default("event_qr") @map("registration_source")
+  firmliFormNumber String @map("firmli_form_number")
+  firmliUtmNumber String @map("firmli_utm_number")
+  consentVersion String @map("consent_version")
+  consentedAt DateTime @default(now()) @map("consented_at") @db.Timestamptz(6)
+  crmStatus String @default("pending") @map("crm_status")
+  crmError String? @map("crm_error")
+  crmSyncedAt DateTime? @map("crm_synced_at") @db.Timestamptz(6)
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+
+  @@unique([eventKey, email])
+  @@index([eventKey, createdAt])
+  @@index([crmStatus])
+  @@map("event_registrations")
+}

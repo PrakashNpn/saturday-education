@@ -59,6 +59,10 @@ tests/      unit tests
 
 IMAT practice is at `/imat-practice-test`, linked from the Practice Tests navigation dropdown and the footer. It offers random mocks and published historical papers for 2011–2026, saves attempts in the browser, and collects contact details before showing results. Leads and server-calculated summaries are stored in `imat_leads`, with a counsellor email after each new submission. See [features/imat-practice-test/README.md](features/imat-practice-test/README.md) for behaviour, configuration and verification.
 
+The AI chatbot collects name, email and phone before chatting begins, without OTP. It reuses the consultation lead storage and Firmli chat sync, saving contact details without a conversation excerpt. See [chat contact registration](docs/chat-contact-registration.md).
+
+Canada fair registration is at `/canada-education-event` (short QR link `/cev`). Before accepting registrations, the owner must create `event_registrations` using [the manual SQL](prisma/snippets/create-event-registrations.sql). See [event setup and recovery](docs/canada-education-event.md) for the separate Firmli campaign and verification steps.
+
 ## Deploying
 
 Pushing to the main branch deploys on Vercel. Before a deploy that adds a database column, run its SQL in Supabase first. Pages are prebuilt and refresh at most once a day, so a content change made in the database shows within a day or at the next deploy.

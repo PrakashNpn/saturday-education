@@ -325,6 +325,22 @@
 }
 
 /* An active exam owns its header and keeps the site furniture out of the focus and visual flow. */
+/* Keep the event's phone form unobstructed by the floating chat launcher. */
+[data-event-registration] .phone-field {
+  align-items: stretch;
+}
+
+/* The phone library's unlayered CSS otherwise centres the country trigger. */
+[data-event-registration] .phone-field > button {
+  height: auto;
+  align-self: stretch;
+  border-radius: 0.75rem;
+}
+
+body:has([data-event-registration]) [data-chat-widget] {
+  display: none;
+}
+
 body:has([data-exam-active]) [data-site-chrome] {
   display: none;
 }
