@@ -39,5 +39,5 @@ test('a chat lead falls back to the consultation form when the chat form is unse
 test('nothing is sent when the client number is missing', async () => {
   // Re-import is not possible (consts are read once), so assert the guard by source instead.
   const src = await import('node:fs').then((fs) => fs.readFileSync('shared/lib/crm/firmli.ts', 'utf8'))
-  assert.match(src, /if \(!FIRMLI_CLIENT_NUMBER \|\| !FIRMLI_FORM_NUMBER\)/)
+  assert.match(src, /if \(!clientNumber \|\| !formNumber\)/)
 })

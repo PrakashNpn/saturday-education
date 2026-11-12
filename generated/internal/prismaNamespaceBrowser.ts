@@ -73,7 +73,8 @@ export const ModelName = {
   ImatQuestion: 'ImatQuestion',
   ImatQuestionOption: 'ImatQuestionOption',
   ImatAnswerKey: 'ImatAnswerKey',
-  ImatLead: 'ImatLead'
+  ImatLead: 'ImatLead',
+  EventRegistration: 'EventRegistration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -554,6 +555,28 @@ export const ImatLeadScalarFieldEnum = {
 } as const
 
 export type ImatLeadScalarFieldEnum = (typeof ImatLeadScalarFieldEnum)[keyof typeof ImatLeadScalarFieldEnum]
+
+
+export const EventRegistrationScalarFieldEnum = {
+  id: 'id',
+  eventKey: 'eventKey',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  locale: 'locale',
+  destination: 'destination',
+  registrationSource: 'registrationSource',
+  firmliFormNumber: 'firmliFormNumber',
+  firmliUtmNumber: 'firmliUtmNumber',
+  consentVersion: 'consentVersion',
+  consentedAt: 'consentedAt',
+  crmStatus: 'crmStatus',
+  crmError: 'crmError',
+  crmSyncedAt: 'crmSyncedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EventRegistrationScalarFieldEnum = (typeof EventRegistrationScalarFieldEnum)[keyof typeof EventRegistrationScalarFieldEnum]
 
 
 export const SortOrder = {

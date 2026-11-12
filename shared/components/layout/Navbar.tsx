@@ -228,7 +228,14 @@ export default function Navbar() {
       {/* Above page-level sticky tabs (z-30), below the utility switcher (z-40). */}
       <header className="sticky top-0 z-[35] border-b border-stroke bg-surface">
         <div className="mx-auto flex min-h-[62px] max-w-wrap items-center justify-between gap-6 px-6">
-          <Link href="/" className="shrink-0">
+          <Link href="/" className="shrink-0" onClick={event => {
+            // Same-route navigation does not reliably reset scroll in Next.js.
+            // Preserve normal new-tab behaviour and navigation from other pages.
+            if (pathname !== '/' || event.button !== 0 || event.metaKey || event.ctrlKey || event.shiftKey || event.altKey) return
+            event.preventDefault()
+            setMobileOpen(false)
+            window.scrollTo({ top: 0, behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'instant' : 'smooth' })
+          }}>
             <Image
               src="/images/logo/logo.webp"
               alt="Saturday Education Consulting"

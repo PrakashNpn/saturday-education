@@ -294,7 +294,7 @@
     },
     "partners": {
       "eyebrow": "Universitas mitra",
-      "headline": "700+ hubungan langsung di seluruh dunia."
+      "headline": "900+ hubungan langsung di seluruh dunia."
     },
     "whySaturday": {
       "eyebrow": "Mengapa Saturday Education",
@@ -651,7 +651,7 @@
     "eyebrow": "Konsultasi kuliah di luar negeri",
     "bookConsultation": "Jadwalkan konsultasi gratis",
     "careerAssessment": "Ikuti asesmen karier",
-    "partnersCount": "700+",
+    "partnersCount": "900+",
     "partnersLabel": "universitas mitra",
     "popular": "Populer",
     "destinationLabel": "Destinasi",
@@ -747,6 +747,7 @@
       "counsellor": "Bicara dengan konselor"
     },
     "lead": {
+      "loading": "Memuat formulir kontak...",
       "title": "Bicara dengan konselor",
       "subtitle": "Tinggalkan data Anda dan konselor akan menghubungi Anda dalam 1 hari kerja.",
       "nameLabel": "Nama lengkap",
@@ -756,7 +757,7 @@
       "phoneLabel": "Nomor telepon",
       "phonePlaceholder": "Nomor telepon",
       "privacy": "Dengan mengirim, Anda menyetujui <link>Kebijakan Privasi</link> kami.",
-      "submit": "Kirim ke konselor",
+      "submit": "Mulai mengobrol",
       "submitting": "Mengirim...",
       "orMessage": "atau kirim pesan kepada kami lewat",
       "whatsapp": "WhatsApp",
@@ -770,8 +771,8 @@
         "rate": "Terlalu banyak percobaan. Silakan coba lagi nanti atau kirim pesan kepada kami lewat WhatsApp.",
         "failed": "Terjadi kesalahan. Silakan coba lagi atau kirim pesan kepada kami lewat WhatsApp."
       },
-      "gateTitle": "Biarkan konselor membantu pilihan Anda",
-      "gateSubtitle": "Bagikan data Anda dan konselor akan membahas universitas serta langkah berikutnya yang sesuai untuk Anda dalam 1 hari kerja. Anda tetap bisa melanjutkan percakapan setelahnya.",
+      "gateTitle": "Sebelum kita mulai",
+      "gateSubtitle": "Bagikan data Anda untuk mengobrol dengan penasihat AI kami. Konselor dapat menghubungi Anda untuk membantu rencana studi Anda.",
       "gatePlaceholder": "Bagikan data Anda di atas untuk melanjutkan"
     },
     "clearChat": "Hapus riwayat obrolan",
@@ -1660,6 +1661,44 @@
       "selectionDetails": "Cara soal dipilih",
       "paperDetails": "Tentang paket soal ini",
       "sourceCorrections": "Kesalahan kecil pada soal asli telah diperbaiki untuk latihan."
+    }
+  }
+,
+  "educationEvent": {
+    "destinationLabel": "Negara tujuan",
+    "detailsTitle": "Detail acara",
+    "eyebrow": "Pameran pendidikan Kanada",
+    "description": "Daftar Myanmar First Canada Education Fair 2026 di Pan-Pacific Hotel Yangon pada 15 November, pukul 13.00 hingga 16.00.",
+    "intro": "Mulai langkah berikutnya untuk studi di Kanada. Daftar di sini agar tim kami dapat membantu Anda menjelajahi pilihan studi.",
+    "dateLabel": "Tanggal",
+    "date": "Minggu, 15 November 2026",
+    "timeLabel": "Waktu",
+    "yangonTime": "Waktu Yangon",
+    "venueLabel": "Tempat",
+    "help": "Perlu bantuan mendaftar? Hubungi tim kami di lokasi acara.",
+    "formEyebrow": "Pendaftaran acara",
+    "formTitle": "Daftar ke pameran",
+    "formIntro": "Bagikan informasi kontak agar konselor dapat membantu Anda.",
+    "name": "Nama lengkap",
+    "email": "Alamat email",
+    "phone": "Telepon / WhatsApp",
+    "phonePlaceholder": "Nomor telepon Anda",
+    "consent": "Dengan mendaftar, Anda menyetujui <link>Kebijakan Privasi</link> dan kontak lanjutan terkait acara serta studi.",
+    "submit": "Kirim pendaftaran",
+    "submitting": "Mengirim...",
+    "successTitle": "Pendaftaran diterima",
+    "successBody": "Terima kasih telah mendaftar ke pameran pendidikan Kanada. Tim kami menantikan kedatangan Anda.",
+    "showConfirmation": "Sudah di lokasi acara? Tunjukkan konfirmasi ini kepada tim kami.",
+    "home": "Kembali ke beranda",
+    "errors": {
+      "destination": "Pilih negara tujuan.",
+      "name": "Masukkan nama lengkap Anda.",
+      "email": "Masukkan alamat email yang valid.",
+      "phone": "Masukkan nomor telepon valid beserta kode negara.",
+      "consent": "Baca pemberitahuan privasi dan kirim kembali.",
+      "invalid": "Periksa data Anda dan coba lagi.",
+      "rate": "Terlalu banyak percobaan. Tunggu atau minta bantuan tim kami di lokasi.",
+      "failed": "Pendaftaran belum dapat dikonfirmasi. Coba lagi. Data yang Anda isi tetap tersimpan di formulir."
     }
   }
 }

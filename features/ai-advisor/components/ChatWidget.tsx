@@ -8,8 +8,6 @@ import { useTranslations, useLocale } from 'next-intl'
 import { useChat } from '../hooks/useChat'
 import ChatMessage from './ChatMessage'
 import ChatTypingIndicator from './ChatTypingIndicator'
-import { guessCountryKey } from '@/shared/constants/destinationCountries'
-import { readLeadMarker } from '../utils/leadMarkers'
 import { useMediaQuery } from '@/shared/hooks/useMediaQuery'
 
 // The lead form carries the phone field (about 400 KB of flags and phone metadata), which
@@ -78,7 +76,7 @@ export default function ChatWidget() {
   const gateRef = useRef<HTMLDivElement>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const { messages, isStreaming, gated, leadSent, sendMessage, markLeadSent, clearHistory } = useChat(
+  const { messages, isStreaming, gated, sendMessage, markLeadSent, clearHistory } = useChat(
     t('welcomeMessage'),
     locale,
   )
@@ -86,27 +84,15 @@ export default function ChatWidget() {
   const suggestions = [
     t('suggestions.chooseCourse'),
     t('suggestions.scholarships'),
-    t('suggestions.counsellor'),
   ]
 
   const showSuggestions = messages.length <= 1 && !gated
 
-  // Only the newest open lead form is shown, none once details were sent, and
-  // none while the required form below stands in for it.
-  const openFormId = leadSent
-    ? undefined
-    : [...messages].reverse().find((m) => m.role === 'assistant' && readLeadMarker(m.content)?.status === 'open')?.id
-  const studentSaid = messages.filter((m) => m.role === 'user').map((m) => m.content)
-  const lastReplyId = [...messages].reverse().find((m) => m.role === 'assistant')?.id
-
-  // The required form waits for the reply in progress to finish.
-  const showGate = gated && !isStreaming
-
   useEffect(() => {
-    if (isOpen) {
+    if (isOpen && !gated) {
       messagesEndRef.current?.scrollIntoView({ behavior: 'smooth' })
     }
-  }, [messages, isOpen, isStreaming])
+  }, [messages, isOpen, isStreaming, gated])
 
   // Start fetching the lead form's code as soon as the chat opens.
   useEffect(() => {
@@ -116,21 +102,21 @@ export default function ChatWidget() {
   // The required form is taller than the visible chat, so bring up its top
   // rather than the bottom the effect above scrolls to.
   useEffect(() => {
-    if (isOpen && showGate) gateRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }, [isOpen, showGate])
+    if (isOpen && gated) gateRef.current?.scrollIntoView({ behavior: 'smooth', block: 'start' })
+  }, [isOpen, gated])
 
   // Auto-focus the input when the panel opens and after each reply finishes, so the
   // user can keep typing without clicking back into the field. The input is disabled
   // while streaming, so we (re)focus once it is enabled again.
   useEffect(() => {
-    if (isOpen && !isStreaming) {
+    if (isOpen && !isStreaming && !gated) {
       inputRef.current?.focus({ preventScroll: true })
     }
-  }, [isOpen, isStreaming])
+  }, [isOpen, isStreaming, gated])
 
   function handleSend() {
     const text = inputValue.trim()
-    if (!text || isStreaming) return
+    if (!text || isStreaming || gated) return
     setInputValue('')
     sendMessage(text)
   }
@@ -206,7 +192,7 @@ export default function ChatWidget() {
                   </div>
 
                   <div className="relative flex items-center gap-3">
-                    {messages.length > 1 && (
+                    {!gated && messages.length > 1 && (
                       <button
                         onClick={clearHistory}
                         className="text-white/50 hover:text-white/90 text-xs transition-colors"
@@ -231,35 +217,18 @@ export default function ChatWidget() {
                     as a teal wash across the whole body rather than a
                     subtle one. */}
                 <div className="flex-1 p-4 overflow-y-auto flex flex-col gap-3 bg-gradient-to-b from-white/55 via-tint/40 to-tint/25">
-                  {messages.map((msg) =>
-                    msg.content === '' ? null : (
-                      <ChatMessage
-                        key={msg.id}
-                        message={msg}
-                        onNavigate={() => setIsOpen(false)}
-                        showLeadForm={msg.id === openFormId && !isStreaming && !gated}
-                        said={studentSaid}
-                        onLeadSent={() => markLeadSent(msg.id)}
-                      />
-                    )
-                  )}
-
-                  {isStreaming && messages[messages.length - 1]?.content === '' && (
-                    <ChatTypingIndicator />
-                  )}
-
-                  {showGate && lastReplyId && (
+                  {gated ? (
                     <div ref={gateRef}>
-                      <Suspense fallback={null}>
-                        <LeadCard
-                          variant="gate"
-                          initialCountry={guessCountryKey(studentSaid)}
-                          said={studentSaid}
-                          onSent={() => markLeadSent(lastReplyId)}
-                        />
+                      <Suspense fallback={<p role="status" className="py-4 text-sm text-muted-text">{t('lead.loading')}</p>}>
+                        <LeadCard onSent={() => markLeadSent()} />
                       </Suspense>
                     </div>
-                  )}
+                  ) : <>
+                    {messages.map((msg) => msg.content === '' ? null : (
+                      <ChatMessage key={msg.id} message={msg} onNavigate={() => setIsOpen(false)} />
+                    ))}
+                    {isStreaming && messages[messages.length - 1]?.content === '' && <ChatTypingIndicator />}
+                  </>}
 
                   {showSuggestions && (
                     <div className="flex flex-wrap gap-2 mt-1">
@@ -280,26 +249,26 @@ export default function ChatWidget() {
                 </div>
 
                 {/* Input bar */}
-                <div className="p-3 border-t border-white/40 bg-white/50 backdrop-blur-xl flex-shrink-0 flex items-center gap-2">
+                {!gated && <div className="p-3 border-t border-white/40 bg-white/50 backdrop-blur-xl flex-shrink-0 flex items-center gap-2">
                   <input
                     ref={inputRef}
                     type="text"
                     value={inputValue}
                     onChange={(e) => setInputValue(e.target.value)}
                     onKeyDown={handleKeyDown}
-                    placeholder={gated ? t('lead.gatePlaceholder') : t('inputPlaceholder')}
-                    disabled={isStreaming || gated}
+                    placeholder={t('inputPlaceholder')}
+                    disabled={isStreaming}
                     className="flex-1 px-4 py-2.5 rounded-full bg-tint/60 border border-action/15 text-sm placeholder:text-muted-text focus:outline-none focus:ring-2 focus:ring-action/20 focus:border-action/40 transition-all disabled:cursor-not-allowed shadow-[inset_0_1px_4px_rgba(23,126,141,0.05)]"
                   />
                   <button
                     onClick={handleSend}
-                    disabled={!inputValue.trim() || isStreaming || gated}
+                    disabled={!inputValue.trim() || isStreaming}
                     className="w-9 h-9 rounded-full bg-gradient-to-br from-action-hover to-action flex items-center justify-center flex-shrink-0 transition-all disabled:opacity-40 disabled:cursor-not-allowed hover:shadow-[0_4px_16px_rgba(23,126,141,0.5)] hover:scale-105 active:scale-95 shadow-[0_2px_10px_rgba(23,126,141,0.3)]"
                     aria-label={t('sendMessage')}
                   >
                     <Send size={15} className="text-white" />
                   </button>
-                </div>
+                </div>}
 
               </div>
             </div>

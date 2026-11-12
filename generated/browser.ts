@@ -132,3 +132,8 @@ export type ImatAnswerKey = Prisma.ImatAnswerKeyModel
  *
  */
 export type ImatLead = Prisma.ImatLeadModel
+/**
+ * Model EventRegistration
+ *
+ */
+export type EventRegistration = Prisma.EventRegistrationModel

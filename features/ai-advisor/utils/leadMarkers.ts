@@ -11,8 +11,7 @@ export const LEAD_SAVED_MARKER = '[[lead-saved]]'
  *  student sent their details in an earlier chat on this device. */
 export const LEAD_KNOWN_MARKER = '[[lead-known]]'
 
-/** Asks the chat to render the lead form under this message. May carry the
- *  student's country: [[lead-card:germany]]. */
+/** Legacy form markers are parsed so old saved conversations still display cleanly. */
 const CARD_RE = /\[\[lead-card(?::([A-Za-z]+))?\]\]/
 
 export type LeadMarker = { status: 'open' | 'saved' | 'known'; country?: string }
@@ -24,10 +23,4 @@ export function readLeadMarker(content: string): LeadMarker | null {
   const card = CARD_RE.exec(content)
   if (card) return { status: 'open', country: card[1] }
   return null
-}
-
-/** The same message with its form marker turned into "sent", or with that
- *  marker added when the form was the required step rather than a message. */
-export function markLeadSaved(content: string): string {
-  return CARD_RE.test(content) ? content.replace(CARD_RE, LEAD_SAVED_MARKER) : `${content} ${LEAD_SAVED_MARKER}`
 }

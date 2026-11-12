@@ -3,6 +3,12 @@ import assert from 'node:assert/strict'
 import { buildSystemPrompt, SYSTEM_PROMPT } from '../features/ai-advisor/prompts/system'
 
 describe('buildSystemPrompt', () => {
+  test('contact details are collected before chatting and are not requested again', () => {
+    assert.match(SYSTEM_PROMPT, /before the conversation begins/)
+    assert.match(SYSTEM_PROMPT, /Never ask for those details again/)
+    assert.match(SYSTEM_PROMPT, /Never write \[\[lead-saved\]\] or \[\[lead-known\]\] yourself/)
+    assert.ok(!SYSTEM_PROMPT.includes('after the student\'s first few questions'))
+  })
   test('always starts with the base prompt and tells the model to match the student language', () => {
     for (const l of [undefined, 'en', 'th', 'my', 'vi', 'fil', 'id']) {
       const p = buildSystemPrompt(l)

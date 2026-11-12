@@ -7,7 +7,6 @@ import { Link } from '@/i18n/navigation'
 import { languageOf } from '@/i18n/languages'
 import { CONTACT_LINKS } from '@/shared/constants/social'
 import PhoneField from '@/shared/components/common/PhoneField'
-import { isCountryKey } from '@/shared/constants/destinationCountries'
 
 const INPUT =
   'w-full rounded-xl border border-action/15 bg-white px-3 py-1.5 text-sm text-primary-text placeholder:text-muted-text transition-colors hover:border-action/30 focus:border-action/40 focus:ring-2 focus:ring-action/20 focus:outline-none'
@@ -19,19 +18,12 @@ const EMAIL_RE = /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/
 type ErrorKey = 'name' | 'email' | 'phone' | 'rate' | 'failed'
 
 interface LeadCardProps {
-  /** `card` is an offer inside a reply. `gate` is the required step that
-   *  stands in for the input once the free questions are used up. */
-  variant?: 'card' | 'gate'
-  /** Country the chat already knows. Sent with the details without asking. */
-  initialCountry?: string
-  /** What the student asked, sent along so the counsellor has context. */
-  said: string[]
   onSent: () => void
 }
 
 /** The lead form inside the chat: three required fields, validated before
  *  anything is sent, and the details never pass through the model. */
-export default function LeadCard({ variant = 'card', initialCountry, said, onSent }: LeadCardProps) {
+export default function LeadCard({ onSent }: LeadCardProps) {
   const t = useTranslations('chatWidget.lead')
   const locale = useLocale()
   const id = useId()
@@ -61,8 +53,6 @@ export default function LeadCard({ variant = 'card', initialCountry, said, onSen
           fullName: fullName.trim(),
           email: email.trim(),
           phone,
-          targetCountry: isCountryKey(initialCountry) ? initialCountry : undefined,
-          said,
           hp,
         }),
       })
@@ -87,10 +77,10 @@ export default function LeadCard({ variant = 'card', initialCountry, said, onSen
     >
       <div>
         <p className="text-sm font-semibold text-primary-text">
-          {variant === 'gate' ? t('gateTitle') : t('title')}
+          {t('gateTitle')}
         </p>
         <p className="mt-0.5 text-xs leading-relaxed text-muted-text">
-          {variant === 'gate' ? t('gateSubtitle') : t('subtitle')}
+          {t('gateSubtitle')}
         </p>
       </div>
 
@@ -99,6 +89,7 @@ export default function LeadCard({ variant = 'card', initialCountry, said, onSen
         <input
           id={`${id}-name`}
           type="text"
+          required
           autoComplete="name"
           value={fullName}
           onChange={(e) => setFullName(e.target.value)}
@@ -112,6 +103,7 @@ export default function LeadCard({ variant = 'card', initialCountry, said, onSen
         <input
           id={`${id}-email`}
           type="email"
+          required
           autoComplete="email"
           inputMode="email"
           value={email}

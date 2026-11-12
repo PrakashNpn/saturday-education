@@ -406,7 +406,8 @@ export const ModelName = {
   ImatQuestion: 'ImatQuestion',
   ImatQuestionOption: 'ImatQuestionOption',
   ImatAnswerKey: 'ImatAnswerKey',
-  ImatLead: 'ImatLead'
+  ImatLead: 'ImatLead',
+  EventRegistration: 'EventRegistration'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -422,7 +423,7 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
     omit: GlobalOmitOptions
   }
   meta: {
-    modelProps: "country" | "countryAdvantage" | "countryProcessStep" | "countryFAQ" | "university" | "program" | "scholarship" | "admissionStep" | "consultation" | "careerLead" | "assessmentLead" | "chatConversation" | "user" | "account" | "session" | "imatSource" | "imatPaper" | "imatPaperSection" | "imatPassage" | "imatQuestion" | "imatQuestionOption" | "imatAnswerKey" | "imatLead"
+    modelProps: "country" | "countryAdvantage" | "countryProcessStep" | "countryFAQ" | "university" | "program" | "scholarship" | "admissionStep" | "consultation" | "careerLead" | "assessmentLead" | "chatConversation" | "user" | "account" | "session" | "imatSource" | "imatPaper" | "imatPaperSection" | "imatPassage" | "imatQuestion" | "imatQuestionOption" | "imatAnswerKey" | "imatLead" | "eventRegistration"
     txIsolationLevel: TransactionIsolationLevel
   }
   model: {
@@ -2128,6 +2129,80 @@ export type TypeMap<ExtArgs extends runtime.Types.Extensions.InternalArgs = runt
         }
       }
     }
+    EventRegistration: {
+      payload: Prisma.$EventRegistrationPayload<ExtArgs>
+      fields: Prisma.EventRegistrationFieldRefs
+      operations: {
+        findUnique: {
+          args: Prisma.EventRegistrationFindUniqueArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload> | null
+        }
+        findUniqueOrThrow: {
+          args: Prisma.EventRegistrationFindUniqueOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>
+        }
+        findFirst: {
+          args: Prisma.EventRegistrationFindFirstArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload> | null
+        }
+        findFirstOrThrow: {
+          args: Prisma.EventRegistrationFindFirstOrThrowArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>
+        }
+        findMany: {
+          args: Prisma.EventRegistrationFindManyArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>[]
+        }
+        create: {
+          args: Prisma.EventRegistrationCreateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>
+        }
+        createMany: {
+          args: Prisma.EventRegistrationCreateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        createManyAndReturn: {
+          args: Prisma.EventRegistrationCreateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>[]
+        }
+        delete: {
+          args: Prisma.EventRegistrationDeleteArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>
+        }
+        update: {
+          args: Prisma.EventRegistrationUpdateArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>
+        }
+        deleteMany: {
+          args: Prisma.EventRegistrationDeleteManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateMany: {
+          args: Prisma.EventRegistrationUpdateManyArgs<ExtArgs>
+          result: BatchPayload
+        }
+        updateManyAndReturn: {
+          args: Prisma.EventRegistrationUpdateManyAndReturnArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>[]
+        }
+        upsert: {
+          args: Prisma.EventRegistrationUpsertArgs<ExtArgs>
+          result: runtime.Types.Utils.PayloadToResult<Prisma.$EventRegistrationPayload>
+        }
+        aggregate: {
+          args: Prisma.EventRegistrationAggregateArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.AggregateEventRegistration>
+        }
+        groupBy: {
+          args: Prisma.EventRegistrationGroupByArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventRegistrationGroupByOutputType>[]
+        }
+        count: {
+          args: Prisma.EventRegistrationCountArgs<ExtArgs>
+          result: runtime.Types.Utils.Optional<Prisma.EventRegistrationCountAggregateOutputType> | number
+        }
+      }
+    }
   }
 } & {
   other: {
@@ -2631,6 +2706,28 @@ export const ImatLeadScalarFieldEnum = {
 export type ImatLeadScalarFieldEnum = (typeof ImatLeadScalarFieldEnum)[keyof typeof ImatLeadScalarFieldEnum]
 
 
+export const EventRegistrationScalarFieldEnum = {
+  id: 'id',
+  eventKey: 'eventKey',
+  fullName: 'fullName',
+  email: 'email',
+  phone: 'phone',
+  locale: 'locale',
+  destination: 'destination',
+  registrationSource: 'registrationSource',
+  firmliFormNumber: 'firmliFormNumber',
+  firmliUtmNumber: 'firmliUtmNumber',
+  consentVersion: 'consentVersion',
+  consentedAt: 'consentedAt',
+  crmStatus: 'crmStatus',
+  crmError: 'crmError',
+  crmSyncedAt: 'crmSyncedAt',
+  createdAt: 'createdAt'
+} as const
+
+export type EventRegistrationScalarFieldEnum = (typeof EventRegistrationScalarFieldEnum)[keyof typeof EventRegistrationScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -2963,6 +3060,7 @@ export type GlobalOmitConfig = {
   imatQuestionOption?: Prisma.ImatQuestionOptionOmit
   imatAnswerKey?: Prisma.ImatAnswerKeyOmit
   imatLead?: Prisma.ImatLeadOmit
+  eventRegistration?: Prisma.EventRegistrationOmit
 }
 
 /* Types for Logging */

@@ -294,7 +294,7 @@
     },
     "partners": {
       "eyebrow": "Mga partner university",
-      "headline": "700+ direktang ugnayan sa buong mundo."
+      "headline": "900+ direktang ugnayan sa buong mundo."
     },
     "whySaturday": {
       "eyebrow": "Bakit Saturday Education",
@@ -651,7 +651,7 @@
     "eyebrow": "Gabay sa pag-aaral sa ibang bansa",
     "bookConsultation": "Mag-book ng libreng konsultasyon",
     "careerAssessment": "Kunin ang career assessment",
-    "partnersCount": "700+",
+    "partnersCount": "900+",
     "partnersLabel": "partner universities",
     "popular": "Popular",
     "destinationLabel": "Destinasyon",
@@ -747,6 +747,7 @@
       "counsellor": "Makipag-usap sa counselor"
     },
     "lead": {
+      "loading": "Nilo-load ang contact form...",
       "title": "Makipag-usap sa counselor",
       "subtitle": "Iwan ang iyong detalye at makikipag-ugnayan sa iyo ang isang counselor sa loob ng 1 araw ng trabaho.",
       "nameLabel": "Buong pangalan",
@@ -756,7 +757,7 @@
       "phoneLabel": "Numero ng telepono",
       "phonePlaceholder": "Numero ng telepono",
       "privacy": "Sa pagpapadala, sumasang-ayon ka sa aming <link>Patakaran sa Privacy</link>.",
-      "submit": "Ipadala sa counselor",
+      "submit": "Simulan ang chat",
       "submitting": "Ipinapadala...",
       "orMessage": "o mag-message sa amin sa",
       "whatsapp": "WhatsApp",
@@ -770,8 +771,8 @@
         "rate": "Masyadong maraming pagsubok. Pakisubukan ulit mamaya o mag-message sa amin sa WhatsApp.",
         "failed": "May nangyaring mali. Pakisubukan ulit o mag-message sa amin sa WhatsApp."
       },
-      "gateTitle": "Hayaang tulungan ka ng counselor sa mga opsyon mo",
-      "gateSubtitle": "Ibahagi ang iyong detalye at pag-uusapan ng isang counselor ang mga university at susunod na hakbang na bagay sa iyo sa loob ng 1 araw ng trabaho. Puwede kang magpatuloy sa pakikipag-chat pagkatapos.",
+      "gateTitle": "Bago tayo magsimula",
+      "gateSubtitle": "Ibahagi ang iyong detalye para makipag-chat sa aming AI advisor. Maaaring makipag-ugnayan ang counselor para tulungan ka sa plano mong pag-aaral.",
       "gatePlaceholder": "Ibahagi ang iyong detalye sa itaas para magpatuloy"
     },
     "clearChat": "I-clear ang chat history",
@@ -1542,6 +1543,44 @@
       "selectionDetails": "Paano pinipili ang mga tanong",
       "paperDetails": "Tungkol sa mga paper na ito",
       "sourceCorrections": "Itinama ang maliliit na pagkakamali sa orihinal para sa pagsasanay."
+    }
+  }
+,
+  "educationEvent": {
+    "destinationLabel": "Bansang pag-aaralan",
+    "detailsTitle": "Detalye ng event",
+    "eyebrow": "Canada Education Fair",
+    "description": "Magrehistro para sa Myanmar First Canada Education Fair 2026 sa Pan-Pacific Hotel Yangon sa 15 Nobyembre, 1 PM hanggang 4 PM.",
+    "intro": "Simulan ang susunod mong hakbang sa pag-aaral sa Canada. Magrehistro at tutulungan ka ng aming team na alamin ang mga pagpipilian mo.",
+    "dateLabel": "Petsa",
+    "date": "Linggo, 15 Nobyembre 2026",
+    "timeLabel": "Oras",
+    "yangonTime": "Oras sa Yangon",
+    "venueLabel": "Lugar",
+    "help": "Kailangan ng tulong sa pagpaparehistro? Lumapit sa aming team sa event.",
+    "formEyebrow": "Pagpaparehistro sa event",
+    "formTitle": "Magrehistro sa fair",
+    "formIntro": "Ibahagi ang contact details mo para matulungan ka ng aming counselors.",
+    "name": "Buong pangalan",
+    "email": "Email address",
+    "phone": "Telepono / WhatsApp",
+    "phonePlaceholder": "Numero ng iyong telepono",
+    "consent": "Sa pagpaparehistro, sumasang-ayon ka sa <link>Patakaran sa Privacy</link> at follow-up tungkol sa event at pag-aaral.",
+    "submit": "Isumite ang pagpaparehistro",
+    "submitting": "Isinusumite...",
+    "successTitle": "Natanggap na ang pagpaparehistro",
+    "successBody": "Salamat sa pagpaparehistro sa Canada Education Fair. Inaasahan ng aming team ang pagdating mo.",
+    "showConfirmation": "Nasa event ka na? Ipakita ang kumpirmasyong ito sa aming team.",
+    "home": "Bumalik sa home",
+    "errors": {
+      "destination": "Pumili ng bansang pag-aaralan.",
+      "name": "Pakilagay ang buong pangalan mo.",
+      "email": "Pakilagay ang wastong email address.",
+      "phone": "Pakilagay ang wastong numero kasama ang country code.",
+      "consent": "Pakibasa ang privacy notice at isumite muli.",
+      "invalid": "Pakisuri ang detalye at subukan muli.",
+      "rate": "Masyadong maraming pagsubok. Maghintay o humingi ng tulong sa aming team sa event.",
+      "failed": "Hindi pa makumpirma ang pagpaparehistro. Subukan muli. Mananatili ang inilagay mong detalye."
     }
   }
 }

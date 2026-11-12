@@ -2,18 +2,13 @@
 
 import { useEffect, useRef, useState } from 'react'
 import type { Message } from '../types'
-import { LEAD_KNOWN_MARKER, markLeadSaved, readLeadMarker } from '../utils/leadMarkers'
+import { LEAD_KNOWN_MARKER, readLeadMarker } from '../utils/leadMarkers'
 
 const STORAGE_KEY = 'saturday-chat-history'
-// Kept apart from the history so that Clear chat does not hand out fresh free
-// answers, and so a student who already sent their details is not asked again.
-const QUESTIONS_KEY = 'saturday-chat-questions'
+// Kept apart from history so clearing the chat does not ask for details again.
 const LEAD_SENT_KEY = 'saturday-chat-lead-sent'
 const MAX_STORED = 40
 const MAX_API_MESSAGES = 20
-
-/** How many questions a student can ask before the chat needs their details. */
-export const FREE_QUESTIONS = 3
 
 function readStored(key: string): string | null {
   if (typeof window === 'undefined') return null
@@ -56,7 +51,6 @@ function makeWelcome(content: string): Message[] {
 export function useChat(initialMessage: string, locale?: string) {
   const [messages, setMessages] = useState<Message[]>(() => loadFromStorage(initialMessage))
   const [isStreaming, setIsStreaming] = useState(false)
-  const [questionCount, setQuestionCount] = useState(() => Number(readStored(QUESTIONS_KEY)) || 0)
   const [leadKnown, setLeadKnown] = useState(() => readStored(LEAD_SENT_KEY) === '1')
   const abortRef = useRef<AbortController | null>(null)
 
@@ -72,15 +66,11 @@ export function useChat(initialMessage: string, locale?: string) {
   }, [messages])
 
   const leadSent = leadKnown || messages.some((m) => readLeadMarker(m.content)?.status === 'saved')
-  // After the free questions the chat asks for details before it goes on.
-  const gated = !leadSent && questionCount >= FREE_QUESTIONS
+  // Contact registration is required before the first message.
+  const gated = !leadSent
 
   async function sendMessage(content: string) {
     if (!content.trim() || isStreaming || gated) return
-
-    const nextCount = questionCount + 1
-    setQuestionCount(nextCount)
-    writeStored(QUESTIONS_KEY, String(nextCount))
 
     // Abort any previous request
     if (abortRef.current) abortRef.current.abort()
@@ -155,19 +145,15 @@ export function useChat(initialMessage: string, locale?: string) {
     }
   }
 
-  /** Records that the details were sent, in the message's own text so it
-   *  survives a reload and the server sees it on the next turn, and on the
-   *  device so a cleared chat does not ask again. */
-  function markLeadSent(messageId: string) {
-    setMessages((prev) =>
-      prev.map((m) => (m.id === messageId ? { ...m, content: markLeadSaved(m.content) } : m)),
-    )
+  /** Remember successful registration on this device without storing contact
+   *  fields in chat history. The next model request receives a known marker. */
+  function markLeadSent() {
     setLeadKnown(true)
     writeStored(LEAD_SENT_KEY, '1')
   }
 
   function clearHistory() {
-    if (typeof window !== 'undefined') localStorage.removeItem(STORAGE_KEY)
+    try { localStorage.removeItem(STORAGE_KEY) } catch { /* Keep clearing usable when storage is unavailable. */ }
     setMessages(makeWelcome(initialMessage))
   }
 

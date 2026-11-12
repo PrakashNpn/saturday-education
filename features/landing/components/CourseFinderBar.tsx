@@ -24,7 +24,7 @@ interface Props {
 
 /** Destinations offered as one-tap chips, by Firmli's own country name. A name
  *  Firmli does not return is skipped, so the row never shows a dead chip. */
-const POPULAR = ['Germany', 'Canada', 'Ireland', 'New Zealand', 'Malaysia', 'Thailand']
+const POPULAR = ['Germany', 'Canada', 'Hungary', 'New Zealand', 'Malaysia', 'Singapore']
 
 /** Chips read better short; everything else uses Firmli's name as it is. */
 const SHORT_NAME: Record<string, string> = { 'United Kingdom': 'UK', 'United States': 'USA' }

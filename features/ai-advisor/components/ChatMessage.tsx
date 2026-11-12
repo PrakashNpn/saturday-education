@@ -5,7 +5,6 @@ import { ArrowRight, Check } from 'lucide-react'
 import { useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
 import { parseAssistantReply } from '../utils/formatReply'
-import LeadCard from './LeadCard'
 
 interface ChatMessageProps {
   message: {
@@ -13,19 +12,12 @@ interface ChatMessageProps {
     content: string
   }
   onNavigate?: () => void
-  /** True only for the newest unanswered form, so older ones don't pile up. */
-  showLeadForm?: boolean
-  /** What the student has asked so far, sent with the form as context. */
-  said?: string[]
-  onLeadSent?: () => void
+
 }
 
 export default function ChatMessage({
   message,
   onNavigate,
-  showLeadForm = false,
-  said = [],
-  onLeadSent,
 }: ChatMessageProps) {
   const isUser = message.role === 'user'
   const t = useTranslations('chatWidget')
@@ -83,14 +75,6 @@ export default function ChatMessage({
             {t(cta.labelKey)}
             <ArrowRight size={13} />
           </Link>
-        )}
-
-        {lead?.status === 'open' && showLeadForm && (
-          <LeadCard
-            initialCountry={lead.country}
-            said={said}
-            onSent={() => onLeadSent?.()}
-          />
         )}
 
         {lead?.status === 'saved' && (
