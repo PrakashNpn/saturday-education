@@ -47,7 +47,7 @@ The production database is live, so **migrations, seeds and data changes are nev
 ```
 app/        routing only (thin pages)
 features/   business areas: landing, destination, consultation, ai-advisor,
-            career-assessment, course-finder, about
+            career-assessment, course-finder, about, imat-practice-test
 shared/     cross-cutting code: UI pieces, constants, hooks, lib (db, crm, ai, careers), utils
 i18n/       languages, routing, navigation
 messages/   UI text, one file per language
@@ -56,6 +56,8 @@ tests/      unit tests
 ```
 
 `AGENTS.md` is the detailed guide to conventions, architecture rules, i18n, caching and performance rules. Read it before changing code.
+
+IMAT practice is at `/imat-practice-test`, linked from the Practice Tests navigation dropdown and the footer. It offers random mocks and published historical papers for 2011–2026, saves attempts in the browser, and collects contact details before showing results. Leads and server-calculated summaries are stored in `imat_leads`, with a counsellor email after each new submission. See [features/imat-practice-test/README.md](features/imat-practice-test/README.md) for behaviour, configuration and verification.
 
 ## Deploying
 

@@ -65,7 +65,15 @@ export const ModelName = {
   ChatConversation: 'ChatConversation',
   User: 'User',
   Account: 'Account',
-  Session: 'Session'
+  Session: 'Session',
+  ImatSource: 'ImatSource',
+  ImatPaper: 'ImatPaper',
+  ImatPaperSection: 'ImatPaperSection',
+  ImatPassage: 'ImatPassage',
+  ImatQuestion: 'ImatQuestion',
+  ImatQuestionOption: 'ImatQuestionOption',
+  ImatAnswerKey: 'ImatAnswerKey',
+  ImatLead: 'ImatLead'
 } as const
 
 export type ModelName = (typeof ModelName)[keyof typeof ModelName]
@@ -399,6 +407,155 @@ export const SessionScalarFieldEnum = {
 export type SessionScalarFieldEnum = (typeof SessionScalarFieldEnum)[keyof typeof SessionScalarFieldEnum]
 
 
+export const ImatSourceScalarFieldEnum = {
+  id: 'id',
+  reference: 'reference',
+  source_kind: 'source_kind',
+  source_url: 'source_url',
+  local_file_path: 'local_file_path',
+  file_sha256: 'file_sha256',
+  retrieved_at: 'retrieved_at',
+  reuse_status: 'reuse_status',
+  reuse_evidence: 'reuse_evidence',
+  corrections_status: 'corrections_status',
+  corrections_notes: 'corrections_notes',
+  notes: 'notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ImatSourceScalarFieldEnum = (typeof ImatSourceScalarFieldEnum)[keyof typeof ImatSourceScalarFieldEnum]
+
+
+export const ImatPaperScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  exam_year: 'exam_year',
+  variant: 'variant',
+  source_id: 'source_id',
+  question_count: 'question_count',
+  duration_minutes: 'duration_minutes',
+  correct_score: 'correct_score',
+  incorrect_score: 'incorrect_score',
+  blank_score: 'blank_score',
+  format_evidence: 'format_evidence',
+  content_version: 'content_version',
+  is_development: 'is_development',
+  is_published: 'is_published',
+  reviewed_by: 'reviewed_by',
+  reviewed_at: 'reviewed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ImatPaperScalarFieldEnum = (typeof ImatPaperScalarFieldEnum)[keyof typeof ImatPaperScalarFieldEnum]
+
+
+export const ImatPaperSectionScalarFieldEnum = {
+  paper_id: 'paper_id',
+  section_key: 'section_key',
+  position: 'position',
+  question_count: 'question_count',
+  source_heading: 'source_heading'
+} as const
+
+export type ImatPaperSectionScalarFieldEnum = (typeof ImatPaperSectionScalarFieldEnum)[keyof typeof ImatPaperSectionScalarFieldEnum]
+
+
+export const ImatPassageScalarFieldEnum = {
+  id: 'id',
+  paper_id: 'paper_id',
+  reference: 'reference',
+  body: 'body',
+  attribution: 'attribution',
+  image: 'image',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ImatPassageScalarFieldEnum = (typeof ImatPassageScalarFieldEnum)[keyof typeof ImatPassageScalarFieldEnum]
+
+
+export const ImatQuestionScalarFieldEnum = {
+  id: 'id',
+  stable_key: 'stable_key',
+  paper_id: 'paper_id',
+  original_number: 'original_number',
+  source_page: 'source_page',
+  section_key: 'section_key',
+  passage_id: 'passage_id',
+  prompt: 'prompt',
+  image: 'image',
+  shuffle_options: 'shuffle_options',
+  mock_eligible: 'mock_eligible',
+  review_status: 'review_status',
+  reviewed_by: 'reviewed_by',
+  reviewed_at: 'reviewed_at',
+  review_notes: 'review_notes',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ImatQuestionScalarFieldEnum = (typeof ImatQuestionScalarFieldEnum)[keyof typeof ImatQuestionScalarFieldEnum]
+
+
+export const ImatQuestionOptionScalarFieldEnum = {
+  question_id: 'question_id',
+  option_key: 'option_key',
+  body: 'body',
+  image: 'image',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ImatQuestionOptionScalarFieldEnum = (typeof ImatQuestionOptionScalarFieldEnum)[keyof typeof ImatQuestionOptionScalarFieldEnum]
+
+
+export const ImatAnswerKeyScalarFieldEnum = {
+  question_id: 'question_id',
+  correct_option_key: 'correct_option_key',
+  evidence_reference: 'evidence_reference',
+  evidence_url: 'evidence_url',
+  evidence_page: 'evidence_page',
+  review_status: 'review_status',
+  reviewed_by: 'reviewed_by',
+  reviewed_at: 'reviewed_at',
+  explanation: 'explanation',
+  explanation_reviewed_by: 'explanation_reviewed_by',
+  explanation_reviewed_at: 'explanation_reviewed_at',
+  created_at: 'created_at',
+  updated_at: 'updated_at'
+} as const
+
+export type ImatAnswerKeyScalarFieldEnum = (typeof ImatAnswerKeyScalarFieldEnum)[keyof typeof ImatAnswerKeyScalarFieldEnum]
+
+
+export const ImatLeadScalarFieldEnum = {
+  id: 'id',
+  attempt_id: 'attempt_id',
+  bank_version: 'bank_version',
+  full_name: 'full_name',
+  email: 'email',
+  phone: 'phone',
+  locale: 'locale',
+  exam_mode: 'exam_mode',
+  paper_slug: 'paper_slug',
+  score: 'score',
+  maximum_score: 'maximum_score',
+  question_count: 'question_count',
+  correct_count: 'correct_count',
+  incorrect_count: 'incorrect_count',
+  unanswered_count: 'unanswered_count',
+  completed_at: 'completed_at',
+  consent_version: 'consent_version',
+  consented_at: 'consented_at',
+  created_at: 'created_at'
+} as const
+
+export type ImatLeadScalarFieldEnum = (typeof ImatLeadScalarFieldEnum)[keyof typeof ImatLeadScalarFieldEnum]
+
+
 export const SortOrder = {
   asc: 'asc',
   desc: 'desc'
@@ -412,6 +569,14 @@ export const JsonNullValueInput = {
 } as const
 
 export type JsonNullValueInput = (typeof JsonNullValueInput)[keyof typeof JsonNullValueInput]
+
+
+export const NullableJsonNullValueInput = {
+  DbNull: DbNull,
+  JsonNull: JsonNull
+} as const
+
+export type NullableJsonNullValueInput = (typeof NullableJsonNullValueInput)[keyof typeof NullableJsonNullValueInput]
 
 
 export const QueryMode = {

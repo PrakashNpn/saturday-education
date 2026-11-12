@@ -323,3 +323,8 @@
 @media (prefers-reduced-motion: reduce) {
   .assessment-hero-texture { animation: none; }
 }
+
+/* An active exam owns its header and keeps the site furniture out of the focus and visual flow. */
+body:has([data-exam-active]) [data-site-chrome] {
+  display: none;
+}

@@ -1,20 +1,23 @@
 'use client'
 
-import { useEffect, useRef, useState } from 'react'
+import { useEffect, useId, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import { Menu, X, ChevronDown, Phone, MapPin } from 'lucide-react'
+import { Menu, X, ChevronDown, Phone, MapPin, Stethoscope, ArrowRight } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
 import { LANGUAGES, LOCALE_CODES } from '@/i18n/languages'
 import { cn } from '@/shared/utils/cn'
 
-type NavItem = { labelKey: string; href: string }
+type NavItem = { labelKey: string; href: string; children?: { labelKey: string; descriptionKey: string; href: string }[] }
 
 const NAV_LINKS: NavItem[] = [
   { labelKey: 'home', href: '/' },
   { labelKey: 'courseFinder', href: '/course-finder' },
   { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'careerAssessment', href: '/career-assessment' },
+  { labelKey: 'practiceTests', href: '/imat-practice-test', children: [
+    { labelKey: 'imat', descriptionKey: 'imatDescription', href: '/imat-practice-test' },
+  ] },
   { labelKey: 'aboutUs', href: '/about' },
 ]
 
@@ -108,6 +111,60 @@ function LanguageSwitcher() {
   )
 }
 
+function PracticeDropdown({ item, mobile = false }: { item: NavItem; mobile?: boolean }) {
+  const t = useTranslations('nav')
+  const pathname = usePathname()
+  const [open, setOpen] = useState(false)
+  const root = useRef<HTMLLIElement>(null)
+  const trigger = useRef<HTMLButtonElement>(null)
+  const panelId = useId()
+  const active = item.children?.some(child => pathname === child.href || pathname.startsWith(child.href + '/'))
+
+  useEffect(() => {
+    if (!open) return
+    const closeOutside = (event: PointerEvent) => {
+      if (!root.current?.contains(event.target as Node)) setOpen(false)
+    }
+    document.addEventListener('pointerdown', closeOutside)
+    return () => document.removeEventListener('pointerdown', closeOutside)
+  }, [open])
+
+  return <li ref={root} className="relative"
+    onPointerEnter={event => { if (!mobile && event.pointerType === 'mouse') setOpen(true) }}
+    onPointerLeave={event => {
+      if (!mobile && event.pointerType === 'mouse' && !root.current?.contains(document.activeElement)) setOpen(false)
+    }}
+    onBlur={event => { if (!event.currentTarget.contains(event.relatedTarget)) setOpen(false) }}
+    onKeyDown={event => {
+      if (event.key === 'Escape') { setOpen(false); trigger.current?.focus() }
+    }}>
+    <button ref={trigger} type="button" aria-expanded={open} aria-controls={panelId}
+      onClick={() => setOpen(value => !value)}
+      className={cn('flex cursor-pointer items-center gap-1.5 text-label font-normal transition-colors hover:text-action focus-visible:outline-2 focus-visible:outline-offset-2 focus-visible:outline-action',
+        mobile ? 'w-full justify-between py-3' : 'whitespace-nowrap border-b-2 px-2.5 py-1.5',
+        active ? 'border-action font-medium text-action' : 'border-transparent text-primary-text')}>
+      {t(item.labelKey)}<ChevronDown aria-hidden="true" size={14} className={cn('transition-transform motion-reduce:transition-none', open && 'rotate-180')} />
+    </button>
+    {open && <div className={mobile ? 'mb-2' : 'absolute left-0 top-full z-30 w-64 pt-3'}>
+      <ul id={panelId} className={mobile ? 'border-l-2 border-action/20 pl-2' : 'rounded-xl border border-stroke bg-surface p-1.5 shadow-[0_12px_32px_-12px_rgba(0,51,58,0.25)]'}>
+      {item.children?.map(child => <li key={child.href}>
+        <Link href={child.href} onClick={() => setOpen(false)} aria-current={pathname === child.href ? 'page' : undefined}
+          className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-tint focus-visible:bg-tint focus-visible:outline-2 focus-visible:outline-action">
+          <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-tint text-action">
+            <Stethoscope size={19} strokeWidth={1.7} aria-hidden="true" />
+          </span>
+          <span className="min-w-0 flex-1">
+            <span className="block text-label font-semibold text-deep">{t(child.labelKey)}</span>
+            <span className="mt-0.5 block text-min leading-relaxed text-secondary-text">{t(child.descriptionKey)}</span>
+          </span>
+          <ArrowRight size={15} aria-hidden="true" className="shrink-0 text-action/60 transition-colors group-hover:text-action group-focus-visible:text-action" />
+        </Link>
+      </li>)}
+      </ul>
+    </div>}
+  </li>
+}
+
 export default function Navbar() {
   const t = useTranslations('nav')
   const tBar = useTranslations('topBar')
@@ -168,7 +225,8 @@ export default function Navbar() {
       </div>
 
       {/* ── Header ──────────────────────────────────────────────────────── */}
-      <header className="sticky top-0 z-20 border-b border-stroke bg-surface">
+      {/* Above page-level sticky tabs (z-30), below the utility switcher (z-40). */}
+      <header className="sticky top-0 z-[35] border-b border-stroke bg-surface">
         <div className="mx-auto flex min-h-[62px] max-w-wrap items-center justify-between gap-6 px-6">
           <Link href="/" className="shrink-0">
             <Image
@@ -183,8 +241,8 @@ export default function Navbar() {
           </Link>
 
           <nav aria-label={t('mainNavigation')}>
-            <ul className="flex items-center gap-1 max-tablet:hidden">
-              {NAV_LINKS.map((item) => (
+            <ul className="flex items-center gap-1 max-lg:hidden">
+              {NAV_LINKS.map((item) => item.children ? <PracticeDropdown key={`${pathname}-${item.labelKey}`} item={item} /> : (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -194,7 +252,7 @@ export default function Navbar() {
                       // so an item's own size never shifts between its
                       // resting, hover and active states. Same mechanic the
                       // Destinations page's region tabs already use.
-                      'block border-b-2 px-3.5 py-1.5 text-label font-normal transition-colors hover:text-link',
+                      'block whitespace-nowrap border-b-2 px-2.5 py-1.5 text-label font-normal transition-colors hover:text-link',
                       isActive(item.href)
                         ? 'border-action text-link font-medium'
                         : 'border-transparent text-primary-text',
@@ -207,28 +265,27 @@ export default function Navbar() {
             </ul>
           </nav>
 
-          {/* Not in the design, which hides the nav below 860px and puts
-              nothing in its place. Added because every route would otherwise
-              be unreachable on a phone. */}
+          {/* Collapse below 1024px so the expanded navigation has room. */}
           <button
             type="button"
             aria-label={mobileOpen ? t('closeMenu') : t('openMenu')}
             aria-expanded={mobileOpen}
             onClick={() => setMobileOpen((open) => !open)}
-            className="hidden max-tablet:inline-flex items-center justify-center -mr-2 p-2 text-primary-text hover:text-link"
+            className="hidden max-lg:inline-flex items-center justify-center -mr-2 p-2 text-primary-text hover:text-link"
           >
             {mobileOpen ? <X size={22} /> : <Menu size={22} />}
           </button>
         </div>
 
         <div
+          inert={!mobileOpen}
           className={cn(
-            'hidden max-tablet:block overflow-hidden transition-[max-height] duration-300 ease-out',
-            mobileOpen ? 'max-h-96' : 'max-h-0',
+            'hidden max-lg:block overflow-hidden transition-[max-height] duration-300 ease-out',
+            mobileOpen ? 'max-h-[70dvh] overflow-y-auto' : 'max-h-0',
           )}
         >
           <ul className="border-t border-stroke bg-surface px-6 py-2">
-            {NAV_LINKS.map((item) => (
+            {NAV_LINKS.map((item) => item.children ? <PracticeDropdown key={`${pathname}-${mobileOpen}-${item.labelKey}`} item={item} mobile /> : (
               <li key={item.href}>
                 <Link
                   href={item.href}

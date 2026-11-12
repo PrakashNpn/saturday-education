@@ -504,3 +504,182 @@ model Session {
 
   @@index([userId])
 }
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatSource {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  reference String
+  source_kind String
+  source_url String?
+  local_file_path String?
+  file_sha256 String?
+  retrieved_at DateTime? @db.Timestamptz(6)
+  reuse_status String @default("unconfirmed")
+  reuse_evidence String?
+  corrections_status String @default("pending")
+  corrections_notes String?
+  notes String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  papers ImatPaper[]
+  @@map("imat_sources")
+}
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatPaper {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug String @unique
+  title String
+  exam_year Int? @db.SmallInt
+  variant String @default("published")
+  source_id String @db.Uuid
+  question_count Int? @db.SmallInt
+  duration_minutes Int? @db.SmallInt
+  correct_score Decimal? @db.Decimal(5, 2)
+  incorrect_score Decimal? @db.Decimal(5, 2)
+  blank_score Decimal @default(0) @db.Decimal(5, 2)
+  format_evidence String?
+  content_version Int @default(1)
+  is_development Boolean @default(false)
+  is_published Boolean @default(false)
+  reviewed_by String?
+  reviewed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  source ImatSource @relation(fields: [source_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  sections ImatPaperSection[]
+  passages ImatPassage[]
+  questions ImatQuestion[]
+  @@unique([exam_year, variant])
+  @@index([source_id], map: "imat_papers_source_idx")
+  @@index([is_published, exam_year], map: "imat_papers_published_year_idx")
+  @@map("imat_papers")
+}
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatPaperSection {
+  paper_id String @db.Uuid
+  section_key String
+  position Int @db.SmallInt
+  question_count Int @db.SmallInt
+  source_heading String
+
+  paper ImatPaper @relation(fields: [paper_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  questions ImatQuestion[]
+  @@id([paper_id, section_key])
+  @@unique([paper_id, position])
+  @@map("imat_paper_sections")
+}
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatPassage {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  paper_id String @db.Uuid
+  reference String
+  body String?
+  attribution String?
+  image Json? @db.JsonB
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  paper ImatPaper @relation(fields: [paper_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  questions ImatQuestion[]
+  @@unique([paper_id, id])
+  @@unique([paper_id, reference])
+  @@map("imat_passages")
+}
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatQuestion {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  stable_key String @unique
+  paper_id String @db.Uuid
+  original_number Int @db.SmallInt
+  source_page Int? @db.SmallInt
+  section_key String?
+  passage_id String? @db.Uuid
+  prompt String?
+  image Json? @db.JsonB
+  shuffle_options Boolean @default(false)
+  mock_eligible Boolean @default(false)
+  review_status String @default("draft")
+  reviewed_by String?
+  reviewed_at DateTime? @db.Timestamptz(6)
+  review_notes String?
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  paper ImatPaper @relation(fields: [paper_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  section ImatPaperSection? @relation(fields: [paper_id, section_key], references: [paper_id, section_key], onDelete: Restrict, onUpdate: NoAction)
+  passage ImatPassage? @relation(fields: [paper_id, passage_id], references: [paper_id, id], onDelete: Restrict, onUpdate: NoAction)
+  options ImatQuestionOption[]
+  answer ImatAnswerKey? @relation("QuestionAnswer")
+  @@unique([paper_id, original_number])
+  @@index([paper_id, passage_id], map: "imat_questions_passage_idx")
+  @@map("imat_questions")
+}
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatQuestionOption {
+  question_id String @db.Uuid
+  option_key String
+  body String?
+  image Json? @db.JsonB
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  question ImatQuestion @relation(fields: [question_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  answers ImatAnswerKey[] @relation("CorrectOption")
+  @@id([question_id, option_key])
+  @@map("imat_question_options")
+}
+
+// Manual SQL schema; CHECK constraints, RLS and partial indexes remain in SQL.
+model ImatAnswerKey {
+  question_id String @id @db.Uuid
+  correct_option_key String
+  evidence_reference String
+  evidence_url String?
+  evidence_page Int? @db.SmallInt
+  review_status String @default("draft")
+  reviewed_by String?
+  reviewed_at DateTime? @db.Timestamptz(6)
+  explanation String?
+  explanation_reviewed_by String?
+  explanation_reviewed_at DateTime? @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+  updated_at DateTime @default(now()) @db.Timestamptz(6)
+
+  question ImatQuestion @relation("QuestionAnswer", fields: [question_id], references: [id], onDelete: Restrict, onUpdate: NoAction)
+  option ImatQuestionOption @relation("CorrectOption", fields: [question_id, correct_option_key], references: [question_id, option_key], onDelete: Restrict, onUpdate: NoAction)
+  @@map("imat_answer_keys")
+}
+
+// Owner applies the matching manual SQL before enabling IMAT contact capture.
+model ImatLead {
+  id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  attempt_id String @unique @db.Uuid
+  bank_version String
+  full_name String
+  email String
+  phone String
+  locale String
+  exam_mode String
+  paper_slug String?
+  score Decimal @db.Decimal(7, 2)
+  maximum_score Decimal @db.Decimal(7, 2)
+  question_count Int @db.SmallInt
+  correct_count Int @db.SmallInt
+  incorrect_count Int @db.SmallInt
+  unanswered_count Int @db.SmallInt
+  completed_at DateTime @db.Timestamptz(6)
+  consent_version String
+  consented_at DateTime @default(now()) @db.Timestamptz(6)
+  created_at DateTime @default(now()) @db.Timestamptz(6)
+
+  @@index([email])
+  @@index([created_at])
+  @@map("imat_leads")
+}

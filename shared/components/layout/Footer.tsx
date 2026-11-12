@@ -22,6 +22,7 @@ const COMPANY = [
   { key: 'courseFinder', href: '/course-finder' },
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
+  { key: 'imat', href: '/imat-practice-test' },
   { key: 'testimonials', href: '/#testimonials' },
   { key: 'contact', href: '/#consultation' },
   { key: 'privacy', href: '/privacy' },
