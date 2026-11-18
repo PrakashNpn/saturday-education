@@ -59,6 +59,8 @@ tests/      unit tests
 
 IMAT practice is at `/imat-practice-test`, linked from the Practice Tests navigation dropdown and the footer. It offers random mocks and published historical papers for 2011–2026, saves attempts in the browser, and collects contact details before showing results. Leads and server-calculated summaries are stored in `imat_leads`, with a counsellor email after each new submission. See [features/imat-practice-test/README.md](features/imat-practice-test/README.md) for behaviour, configuration and verification.
 
+CSCA practice is at `/csca`, alongside IMAT in Practice Tests. It reuses the Think Asia server-backed test flow with independent Saturday tables, ownership and email delivery. Interface text supports all six locales; exam content is unchanged. The bank is currently draft pending manual local acceptance. See [features/csca-practice-test/README.md](features/csca-practice-test/README.md) for the owner-run schema-access fix, preview command and email worker setup.
+
 The AI chatbot collects name, email and phone before chatting begins, without OTP. It reuses the consultation lead storage and Firmli chat sync, saving contact details without a conversation excerpt. See [chat contact registration](docs/chat-contact-registration.md).
 
 Canada fair registration is at `/canada-education-event` (short QR link `/cev`). Before accepting registrations, the owner must create `event_registrations` using [the manual SQL](prisma/snippets/create-event-registrations.sql). See [event setup and recovery](docs/canada-education-event.md) for the separate Firmli campaign and verification steps.

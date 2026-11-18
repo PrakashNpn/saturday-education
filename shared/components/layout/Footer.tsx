@@ -23,6 +23,7 @@ const COMPANY = [
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
   { key: 'imat', href: '/imat-practice-test' },
+  { key: 'csca', href: '/csca' },
   { key: 'testimonials', href: '/#testimonials' },
   { key: 'contact', href: '/#consultation' },
   { key: 'privacy', href: '/privacy' },

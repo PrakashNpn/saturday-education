@@ -3,13 +3,13 @@
 import { useFormatter, useTranslations } from 'next-intl'
 import { CheckCheck, Clock3, Flag, ListChecks } from 'lucide-react'
 import type { ExamFormat } from '../types'
+import { InstructionColumns } from '@/shared/components/practice-test/PracticeDialog'
 
 export function ExamInstructions({ format }: { format: ExamFormat }) {
   const t = useTranslations('imat')
   const number = useFormatter()
   const count = format.sections.reduce((sum, section) => sum + section.count, 0)
-  return <div className="grid gap-6 sm:grid-cols-2">
-    <section className="rounded-xl border border-stroke bg-canvas p-4">
+  return <InstructionColumns overview={<>
       <dl className="grid grid-cols-2 gap-4 border-b border-stroke pb-4">
         {[{ label: 'setup.questions', value: count, Icon: ListChecks }, { label: 'setup.duration', value: format.minutes, Icon: Clock3 }].map(({ label, value, Icon }) => <div key={label}>
           <dt className="flex items-center gap-1.5 text-min text-muted-text"><Icon className="size-4 text-action" aria-hidden="true" />{t(label)}</dt>
@@ -25,8 +25,7 @@ export function ExamInstructions({ format }: { format: ExamFormat }) {
         </div>)}
       </div>
       <p className="mt-3 text-min text-muted-text">{t('setup.maximumScore')}: {number.number(count * format.correct)}</p>
-    </section>
-    <section>
+    </>}>
       <h3 className="text-label font-semibold text-primary-text">{t('startGuide.title')}</h3>
       <ul className="mt-4 space-y-4">
         {[{ key: 'navigation', Icon: Flag }, { key: 'timing', Icon: Clock3 }, { key: 'results', Icon: CheckCheck }].map(({ key, Icon }) => <li key={key} className="flex items-start gap-3">
@@ -34,6 +33,5 @@ export function ExamInstructions({ format }: { format: ExamFormat }) {
           <span className="text-label leading-relaxed">{t(`startGuide.${key}`)}</span>
         </li>)}
       </ul>
-    </section>
-  </div>
+  </InstructionColumns>
 }

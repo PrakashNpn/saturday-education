@@ -42,3 +42,6 @@ next-env.d.ts
 
 # Claude Code working files (local notes, not part of the site)
 .claude/
+
+# Offline CSCA import artifacts contain private answer keys; never deploy/commit.
+/prisma/manual/csca/private-import/

@@ -14,6 +14,10 @@ export interface PhoneFieldProps {
   /** Classes for the number input itself, so it matches the form's other fields. */
   inputClassName: string
   autoComplete?: string
+  inputId?: string
+  required?: boolean
+  invalid?: boolean
+  describedBy?: string
 }
 
 /**
@@ -29,6 +33,7 @@ export default function PhoneField({
   placeholder,
   inputClassName,
   autoComplete,
+  inputId, required, invalid, describedBy,
 }: PhoneFieldProps) {
   return (
     <PhoneInput
@@ -40,7 +45,7 @@ export default function PhoneField({
       value={value}
       onChange={onChange}
       placeholder={placeholder}
-      numberInputProps={{ className: inputClassName, ...(autoComplete ? { autoComplete } : {}) }}
+      numberInputProps={{ id: inputId, required, 'aria-label': placeholder, 'aria-invalid': invalid, 'aria-describedby': describedBy, className: inputClassName, ...(autoComplete ? { autoComplete } : {}) }}
       className="phone-field"
     />
   )

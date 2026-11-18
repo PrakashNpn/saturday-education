@@ -7,5 +7,5 @@ export default async function ImatLayout({ children, params }: {
   const { locale } = await params
   setRequestLocale(locale)
   const messages = await getMessages({ locale })
-  return <NextIntlClientProvider messages={{ imat: messages.imat }}>{children}</NextIntlClientProvider>
+  return <NextIntlClientProvider messages={{ imat: messages.imat, phoneSelect: messages.phoneSelect }}>{children}</NextIntlClientProvider>
 }

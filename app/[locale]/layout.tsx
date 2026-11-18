@@ -36,7 +36,7 @@ export function generateStaticParams() {
  *  63 KB in Thai) and used only on the assessment pages, so the pages that do not
  *  need them are not sent them. career-assessment/layout.tsx adds them back. */
 const ASSESSMENT_NAMESPACES = ['careerAssessment', 'careerCatalog']
-const PAGE_ONLY_NAMESPACES = [...ASSESSMENT_NAMESPACES, 'imat', 'educationEvent']
+const PAGE_ONLY_NAMESPACES = [...ASSESSMENT_NAMESPACES, 'imat', 'educationEvent', 'csca']
 
 export default async function LocaleLayout({
   children,
