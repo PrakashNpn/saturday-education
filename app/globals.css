@@ -344,3 +344,9 @@ body:has([data-event-registration]) [data-chat-widget] {
 body:has([data-exam-active]) [data-site-chrome] {
   display: none;
 }
+
+/* CSCA setup keeps the main header and removes the marketing footer/chat. */
+body:has([data-csca-setup]) [data-site-chrome]:has(footer),
+body:has([data-csca-setup]) [data-chat-widget] {
+  display: none;
+}

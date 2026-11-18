@@ -80,6 +80,7 @@ export function PhoneCountrySelect({
   const [isOpen, setIsOpen] = useState(false)
   const [query, setQuery] = useState('')
   const [place, setPlace] = useState<Placement | null>(null)
+  const [portalContainer, setPortalContainer] = useState<Element | null>(null)
   const btnRef = useRef<HTMLButtonElement>(null)
   const panelRef = useRef<HTMLDivElement>(null)
   const searchRef = useRef<HTMLInputElement>(null)
@@ -152,8 +153,9 @@ export function PhoneCountrySelect({
         ref={btnRef}
         type="button"
         disabled={disabled || readOnly}
-        aria-label={ariaLabel ?? 'Select country'}
-        onClick={() => {
+        aria-label={ariaLabel ?? t('selectCountry')}
+        onClick={(event) => {
+          setPortalContainer(event.currentTarget.closest('dialog') ?? document.body)
           setIsOpen((v) => !v)
           setQuery('')
         }}
@@ -218,7 +220,9 @@ export function PhoneCountrySelect({
               )}
             </div>
           </div>,
-          document.body,
+          // A body portal sits behind a native modal dialog and becomes inert.
+          // Keep modal phone controls in the same top-layer dialog as their trigger.
+          portalContainer ?? document.body,
         )}
     </>
   )

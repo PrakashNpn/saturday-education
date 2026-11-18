@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import { Menu, X, ChevronDown, Phone, MapPin, Stethoscope, ArrowRight } from 'lucide-react'
+import { Menu, X, ChevronDown, Phone, MapPin, Stethoscope, BookOpen, ArrowRight } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
 import { LANGUAGES, LOCALE_CODES } from '@/i18n/languages'
 import { cn } from '@/shared/utils/cn'
@@ -17,6 +17,7 @@ const NAV_LINKS: NavItem[] = [
   { labelKey: 'careerAssessment', href: '/career-assessment' },
   { labelKey: 'practiceTests', href: '/imat-practice-test', children: [
     { labelKey: 'imat', descriptionKey: 'imatDescription', href: '/imat-practice-test' },
+    { labelKey: 'csca', descriptionKey: 'cscaDescription', href: '/csca' },
   ] },
   { labelKey: 'aboutUs', href: '/about' },
 ]
@@ -151,7 +152,7 @@ function PracticeDropdown({ item, mobile = false }: { item: NavItem; mobile?: bo
         <Link href={child.href} onClick={() => setOpen(false)} aria-current={pathname === child.href ? 'page' : undefined}
           className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-tint focus-visible:bg-tint focus-visible:outline-2 focus-visible:outline-action">
           <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-tint text-action">
-            <Stethoscope size={19} strokeWidth={1.7} aria-hidden="true" />
+            {child.labelKey === 'csca' ? <BookOpen size={19} strokeWidth={1.7} aria-hidden="true" /> : <Stethoscope size={19} strokeWidth={1.7} aria-hidden="true" />}
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-label font-semibold text-deep">{t(child.labelKey)}</span>
