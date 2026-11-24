@@ -22,6 +22,7 @@ const COMPANY = [
   { key: 'courseFinder', href: '/course-finder' },
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
+  { key: 'gradeConverter', href: '/grade-converter' },
   { key: 'imat', href: '/imat-practice-test' },
   { key: 'csca', href: '/csca' },
   { key: 'testimonials', href: '/#testimonials' },

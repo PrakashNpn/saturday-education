@@ -1,6 +1,5 @@
 import { getRequestConfig } from 'next-intl/server'
 import { routing } from './routing'
-import en from '../messages/en.json'
 
 type Messages = { [key: string]: string | Messages }
 
@@ -29,8 +28,11 @@ export default getRequestConfig(async ({ requestLocale }) => {
     locale = routing.defaultLocale
   }
 
+  // Dynamic import for every locale (including English) so message JSON edits
+  // are picked up in dev without relying on a sticky static module cache.
+  const en = (await import('../messages/en.json')).default as Messages
   if (locale === 'en') return { locale, messages: en }
 
   const messages = (await import(`../messages/${locale}.json`)).default as Messages
-  return { locale, messages: withFallback(en as Messages, messages) }
+  return { locale, messages: withFallback(en, messages) }
 })

@@ -195,7 +195,8 @@ describe('IMAT routing and payload boundaries', () => {
     const read = (file: string) => fs.readFileSync(path.join(root, file), 'utf8')
     assert.match(read('app/[locale]/imat-practice-test/page.tsx'), /setRequestLocale\(/)
     assert.match(read('app/[locale]/imat-practice-test/page.tsx'), /pageMetadata\(/)
-    assert.match(read('app/[locale]/layout.tsx'), /PAGE_ONLY_NAMESPACES = \[\.\.\.ASSESSMENT_NAMESPACES, 'imat', 'educationEvent', 'csca'\]/)
+    const pageOnlyNamespaces = read('app/[locale]/layout.tsx').match(/const PAGE_ONLY_NAMESPACES = \[([^\]]+)\]/)?.[1] ?? ''
+    assert.match(pageOnlyNamespaces, /'imat'/, 'IMAT messages must remain scoped when other route namespaces are added')
     assert.match(read('app/[locale]/imat-practice-test/layout.tsx'), /messages=\{\{ imat: messages.imat, phoneSelect: messages.phoneSelect \}\}/)
     assert.match(read('shared/lib/seo/sitemap.ts'), /path: '\/imat-practice-test'/)
   })
