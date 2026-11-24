@@ -1598,6 +1598,16 @@
     "resultTitle": "ခန့်မှန်း ညီမျှအမှတ်",
     "gradeEquivalent": "Estimated equivalent",
     "submittedGrade": "Your reported grade",
+    "instantTitle": "အမြန်ပြောင်းလဲမှု",
+    "instantPercent": "ရာခိုင်နှုန်းအဖြစ်",
+    "instantGpa4": "4.0 စကေးပေါ်",
+    "instantGpa5": "5.0 စကေးပေါ်",
+    "instantFormulaGpa4": "အကြမ်းဖျင်း: GPA ÷ 4.0 × 100",
+    "instantFormulaGpa5": "အကြမ်းဖျင်း: GPA ÷ 5.0 × 100",
+    "instantFormulaPercent": "အကြမ်းဖျင်း: % ÷ 100 × စကေး အမြင့်ဆုံး",
+    "instantHint": "ကိုးကားရန် ရိုးရှင်းသော ကိန်းဂဏန်း ပြောင်းလဲမှုသာ  -  တရားဝင် အရည်အချင်း အကဲဖြတ်ချက် မဟုတ်ပါ။",
+    "destinationEstimateTitle": "{target} အတွက် ခန့်မှန်းချက်",
+    "destinationEstimateHint": "ဤဦးတည်ရာအတွက် စီမံရန် သုံးလေ့ရှိသော အဆင့်  -  ဝင်ခွင့် အာမခံ မဟုတ်ပါ။",
     "estimateNotice": "ဤရလဒ်များသည် စီမံရန် ခန့်မှန်းချက်များသာ ဖြစ်သည်။ တက္ကသိုလ်တိုင်းတွင် ကိုယ်ပိုင် အမှတ်ပြောင်းလဲမှု စည်းမျဉ်း ရှိသည်။",
     "optionalContact": "သင့်အတွက် အကြံဉာဏ် ရယူရန်",
     "optional": "မဖြစ်မနေ မလိုပါ",
@@ -1663,7 +1673,8 @@
     "estimateFailedDescription": "Check your score and grading system, then try again.",
     "scaleTypes": {
       "percent100": "ရာခိုင်နှုန်း (0 - 100%)",
-      "gpa4": "GPA / CGPA - 4.0 စကေး"
+      "gpa4": "GPA / CGPA - 4.0 စကေး",
+      "gpa5": "GPA / CGPA - 5.0 စကေး"
     },
     "qualificationLevels": {
       "highSchool": "အထက်တန်း",
@@ -1731,7 +1742,7 @@
     "phonePlaceholder": "+95 9 XXX XXX XXX",
     "leadTargetCountry": "Target country",
     "notes": "Anything else we should know?",
-    "notesPlaceholder": "Optional",
+    "notesPlaceholder": "",
     "submitLead": "Book my consultation",
     "submitting": "Sending...",
     "submitError": "Something went wrong. Please try again.",

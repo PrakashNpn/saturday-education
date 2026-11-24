@@ -3,7 +3,7 @@
 import Image from 'next/image'
 import { ArrowLeft, ArrowRight, Info, RotateCcw, ShieldCheck } from 'lucide-react'
 import { useTranslations } from 'next-intl'
-import type { EstimateOutcome } from '../services/estimate'
+import type { EstimateOutcome, InstantConversion } from '../services/estimate'
 import type { Selection } from './types'
 import styles from './grade-converter.module.css'
 
@@ -12,6 +12,7 @@ type Props = {
   originCode: string
   targetCode: string
   estimate: EstimateOutcome | null
+  instant: InstantConversion | null
   onBack: () => void
   onEditGrades: () => void
   onContinue: () => void
@@ -22,6 +23,7 @@ export function ResultStep({
   originCode,
   targetCode,
   estimate,
+  instant,
   onBack,
   onEditGrades,
   onContinue,
@@ -31,6 +33,14 @@ export function ResultStep({
   function bandLabel(bandId: string) {
     return t(`bands.${bandId}` as 'bands.first')
   }
+
+  const formulaNote = instant
+    ? instant.formula === 'gpa4'
+      ? t('instantFormulaGpa4')
+      : instant.formula === 'gpa5'
+        ? t('instantFormulaGpa5')
+        : t('instantFormulaPercent')
+    : null
 
   return (
     <div className={styles.results}>
@@ -51,27 +61,51 @@ export function ResultStep({
 
       {estimate?.ok ? (
         <div className={styles.resultCard}>
-          <div className={styles.resultGrades}>
+          <div className={styles.resultCompare}>
             <div>
-              <p>{t('submittedGrade')}</p>
-              <strong>{estimate.submittedLabel}</strong>
+              <p className={styles.resultLayerEyebrow}>{t('submittedGrade')}</p>
+              <p className={styles.resultLayerValue}>{estimate.submittedLabel}</p>
+              <p className={styles.resultLayerMeta}>{estimate.sourceBandLabel}</p>
             </div>
             <span className={styles.resultDivider} aria-hidden="true">≈</span>
             <div>
-              <p>{t('gradeEquivalent')}</p>
-              <strong>{estimate.displayValue}</strong>
-              <span>{estimate.detailLabel ?? bandLabel(estimate.bandId)}</span>
+              <p className={styles.resultLayerEyebrow}>{t('gradeEquivalent')}</p>
+              <p className={styles.resultLayerValue}>{estimate.displayValue}</p>
+              <p className={styles.resultLayerMeta}>
+                {estimate.detailLabel ?? bandLabel(estimate.bandId)}
+                {' · '}
+                {estimate.destinationScaleLabel}
+              </p>
             </div>
           </div>
-          <p className={styles.resultBasis}>
-            {t('estimateBasis', {
-              qualification: selection.level ? t(`qualificationLevels.${selection.level}`) : '',
-              scale: selection.scale ? t(`scaleTypes.${selection.scale}`) : '',
-              score: estimate.submittedLabel,
-              sourceBand: estimate.sourceBandLabel,
-              destScale: estimate.destinationScaleLabel,
-            })}
-          </p>
+
+          {instant && (
+            <div className={styles.instantPanel}>
+              <p className={styles.instantTitle}>{t('instantTitle')}</p>
+              <div className={styles.instantGrid}>
+                {selection.scale !== 'percent100' && (
+                  <div className={styles.instantTile}>
+                    <span>{t('instantPercent')}</span>
+                    <strong>~{instant.percent}%</strong>
+                  </div>
+                )}
+                {selection.scale !== 'gpa4' && (
+                  <div className={styles.instantTile}>
+                    <span>{t('instantGpa4')}</span>
+                    <strong>~{instant.gpa4.toFixed(2)} / 4.0</strong>
+                  </div>
+                )}
+                {selection.scale !== 'gpa5' && (
+                  <div className={styles.instantTile}>
+                    <span>{t('instantGpa5')}</span>
+                    <strong>~{instant.gpa5.toFixed(2)} / 5.0</strong>
+                  </div>
+                )}
+              </div>
+              {formulaNote && <p className={styles.resultLayerHint}>{formulaNote}</p>}
+            </div>
+          )}
+
           <p className={styles.resultExplanation}>
             {t('estimateExplanation', {
               origin: t(`countries.${selection.origin}`),
@@ -105,7 +139,6 @@ export function ResultStep({
           <ArrowRight size={16} aria-hidden="true" />
         </button>
       </div>
-      <p className={styles.optionalFooter}>{t('optional')}</p>
     </div>
   )
 }

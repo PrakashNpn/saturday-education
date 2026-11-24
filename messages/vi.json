@@ -1984,6 +1984,16 @@
     "resultTitle": "Ước tính tương đương",
     "gradeEquivalent": "Estimated equivalent",
     "submittedGrade": "Your reported grade",
+    "instantTitle": "Quy đổi nhanh",
+    "instantPercent": "Theo phần trăm",
+    "instantGpa4": "Thang 4.0",
+    "instantGpa5": "Thang 5.0",
+    "instantFormulaGpa4": "Quy đổi gần đúng: GPA ÷ 4.0 × 100",
+    "instantFormulaGpa5": "Quy đổi gần đúng: GPA ÷ 5.0 × 100",
+    "instantFormulaPercent": "Quy đổi gần đúng: % ÷ 100 × mức tối đa thang điểm",
+    "instantHint": "Quy đổi số học đơn giản để tham khảo  -  không phải đánh giá bằng cấp chính thức.",
+    "destinationEstimateTitle": "Ước tính cho {target}",
+    "destinationEstimateHint": "Khung điểm thường dùng khi lập kế hoạch cho điểm đến này  -  không đảm bảo trúng tuyển.",
     "estimateNotice": "Đây là ước tính để hỗ trợ lập kế hoạch. Mỗi trường đại học tự quy định cách quy đổi điểm.",
     "optionalContact": "Nhận tư vấn riêng",
     "optional": "Không bắt buộc",
@@ -2049,7 +2059,8 @@
     "estimateFailedDescription": "Check your score and grading system, then try again.",
     "scaleTypes": {
       "percent100": "Phần trăm (0 - 100%)",
-      "gpa4": "GPA / CGPA - thang 4.0"
+      "gpa4": "GPA / CGPA - thang 4.0",
+      "gpa5": "GPA / CGPA - thang 5.0"
     },
     "qualificationLevels": {
       "highSchool": "Trung học",
@@ -2117,7 +2128,7 @@
     "phonePlaceholder": "+95 9 XXX XXX XXX",
     "leadTargetCountry": "Target country",
     "notes": "Anything else we should know?",
-    "notesPlaceholder": "Optional",
+    "notesPlaceholder": "",
     "submitLead": "Book my consultation",
     "submitting": "Sending...",
     "submitError": "Something went wrong. Please try again.",

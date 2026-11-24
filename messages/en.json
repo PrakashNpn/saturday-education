@@ -1476,6 +1476,16 @@
     "resultTitle": "Your estimated equivalent",
     "gradeEquivalent": "Estimated equivalent",
     "submittedGrade": "Your reported grade",
+    "instantTitle": "Quick conversion",
+    "instantPercent": "As percentage",
+    "instantGpa4": "On a 4.0 scale",
+    "instantGpa5": "On a 5.0 scale",
+    "instantFormulaGpa4": "Rough conversion: GPA ÷ 4.0 × 100",
+    "instantFormulaGpa5": "Rough conversion: GPA ÷ 5.0 × 100",
+    "instantFormulaPercent": "Rough conversion: % ÷ 100 × scale max",
+    "instantHint": "A simple numeric conversion for reference  -  not an official credential evaluation.",
+    "destinationEstimateTitle": "Destination estimate for {target}",
+    "destinationEstimateHint": "A planning band universities often discuss for this destination  -  not a guaranteed offer.",
     "estimateNotice": "These results are estimates to help guide your planning. Each university sets its own grade conversion, so confirm the details with the institutions you’re considering.",
     "optionalContact": "Get personal guidance",
     "optional": "Optional",
@@ -1541,7 +1551,8 @@
     "estimateFailedDescription": "Check your score and grading system, then try again.",
     "scaleTypes": {
       "percent100": "Percentage (0 - 100%)",
-      "gpa4": "GPA / CGPA - 4.0 scale"
+      "gpa4": "GPA / CGPA - 4.0 scale",
+      "gpa5": "GPA / CGPA - 5.0 scale"
     },
     "qualificationLevels": {
       "highSchool": "High school",
@@ -1609,7 +1620,7 @@
     "phonePlaceholder": "+95 9 XXX XXX XXX",
     "leadTargetCountry": "Target country",
     "notes": "Anything else we should know?",
-    "notesPlaceholder": "Optional",
+    "notesPlaceholder": "",
     "submitLead": "Book my consultation",
     "submitting": "Sending...",
     "submitError": "Something went wrong. Please try again.",

@@ -27,14 +27,22 @@ type Props = {
 export function GradesStep({ formId, selection, countryOptions, error, onChange, onSubmit }: Props) {
   const t = useTranslations('gradeConverter')
   const scaleDefinition = selection.scale ? SCALE_DEFINITIONS[selection.scale] : null
-  const scorePlaceholder = selection.scale === 'gpa4' ? '0 - 4.0' : selection.scale === 'percent100' ? '0 - 100' : '...'
+  const scorePlaceholder = selection.scale === 'gpa4'
+    ? '0 - 4.0'
+    : selection.scale === 'gpa5'
+      ? '0 - 5.0'
+      : selection.scale === 'percent100'
+        ? '0 - 100'
+        : '...'
   const scoreSuffix = selection.scale === 'gpa4'
     ? '/ 4.0'
-    : selection.scale === 'percent100'
-      ? '%'
-      : scaleDefinition
-        ? `/ ${scaleDefinition.max}`
-        : null
+    : selection.scale === 'gpa5'
+      ? '/ 5.0'
+      : selection.scale === 'percent100'
+        ? '%'
+        : scaleDefinition
+          ? `/ ${scaleDefinition.max}`
+          : null
 
   return (
     <form onSubmit={onSubmit} noValidate className={styles.formCard}>

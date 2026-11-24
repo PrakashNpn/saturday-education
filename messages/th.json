@@ -1985,6 +1985,16 @@
     "resultTitle": "ค่าเทียบเคียงโดยประมาณ",
     "gradeEquivalent": "Estimated equivalent",
     "submittedGrade": "Your reported grade",
+    "instantTitle": "การแปลงอย่างเร็ว",
+    "instantPercent": "เป็นเปอร์เซ็นต์",
+    "instantGpa4": "มาตราส่วน 4.0",
+    "instantGpa5": "มาตราส่วน 5.0",
+    "instantFormulaGpa4": "แปลงโดยประมาณ: GPA ÷ 4.0 × 100",
+    "instantFormulaGpa5": "แปลงโดยประมาณ: GPA ÷ 5.0 × 100",
+    "instantFormulaPercent": "แปลงโดยประมาณ: % ÷ 100 × ค่าสูงสุดของมาตราส่วน",
+    "instantHint": "การแปลงตัวเลขอย่างง่ายเพื่ออ้างอิง  -  ไม่ใช่การประเมินวุฒิอย่างเป็นทางการ",
+    "destinationEstimateTitle": "ประมาณการสำหรับ {target}",
+    "destinationEstimateHint": "ช่วงคะแนนที่มักใช้วางแผนสำหรับปลายทางนี้  -  ไม่ใช่การรับรองการรับเข้า",
     "estimateNotice": "ผลลัพธ์นี้เป็นประมาณการเพื่อช่วยวางแผน มหาวิทยาลัยแต่ละแห่งมีเกณฑ์การเทียบเกรดของตนเอง",
     "optionalContact": "รับคำแนะนำเฉพาะบุคคล",
     "optional": "ไม่บังคับ",
@@ -2050,7 +2060,8 @@
     "estimateFailedDescription": "Check your score and grading system, then try again.",
     "scaleTypes": {
       "percent100": "เปอร์เซ็นต์ (0 - 100%)",
-      "gpa4": "GPA / CGPA - มาตราส่วน 4.0"
+      "gpa4": "GPA / CGPA - มาตราส่วน 4.0",
+      "gpa5": "GPA / CGPA - มาตราส่วน 5.0"
     },
     "qualificationLevels": {
       "highSchool": "มัธยมศึกษา",
@@ -2118,7 +2129,7 @@
     "phonePlaceholder": "+95 9 XXX XXX XXX",
     "leadTargetCountry": "Target country",
     "notes": "Anything else we should know?",
-    "notesPlaceholder": "Optional",
+    "notesPlaceholder": "",
     "submitLead": "Book my consultation",
     "submitting": "Sending...",
     "submitError": "Something went wrong. Please try again.",

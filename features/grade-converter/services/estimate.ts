@@ -82,7 +82,63 @@ export function normalizeToPercent(scale: ScaleType, score: string): number | nu
 function submittedLabel(scale: ScaleType, score: string): string {
   if (scale === 'percent100') return `${score}%`
   if (scale === 'gpa4') return `${score} / 4.0`
+  if (scale === 'gpa5') return `${score} / 5.0`
   return score
+}
+
+function roundOne(value: number): number {
+  return Math.round(value * 10) / 10
+}
+
+function roundTwo(value: number): number {
+  return Math.round(value * 100) / 100
+}
+
+export type InstantConversion = {
+  percent: number
+  gpa4: number
+  gpa5: number
+  /** Which formula the UI should caption (i18n key suffix). */
+  formula: 'gpa4' | 'gpa5' | 'percent'
+}
+
+/**
+ * Transparent linear GPA ↔ % reference numbers.
+ * Not an official credential evaluation — shown beside the destination band.
+ */
+export function instantConvert(scale: ScaleType, score: string): InstantConversion | null {
+  const definition = SCALE_DEFINITIONS[scale]
+  if (!definition) return null
+
+  const value = parseNumericScore(score)
+  if (value === null || value < definition.min || value > definition.max) return null
+
+  if (scale === 'percent100') {
+    return {
+      percent: roundOne(value),
+      gpa4: roundTwo((value / 100) * 4),
+      gpa5: roundTwo((value / 100) * 5),
+      formula: 'percent',
+    }
+  }
+
+  if (scale === 'gpa4') {
+    const percent = roundOne((value / 4) * 100)
+    return {
+      percent,
+      gpa4: roundTwo(value),
+      gpa5: roundTwo((value / 4) * 5),
+      formula: 'gpa4',
+    }
+  }
+
+  const percent = roundOne((value / 5) * 100)
+  return {
+    percent,
+    gpa4: roundTwo((value / 5) * 4),
+    gpa5: roundTwo(value),
+    formula: 'gpa5',
+  }
 }
 
 /** Expert-style planning estimate for any supported origin → destination pair. */

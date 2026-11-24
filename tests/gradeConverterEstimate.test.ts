@@ -8,7 +8,7 @@ import {
   STRENGTH_TO_BAND,
   defaultTargetStudyLevel,
 } from '../features/grade-converter/data/estimate-model'
-import { estimateGrade, normalizeToPercent } from '../features/grade-converter/services/estimate'
+import { estimateGrade, instantConvert, normalizeToPercent } from '../features/grade-converter/services/estimate'
 import { buildGradeLeadSummary } from '../features/grade-converter/services/leadSummary'
 
 describe('grade converter estimates', () => {
@@ -21,8 +21,8 @@ describe('grade converter estimates', () => {
     }
   })
 
-  test('only offers the simple Expert-style grading systems', () => {
-    assert.deepEqual([...SCALE_TYPES], ['percent100', 'gpa4'])
+  test('offers percentage plus 4.0 and 5.0 GPA scales', () => {
+    assert.deepEqual([...SCALE_TYPES], ['percent100', 'gpa4', 'gpa5'])
   })
 
   test('auto-selects the usual next study level', () => {
@@ -31,10 +31,33 @@ describe('grade converter estimates', () => {
     assert.equal(defaultTargetStudyLevel('master'), 'master')
   })
 
-  test('maps 4.0 GPA into qualitative planning strengths', () => {
+  test('maps 4.0 and 5.0 GPA into qualitative planning strengths', () => {
     assert.equal(normalizeToPercent('percent100', '80'), 85)
     assert.equal(normalizeToPercent('gpa4', '3.2'), 76)
     assert.equal(normalizeToPercent('gpa4', '4.5'), null)
+    assert.equal(normalizeToPercent('gpa5', '4.0'), 76)
+    assert.equal(normalizeToPercent('gpa5', '5.5'), null)
+  })
+
+  test('builds a transparent linear GPA ↔ percentage reference', () => {
+    const fromGpa4 = instantConvert('gpa4', '3.2')
+    assert.ok(fromGpa4)
+    assert.equal(fromGpa4!.percent, 80)
+    assert.equal(fromGpa4!.gpa4, 3.2)
+    assert.equal(fromGpa4!.gpa5, 4)
+    assert.equal(fromGpa4!.formula, 'gpa4')
+
+    const fromGpa5 = instantConvert('gpa5', '4.0')
+    assert.ok(fromGpa5)
+    assert.equal(fromGpa5!.percent, 80)
+    assert.equal(fromGpa5!.gpa4, 3.2)
+    assert.equal(fromGpa5!.formula, 'gpa5')
+
+    const fromPercent = instantConvert('percent100', '80')
+    assert.ok(fromPercent)
+    assert.equal(fromPercent!.gpa4, 3.2)
+    assert.equal(fromPercent!.gpa5, 4)
+    assert.equal(fromPercent!.formula, 'percent')
   })
 
   test('maps a Vietnam Good GPA into a UK 2:1 planning band', () => {
@@ -49,6 +72,21 @@ describe('grade converter estimates', () => {
     assert.equal(result.bandId, 'upperSecond')
     assert.equal(result.displayValue, '2:1')
     assert.equal(result.sourceBandLabel, '3.00 - 3.49 (Good)')
+  })
+
+  test('maps a Good 5.0 GPA into the same UK 2:1 planning band as 4.0', () => {
+    const result = estimateGrade({
+      origin: 'singapore',
+      target: 'uk',
+      scale: 'gpa5',
+      score: '3.8',
+    })
+    assert.equal(result.ok, true)
+    if (!result.ok) return
+    assert.equal(result.bandId, 'upperSecond')
+    assert.equal(result.displayValue, '2:1')
+    assert.equal(result.submittedLabel, '3.8 / 5.0')
+    assert.equal(result.sourceBandLabel, '3.80 - 4.39 (Good)')
   })
 
   test('maps a Satisfactory GPA into a UK 2:1 planning band', () => {
@@ -198,9 +236,11 @@ describe('grade converter estimates', () => {
       estimateDisplay: '73-79%',
       estimateDetail: null,
       destinationScaleLabel: 'Percentage',
+      instantReference: '~72% · ~2.88/4.0 · ~3.60/5.0',
     })
     assert.match(summary, /\[Via Grade Converter\]/)
     assert.match(summary, /Country of study: Myanmar/)
-    assert.match(summary, /Estimated equivalent: 73-79%/)
+    assert.match(summary, /Quick conversion: ~72%/)
+    assert.match(summary, /Destination estimate: 73-79%/)
   })
 })
