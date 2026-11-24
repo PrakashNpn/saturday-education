@@ -32,6 +32,8 @@ interface ConsultationInput {
   targetCountry?: string
   consultationType?: string
   message?: string
+  /** Stored on the lead row. Defaults to "website". Use "grade-converter" for the tool. */
+  source?: string
 }
 
 const CONSULTATION_TYPE_MAP: Record<string, 'ONLINE' | 'IN_PERSON'> = {
@@ -73,6 +75,7 @@ export async function saveConsultationLead(
           ? (CONSULTATION_TYPE_MAP[data.consultationType] ?? null)
           : null,
         message: data.message?.trim() || null,
+        source: data.source?.trim() || 'website',
       },
     })
 
@@ -134,7 +137,7 @@ async function sendCrmFailureAlert(data: ConsultationInput, channel: CrmChannel,
     return
   }
   const country = data.targetCountry ? countryLabel(data.targetCountry) : '—'
-  const via = channel === 'chat' ? 'AI chatbot' : 'Consultation form'
+  const via = leadSourceLabel(data.source, channel)
   const row = (label: string, value: string) =>
     `<tr><td style="padding: 8px 0; color: #6b7280;">${label}</td><td style="padding: 8px 0; font-weight: 600;">${escapeHtml(value)}</td></tr>`
   try {
@@ -146,7 +149,7 @@ async function sendCrmFailureAlert(data: ConsultationInput, channel: CrmChannel,
       html: `
         <div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
           <h2 style="color: #b45309;">This lead did not reach Firmli</h2>
-          <p style="font-size: 14px;">It is saved in the database${channel === 'consultation' ? ' and the consultation notification was sent' : ''}, but the Firmli sync failed after two tries. Please add it in Firmli by hand.</p>
+          <p style="font-size: 14px;">It is saved in the database${channel === 'chat' ? '' : ' and the counsellor notification was sent'}, but the Firmli sync failed after two tries. Please add it in Firmli by hand.</p>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
             ${row('Came from', via)}
             ${row('Full Name', data.fullName.trim())}
@@ -170,6 +173,13 @@ async function sendCrmFailureAlert(data: ConsultationInput, channel: CrmChannel,
   }
 }
 
+function leadSourceLabel(source: string | undefined, channel: CrmChannel): string {
+  if (source === 'grade-converter') return 'Grade Converter'
+  if (channel === 'chat') return 'AI chatbot'
+  if (channel === 'event') return 'Education event'
+  return 'Consultation form'
+}
+
 async function sendNotificationEmail(data: ConsultationInput) {
   if (!process.env.RESEND_API_KEY) {
     console.warn('RESEND_API_KEY is not set — skipping consultation notification email.')
@@ -180,22 +190,29 @@ async function sendNotificationEmail(data: ConsultationInput) {
   const type = data.consultationType
     ? CONSULTATION_TYPE_LABELS[data.consultationType] ?? data.consultationType
     : '—'
+  const fromGradeConverter = data.source === 'grade-converter'
+  const subjectName = data.fullName.trim()
+  const subject = fromGradeConverter
+    ? `New Grade Converter Lead - ${subjectName}`
+    : `New Consultation Request - ${subjectName}`
+  const heading = fromGradeConverter ? 'New Grade Converter Lead' : 'New Consultation Request'
 
   try {
     await resend.emails.send({
       from: 'Saturday Education <consultations@saturdayeducation.com>',
       to: NOTIFICATION_EMAIL,
       replyTo: data.email.trim(),
-      subject: `New Consultation Request — ${data.fullName.trim()}`,
+      subject,
       html: `
         <div style="font-family: sans-serif; max-width: 560px; margin: 0 auto;">
-          <h2 style="color: #177E8D;">New Consultation Request</h2>
+          <h2 style="color: #177E8D;">${heading}</h2>
           <table style="width: 100%; border-collapse: collapse; font-size: 14px;">
+            <tr><td style="padding: 8px 0; color: #6b7280;">Came from</td><td style="padding: 8px 0; font-weight: 600;">${escapeHtml(leadSourceLabel(data.source, 'consultation'))}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Full Name</td><td style="padding: 8px 0; font-weight: 600;">${escapeHtml(data.fullName.trim())}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Email</td><td style="padding: 8px 0; font-weight: 600;">${escapeHtml(data.email.trim())}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Phone</td><td style="padding: 8px 0; font-weight: 600;">${data.phone ? escapeHtml(data.phone.trim()) : '—'}</td></tr>
             <tr><td style="padding: 8px 0; color: #6b7280;">Target Country</td><td style="padding: 8px 0; font-weight: 600;">${escapeHtml(country)}</td></tr>
-            <tr><td style="padding: 8px 0; color: #6b7280;">Consultation Type</td><td style="padding: 8px 0; font-weight: 600;">${type}</td></tr>
+            ${fromGradeConverter ? '' : `<tr><td style="padding: 8px 0; color: #6b7280;">Consultation Type</td><td style="padding: 8px 0; font-weight: 600;">${type}</td></tr>`}
           </table>
           ${
             data.message?.trim()

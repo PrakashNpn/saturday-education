@@ -13,6 +13,7 @@ export const STATIC_PAGES: SitemapPage[] = [
   { path: '/destinations', priority: 0.8, changeFrequency: 'weekly' },
   { path: '/course-finder', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/career-assessment', priority: 0.9, changeFrequency: 'monthly' },
+  { path: '/grade-converter', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/imat-practice-test', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/csca', priority: 0.8, changeFrequency: 'monthly' },
   { path: '/canada-education-event', priority: 0.7, changeFrequency: 'monthly' },

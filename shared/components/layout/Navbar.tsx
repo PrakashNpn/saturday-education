@@ -3,7 +3,7 @@
 import { useEffect, useId, useRef, useState } from 'react'
 import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
-import { Menu, X, ChevronDown, Phone, MapPin, Stethoscope, BookOpen, ArrowRight } from 'lucide-react'
+import { Menu, X, ChevronDown, Phone, MapPin, Stethoscope, BookOpen, GraduationCap, ArrowRight } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
 import { LANGUAGES, LOCALE_CODES } from '@/i18n/languages'
 import { cn } from '@/shared/utils/cn'
@@ -15,12 +15,21 @@ const NAV_LINKS: NavItem[] = [
   { labelKey: 'courseFinder', href: '/course-finder' },
   { labelKey: 'studyDestination', href: '/destinations' },
   { labelKey: 'careerAssessment', href: '/career-assessment' },
+  { labelKey: 'tools', href: '/grade-converter', children: [
+    { labelKey: 'gradeConverter', descriptionKey: 'gradeConverterDescription', href: '/grade-converter' },
+  ] },
   { labelKey: 'practiceTests', href: '/imat-practice-test', children: [
     { labelKey: 'imat', descriptionKey: 'imatDescription', href: '/imat-practice-test' },
     { labelKey: 'csca', descriptionKey: 'cscaDescription', href: '/csca' },
   ] },
   { labelKey: 'aboutUs', href: '/about' },
 ]
+
+function navChildIcon(labelKey: string) {
+  if (labelKey === 'csca') return <BookOpen size={19} strokeWidth={1.7} aria-hidden="true" />
+  if (labelKey === 'gradeConverter') return <GraduationCap size={19} strokeWidth={1.7} aria-hidden="true" />
+  return <Stethoscope size={19} strokeWidth={1.7} aria-hidden="true" />
+}
 
 // Names, not translations: a switcher has to show every language's own name
 // regardless of which locale is currently active, so these can't come from
@@ -112,7 +121,7 @@ function LanguageSwitcher() {
   )
 }
 
-function PracticeDropdown({ item, mobile = false }: { item: NavItem; mobile?: boolean }) {
+function NavDropdown({ item, mobile = false }: { item: NavItem; mobile?: boolean }) {
   const t = useTranslations('nav')
   const pathname = usePathname()
   const [open, setOpen] = useState(false)
@@ -152,7 +161,7 @@ function PracticeDropdown({ item, mobile = false }: { item: NavItem; mobile?: bo
         <Link href={child.href} onClick={() => setOpen(false)} aria-current={pathname === child.href ? 'page' : undefined}
           className="group flex items-center gap-3 rounded-lg p-3 transition-colors hover:bg-tint focus-visible:bg-tint focus-visible:outline-2 focus-visible:outline-action">
           <span className="flex size-9 shrink-0 items-center justify-center rounded-lg bg-tint text-action">
-            {child.labelKey === 'csca' ? <BookOpen size={19} strokeWidth={1.7} aria-hidden="true" /> : <Stethoscope size={19} strokeWidth={1.7} aria-hidden="true" />}
+            {navChildIcon(child.labelKey)}
           </span>
           <span className="min-w-0 flex-1">
             <span className="block text-label font-semibold text-deep">{t(child.labelKey)}</span>
@@ -250,7 +259,7 @@ export default function Navbar() {
 
           <nav aria-label={t('mainNavigation')}>
             <ul className="flex items-center gap-1 max-lg:hidden">
-              {NAV_LINKS.map((item) => item.children ? <PracticeDropdown key={`${pathname}-${item.labelKey}`} item={item} /> : (
+              {NAV_LINKS.map((item) => item.children ? <NavDropdown key={`${pathname}-${item.labelKey}`} item={item} /> : (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -293,7 +302,7 @@ export default function Navbar() {
           )}
         >
           <ul className="border-t border-stroke bg-surface px-6 py-2">
-            {NAV_LINKS.map((item) => item.children ? <PracticeDropdown key={`${pathname}-${mobileOpen}-${item.labelKey}`} item={item} mobile /> : (
+            {NAV_LINKS.map((item) => item.children ? <NavDropdown key={`${pathname}-${mobileOpen}-${item.labelKey}`} item={item} mobile /> : (
               <li key={item.href}>
                 <Link
                   href={item.href}
