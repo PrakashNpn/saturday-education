@@ -12,7 +12,7 @@ import {
   defaultTargetStudyLevel,
   type QualificationLevel,
 } from '../data/estimate-model'
-import { estimateGrade, isValidScore } from '../services/estimate'
+import { estimateGrade, instantConvert, isValidScore } from '../services/estimate'
 import { buildGradeLeadSummary } from '../services/leadSummary'
 import { BootScreen } from './BootScreen'
 import { ContactStep } from './ContactStep'
@@ -85,6 +85,9 @@ export function GradeConverter({ onSubmitLead }: GradeConverterProps) {
         scale: selection.scale,
         score: selection.score,
       })
+    : null
+  const instant = selection.scale && selection.score
+    ? instantConvert(selection.scale, selection.score)
     : null
 
   useEffect(() => {
@@ -190,6 +193,9 @@ export function GradeConverter({ onSubmitLead }: GradeConverterProps) {
         estimateDisplay: estimate.displayValue,
         estimateDetail: estimate.detailLabel,
         destinationScaleLabel: estimate.destinationScaleLabel,
+        instantReference: instant
+          ? `~${instant.percent}% · ~${instant.gpa4.toFixed(2)}/4.0 · ~${instant.gpa5.toFixed(2)}/5.0`
+          : null,
       }),
     })
     setIsSubmitting(false)
@@ -308,6 +314,7 @@ export function GradeConverter({ onSubmitLead }: GradeConverterProps) {
               originCode={originMeta?.code ?? 'VN'}
               targetCode={targetMeta?.code ?? 'GB'}
               estimate={estimate}
+              instant={instant}
               onBack={() => navigate(1)}
               onEditGrades={() => navigate(0)}
               onContinue={() => navigate(3)}

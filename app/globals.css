@@ -52,16 +52,12 @@
   background-color: rgba(23, 126, 141, 0.6);
 }
 
-/* Consultation form's phone field (react-phone-number-input). The country
-   chip is a fully custom component (PhoneCountrySelect, styled entirely with
-   Tailwind classes, not this stylesheet) since the library's own default is
-   a native <select> whose open dropdown is OS-rendered and ignores CSS
-   entirely — fine for a few options, not for a ~240-country list. Its own
-   default stylesheet is still imported for base layout; only the number
-   input's flex sizing needs a nudge here, since it reuses the form's FIELD
-   classes via numberInputProps but still needs to fill the remaining width
-   next to the country chip. */
-.phone-field {
+/* Phone field (react-phone-number-input). PhoneCountrySelect is a custom
+   button (not the library's native <select>). The library stylesheet sets
+   .PhoneInput { align-items: center }, which leaves the flag chip short
+   beside the number input — beat that with the combined selector so the
+   chip stretches to the sibling field height on every form. */
+.phone-field.PhoneInput {
   display: flex;
   align-items: stretch;
   gap: 0.5rem;

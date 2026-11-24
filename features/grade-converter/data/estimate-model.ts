@@ -25,8 +25,8 @@ export const SUBJECTS = [
 ] as const
 export type SubjectArea = (typeof SUBJECTS)[number]
 
-/** Keep the grading-system list short, like Expert Education. */
-export const SCALE_TYPES = ['percent100', 'gpa4'] as const
+/** Keep the grading-system list short: % plus the two common GPA ceilings. */
+export const SCALE_TYPES = ['percent100', 'gpa4', 'gpa5'] as const
 export type ScaleType = (typeof SCALE_TYPES)[number]
 
 export type ScaleDefinition = {
@@ -40,6 +40,7 @@ export type ScaleDefinition = {
 export const SCALE_DEFINITIONS: Record<ScaleType, ScaleDefinition> = {
   percent100: { id: 'percent100', kind: 'numeric', min: 0, max: 100, direction: 'higher_is_better' },
   gpa4: { id: 'gpa4', kind: 'numeric', min: 0, max: 4, direction: 'higher_is_better' },
+  gpa5: { id: 'gpa5', kind: 'numeric', min: 0, max: 5, direction: 'higher_is_better' },
 }
 
 /** High school → bachelor, bachelor → master, master → master. */
@@ -225,6 +226,19 @@ export const SOURCE_BANDS_GPA4: SourceBand[] = [
   { id: 'src_gpa_low', min: 0, strength: 5, label: 'Below 2.00' },
 ]
 
+/**
+ * 5.0 GPA source bands — same strength ladder as 4.0, thresholds × 5/4
+ * (3.7→4.6, 3.5→4.4, 3.0→3.8, 2.5→3.1, 2.0→2.5).
+ */
+export const SOURCE_BANDS_GPA5: SourceBand[] = [
+  { id: 'src_gpa5_46', min: 4.6, strength: 0, label: '4.60 - 5.00 (Excellent)' },
+  { id: 'src_gpa5_44', min: 4.4, strength: 1, label: '4.40 - 4.59 (Very good)' },
+  { id: 'src_gpa5_38', min: 3.8, strength: 2, label: '3.80 - 4.39 (Good)' },
+  { id: 'src_gpa5_31', min: 3.1, strength: 3, label: '3.10 - 3.79 (Satisfactory)' },
+  { id: 'src_gpa5_25', min: 2.5, strength: 4, label: '2.50 - 3.09 (Pass)' },
+  { id: 'src_gpa5_low', min: 0, strength: 5, label: 'Below 2.50' },
+]
+
 /** Qualitative source bands for percentage inputs. */
 export const SOURCE_BANDS_PERCENT: SourceBand[] = [
   { id: 'src_pct_90', min: 90, strength: 0, label: '90 - 100% (Excellent)' },
@@ -236,7 +250,9 @@ export const SOURCE_BANDS_PERCENT: SourceBand[] = [
 ]
 
 export function sourceBandsForScale(scale: ScaleType): SourceBand[] {
-  return scale === 'gpa4' ? SOURCE_BANDS_GPA4 : SOURCE_BANDS_PERCENT
+  if (scale === 'gpa4') return SOURCE_BANDS_GPA4
+  if (scale === 'gpa5') return SOURCE_BANDS_GPA5
+  return SOURCE_BANDS_PERCENT
 }
 
 export function bandById(format: DestinationFormat, bandId: string): Band | undefined {

@@ -12,6 +12,8 @@ export type GradeLeadSummaryInput = {
   estimateDisplay: string
   estimateDetail: string | null
   destinationScaleLabel: string
+  /** Optional linear reference line, e.g. "~80% · ~3.2/4.0 · ~4.0/5.0". */
+  instantReference?: string | null
 }
 
 export function buildGradeLeadSummary(input: GradeLeadSummaryInput): string {
@@ -19,7 +21,7 @@ export function buildGradeLeadSummary(input: GradeLeadSummaryInput): string {
     ? `${input.estimateDisplay} (${input.estimateDetail})`
     : input.estimateDisplay
 
-  return [
+  const lines = [
     '[Via Grade Converter]',
     `Country of study: ${input.originLabel}`,
     `Target country: ${input.targetLabel}`,
@@ -28,7 +30,13 @@ export function buildGradeLeadSummary(input: GradeLeadSummaryInput): string {
     `Subject: ${input.subjectLabel}`,
     `Grading system: ${input.scaleLabel}`,
     `Reported grade: ${input.submittedGrade} (${input.sourceBandLabel})`,
-    `Estimated equivalent: ${estimateLine}`,
+  ]
+  if (input.instantReference) {
+    lines.push(`Quick conversion: ${input.instantReference}`)
+  }
+  lines.push(
+    `Destination estimate: ${estimateLine}`,
     `Destination scale: ${input.destinationScaleLabel}`,
-  ].join('\n')
+  )
+  return lines.join('\n')
 }

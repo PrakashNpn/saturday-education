@@ -1859,6 +1859,16 @@
     "resultTitle": "Tinatayang equivalent",
     "gradeEquivalent": "Estimated equivalent",
     "submittedGrade": "Your reported grade",
+    "instantTitle": "Mabilisang conversion",
+    "instantPercent": "Bilang percentage",
+    "instantGpa4": "Sa 4.0 scale",
+    "instantGpa5": "Sa 5.0 scale",
+    "instantFormulaGpa4": "Tinatayang conversion: GPA ÷ 4.0 × 100",
+    "instantFormulaGpa5": "Tinatayang conversion: GPA ÷ 5.0 × 100",
+    "instantFormulaPercent": "Tinatayang conversion: % ÷ 100 × scale max",
+    "instantHint": "Simpleng numeric conversion para sa reference  -  hindi opisyal na credential evaluation.",
+    "destinationEstimateTitle": "Tantya para sa {target}",
+    "destinationEstimateHint": "Planning band na madalas pag-usapan para sa destinasyong ito  -  hindi guaranteed na offer.",
     "estimateNotice": "Ang mga resultang ito ay estimate para sa pagpaplano. Bawat unibersidad ay may sariling grade conversion.",
     "optionalContact": "Kumuha ng personal na gabay",
     "optional": "Opsyonal",
@@ -1924,7 +1934,8 @@
     "estimateFailedDescription": "Check your score and grading system, then try again.",
     "scaleTypes": {
       "percent100": "Percentage (0 - 100%)",
-      "gpa4": "GPA / CGPA - 4.0 scale"
+      "gpa4": "GPA / CGPA - 4.0 scale",
+      "gpa5": "GPA / CGPA - 5.0 scale"
     },
     "qualificationLevels": {
       "highSchool": "High school",
@@ -1992,7 +2003,7 @@
     "phonePlaceholder": "+95 9 XXX XXX XXX",
     "leadTargetCountry": "Target country",
     "notes": "Anything else we should know?",
-    "notesPlaceholder": "Optional",
+    "notesPlaceholder": "",
     "submitLead": "Book my consultation",
     "submitting": "Sending...",
     "submitError": "Something went wrong. Please try again.",

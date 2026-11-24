@@ -1977,6 +1977,16 @@
     "resultTitle": "Perkiraan setara",
     "gradeEquivalent": "Estimated equivalent",
     "submittedGrade": "Your reported grade",
+    "instantTitle": "Konversi cepat",
+    "instantPercent": "Sebagai persentase",
+    "instantGpa4": "Skala 4.0",
+    "instantGpa5": "Skala 5.0",
+    "instantFormulaGpa4": "Konversi kasar: GPA ÷ 4.0 × 100",
+    "instantFormulaGpa5": "Konversi kasar: GPA ÷ 5.0 × 100",
+    "instantFormulaPercent": "Konversi kasar: % ÷ 100 × maksimum skala",
+    "instantHint": "Konversi angka sederhana untuk referensi  -  bukan evaluasi kredensial resmi.",
+    "destinationEstimateTitle": "Perkiraan untuk {target}",
+    "destinationEstimateHint": "Rentang perencanaan yang sering dibahas untuk destinasi ini  -  bukan jaminan penerimaan.",
     "estimateNotice": "Hasil ini adalah perkiraan untuk membantu perencanaan. Setiap universitas menentukan konversi nilainya sendiri.",
     "optionalContact": "Dapatkan panduan pribadi",
     "optional": "Opsional",
@@ -2042,7 +2052,8 @@
     "estimateFailedDescription": "Check your score and grading system, then try again.",
     "scaleTypes": {
       "percent100": "Persentase (0 - 100%)",
-      "gpa4": "GPA / CGPA - skala 4.0"
+      "gpa4": "GPA / CGPA - skala 4.0",
+      "gpa5": "GPA / CGPA - skala 5.0"
     },
     "qualificationLevels": {
       "highSchool": "SMA / setara",
@@ -2110,7 +2121,7 @@
     "phonePlaceholder": "+95 9 XXX XXX XXX",
     "leadTargetCountry": "Target country",
     "notes": "Anything else we should know?",
-    "notesPlaceholder": "Optional",
+    "notesPlaceholder": "",
     "submitLead": "Book my consultation",
     "submitting": "Sending...",
     "submitError": "Something went wrong. Please try again.",
