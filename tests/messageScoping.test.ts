@@ -61,7 +61,7 @@ describe('static rendering', () => {
   test('the pages that are prebuilt set the locale and the layout lists the locales', () => {
     const layout = fs.readFileSync(path.join(root, 'app/[locale]/layout.tsx'), 'utf8')
     assert.match(layout, /export function generateStaticParams\(\)/)
-    for (const page of ['page.tsx', 'about/page.tsx', 'privacy/page.tsx', 'terms/page.tsx', 'destinations/page.tsx']) {
+    for (const page of ['page.tsx', 'about/page.tsx', 'contact/page.tsx', 'privacy/page.tsx', 'terms/page.tsx', 'destinations/page.tsx', 'guides/page.tsx', 'guides/[slug]/page.tsx']) {
       const text = fs.readFileSync(path.join(root, 'app/[locale]', page), 'utf8')
       assert.match(text, /setRequestLocale\(/, `${page} must call setRequestLocale to be prebuilt`)
     }

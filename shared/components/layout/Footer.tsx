@@ -1,5 +1,6 @@
-import { useTranslations } from 'next-intl'
+import { useLocale, useTranslations } from 'next-intl'
 import { Link } from '@/i18n/navigation'
+import { DEFAULT_LOCALE } from '@/i18n/languages'
 import { SOCIAL_LINKS } from '@/shared/constants/social'
 import { CookieSettingsButton } from '@/shared/components/consent'
 
@@ -19,6 +20,7 @@ const SERVICES = [
 // from the footer entirely.
 const COMPANY = [
   { key: 'studyDestinations', href: '/destinations' },
+  { key: 'guides', href: '/guides' },
   { key: 'courseFinder', href: '/course-finder' },
   { key: 'about', href: '/about' },
   { key: 'careerAssessment', href: '/career-assessment' },
@@ -26,7 +28,7 @@ const COMPANY = [
   { key: 'imat', href: '/imat-practice-test' },
   { key: 'csca', href: '/csca' },
   { key: 'testimonials', href: '/#testimonials' },
-  { key: 'contact', href: '/#consultation' },
+  { key: 'contact', href: '/contact' },
   { key: 'privacy', href: '/privacy' },
   { key: 'terms', href: '/terms' },
 ] as const
@@ -49,6 +51,12 @@ const SOCIAL_CIRCLE =
 
 export default function Footer() {
   const t = useTranslations('footer')
+  const locale = useLocale()
+  // Guides are English-only for now — same rule as the main nav.
+  const companyLinks =
+    locale === DEFAULT_LOCALE
+      ? COMPANY
+      : COMPANY.filter((item) => item.key !== 'guides')
 
   return (
     <footer className="relative overflow-hidden bg-[color-mix(in_srgb,var(--color-action)_40%,black)] py-14 text-white max-tablet:py-10">
@@ -143,7 +151,7 @@ export default function Footer() {
           <div>
             <p className={COLUMN_HEADING}>{t('company.heading')}</p>
             <ul className="flex flex-col gap-2">
-              {COMPANY.map((item) => (
+              {companyLinks.map((item) => (
                 <li key={item.key}>
                   <Link href={item.href} className={LINK}>
                     {t(`company.${item.key}`)}

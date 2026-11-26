@@ -8,7 +8,7 @@ export const GERMANY = {
   region: Region.EUROPE,
   tagline: 'Engineering Excellence Meets Affordability',
   shortDescription: 'World-class education, low or zero tuition fees, and a thriving job market in the heart of Europe.',
-  overview: `Germany is one of the world's top study destinations, home to over 400 higher education institutions and more than 400,000 international students. Renowned for engineering, technology, and business, Germany offers tuition-free or low-cost education at public universities and a growing number of English-taught programs at private institutions. With a strong economy, the 18-month Job Seeker Visa, and 120 work days per year allowed during study, Germany provides unmatched value for internationally ambitious students.`,
+  overview: `Germany is one of the world's top study destinations, home to over 400 higher education institutions and more than 400,000 international students. Renowned for engineering, technology, and business, Germany offers low-cost public universities (often with semester fees only) and a growing number of English-taught programmes at private institutions — the route most of our Myanmar students take. With a strong economy, the 18-month Job Seeker Visa, and up to 140 full or 280 half work days per year during study, Germany provides strong value for internationally ambitious students.`,
   cardImageUrl: null,
   heroImageUrl: null,
   institutionCount: '400+',
@@ -18,7 +18,7 @@ export const GERMANY = {
   studentSatisfaction: 82,
   graduateEmployability: 87,
   visaProcessingTime: '4–8 weeks',
-  workRights: '120 full days or 240 half days per year during study. Post-study: Job Seeker Visa for 18 months to find work.',
+  workRights: '140 full days or 280 half days per year during study (or about 20 hours/week in lecture periods). Post-study: Job Seeker Visa for 18 months to find work.',
   costOfLivingMinUSD: 9600,
   costOfLivingMaxUSD: 14400,
   currencyCode: 'EUR',
@@ -60,7 +60,7 @@ export const GERMANY = {
     {
       stepNumber: 3,
       title: 'Receive Admission Letter & Block Account',
-      description: 'Once admitted, you\'ll receive an official admission letter. Open a German blocked account (Sperrkonto) showing €11,208/year — a mandatory requirement for the student visa to prove financial sufficiency.',
+      description: 'Once admitted, you\'ll receive an official admission letter. Open a German blocked account (Sperrkonto) showing €11,904/year (€992/month) — a mandatory requirement for the student visa to prove financial sufficiency.',
     },
     {
       stepNumber: 4,
@@ -76,12 +76,12 @@ export const GERMANY = {
     },
     {
       question: 'What is a blocked account and why do I need it?',
-      answer: 'A German blocked account (Sperrkonto) is a special bank account that holds your living expenses for one year (currently €11,208). You can only withdraw a fixed monthly amount. The German embassy requires proof of this account before issuing a student visa — it guarantees you can support yourself financially without working.',
+      answer: 'A German blocked account (Sperrkonto) is a special bank account that holds your living expenses for one year (currently €11,904, or €992 per month). You can only withdraw a fixed monthly amount. The German embassy requires proof of this account before issuing a student visa — it guarantees you can support yourself financially without working.',
       order: 2,
     },
     {
       question: 'How many hours can I work while studying in Germany?',
-      answer: 'International students can work 120 full days or 240 half days per year (approximately 20 hours per week during semester). Working more requires approval from the Federal Employment Agency and your local foreigners\' authority.',
+      answer: 'International students can work 140 full days or 280 half days per year (or about 20 hours per week during lecture periods). Working more requires approval from the Federal Employment Agency and your local foreigners\' authority.',
       order: 3,
     },
     {
@@ -145,7 +145,7 @@ export const GISMA_BUSINESS_SCHOOL = {
     { stepNumber: 1, title: 'Check Eligibility', description: 'Bachelor programs require a high school diploma (Abitur equivalent). Master programs require a relevant bachelor\'s degree (2:2 or above). English proficiency: IELTS 6.0 (Bachelor) or IELTS 6.5 (Master), or equivalent.' },
     { stepNumber: 2, title: 'Submit Online Application', description: 'Apply via the GISMA website. Required documents: academic transcripts, English language certificate, CV/resume, copy of passport, and a personal statement or motivation letter.' },
     { stepNumber: 3, title: 'Receive Conditional Offer', description: 'GISMA typically issues a conditional offer within 2–3 weeks of receiving a complete application. Pay the enrollment deposit to confirm your place.' },
-    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Use your official admission letter to apply for a German National Visa (Type D) at your local German embassy or consulate. Open a blocked account (€11,208) as required for the visa application.' },
+    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Use your official admission letter to apply for a German National Visa (Type D) at your local German embassy or consulate. Open a blocked account (€11,904) as required for the visa application.' },
   ],
   scholarships: [
     { name: 'GISMA Merit Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 30% tuition reduction', description: 'Awarded to academically outstanding applicants based on their previous academic performance and motivation letter. Applied automatically during the admissions review.', learnMoreUrl: null },
@@ -212,7 +212,7 @@ export const IU_INTERNATIONAL = {
     { stepNumber: 1, title: 'Choose Your Program & Study Model', description: 'IU offers on-campus, online, and hybrid study. Select your preferred program, intake date (rolling monthly), and campus or online option.' },
     { stepNumber: 2, title: 'Submit Application Online', description: 'Apply via the IU website. Required: academic transcripts, English language proof (IELTS 5.5+ for Bachelor, 6.0+ for Master), CV, and copy of passport. No application fee.' },
     { stepNumber: 3, title: 'Receive Admission Decision', description: 'IU typically responds within 5–10 working days. Upon acceptance, pay the enrollment fee and receive your official admission letter.' },
-    { stepNumber: 4, title: 'Enroll & Apply for Visa', description: 'Use your IU admission letter to apply for a German student visa at your local German embassy. Provide proof of a blocked account (€11,208) for the visa application.' },
+    { stepNumber: 4, title: 'Enroll & Apply for Visa', description: 'Use your IU admission letter to apply for a German student visa at your local German embassy. Provide proof of a blocked account (€11,904) for the visa application.' },
   ],
   scholarships: [
     { name: 'IU International Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 30% tuition reduction', description: 'Merit-based scholarship for academically strong applicants. Awarded based on GPA, test scores, and the quality of the motivation letter submitted during application.', learnMoreUrl: null },
@@ -260,7 +260,7 @@ export const MACROMEDIA_UNIVERSITY = {
     { stepNumber: 1, title: 'Check Requirements & Apply', description: 'Bachelor programs require a high school diploma. Master programs require a relevant bachelor\'s degree. English proficiency: IELTS 6.0. Apply online via the Macromedia website with transcripts, CV, and motivation letter.' },
     { stepNumber: 2, title: 'Portfolio / Interview (Design & Film)', description: 'Design and Film applicants must submit a portfolio of creative work. Some programs may invite applicants for an interview or portfolio review before issuing an offer.' },
     { stepNumber: 3, title: 'Receive Offer & Confirm', description: 'Macromedia typically issues admission decisions within 3 weeks. Confirm your place by paying the enrollment deposit. Receive your official admission letter.' },
-    { stepNumber: 4, title: 'Visa Application', description: 'Apply for the German National Visa (Type D) using your Macromedia admission letter and blocked account proof (€11,208). Processing time is typically 4–8 weeks.' },
+    { stepNumber: 4, title: 'Visa Application', description: 'Apply for the German National Visa (Type D) using your Macromedia admission letter and blocked account proof (€11,904). Processing time is typically 4–8 weeks.' },
   ],
   scholarships: [
     { name: 'Macromedia Talent Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 20% tuition reduction', description: 'Awarded to applicants demonstrating exceptional academic performance or outstanding creative talent (for design/film programs). Applied during the admissions process.', learnMoreUrl: null },
@@ -299,7 +299,7 @@ export const STUDIENKOLLEG_DUSSELDORF = {
   admissionSteps: [
     { stepNumber: 1, title: 'Confirm Eligibility', description: 'Applicants must have completed at least 12 years of schooling (or equivalent). A minimum of B1 German language level is recommended at entry. Apply online with your school transcripts and language certificate.' },
     { stepNumber: 2, title: 'Language Assessment & Enrollment', description: 'Upon review, applicants may be invited for a language assessment. Receive your official enrollment confirmation and admission letter for visa purposes.' },
-    { stepNumber: 3, title: 'Apply for Student Visa', description: 'Use the enrollment letter to apply for a German National Visa (Type D) at your local German embassy. A blocked account (€11,208) is required.' },
+    { stepNumber: 3, title: 'Apply for Student Visa', description: 'Use the enrollment letter to apply for a German National Visa (Type D) at your local German embassy. A blocked account (€11,904) is required.' },
     { stepNumber: 4, title: 'Complete Foundation Year & Sit Feststellungsprüfung', description: 'Complete the one-year course and pass the Feststellungsprüfung. This result is then used to apply for a full bachelor\'s degree program at any German university of applied sciences or university.' },
   ],
   scholarships: [],
@@ -349,7 +349,7 @@ export const SRH_BERLIN = {
     { stepNumber: 1, title: 'Select Program & Check Requirements', description: 'Bachelor programs require a high school diploma. Master programs require a relevant bachelor\'s (2:2 or above). English proficiency: IELTS 5.5 (Bachelor) or IELTS 6.0 (Master).' },
     { stepNumber: 2, title: 'Apply Online', description: 'Submit via the SRH Berlin website. Required documents: transcripts, English language certificate, CV, motivation letter, and copy of passport. No application fee.' },
     { stepNumber: 3, title: 'Receive Offer & Confirm Enrollment', description: 'Decisions are typically issued within 2–3 weeks. Pay the enrollment deposit upon acceptance and receive your official admission letter for visa and blocked account purposes.' },
-    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Use your SRH Berlin admission letter to apply for a German National Visa (Type D). Provide your blocked account proof (€11,208) and health insurance documentation.' },
+    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Use your SRH Berlin admission letter to apply for a German National Visa (Type D). Provide your blocked account proof (€11,904) and health insurance documentation.' },
   ],
   scholarships: [
     { name: 'SRH Merit Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 25% tuition reduction', description: 'Awarded to applicants with a strong academic record (GPA above 3.0 or equivalent). Applied automatically during the admissions review process.', learnMoreUrl: null },
@@ -449,7 +449,7 @@ export const EU_BUSINESS_SCHOOL_GERMANY = {
     { stepNumber: 1, title: 'Review Entry Requirements', description: 'Bachelor programs require a high school diploma with minimum grade equivalent to B average. Master/MBA programs require a relevant bachelor\'s degree and typically 2+ years of work experience for MBA. English proficiency: IELTS 6.0+.' },
     { stepNumber: 2, title: 'Submit Application', description: 'Apply via the EU Business School website. Required: transcripts, English language certificate, CV, and motivation letter. No specific test scores (GRE/GMAT) required unless specified.' },
     { stepNumber: 3, title: 'Interview & Offer', description: 'Shortlisted applicants are invited for a personal or virtual interview. Successful candidates receive an official offer letter within 2–4 weeks.' },
-    { stepNumber: 4, title: 'Visa & Enrollment', description: 'Use the official admission letter to apply for a German National Visa (Type D). Provide a blocked account (€11,208) and health insurance proof for the visa application.' },
+    { stepNumber: 4, title: 'Visa & Enrollment', description: 'Use the official admission letter to apply for a German National Visa (Type D). Provide a blocked account (€11,904) and health insurance proof for the visa application.' },
   ],
   scholarships: [
     { name: 'EU Business School Academic Excellence Award', type: ScholarshipType.MERIT_BASED, value: 'Up to 25% tuition reduction', description: 'Merit-based scholarship for applicants with outstanding academic records and leadership potential. Awarded by the admissions committee during the application review.', learnMoreUrl: null },
@@ -495,7 +495,7 @@ export const NEW_EUROPEAN_COLLEGE = {
     { stepNumber: 1, title: 'Apply Online', description: 'Complete the NEC online application. Bachelor applicants need a high school diploma; Master applicants need a relevant bachelor\'s degree. English proficiency: IELTS 6.0 or equivalent.' },
     { stepNumber: 2, title: 'Personal Interview', description: 'All applicants are invited for a personal interview (in-person or online) with the NEC admissions team. This is a key part of the assessment — NEC prioritises motivated and engaged students.' },
     { stepNumber: 3, title: 'Receive Offer & Confirm Enrollment', description: 'Decisions are issued within 1–2 weeks of the interview. Pay the enrollment deposit to confirm your place and receive your official admission letter.' },
-    { stepNumber: 4, title: 'Visa Application', description: 'Apply for a German National Visa (Type D) at your local German embassy using your NEC admission letter and blocked account proof (€11,208).' },
+    { stepNumber: 4, title: 'Visa Application', description: 'Apply for a German National Visa (Type D) at your local German embassy using your NEC admission letter and blocked account proof (€11,904).' },
   ],
   scholarships: [
     { name: 'NEC Excellence Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 20% tuition reduction', description: 'Awarded to exceptional applicants based on academic performance, interview performance, and demonstrated entrepreneurial or leadership potential.', learnMoreUrl: null },
@@ -536,7 +536,7 @@ export const BERLIN_INTERNATIONAL_COLLEGE = {
     { stepNumber: 1, title: 'Apply & Submit Documents', description: 'Apply online with your school certificates or university transcripts, passport copy, and a brief motivation letter explaining your study goals in Germany.' },
     { stepNumber: 2, title: 'Language Assessment', description: 'Applicants are assessed for current German language level to be placed in the appropriate course level. No minimum German language requirement at entry.' },
     { stepNumber: 3, title: 'Receive Enrollment Confirmation', description: 'Receive an official enrollment confirmation letter from BIC, which can be used for student visa applications.' },
-    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Apply for a German National Visa (Type D) at the German embassy in your home country using the BIC enrollment confirmation letter and blocked account proof (€11,208).' },
+    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Apply for a German National Visa (Type D) at the German embassy in your home country using the BIC enrollment confirmation letter and blocked account proof (€11,904).' },
   ],
   scholarships: [],
 }
@@ -584,7 +584,7 @@ export const BSBI = {
     { stepNumber: 1, title: 'Check Eligibility & Apply', description: 'Bachelor programs require a high school diploma. Master programs require a relevant bachelor\'s degree (2:2 or above). English proficiency: IELTS 5.5–6.0. Apply online via the BSBI website.' },
     { stepNumber: 2, title: 'Submit Documents', description: 'Provide academic transcripts, English language certificate, CV, and motivation letter. For creative programs (Fashion, Media), include a portfolio of relevant work.' },
     { stepNumber: 3, title: 'Receive Offer & Confirm', description: 'BSBI issues admission decisions typically within 2–3 weeks. Pay the enrollment deposit and receive your official admission letter.' },
-    { stepNumber: 4, title: 'Apply for German Student Visa', description: 'Use your BSBI admission letter to apply for a German National Visa (Type D). Provide proof of a blocked account (€11,208) and health insurance.' },
+    { stepNumber: 4, title: 'Apply for German Student Visa', description: 'Use your BSBI admission letter to apply for a German National Visa (Type D). Provide proof of a blocked account (€11,904) and health insurance.' },
   ],
   scholarships: [
     { name: 'BSBI Merit Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 20% tuition reduction', description: 'Awarded to academically strong applicants. Applied during the admissions review based on GPA and the quality of the motivation letter.', learnMoreUrl: null },
@@ -624,7 +624,7 @@ export const UMCH = {
     { stepNumber: 1, title: 'Check Academic Requirements', description: 'Applicants need a strong high school diploma with excellent grades in Biology and Chemistry. English proficiency: IELTS 6.5 or equivalent. No prior medical knowledge required but strong science background is essential.' },
     { stepNumber: 2, title: 'Submit Application & Supporting Documents', description: 'Apply via the UMCH website. Required: school transcripts, English language certificate, CV, motivation letter, and passport copy. Some applicants may be required to take an entrance assessment.' },
     { stepNumber: 3, title: 'Receive Offer & Confirm Enrollment', description: 'Successful applicants receive a conditional or unconditional offer within 3–4 weeks. Confirm enrollment by paying the tuition deposit.' },
-    { stepNumber: 4, title: 'Apply for German Student Visa', description: 'Apply for a German National Visa at your local German embassy with the UMCH admission letter and a blocked account (€11,208). Medical students may also need to demonstrate health insurance and sufficient personal funds.' },
+    { stepNumber: 4, title: 'Apply for German Student Visa', description: 'Apply for a German National Visa at your local German embassy with the UMCH admission letter and a blocked account (€11,904). Medical students may also need to demonstrate health insurance and sufficient personal funds.' },
   ],
   scholarships: [
     { name: 'UMCH Academic Excellence Grant', type: ScholarshipType.MERIT_BASED, value: 'Up to 15% tuition reduction', description: 'Available to applicants with exceptional academic performance in Biology, Chemistry, and Mathematics. Assessed during the admissions process.', learnMoreUrl: null },
@@ -673,7 +673,7 @@ export const FRESENIUS_UNIVERSITY = {
     { stepNumber: 1, title: 'Choose Your Program & Campus', description: 'Select your preferred program and campus location. Check language of instruction — English-taught programs are available at specific campuses. English proficiency: IELTS 5.5–6.0.' },
     { stepNumber: 2, title: 'Submit Application', description: 'Apply via the Fresenius website or through uni-assist.de for international applicants. Required: transcripts, English/German language certificates, CV, and motivation letter.' },
     { stepNumber: 3, title: 'Receive Offer & Confirm Enrollment', description: 'Admission decisions are issued within 3–4 weeks. Confirm your place by paying the enrollment fee and receive your official admission letter.' },
-    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Use your Fresenius admission letter to apply for a German National Visa (Type D). Provide blocked account proof (€11,208) and health insurance documentation.' },
+    { stepNumber: 4, title: 'Apply for Student Visa', description: 'Use your Fresenius admission letter to apply for a German National Visa (Type D). Provide blocked account proof (€11,904) and health insurance documentation.' },
   ],
   scholarships: [
     { name: 'Fresenius Merit Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 20% tuition reduction', description: 'Awarded to academically excellent applicants at the discretion of the admissions committee. Based on GPA, motivation letter, and overall application quality.', learnMoreUrl: null },
@@ -722,7 +722,7 @@ export const MDH_UNIVERSITY = {
     { stepNumber: 1, title: 'Review Requirements & Prepare Portfolio', description: 'All design and media programs require a creative portfolio demonstrating relevant work. Business and media management programs may not require a portfolio. English proficiency: IELTS 5.5 (Bachelor) or 6.0 (Master).' },
     { stepNumber: 2, title: 'Submit Application with Portfolio', description: 'Apply via the MD.H website. Required: transcripts, portfolio (for creative programs), English language certificate, CV, and motivation letter.' },
     { stepNumber: 3, title: 'Portfolio Review & Interview', description: 'Creative program applications undergo a formal portfolio review. Shortlisted applicants may be invited for an in-person or online interview with faculty.' },
-    { stepNumber: 4, title: 'Receive Offer & Apply for Visa', description: 'Successful applicants receive an admission letter within 3–4 weeks of the review. Use this letter to apply for a German National Visa (Type D) with a blocked account (€11,208).' },
+    { stepNumber: 4, title: 'Receive Offer & Apply for Visa', description: 'Successful applicants receive an admission letter within 3–4 weeks of the review. Use this letter to apply for a German National Visa (Type D) with a blocked account (€11,904).' },
   ],
   scholarships: [
     { name: 'MD.H Creative Talent Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 20% tuition reduction', description: 'Awarded to exceptionally talented applicants whose portfolio demonstrates outstanding creative potential. Assessed during the portfolio review phase.', learnMoreUrl: null },
@@ -770,7 +770,7 @@ export const ARDEN_UNIVERSITY_BERLIN = {
     { stepNumber: 1, title: 'Check UK Entry Requirements', description: 'Arden Berlin follows UK academic standards. Bachelor programs require a high school diploma (equivalent to UK A-Levels). Master programs require a 2:2 bachelor\'s degree or above. English: IELTS 6.0+.' },
     { stepNumber: 2, title: 'Apply Online', description: 'Apply via the Arden University Berlin website. Required: academic transcripts, English language certificate, CV, and personal statement.' },
     { stepNumber: 3, title: 'Receive UK University Offer', description: 'Arden University issues the formal offer letter. Confirm your enrollment by paying the deposit. The admission letter is valid for both UK and German visa purposes.' },
-    { stepNumber: 4, title: 'Apply for German Student Visa', description: 'Use your Arden Berlin admission letter to apply for a German National Visa (Type D). Provide your blocked account proof (€11,208) and valid health insurance documentation.' },
+    { stepNumber: 4, title: 'Apply for German Student Visa', description: 'Use your Arden Berlin admission letter to apply for a German National Visa (Type D). Provide your blocked account proof (€11,904) and valid health insurance documentation.' },
   ],
   scholarships: [
     { name: 'Arden University Berlin Merit Award', type: ScholarshipType.MERIT_BASED, value: 'Up to 20% tuition reduction', description: 'Awarded to academically strong applicants. Assessed during the admissions process based on prior academic performance and the quality of the personal statement.', learnMoreUrl: null },
@@ -817,7 +817,7 @@ export const EBS_UNIVERSITY = {
     { stepNumber: 1, title: 'Check Requirements & Prepare Documents', description: 'EBS is highly selective. Bachelor applicants need a strong Abitur equivalent (top 15%). Master applicants need a relevant bachelor\'s with a strong GPA. English: IELTS 6.5+ for English-taught programs. GMAT is recommended for MBA (score 600+).' },
     { stepNumber: 2, title: 'Submit Application & Take Aptitude Test', description: 'Apply via the EBS website. All applicants must complete the EBS Aptitude Test (cognitive and personality assessment). Required documents: transcripts, language certificates, CV, motivation letter, and two references.' },
     { stepNumber: 3, title: 'Assessment Day / Interview', description: 'Shortlisted applicants are invited to an Assessment Day in Wiesbaden or online. This includes interviews, group exercises, and presentations. Acceptance is highly competitive with an acceptance rate of approximately 35%.' },
-    { stepNumber: 4, title: 'Receive Offer & Enroll', description: 'Successful applicants receive a formal admission letter within 2 weeks of the Assessment Day. Confirm enrollment, pay the tuition deposit, and apply for the German National Visa (Type D) with a blocked account (€11,208).' },
+    { stepNumber: 4, title: 'Receive Offer & Enroll', description: 'Successful applicants receive a formal admission letter within 2 weeks of the Assessment Day. Confirm enrollment, pay the tuition deposit, and apply for the German National Visa (Type D) with a blocked account (€11,904).' },
   ],
   scholarships: [
     { name: 'EBS Excellence Scholarship', type: ScholarshipType.MERIT_BASED, value: 'Up to 50% tuition reduction', description: 'Highly competitive merit scholarship for exceptional candidates with outstanding academic records and demonstrated leadership. Assessed during the Assessment Day.', learnMoreUrl: null },

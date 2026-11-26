@@ -42,8 +42,8 @@ export default function TermsContent() {
                   <strong>Registered business name:</strong> Saturday Education Consulting
                 </li>
                 <li>
-                  <strong>Address:</strong> Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon,
-                  Myanmar (Burma)
+                  <strong>Address:</strong> No. 20/22, 5th Floor, Shine Office Tower, Alan Pya Pagoda
+                  St, Yangon 11221, Myanmar (Burma)
                 </li>
                 <li>
                   <strong>Contact:</strong> <Mail />

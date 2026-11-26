@@ -1,6 +1,7 @@
 import { notFound } from 'next/navigation'
 import { getLocale, getTranslations } from 'next-intl/server'
 import { Reveal } from '@/shared/components/motion/Reveal'
+import { JsonLd, faqPageJsonLd } from '@/shared/lib/seo/jsonLd'
 import { getCountryBySlug } from '../services/destinationService'
 import { REGION_DISPLAY } from '../utils/constants'
 import { DetailHero } from './DetailHero'
@@ -41,6 +42,13 @@ export async function DestinationDetailPage({ slug }: Props) {
 
   return (
     <>
+      {country.faqs.length > 0 && (
+        <JsonLd
+          data={faqPageJsonLd(
+            country.faqs.map((faq) => ({ question: faq.question, answer: faq.answer })),
+          )}
+        />
+      )}
       <DetailHero
         slug={country.slug}
         name={country.name}

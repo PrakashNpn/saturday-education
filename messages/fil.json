@@ -73,29 +73,34 @@
       "headline": "Ano ang sinasabi ng aming mga estudyante.",
       "reviews": {
         "1": {
-          "quote": "Tinulungan ako ng Saturday Education Consulting na malaman kung aling mga university sa Canada ang talagang akma sa mga layunin ko, tapos ginabayan ako hakbang-hakbang sa buong aplikasyon.",
-          "name": "Ye Naing",
-          "program": "MBA, Canada"
+          "quote": "I got my student visa within 3weeks and had a really great experience with the team throughout my journey to studying in Malaysia. From the initial guidance to the application process and documentation, everyone was incredibly helpful, patient, and supportive.\nThey made sure everything was clearly explained and guided me through each step, making what could have been a stressful process much easier. I truly appreciate the time, effort, and dedication everyone put into helping me achieve this.\nThank you to the entire team for making this journey a smooth and memorable experience. I would definitely recommend their services to anyone planning to study abroad 🙏🏽❤️",
+          "name": "Khant Lin Phyo",
+          "program": "Student visa, Malaysia"
         },
         "2": {
-          "quote": "Wala akong ideya kung saan magsisimula sa pag-apply sa Germany. Malinaw na ipinaliwanag ng team ang lahat, mula sa pagpili ng university hanggang sa paghahanda ng mga dokumento ko.",
-          "name": "Thi Ha",
-          "program": "BSc Computer Science, Germany"
+          "quote": "Got my 🇳🇿 student visa within a month. Super sleek platform made even easy and clear communication in the whole process from the school application to visa submission! 🙌 Big thanks to Ko David, Ma Grace and Ma Zoey for all the support. Wish the whole team continued success and all the best! 🙏",
+          "name": "Yan Lin",
+          "program": "Student visa, New Zealand"
         },
         "3": {
-          "quote": "Tinulungan ako ng Saturday Education Consulting na pumili ng tamang university sa Ireland para sa Master's ko sa Finance at ginabayan ako sa buong aplikasyon.",
-          "name": "Akar Kyaw",
-          "program": "MSc Finance, Ireland"
+          "quote": "Highly recommend! 💯(Pawan Dhakal)\nThroughout the Germany student visa application process.\nIf I ask them anything, they told me all the necessary things in a short time and did it thoroughly until the visa approval was received. Since I saw it myself, I highly recommend pr🙆🏻 ♂️💯",
+          "name": "Marc Annette",
+          "program": "Student visa, Germany"
         },
         "4": {
-          "quote": "Naglaan ng oras ang mga advisor para maunawaan ang gusto ko at itinugma ako sa isang Master's programme sa Data Science sa UK na talagang akma.",
-          "name": "May Thazin",
-          "program": "MSc Data Science, UK"
-        },
-        "5": {
           "quote": "Gaya ng alam ninyong lahat, napakabilis at mapagkakatiwalaan ni Ako David. Mula sa simula, napakabilis, maaasahan, at nakatulong ang gabay sa SMS nina Ako David at Ama Zoey. Hindi ka dapat mag-alala dahil lagi silang handang sumuporta at gumabay. Pagdating sa proseso ng visa, nagbibigay sila ng tamang gabay at suporta ayon sa bansang ina-applyan mo. Lubos kong inirerekomenda ang Saturday Education Consulting sa mga estudyante at magulang na naghahanap ng maaasahang gabay sa pag-aaral abroad.",
           "name": "Htin Aung Kyaw",
-          "program": "BSc Artificial Intelligence, Germany"
+          "program": "Student visa, Germany"
+        },
+        "5": {
+          "quote": "A big thank you to Zoey from Saturday Education Consulting for her amazing support throughout our visa application journey! ❤️ She is professional, patient, responsive and always willing to go the extra mile. Her guidance made the entire process so much easier and stress-free. We truly appreciate her dedication and highly recommend her services. Thank you, Zoey! 🌟",
+          "name": "Thandar Tun",
+          "program": "Visit visa, Canada"
+        },
+        "6": {
+          "quote": "I had a great experience with Saturday Education Consulting throughout my visa application process. They were very helpful, patient, and supportive, especially when I had questions or concerns about my application. They guided me through the process and made sure everything was properly prepared. I really appreciate their time and effort. I would definitely recommend their service to anyone planning to study abroad!",
+          "name": "Flex Evan",
+          "program": "Student visa, Canada"
         }
       }
     },
@@ -632,7 +637,8 @@
     "cscaDescription": "Maghanda sa pag-aaral sa China",
     "tools": "Mga tool",
     "gradeConverter": "Grade Converter",
-    "gradeConverterDescription": "Tayahin ang grade para sa pag-aaral sa ibang bansa"
+    "gradeConverterDescription": "Tayahin ang grade para sa pag-aaral sa ibang bansa",
+    "guides": "Mga Artikulo"
   },
   "hero": {
     "titleLine1": "Simulan ang iyong global na paglalakbay sa edukasyon",
@@ -691,14 +697,15 @@
       "terms": "Mga tuntunin at kundisyon",
       "imat": "IMAT Practice Test",
       "csca": "Pagsasanay sa CSCA",
-      "gradeConverter": "Grade Converter"
+      "gradeConverter": "Grade Converter",
+      "guides": "Mga Artikulo"
     },
     "contactUs": {
       "heading": "Makipag-ugnayan",
       "thailandOffice": "Opisina sa Thailand",
       "addressThailand": "170/72, Ocean Tower 1, 23rd Floor, Rachadaphisek Rd, Klongtoei, Bangkok 10110",
       "myanmarOffice": "Opisina sa Myanmar",
-      "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
+      "addressMyanmar": "No. 20/22, 5th Floor, Shine Office Tower, Alan Pya Pagoda St, Yangon 11221, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
       "phoneMyanmar1": "+959 765 929 492",
       "phoneMyanmar2": "+959 790 839 290",
@@ -721,7 +728,7 @@
       "description": "Maghanap ng libu-libong programa sa mga university at kolehiyo sa buong mundo. I-filter ayon sa bansa, institusyon, antas ng pag-aaral, intake, tagal, at wika."
     },
     "destinations": {
-      "title": "Mga Destinasyon sa Pag-aaral: Tuklasin ang mga Nangungunang Bansa",
+      "title": "Mga Destinasyon sa Pag-aaral",
       "description": "Tuklasin ang pinakamagagandang bansa para sa mga international student. Ihambing ang sistema ng edukasyon, gastos, proseso ng visa, at mga oportunidad sa karera."
     },
     "careerAssessment": {
@@ -738,6 +745,14 @@
     "imat": {
       "title": "IMAT Practice Test",
       "description": "Sanayin ang sarili sa timed mock exam, o pumili ng available na past paper sa orihinal nitong format."
+    },
+    "guides": {
+      "title": "Mga Artikulo sa Pag-aaral sa Ibang Bansa",
+      "description": "Mga artikulo sa visa, bayarin, scholarship, at destinasyon para sa mga estudyante at magulang, mula sa Saturday Education."
+    },
+    "contact": {
+      "title": "Makipag-ugnayan",
+      "description": "Makipag-ugnayan sa Saturday Education sa Yangon o Bangkok. Mag-book ng libreng konsultasyon."
     }
   },
   "chatWidget": {
@@ -2013,5 +2028,43 @@
     "errorPhone": "Please enter a valid phone number.",
     "errorCountry": "Please select a target country.",
     "bootLoading": "Hinahanda ang grade converter..."
+  },
+  "guides": {
+    "hubTitle": "Mga Artikulo",
+    "emptyTitle": "Paparating ang mga gabay",
+    "emptyBody": "Sinusuri pa namin ang unang mga artikulo. Samantala, makipag-usap sa counsellor o tingnan ang mga destinasyon.",
+    "emptyCta": "Mag-book ng libreng konsultasyon",
+    "navLabel": "Mga Artikulo",
+    "homeLabel": "Home",
+    "quickAnswer": "Mabilis na sagot",
+    "faqEyebrow": "Mga karaniwang tanong",
+    "faqTitle": "Mga sagot na unang tinatanong ng mga magulang",
+    "sourcesTitle": "Mga source",
+    "ctaTitle": "Hindi pa sigurado kung aling landas ang bagay?",
+    "ctaBody": "Mag-book ng libreng 30-minutong konsultasyon sa Yangon o Bangkok. Welcome ang mga magulang.",
+    "ctaConsultation": "Mag-book ng libreng konsultasyon",
+    "ctaDestination": "Tingnan ang destinasyon",
+    "ctaCourseFinder": "Buksan ang course finder",
+    "readGuide": "Basahin ang artikulo",
+    "topicPlanning": "Pagpaplano",
+    "topicVisas": "Visa",
+    "topicWork": "Trabaho",
+    "topicFees": "Bayarin",
+    "articleCount": "{count} artikulo"
+  },
+  "contactPage": {
+    "title": "Makipag-ugnayan",
+    "subtitle": "May counsellor sa Yangon at Bangkok. Mag-book online, mag-message, o dumalaw ayon sa appointment.",
+    "bookConsultation": "Mag-book ng libreng konsultasyon",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "emailLabel": "Email",
+    "officesLabel": "Aming mga opisina",
+    "cityYangon": "Yangon",
+    "cityBangkok": "Bangkok",
+    "visitNote": "Bisita ayon sa appointment. Welcome ang mga magulang.",
+    "getDirections": "Kumuha ng direksyon",
+    "mapYangon": "Mapa ng Saturday Education Yangon office",
+    "mapBangkok": "Mapa ng Saturday Education Bangkok office"
   }
 }

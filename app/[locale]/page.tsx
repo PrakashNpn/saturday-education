@@ -28,6 +28,7 @@ import ConsultationSection from "@/features/landing/components/ConsultationSecti
 import { submitConsultation } from '@/features/consultation'
 import { Reveal } from '@/shared/components/motion/Reveal'
 import { pageMetadata } from '@/shared/lib/seo/metadata'
+import { JsonLd, faqPageJsonLd } from '@/shared/lib/seo/jsonLd'
 
 // Built once and served from Vercel's cache, then rebuilt in the background at most
 // once a day. A content edit made in the database shows after that, or at the next deploy.
@@ -36,14 +37,21 @@ export const revalidate = 86400
 export default async function HomePage({ params }: Props) {
   const { locale } = await params
   setRequestLocale(locale)
-  const [comparisonUniversities, courseFinderOptions, globalLeadersDestinations] = await Promise.all([
+  const [comparisonUniversities, courseFinderOptions, globalLeadersDestinations, tFaq] = await Promise.all([
     getComparisonUniversities(),
     getCourseFinderOptions(),
     getGlobalLeadersDestinations(),
+    getTranslations({ locale, namespace: 'Landing.faq' }),
   ])
+
+  const faqItems = (['1', '2', '3', '4', '5'] as const).map((key) => ({
+    question: tFaq(`items.${key}.question`),
+    answer: tFaq(`items.${key}.answer`),
+  }))
 
   return (
     <main>
+      <JsonLd data={faqPageJsonLd(faqItems)} />
       {/* The finder is dropped entirely when Firmli's option lists are
           unreachable, rather than rendered with empty selects that would look
           broken. */}
