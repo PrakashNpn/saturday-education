@@ -73,29 +73,34 @@
       "headline": "สิ่งที่นักเรียนของเราพูดถึงเรา",
       "reviews": {
         "1": {
-          "quote": "Saturday Education Consulting ช่วยให้ฉันรู้ว่ามหาวิทยาลัยแคนาดาแห่งไหนเหมาะกับเป้าหมายของฉันจริง ๆ แล้วพาฉันผ่านขั้นตอนการสมัครทีละขั้นตอน",
-          "name": "Ye Naing",
-          "program": "MBA, แคนาดา"
+          "quote": "I got my student visa within 3weeks and had a really great experience with the team throughout my journey to studying in Malaysia. From the initial guidance to the application process and documentation, everyone was incredibly helpful, patient, and supportive.\nThey made sure everything was clearly explained and guided me through each step, making what could have been a stressful process much easier. I truly appreciate the time, effort, and dedication everyone put into helping me achieve this.\nThank you to the entire team for making this journey a smooth and memorable experience. I would definitely recommend their services to anyone planning to study abroad 🙏🏽❤️",
+          "name": "Khant Lin Phyo",
+          "program": "วีซ่านักเรียน, มาเลเซีย"
         },
         "2": {
-          "quote": "ฉันไม่รู้เลยว่าจะเริ่มสมัครเรียนที่เยอรมนีอย่างไร ทีมงานอธิบายทุกอย่างอย่างชัดเจน ตั้งแต่การเลือกมหาวิทยาลัยไปจนถึงการเตรียมเอกสาร",
-          "name": "Thi Ha",
-          "program": "BSc Computer Science, เยอรมนี"
+          "quote": "Got my 🇳🇿 student visa within a month. Super sleek platform made even easy and clear communication in the whole process from the school application to visa submission! 🙌 Big thanks to Ko David, Ma Grace and Ma Zoey for all the support. Wish the whole team continued success and all the best! 🙏",
+          "name": "Yan Lin",
+          "program": "วีซ่านักเรียน, นิวซีแลนด์"
         },
         "3": {
-          "quote": "Saturday Education Consulting ช่วยฉันเลือกมหาวิทยาลัยที่ใช่ในไอร์แลนด์สำหรับปริญญาโทด้านการเงิน และดูแลฉันตลอดขั้นตอนการสมัคร",
-          "name": "Akar Kyaw",
-          "program": "MSc Finance, ไอร์แลนด์"
+          "quote": "Highly recommend! 💯(Pawan Dhakal)\nThroughout the Germany student visa application process.\nIf I ask them anything, they told me all the necessary things in a short time and did it thoroughly until the visa approval was received. Since I saw it myself, I highly recommend pr🙆🏻 ♂️💯",
+          "name": "Marc Annette",
+          "program": "วีซ่านักเรียน, เยอรมนี"
         },
         "4": {
-          "quote": "ที่ปรึกษาใช้เวลาทำความเข้าใจสิ่งที่ฉันต้องการ และจับคู่ฉันกับหลักสูตรปริญญาโท Data Science ในสหราชอาณาจักรที่เหมาะสมที่สุด",
-          "name": "May Thazin",
-          "program": "MSc Data Science, สหราชอาณาจักร"
-        },
-        "5": {
           "quote": "อย่างที่ทุกคนทราบกันดีว่า Ako David เป็นคนที่รวดเร็วและน่าเชื่อถือมาก ตั้งแต่เริ่มต้น การได้รับคำแนะนำผ่าน SMS จาก Ako David และ Ama Zoey นั้นรวดเร็ว น่าเชื่อถือ และเป็นประโยชน์มาก คุณไม่ต้องกังวลเลยเพราะพวกเขาพร้อมให้การสนับสนุนและคำแนะนำเสมอ เมื่อพูดถึงขั้นตอนการขอวีซ่า พวกเขาให้คำแนะนำและการสนับสนุนที่เหมาะสมตามประเทศที่คุณกำลังสมัคร ฉันขอแนะนำ Saturday Education Consulting อย่างยิ่งสำหรับนักเรียนและผู้ปกครองที่กำลังมองหาคำแนะนำที่เชื่อถือได้สำหรับการศึกษาต่อต่างประเทศ",
           "name": "Htin Aung Kyaw",
-          "program": "BSc Artificial Intelligence, เยอรมนี"
+          "program": "วีซ่านักเรียน, เยอรมนี"
+        },
+        "5": {
+          "quote": "A big thank you to Zoey from Saturday Education Consulting for her amazing support throughout our visa application journey! ❤️ She is professional, patient, responsive and always willing to go the extra mile. Her guidance made the entire process so much easier and stress-free. We truly appreciate her dedication and highly recommend her services. Thank you, Zoey! 🌟",
+          "name": "Thandar Tun",
+          "program": "วีซ่าท่องเที่ยว, แคนาดา"
+        },
+        "6": {
+          "quote": "I had a great experience with Saturday Education Consulting throughout my visa application process. They were very helpful, patient, and supportive, especially when I had questions or concerns about my application. They guided me through the process and made sure everything was properly prepared. I really appreciate their time and effort. I would definitely recommend their service to anyone planning to study abroad!",
+          "name": "Flex Evan",
+          "program": "วีซ่านักเรียน, แคนาดา"
         }
       }
     },
@@ -335,14 +340,15 @@
       "terms": "ข้อกำหนดและเงื่อนไข",
       "imat": "ฝึกทำข้อสอบ IMAT",
       "csca": "ฝึกสอบ CSCA",
-      "gradeConverter": "ตัวแปลงเกรด"
+      "gradeConverter": "ตัวแปลงเกรด",
+      "guides": "บทความ"
     },
     "contactUs": {
       "heading": "ติดต่อเรา",
       "thailandOffice": "สำนักงานประเทศไทย",
       "addressThailand": "170/72 อาคารโอเชี่ยนทาวเวอร์ 1 ชั้น 23 ถนนรัชดาภิเษก คลองเตย กรุงเทพฯ 10110",
       "myanmarOffice": "สำนักงานเมียนมา",
-      "addressMyanmar": "อาคารชายน์ทาวเวอร์ ชั้น 5 เลขที่ 20, 22 ถนนอลันผยาเจดีย์ ย่างกุ้ง เมียนมา (พม่า)",
+      "addressMyanmar": "อาคาร Shine Office Tower ชั้น 5 เลขที่ 20/22 ถนนอลันผยาเจดีย์ ย่างกุ้ง 11221 เมียนมา (พม่า)",
       "phone": "+66 82 328 8445",
       "phoneMyanmar1": "+959 765 929 492",
       "phoneMyanmar2": "+959 790 839 290",
@@ -365,7 +371,7 @@
       "description": "ค้นหาหลักสูตรหลายพันหลักสูตรจากมหาวิทยาลัยและวิทยาลัยทั่วโลก คัดกรองตามประเทศ สถาบัน ระดับการศึกษา ช่วงเปิดเรียน ระยะเวลา และภาษา"
     },
     "destinations": {
-      "title": "จุดหมายปลายทางการศึกษา | สำรวจประเทศชั้นนำด้านการศึกษา",
+      "title": "ประเทศที่เรียนต่อ",
       "description": "ค้นพบประเทศที่ดีที่สุดสำหรับนักเรียนต่างชาติ เปรียบเทียบระบบการศึกษา ค่าใช้จ่าย ขั้นตอนวีซ่า และโอกาสในการทำงาน"
     },
     "careerAssessment": {
@@ -382,6 +388,14 @@
     "imat": {
       "title": "ฝึกทำข้อสอบ IMAT",
       "description": "ฝึกทำข้อสอบจำลองแบบจับเวลา หรือเลือกทำข้อสอบเก่าที่พร้อมใช้งานตามรูปแบบที่เผยแพร่"
+    },
+    "guides": {
+      "title": "บทความเรียนต่อต่างประเทศ",
+      "description": "บทความเรื่องวีซ่า ค่าเล่าเรียน ทุน และประเทศปลายทางสำหรับนักเรียนและผู้ปกครอง จากที่ปรึกษา Saturday Education"
+    },
+    "contact": {
+      "title": "ติดต่อเรา",
+      "description": "ติดต่อ Saturday Education ที่ย่างกุ้งหรือกรุงเทพ จองปรึกษาเรียนต่อต่างประเทศฟรี"
     }
   },
   "chatWidget": {
@@ -785,7 +799,8 @@
     "cscaDescription": "เตรียมพร้อมเรียนต่อจีน",
     "tools": "เครื่องมือ",
     "gradeConverter": "ตัวแปลงเกรด",
-    "gradeConverterDescription": "ประมาณเกรดสำหรับเรียนต่อต่างประเทศ"
+    "gradeConverterDescription": "ประมาณเกรดสำหรับเรียนต่อต่างประเทศ",
+    "guides": "บทความ"
   },
   "destinations": {
     "heroTitle": "เรียนรู้เชิงลึกเกี่ยวกับจุดหมายปลายทางที่คุณเลือก",
@@ -2139,5 +2154,43 @@
     "errorPhone": "Please enter a valid phone number.",
     "errorCountry": "Please select a target country.",
     "bootLoading": "กำลังเตรียมตัวแปลงเกรด..."
+  },
+  "guides": {
+    "hubTitle": "บทความ",
+    "emptyTitle": "คู่มือกำลังจะมา",
+    "emptyBody": "เรากำลังตรวจสอบข้อเท็จจริงของบทความแรก ในระหว่างนี้คุยกับที่ปรึกษาหรือดูประเทศปลายทางได้",
+    "emptyCta": "จองปรึกษาฟรี",
+    "navLabel": "บทความ",
+    "homeLabel": "หน้าแรก",
+    "quickAnswer": "คำตอบสั้น ๆ",
+    "faqEyebrow": "คำถามที่พบบ่อย",
+    "faqTitle": "คำตอบที่ผู้ปกครองถามก่อน",
+    "sourcesTitle": "แหล่งข้อมูล",
+    "ctaTitle": "ยังไม่แน่ใจว่าเส้นทางไหนเหมาะ?",
+    "ctaBody": "จองปรึกษาฟรี 30 นาทีที่ Yangon หรือ Bangkok ผู้ปกครองมาด้วยได้",
+    "ctaConsultation": "จองปรึกษาฟรี",
+    "ctaDestination": "ดูประเทศปลายทาง",
+    "ctaCourseFinder": "เปิดค้นหาคอร์ส",
+    "readGuide": "อ่านบทความ",
+    "topicPlanning": "วางแผน",
+    "topicVisas": "วีซ่า",
+    "topicWork": "ทำงาน",
+    "topicFees": "ค่าใช้จ่าย",
+    "articleCount": "{count} บทความ"
+  },
+  "contactPage": {
+    "title": "ติดต่อเรา",
+    "subtitle": "ที่ปรึกษาที่ย่างกุ้งและกรุงเทพ จองออนไลน์ แชท หรือนัดหมายเข้าพบ",
+    "bookConsultation": "จองปรึกษาฟรี",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "emailLabel": "อีเมล",
+    "officesLabel": "สำนักงานของเรา",
+    "cityYangon": "ย่างกุ้ง",
+    "cityBangkok": "กรุงเทพ",
+    "visitNote": "เข้าพบตามนัดหมาย ผู้ปกครองมาด้วยได้",
+    "getDirections": "ดูเส้นทาง",
+    "mapYangon": "แผนที่สำนักงาน Saturday Education ย่างกุ้ง",
+    "mapBangkok": "แผนที่สำนักงาน Saturday Education กรุงเทพ"
   }
 }

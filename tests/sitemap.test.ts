@@ -18,7 +18,7 @@ describe('sitemap entries', () => {
     assert.equal(entries.length, STATIC_PAGES.length + countrySlugs.length)
     const urls = entries.map((e) => e.url)
     assert.equal(new Set(urls).size, urls.length)
-    for (const page of ['', '/about', '/destinations', '/course-finder', '/career-assessment', '/privacy', '/terms']) {
+    for (const page of ['', '/about', '/contact', '/destinations', '/guides', '/course-finder', '/career-assessment', '/privacy', '/terms']) {
       assert.ok(urls.includes(`${baseUrl}${page}`), `missing ${page || 'home'}`)
     }
     for (const slug of countrySlugs) assert.ok(urls.includes(`${baseUrl}/destinations/${slug}`), `missing ${slug}`)
@@ -54,5 +54,21 @@ describe('sitemap entries', () => {
   test('with no countries (database unreachable) it still lists the fixed pages', () => {
     const none = buildSitemapEntries({ baseUrl, locales: routing.locales, defaultLocale: 'en', countrySlugs: [], now: new Date() })
     assert.equal(none.length, STATIC_PAGES.length)
+  })
+
+  test('published guides appear with lastmod from the row', () => {
+    const withGuides = buildSitemapEntries({
+      baseUrl,
+      locales: routing.locales,
+      defaultLocale: 'en',
+      countrySlugs: [],
+      guideSlugs: [{ slug: 'uk-visa-ban-myanmar-students-a-level', updatedAt: new Date('2026-11-24T00:00:00Z') }],
+      now: new Date('2026-11-25T00:00:00Z'),
+    })
+    const guide = withGuides.find((e) => e.url === `${baseUrl}/guides/uk-visa-ban-myanmar-students-a-level`)
+    assert.ok(guide)
+    const lastMod = guide!.lastModified
+    assert.ok(lastMod instanceof Date)
+    assert.equal(lastMod.toISOString(), '2026-11-24T00:00:00.000Z')
   })
 })

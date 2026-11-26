@@ -684,6 +684,56 @@ model ImatLead {
   @@map("imat_leads")
 }
 
+// Manual SQL schema (prisma/migrations/20261125120000_add_guides). English-only
+// SEO/AEO guides for Phase B. CHECK constraints live in SQL; keep is_published
+// false until a counsellor has fact-checked the article.
+model Guide {
+  id                       String    @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  slug                     String    @unique
+  title                    String
+  seoTitle                 String    @map("seo_title")
+  metaDescription          String    @map("meta_description")
+  answerBox                String?   @map("answer_box") @db.Text
+  bodyMarkdown             String    @default("") @map("body_markdown") @db.Text
+  sourcesMarkdown          String?   @map("sources_markdown") @db.Text
+  primaryKeyword           String?   @map("primary_keyword")
+  keywords                 String?
+  relatedDestinationSlug   String?   @map("related_destination_slug")
+  heroImageUrl             String?   @map("hero_image_url")
+  heroImageAlt             String?   @map("hero_image_alt")
+  inlineImageUrl           String?   @map("inline_image_url")
+  inlineImageAlt           String?   @map("inline_image_alt")
+  ogImageUrl               String?   @map("og_image_url")
+  authorName               String    @default("David Dhakal") @map("author_name")
+  authorTitle              String    @default("Founder & CEO, Saturday Education Consulting") @map("author_title")
+  isPublished              Boolean   @default(false) @map("is_published")
+  publishedAt              DateTime? @map("published_at") @db.Timestamptz(6)
+  sourcesCheckedAt         DateTime? @map("sources_checked_at") @db.Date
+  sortOrder                Int       @default(0) @map("sort_order")
+  createdAt                DateTime  @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt                DateTime  @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  faqs GuideFaq[]
+
+  @@index([isPublished, sortOrder, publishedAt(sort: Desc)], map: "guides_published_sort_idx")
+  @@map("guides")
+}
+
+model GuideFaq {
+  id        String   @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid
+  guideId   String   @map("guide_id") @db.Uuid
+  question  String
+  answer    String   @db.Text
+  sortOrder Int      @default(0) @map("sort_order")
+  createdAt DateTime @default(now()) @map("created_at") @db.Timestamptz(6)
+  updatedAt DateTime @default(now()) @updatedAt @map("updated_at") @db.Timestamptz(6)
+
+  guide Guide @relation(fields: [guideId], references: [id], onDelete: Cascade, onUpdate: NoAction)
+
+  @@index([guideId, sortOrder], map: "guide_faqs_guide_sort_idx")
+  @@map("guide_faqs")
+}
+
 // Owner creates this table with prisma/snippets/create-event-registrations.sql.
 model EventRegistration {
   id String @id @default(dbgenerated("gen_random_uuid()")) @db.Uuid

@@ -19,7 +19,7 @@ export const MALAYSIA = {
   studentSatisfaction: 82,
   graduateEmployability: 79,
   visaProcessingTime: '4–8 weeks (EMGS)',
-  workRights: '20 hrs/week during semester; full-time during holidays',
+  workRights: 'Up to 20 hrs/week in approved jobs with Immigration approval — typically during semester breaks/holidays over 7 days; confirm timing with your university',
   costOfLivingMinUSD: 400 * 12,
   costOfLivingMaxUSD: 750 * 12,
   currencyCode: 'MYR',
@@ -77,7 +77,7 @@ export const MALAYSIA = {
     },
     {
       question: 'Can I work while studying in Malaysia?',
-      answer: 'International students may work up to 20 hours per week during semester, and full-time during semester breaks, in permitted sectors including restaurants, petrol stations, and mini markets.',
+      answer: 'International students may work up to 20 hours per week in approved jobs, with Immigration approval. EMGS guidance focuses on work during semester breaks and holidays longer than 7 days — ask your university when you are allowed to work, and which sectors are permitted.',
       order: 2,
     },
     {

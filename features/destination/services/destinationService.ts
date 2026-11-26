@@ -87,6 +87,6 @@ export async function getCountryBySlug(slug: string, locale: string): Promise<Co
 export async function getAllCountrySlugs() {
   return prisma.country.findMany({
     where: { isPublished: true },
-    select: { slug: true },
+    select: { slug: true, updatedAt: true },
   })
 }

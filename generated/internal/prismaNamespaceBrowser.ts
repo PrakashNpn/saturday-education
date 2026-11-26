@@ -74,6 +74,8 @@ export const ModelName = {
   ImatQuestionOption: 'ImatQuestionOption',
   ImatAnswerKey: 'ImatAnswerKey',
   ImatLead: 'ImatLead',
+  Guide: 'Guide',
+  GuideFaq: 'GuideFaq',
   EventRegistration: 'EventRegistration'
 } as const
 
@@ -555,6 +557,49 @@ export const ImatLeadScalarFieldEnum = {
 } as const
 
 export type ImatLeadScalarFieldEnum = (typeof ImatLeadScalarFieldEnum)[keyof typeof ImatLeadScalarFieldEnum]
+
+
+export const GuideScalarFieldEnum = {
+  id: 'id',
+  slug: 'slug',
+  title: 'title',
+  seoTitle: 'seoTitle',
+  metaDescription: 'metaDescription',
+  answerBox: 'answerBox',
+  bodyMarkdown: 'bodyMarkdown',
+  sourcesMarkdown: 'sourcesMarkdown',
+  primaryKeyword: 'primaryKeyword',
+  keywords: 'keywords',
+  relatedDestinationSlug: 'relatedDestinationSlug',
+  heroImageUrl: 'heroImageUrl',
+  heroImageAlt: 'heroImageAlt',
+  inlineImageUrl: 'inlineImageUrl',
+  inlineImageAlt: 'inlineImageAlt',
+  ogImageUrl: 'ogImageUrl',
+  authorName: 'authorName',
+  authorTitle: 'authorTitle',
+  isPublished: 'isPublished',
+  publishedAt: 'publishedAt',
+  sourcesCheckedAt: 'sourcesCheckedAt',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideScalarFieldEnum = (typeof GuideScalarFieldEnum)[keyof typeof GuideScalarFieldEnum]
+
+
+export const GuideFaqScalarFieldEnum = {
+  id: 'id',
+  guideId: 'guideId',
+  question: 'question',
+  answer: 'answer',
+  sortOrder: 'sortOrder',
+  createdAt: 'createdAt',
+  updatedAt: 'updatedAt'
+} as const
+
+export type GuideFaqScalarFieldEnum = (typeof GuideFaqScalarFieldEnum)[keyof typeof GuideFaqScalarFieldEnum]
 
 
 export const EventRegistrationScalarFieldEnum = {

@@ -20,6 +20,13 @@ export function localizedPath(locale: string, path: string): string {
   return `/${locale}${path}`
 }
 
+export type PagePreviewImage = {
+  url: string
+  width?: number
+  height?: number
+  alt?: string
+}
+
 interface PageMetadataInput {
   locale: string
   /** The page's path without a language prefix, e.g. '/about'; '' for the home page. */
@@ -28,6 +35,8 @@ interface PageMetadataInput {
    *  { absolute } for a title that already says the brand (the home page). */
   title: string | { absolute: string }
   description?: string
+  /** Optional share image; defaults to the site-wide OG JPEG. */
+  image?: PagePreviewImage
 }
 
 /**
@@ -35,11 +44,17 @@ interface PageMetadataInput {
  * (Open Graph and Twitter) for one page in one language. Every public page builds
  * its metadata with this, so they all carry the same set of tags.
  */
-export function pageMetadata({ locale, path, title, description }: PageMetadataInput): Metadata {
+export function pageMetadata({ locale, path, title, description, image }: PageMetadataInput): Metadata {
   const url = localizedPath(locale, path)
   const known = (LOCALE_CODES as string[]).includes(locale)
   const current = known ? LANGUAGES[locale as LocaleCode] : LANGUAGES[routing.defaultLocale as LocaleCode]
   const previewTitle = typeof title === 'string' ? `${title} | ${BRAND}` : title.absolute
+  const previewImage = {
+    url: image?.url ?? PREVIEW_IMAGE.url,
+    width: image?.width ?? PREVIEW_IMAGE.width,
+    height: image?.height ?? PREVIEW_IMAGE.height,
+    alt: image?.alt ?? PREVIEW_IMAGE.alt,
+  }
 
   return {
     title,
@@ -59,13 +74,13 @@ export function pageMetadata({ locale, path, title, description }: PageMetadataI
       description,
       locale: current.ogLocale,
       alternateLocale: LOCALE_CODES.filter((l) => l !== locale).map((l) => LANGUAGES[l].ogLocale),
-      images: [PREVIEW_IMAGE],
+      images: [previewImage],
     },
     twitter: {
       card: 'summary_large_image',
       title: previewTitle,
       description,
-      images: [PREVIEW_IMAGE.url],
+      images: [previewImage.url],
     },
   }
 }

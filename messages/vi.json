@@ -73,29 +73,34 @@
       "headline": "Sinh viên của chúng tôi nói gì.",
       "reviews": {
         "1": {
-          "quote": "Saturday Education Consulting đã giúp tôi xác định những trường đại học Canada thực sự phù hợp với mục tiêu của mình, rồi hướng dẫn tôi từng bước trong toàn bộ quá trình nộp hồ sơ.",
-          "name": "Ye Naing",
-          "program": "MBA, Canada"
+          "quote": "I got my student visa within 3weeks and had a really great experience with the team throughout my journey to studying in Malaysia. From the initial guidance to the application process and documentation, everyone was incredibly helpful, patient, and supportive.\nThey made sure everything was clearly explained and guided me through each step, making what could have been a stressful process much easier. I truly appreciate the time, effort, and dedication everyone put into helping me achieve this.\nThank you to the entire team for making this journey a smooth and memorable experience. I would definitely recommend their services to anyone planning to study abroad 🙏🏽❤️",
+          "name": "Khant Lin Phyo",
+          "program": "Visa du học, Malaysia"
         },
         "2": {
-          "quote": "Tôi không biết bắt đầu nộp hồ sơ vào Đức từ đâu. Đội ngũ đã giải thích mọi thứ rất rõ ràng, từ việc chọn trường đến chuẩn bị giấy tờ.",
-          "name": "Thi Ha",
-          "program": "Cử nhân Khoa học Máy tính, Đức"
+          "quote": "Got my 🇳🇿 student visa within a month. Super sleek platform made even easy and clear communication in the whole process from the school application to visa submission! 🙌 Big thanks to Ko David, Ma Grace and Ma Zoey for all the support. Wish the whole team continued success and all the best! 🙏",
+          "name": "Yan Lin",
+          "program": "Visa du học, New Zealand"
         },
         "3": {
-          "quote": "Saturday Education Consulting đã giúp tôi chọn đúng trường đại học ở Ireland cho chương trình Thạc sĩ Tài chính và hướng dẫn tôi suốt quá trình nộp hồ sơ.",
-          "name": "Akar Kyaw",
-          "program": "Thạc sĩ Tài chính, Ireland"
+          "quote": "Highly recommend! 💯(Pawan Dhakal)\nThroughout the Germany student visa application process.\nIf I ask them anything, they told me all the necessary things in a short time and did it thoroughly until the visa approval was received. Since I saw it myself, I highly recommend pr🙆🏻 ♂️💯",
+          "name": "Marc Annette",
+          "program": "Visa du học, Đức"
         },
         "4": {
-          "quote": "Các cố vấn đã dành thời gian để hiểu điều tôi muốn và giới thiệu cho tôi chương trình Thạc sĩ Khoa học Dữ liệu tại Anh rất phù hợp.",
-          "name": "May Thazin",
-          "program": "Thạc sĩ Khoa học Dữ liệu, Anh"
-        },
-        "5": {
           "quote": "Như mọi người đều biết, Ako David làm việc rất nhanh và đáng tin cậy. Ngay từ đầu, việc được Ako David và Ama Zoey hướng dẫn qua tin nhắn rất nhanh chóng, đáng tin cậy và hữu ích. Bạn không cần lo lắng vì họ luôn sẵn sàng hỗ trợ và hướng dẫn. Về quy trình visa, họ hướng dẫn và hỗ trợ đúng theo quốc gia bạn nộp hồ sơ. Tôi rất khuyến khích sinh viên và phụ huynh đang tìm kiếm sự hướng dẫn đáng tin cậy cho việc du học hãy chọn Saturday Education Consulting.",
           "name": "Htin Aung Kyaw",
-          "program": "Cử nhân Trí tuệ nhân tạo, Đức"
+          "program": "Visa du học, Đức"
+        },
+        "5": {
+          "quote": "A big thank you to Zoey from Saturday Education Consulting for her amazing support throughout our visa application journey! ❤️ She is professional, patient, responsive and always willing to go the extra mile. Her guidance made the entire process so much easier and stress-free. We truly appreciate her dedication and highly recommend her services. Thank you, Zoey! 🌟",
+          "name": "Thandar Tun",
+          "program": "Visa thăm, Canada"
+        },
+        "6": {
+          "quote": "I had a great experience with Saturday Education Consulting throughout my visa application process. They were very helpful, patient, and supportive, especially when I had questions or concerns about my application. They guided me through the process and made sure everything was properly prepared. I really appreciate their time and effort. I would definitely recommend their service to anyone planning to study abroad!",
+          "name": "Flex Evan",
+          "program": "Visa du học, Canada"
         }
       }
     },
@@ -632,7 +637,8 @@
     "cscaDescription": "Chuẩn bị du học Trung Quốc",
     "tools": "Công cụ",
     "gradeConverter": "Công cụ quy đổi điểm",
-    "gradeConverterDescription": "Ước tính điểm cho du học"
+    "gradeConverterDescription": "Ước tính điểm cho du học",
+    "guides": "Bài viết"
   },
   "hero": {
     "titleLine1": "Hành trình giáo dục toàn cầu của bạn",
@@ -691,14 +697,15 @@
       "terms": "Điều khoản và điều kiện",
       "imat": "Luyện thi IMAT",
       "csca": "Luyện thi CSCA",
-      "gradeConverter": "Công cụ quy đổi điểm"
+      "gradeConverter": "Công cụ quy đổi điểm",
+      "guides": "Bài viết"
     },
     "contactUs": {
       "heading": "Liên hệ",
       "thailandOffice": "Văn phòng Thái Lan",
       "addressThailand": "170/72, Ocean Tower 1, 23rd Floor, Rachadaphisek Rd, Klongtoei, Bangkok 10110",
       "myanmarOffice": "Văn phòng Myanmar",
-      "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
+      "addressMyanmar": "No. 20/22, 5th Floor, Shine Office Tower, Alan Pya Pagoda St, Yangon 11221, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
       "phoneMyanmar1": "+959 765 929 492",
       "phoneMyanmar2": "+959 790 839 290",
@@ -721,7 +728,7 @@
       "description": "Tìm hàng nghìn chương trình tại các trường đại học và cao đẳng trên thế giới. Lọc theo quốc gia, trường, bậc học, kỳ nhập học, thời gian và ngôn ngữ."
     },
     "destinations": {
-      "title": "Điểm đến du học: Khám phá các quốc gia giáo dục hàng đầu",
+      "title": "Điểm đến du học",
       "description": "Khám phá những quốc gia tốt nhất cho sinh viên quốc tế. So sánh hệ thống giáo dục, chi phí, quy trình visa và cơ hội nghề nghiệp."
     },
     "careerAssessment": {
@@ -738,6 +745,14 @@
     "imat": {
       "title": "Luyện thi IMAT",
       "description": "Rèn kỹ năng với đề thi thử có tính giờ, hoặc chọn đề thi cũ có sẵn theo đúng cấu trúc đã công bố."
+    },
+    "guides": {
+      "title": "Bài viết du học",
+      "description": "Bài viết về visa, học phí, học bổng và quốc gia cho học sinh và phụ huynh, từ tư vấn Saturday Education."
+    },
+    "contact": {
+      "title": "Liên hệ",
+      "description": "Liên hệ Saturday Education tại Yangon hoặc Bangkok. Đặt tư vấn du học miễn phí."
     }
   },
   "chatWidget": {
@@ -2138,5 +2153,43 @@
     "errorPhone": "Please enter a valid phone number.",
     "errorCountry": "Please select a target country.",
     "bootLoading": "Đang chuẩn bị công cụ quy đổi điểm..."
+  },
+  "guides": {
+    "hubTitle": "Bài viết",
+    "emptyTitle": "Hướng dẫn sắp ra mắt",
+    "emptyBody": "Chúng tôi đang kiểm chứng bài viết đầu. Trong lúc chờ, hãy nói chuyện với tư vấn hoặc xem các quốc gia.",
+    "emptyCta": "Đặt tư vấn miễn phí",
+    "navLabel": "Bài viết",
+    "homeLabel": "Trang chủ",
+    "quickAnswer": "Trả lời nhanh",
+    "faqEyebrow": "Câu hỏi thường gặp",
+    "faqTitle": "Câu trả lời phụ huynh hỏi trước",
+    "sourcesTitle": "Nguồn",
+    "ctaTitle": "Chưa chắc con đường nào phù hợp?",
+    "ctaBody": "Đặt tư vấn miễn phí 30 phút tại Yangon hoặc Bangkok. Phụ huynh được chào đón.",
+    "ctaConsultation": "Đặt tư vấn miễn phí",
+    "ctaDestination": "Xem quốc gia",
+    "ctaCourseFinder": "Mở tìm khóa học",
+    "readGuide": "Đọc bài",
+    "topicPlanning": "Lập kế hoạch",
+    "topicVisas": "Visa",
+    "topicWork": "Làm việc",
+    "topicFees": "Học phí",
+    "articleCount": "{count} bài viết"
+  },
+  "contactPage": {
+    "title": "Liên hệ",
+    "subtitle": "Tư vấn tại Yangon và Bangkok. Đặt lịch online, nhắn tin, hoặc đến theo hẹn.",
+    "bookConsultation": "Đặt tư vấn miễn phí",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "emailLabel": "Email",
+    "officesLabel": "Văn phòng của chúng tôi",
+    "cityYangon": "Yangon",
+    "cityBangkok": "Bangkok",
+    "visitNote": "Đến văn phòng theo lịch hẹn. Phụ huynh được chào đón.",
+    "getDirections": "Chỉ đường",
+    "mapYangon": "Bản đồ văn phòng Saturday Education Yangon",
+    "mapBangkok": "Bản đồ văn phòng Saturday Education Bangkok"
   }
 }

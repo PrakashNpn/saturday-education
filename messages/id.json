@@ -73,29 +73,34 @@
       "headline": "Kata mahasiswa kami.",
       "reviews": {
         "1": {
-          "quote": "Saturday Education Consulting membantu saya menentukan universitas di Kanada yang benar-benar sesuai dengan tujuan saya, lalu mendampingi saya selangkah demi selangkah dalam seluruh proses pendaftaran.",
-          "name": "Ye Naing",
-          "program": "MBA, Kanada"
+          "quote": "I got my student visa within 3weeks and had a really great experience with the team throughout my journey to studying in Malaysia. From the initial guidance to the application process and documentation, everyone was incredibly helpful, patient, and supportive.\nThey made sure everything was clearly explained and guided me through each step, making what could have been a stressful process much easier. I truly appreciate the time, effort, and dedication everyone put into helping me achieve this.\nThank you to the entire team for making this journey a smooth and memorable experience. I would definitely recommend their services to anyone planning to study abroad 🙏🏽❤️",
+          "name": "Khant Lin Phyo",
+          "program": "Visa pelajar, Malaysia"
         },
         "2": {
-          "quote": "Saya sama sekali tidak tahu harus mulai dari mana untuk mendaftar ke Jerman. Tim menjelaskan semuanya dengan jelas, mulai dari memilih universitas hingga menyiapkan dokumen.",
-          "name": "Thi Ha",
-          "program": "S1 Ilmu Komputer, Jerman"
+          "quote": "Got my 🇳🇿 student visa within a month. Super sleek platform made even easy and clear communication in the whole process from the school application to visa submission! 🙌 Big thanks to Ko David, Ma Grace and Ma Zoey for all the support. Wish the whole team continued success and all the best! 🙏",
+          "name": "Yan Lin",
+          "program": "Visa pelajar, Selandia Baru"
         },
         "3": {
-          "quote": "Saturday Education Consulting membantu saya memilih universitas yang tepat di Irlandia untuk S2 Keuangan dan mendampingi saya selama seluruh proses pendaftaran.",
-          "name": "Akar Kyaw",
-          "program": "S2 Keuangan, Irlandia"
+          "quote": "Highly recommend! 💯(Pawan Dhakal)\nThroughout the Germany student visa application process.\nIf I ask them anything, they told me all the necessary things in a short time and did it thoroughly until the visa approval was received. Since I saw it myself, I highly recommend pr🙆🏻 ♂️💯",
+          "name": "Marc Annette",
+          "program": "Visa pelajar, Jerman"
         },
         "4": {
-          "quote": "Para penasihat meluangkan waktu untuk memahami keinginan saya dan mencocokkan saya dengan program S2 Ilmu Data di Inggris yang benar-benar cocok.",
-          "name": "May Thazin",
-          "program": "S2 Ilmu Data, Inggris"
-        },
-        "5": {
           "quote": "Seperti yang kalian semua tahu, Ako David sangat cepat dan dapat dipercaya. Sejak awal, mendapat bimbingan lewat SMS dari Ako David dan Ama Zoey sangat cepat, andal, dan membantu. Anda tidak perlu khawatir karena mereka selalu siap mendukung dan membimbing. Untuk proses visa, mereka memberikan bimbingan dan dukungan yang tepat sesuai negara tujuan Anda. Saya sangat merekomendasikan Saturday Education Consulting kepada mahasiswa dan orang tua yang mencari bimbingan terpercaya untuk kuliah di luar negeri.",
           "name": "Htin Aung Kyaw",
-          "program": "S1 Kecerdasan Buatan, Jerman"
+          "program": "Visa pelajar, Jerman"
+        },
+        "5": {
+          "quote": "A big thank you to Zoey from Saturday Education Consulting for her amazing support throughout our visa application journey! ❤️ She is professional, patient, responsive and always willing to go the extra mile. Her guidance made the entire process so much easier and stress-free. We truly appreciate her dedication and highly recommend her services. Thank you, Zoey! 🌟",
+          "name": "Thandar Tun",
+          "program": "Visa kunjungan, Kanada"
+        },
+        "6": {
+          "quote": "I had a great experience with Saturday Education Consulting throughout my visa application process. They were very helpful, patient, and supportive, especially when I had questions or concerns about my application. They guided me through the process and made sure everything was properly prepared. I really appreciate their time and effort. I would definitely recommend their service to anyone planning to study abroad!",
+          "name": "Flex Evan",
+          "program": "Visa pelajar, Kanada"
         }
       }
     },
@@ -632,7 +637,8 @@
     "cscaDescription": "Persiapan studi di Tiongkok",
     "tools": "Alat",
     "gradeConverter": "Konverter Nilai",
-    "gradeConverterDescription": "Perkiraan nilai untuk studi ke luar negeri"
+    "gradeConverterDescription": "Perkiraan nilai untuk studi ke luar negeri",
+    "guides": "Artikel"
   },
   "hero": {
     "titleLine1": "Perjalanan pendidikan global Anda",
@@ -691,14 +697,15 @@
       "terms": "Syarat dan ketentuan",
       "imat": "Latihan IMAT",
       "csca": "Latihan CSCA",
-      "gradeConverter": "Konverter Nilai"
+      "gradeConverter": "Konverter Nilai",
+      "guides": "Artikel"
     },
     "contactUs": {
       "heading": "Hubungi kami",
       "thailandOffice": "Kantor Thailand",
       "addressThailand": "170/72, Ocean Tower 1, 23rd Floor, Rachadaphisek Rd, Klongtoei, Bangkok 10110",
       "myanmarOffice": "Kantor Myanmar",
-      "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
+      "addressMyanmar": "No. 20/22, 5th Floor, Shine Office Tower, Alan Pya Pagoda St, Yangon 11221, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
       "phoneMyanmar1": "+959 765 929 492",
       "phoneMyanmar2": "+959 790 839 290",
@@ -721,7 +728,7 @@
       "description": "Cari ribuan program di universitas dan perguruan tinggi di seluruh dunia. Saring berdasarkan negara, institusi, jenjang studi, jadwal masuk, durasi, dan bahasa."
     },
     "destinations": {
-      "title": "Destinasi Studi: Jelajahi Negara Pendidikan Terbaik",
+      "title": "Destinasi Studi",
       "description": "Temukan negara terbaik untuk mahasiswa internasional. Bandingkan sistem pendidikan, biaya, proses visa, dan peluang karier."
     },
     "careerAssessment": {
@@ -738,6 +745,14 @@
     "imat": {
       "title": "Latihan IMAT",
       "description": "Bangun kebiasaan ujian dengan simulasi berbatas waktu, atau kerjakan soal tahun sebelumnya yang tersedia sesuai format terbitannya."
+    },
+    "guides": {
+      "title": "Artikel Studi ke Luar Negeri",
+      "description": "Artikel visa, biaya, beasiswa, dan destinasi untuk siswa dan orang tua, dari konselor Saturday Education."
+    },
+    "contact": {
+      "title": "Kontak",
+      "description": "Hubungi Saturday Education di Yangon atau Bangkok. Pesan konsultasi studi ke luar negeri gratis."
     }
   },
   "chatWidget": {
@@ -2131,5 +2146,43 @@
     "errorPhone": "Please enter a valid phone number.",
     "errorCountry": "Please select a target country.",
     "bootLoading": "Menyiapkan konverter nilai..."
+  },
+  "guides": {
+    "hubTitle": "Artikel",
+    "emptyTitle": "Panduan segera hadir",
+    "emptyBody": "Kami sedang memverifikasi artikel pertama. Sementara itu, bicara dengan konselor atau jelajahi destinasi.",
+    "emptyCta": "Pesan konsultasi gratis",
+    "navLabel": "Artikel",
+    "homeLabel": "Beranda",
+    "quickAnswer": "Jawaban singkat",
+    "faqEyebrow": "Pertanyaan umum",
+    "faqTitle": "Jawaban yang biasanya ditanya orang tua",
+    "sourcesTitle": "Sumber",
+    "ctaTitle": "Belum yakin jalur mana yang cocok?",
+    "ctaBody": "Pesan konsultasi gratis 30 menit di Yangon atau Bangkok. Orang tua dipersilakan.",
+    "ctaConsultation": "Pesan konsultasi gratis",
+    "ctaDestination": "Lihat destinasi",
+    "ctaCourseFinder": "Buka pencari kursus",
+    "readGuide": "Baca artikel",
+    "topicPlanning": "Perencanaan",
+    "topicVisas": "Visa",
+    "topicWork": "Kerja",
+    "topicFees": "Biaya",
+    "articleCount": "{count} artikel"
+  },
+  "contactPage": {
+    "title": "Kontak",
+    "subtitle": "Konselor di Yangon dan Bangkok. Pesan online, kirim pesan, atau datang dengan janji temu.",
+    "bookConsultation": "Pesan konsultasi gratis",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "emailLabel": "Email",
+    "officesLabel": "Kantor kami",
+    "cityYangon": "Yangon",
+    "cityBangkok": "Bangkok",
+    "visitNote": "Kunjungan dengan janji temu. Orang tua dipersilakan.",
+    "getDirections": "Petunjuk arah",
+    "mapYangon": "Peta kantor Saturday Education Yangon",
+    "mapBangkok": "Peta kantor Saturday Education Bangkok"
   }
 }

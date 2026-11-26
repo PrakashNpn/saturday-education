@@ -1,5 +1,6 @@
 import { NextIntlClientProvider } from 'next-intl'
 import { getMessages, setRequestLocale } from 'next-intl/server'
+import { notFound } from 'next/navigation'
 import { Noto_Sans, Noto_Sans_Thai, Noto_Sans_Myanmar } from 'next/font/google'
 import NextTopLoader from 'nextjs-toploader'
 import { languageOf } from "@/i18n/languages"
@@ -10,6 +11,7 @@ import ChatWidget from "@/features/ai-advisor/components/ChatWidget"
 import { Analytics } from "@vercel/analytics/next"
 import { SpeedInsights } from "@vercel/speed-insights/next"
 import { CookieConsent, GoogleAnalytics, MetaPixel } from "@/shared/components/consent"
+import { JsonLd, organizationJsonLd } from '@/shared/lib/seo/jsonLd'
 
 const SCRIPT_FONT_CLASS = {
   latin: 'font-sans',
@@ -46,6 +48,9 @@ export default async function LocaleLayout({
   params: Promise<{ locale: string }>
 }) {
   const { locale } = await params
+  // Dotted paths like /llms.txt used to match [locale] and render the homepage
+  // with lang="llms.txt". Only real locale codes are allowed here.
+  if (!(routing.locales as readonly string[]).includes(locale)) notFound()
   setRequestLocale(locale)
   const allMessages = await getMessages()
   const messages = Object.fromEntries(
@@ -76,6 +81,7 @@ export default async function LocaleLayout({
           forcing rule, so it clips the same off-screen overflow this was
           added for without creating a scroll container. */}
       <body className={`bg-canvas text-primary-text ${scriptFontClass} text-body font-light leading-[1.65] antialiased flex min-h-screen flex-col [overflow-x:clip]`}>
+        <JsonLd data={organizationJsonLd()} />
         <NextIntlClientProvider messages={messages}>
           <NextTopLoader color="linear-gradient(to right, var(--color-action-hover), var(--color-action))" height={3} showSpinner={false} shadow="none" />
           <div data-site-chrome className="contents"><Navbar /></div>

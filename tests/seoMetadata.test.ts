@@ -97,4 +97,22 @@ describe('link preview image', () => {
     const info = await sharp(file).metadata()
     assert.deepEqual([info.width, info.height, info.format], [image.width, image.height, 'jpeg'])
   })
+
+  test('an explicit image overrides the default share preview', () => {
+    const meta = pageMetadata({
+      locale: 'en',
+      path: '/guides/uk-visa-ban-myanmar-students-a-level',
+      title: 'UK visa guide',
+      image: {
+        url: '/images/guides/uk-visa-ban-myanmar-students-a-level-hero.jpg',
+        width: 1280,
+        height: 720,
+        alt: 'UK independent school gate',
+      },
+    })
+    const image = (meta.openGraph as { images: { url: string; alt: string }[] }).images[0]
+    assert.equal(image.url, '/images/guides/uk-visa-ban-myanmar-students-a-level-hero.jpg')
+    assert.equal(image.alt, 'UK independent school gate')
+    assert.deepEqual((meta.twitter as { images: string[] }).images, [image.url])
+  })
 })

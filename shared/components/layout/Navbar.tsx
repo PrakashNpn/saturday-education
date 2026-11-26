@@ -5,7 +5,7 @@ import Image from 'next/image'
 import { useLocale, useTranslations } from 'next-intl'
 import { Menu, X, ChevronDown, Phone, MapPin, Stethoscope, BookOpen, GraduationCap, ArrowRight } from 'lucide-react'
 import { Link, usePathname } from '@/i18n/navigation'
-import { LANGUAGES, LOCALE_CODES } from '@/i18n/languages'
+import { DEFAULT_LOCALE, LANGUAGES, LOCALE_CODES } from '@/i18n/languages'
 import { cn } from '@/shared/utils/cn'
 
 type NavItem = { labelKey: string; href: string; children?: { labelKey: string; descriptionKey: string; href: string }[] }
@@ -22,6 +22,7 @@ const NAV_LINKS: NavItem[] = [
     { labelKey: 'imat', descriptionKey: 'imatDescription', href: '/imat-practice-test' },
     { labelKey: 'csca', descriptionKey: 'cscaDescription', href: '/csca' },
   ] },
+  { labelKey: 'guides', href: '/guides' },
   { labelKey: 'aboutUs', href: '/about' },
 ]
 
@@ -178,6 +179,7 @@ function NavDropdown({ item, mobile = false }: { item: NavItem; mobile?: boolean
 export default function Navbar() {
   const t = useTranslations('nav')
   const tBar = useTranslations('topBar')
+  const locale = useLocale()
   const pathname = usePathname()
   const [mobileOpen, setMobileOpen] = useState(false)
   const [prevPathname, setPrevPathname] = useState(pathname)
@@ -188,6 +190,12 @@ export default function Navbar() {
     setPrevPathname(pathname)
     setMobileOpen(false)
   }
+
+  // Guides are English-only for now — hide the link in other locales.
+  const navLinks =
+    locale === DEFAULT_LOCALE
+      ? NAV_LINKS
+      : NAV_LINKS.filter((item) => item.labelKey !== 'guides')
 
   const isActive = (href: string) =>
     pathname === href || pathname.startsWith(href + '/')
@@ -259,7 +267,7 @@ export default function Navbar() {
 
           <nav aria-label={t('mainNavigation')}>
             <ul className="flex items-center gap-1 max-lg:hidden">
-              {NAV_LINKS.map((item) => item.children ? <NavDropdown key={`${pathname}-${item.labelKey}`} item={item} /> : (
+              {navLinks.map((item) => item.children ? <NavDropdown key={`${pathname}-${item.labelKey}`} item={item} /> : (
                 <li key={item.href}>
                   <Link
                     href={item.href}
@@ -302,7 +310,7 @@ export default function Navbar() {
           )}
         >
           <ul className="border-t border-stroke bg-surface px-6 py-2">
-            {NAV_LINKS.map((item) => item.children ? <NavDropdown key={`${pathname}-${mobileOpen}-${item.labelKey}`} item={item} mobile /> : (
+            {navLinks.map((item) => item.children ? <NavDropdown key={`${pathname}-${mobileOpen}-${item.labelKey}`} item={item} mobile /> : (
               <li key={item.href}>
                 <Link
                   href={item.href}

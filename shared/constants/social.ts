@@ -6,10 +6,7 @@ export const SOCIAL_LINKS = {
   facebook: 'https://www.facebook.com/saturdayeducationconsultingmyanmar/',
   instagram: 'https://www.instagram.com/saturdayeduconsulting/',
   tiktok: 'https://www.tiktok.com/@saturdayeducationmm',
-  // TODO: points at "nexa-education-consulting", which is a different company.
-  // Kept live at the client's request until the correct Saturday Education
-  // company page URL is available.
-  linkedin: 'https://www.linkedin.com/company/nexa-education-consulting/',
+  linkedin: 'https://www.linkedin.com/company/saturdayeducationconsulting/posts/',
 } as const
 
 // Direct contact channels shown alongside the consultation form.

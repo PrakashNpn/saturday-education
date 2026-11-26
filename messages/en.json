@@ -73,29 +73,34 @@
       "headline": "What our students are saying.",
       "reviews": {
         "1": {
-          "quote": "Saturday Education Consulting helped me figure out which Canadian universities actually fit my goals, then walked me through the whole application step by step.",
-          "name": "Ye Naing",
-          "program": "MBA, Canada"
+          "quote": "I got my student visa within 3weeks and had a really great experience with the team throughout my journey to studying in Malaysia. From the initial guidance to the application process and documentation, everyone was incredibly helpful, patient, and supportive.\nThey made sure everything was clearly explained and guided me through each step, making what could have been a stressful process much easier. I truly appreciate the time, effort, and dedication everyone put into helping me achieve this.\nThank you to the entire team for making this journey a smooth and memorable experience. I would definitely recommend their services to anyone planning to study abroad 🙏🏽❤️",
+          "name": "Khant Lin Phyo",
+          "program": "Student visa, Malaysia"
         },
         "2": {
-          "quote": "I had no idea where to start with applying to Germany. The team explained everything clearly, from choosing a university to preparing my documents.",
-          "name": "Thi Ha",
-          "program": "BSc Computer Science, Germany"
+          "quote": "Got my 🇳🇿 student visa within a month. Super sleek platform made even easy and clear communication in the whole process from the school application to visa submission! 🙌 Big thanks to Ko David, Ma Grace and Ma Zoey for all the support. Wish the whole team continued success and all the best! 🙏",
+          "name": "Yan Lin",
+          "program": "Student visa, New Zealand"
         },
         "3": {
-          "quote": "Saturday Education Consulting helped me pick the right university in Ireland for my Master's in Finance and guided me through the whole application.",
-          "name": "Akar Kyaw",
-          "program": "MSc Finance, Ireland"
+          "quote": "Highly recommend! 💯(Pawan Dhakal)\nThroughout the Germany student visa application process.\nIf I ask them anything, they told me all the necessary things in a short time and did it thoroughly until the visa approval was received. Since I saw it myself, I highly recommend pr🙆🏻 ♂️💯",
+          "name": "Marc Annette",
+          "program": "Student visa, Germany"
         },
         "4": {
-          "quote": "The advisors took the time to understand what I wanted and matched me with a Data Science Master's programme in the UK that was the right fit.",
-          "name": "May Thazin",
-          "program": "MSc Data Science, UK"
-        },
-        "5": {
           "quote": "As you all know, Ako David is very fast and trustworthy. From the beginning, getting guidance through SMS from Ako David and Ama Zoey was very fast, reliable, and helpful. You don't need to worry because they are always ready to support and guide you. When it comes to the visa process, they provide proper guidance and support based on the country you are applying to. I highly recommend Saturday Education Consulting to students and their parents who are looking for reliable guidance for studying abroad.",
           "name": "Htin Aung Kyaw",
-          "program": "BSc Artificial Intelligence, Germany"
+          "program": "Student visa, Germany"
+        },
+        "5": {
+          "quote": "A big thank you to Zoey from Saturday Education Consulting for her amazing support throughout our visa application journey! ❤️ She is professional, patient, responsive and always willing to go the extra mile. Her guidance made the entire process so much easier and stress-free. We truly appreciate her dedication and highly recommend her services. Thank you, Zoey! 🌟",
+          "name": "Thandar Tun",
+          "program": "Visit visa, Canada"
+        },
+        "6": {
+          "quote": "I had a great experience with Saturday Education Consulting throughout my visa application process. They were very helpful, patient, and supportive, especially when I had questions or concerns about my application. They guided me through the process and made sure everything was properly prepared. I really appreciate their time and effort. I would definitely recommend their service to anyone planning to study abroad!",
+          "name": "Flex Evan",
+          "program": "Student visa, Canada"
         }
       }
     },
@@ -632,7 +637,8 @@
     "cscaDescription": "Prepare for study in China",
     "tools": "Tools",
     "gradeConverter": "Grade Converter",
-    "gradeConverterDescription": "Estimate your grade for study abroad"
+    "gradeConverterDescription": "Estimate your grade for study abroad",
+    "guides": "Articles"
   },
   "hero": {
     "titleLine1": "Your Global Education Journey",
@@ -691,14 +697,15 @@
       "terms": "Terms & Conditions",
       "imat": "IMAT Practice Test",
       "csca": "CSCA Practice",
-      "gradeConverter": "Grade Converter"
+      "gradeConverter": "Grade Converter",
+      "guides": "Articles"
     },
     "contactUs": {
       "heading": "Contact Us",
       "thailandOffice": "Thailand Office",
       "addressThailand": "170/72, Ocean Tower 1, 23rd Floor, Rachadaphisek Rd, Klongtoei, Bangkok 10110",
       "myanmarOffice": "Myanmar Office",
-      "addressMyanmar": "Shine Tower, 5th Floor, 20, 22 Alan Pya Pagoda Street, Yangon, Myanmar (Burma)",
+      "addressMyanmar": "No. 20/22, 5th Floor, Shine Office Tower, Alan Pya Pagoda St, Yangon 11221, Myanmar (Burma)",
       "phone": "+66 82 328 8445",
       "phoneMyanmar1": "+959 765 929 492",
       "phoneMyanmar2": "+959 790 839 290",
@@ -721,7 +728,7 @@
       "description": "Search thousands of programs at universities and colleges worldwide. Filter by country, institution, study level, intake, duration and language."
     },
     "destinations": {
-      "title": "Study Destinations  -  Explore Top Countries for Education",
+      "title": "Study Destinations",
       "description": "Discover the best countries for international students. Compare education systems, costs, visa processes, and career opportunities."
     },
     "careerAssessment": {
@@ -738,6 +745,14 @@
     "imat": {
       "title": "IMAT Practice Test",
       "description": "Build your exam routine with a timed mock, or practise an available past paper in its published format."
+    },
+    "guides": {
+      "title": "Study Abroad Articles",
+      "description": "Visa, fees, scholarships and destination articles for Myanmar students and parents, from Saturday Education counsellors."
+    },
+    "contact": {
+      "title": "Contact",
+      "description": "Contact Saturday Education in Yangon or Bangkok. Book a free consultation for study abroad counselling."
     }
   },
   "chatWidget": {
@@ -1630,5 +1645,43 @@
     "errorPhone": "Please enter a valid phone number.",
     "errorCountry": "Please select a target country.",
     "bootLoading": "Preparing your grade converter..."
+  },
+  "guides": {
+    "hubTitle": "Articles",
+    "emptyTitle": "Guides are on the way",
+    "emptyBody": "We are fact-checking the first articles. Meanwhile, talk to a counsellor or browse destinations.",
+    "emptyCta": "Book a free consultation",
+    "navLabel": "Articles",
+    "homeLabel": "Home",
+    "quickAnswer": "Quick answer",
+    "faqEyebrow": "Common questions",
+    "faqTitle": "Answers parents ask first",
+    "sourcesTitle": "Sources",
+    "ctaTitle": "Not sure which path fits?",
+    "ctaBody": "Book a free 30-minute consultation in Yangon or Bangkok. Parents are welcome.",
+    "ctaConsultation": "Book a free consultation",
+    "ctaDestination": "View destination",
+    "ctaCourseFinder": "Open course finder",
+    "readGuide": "Read article",
+    "topicPlanning": "Planning",
+    "topicVisas": "Visas",
+    "topicWork": "Work",
+    "topicFees": "Fees",
+    "articleCount": "{count} articles"
+  },
+  "contactPage": {
+    "title": "Contact",
+    "subtitle": "Counsellors in Yangon and Bangkok. Book online, message us, or visit by appointment.",
+    "bookConsultation": "Book a free consultation",
+    "whatsapp": "WhatsApp",
+    "messenger": "Messenger",
+    "emailLabel": "Email",
+    "officesLabel": "Our offices",
+    "cityYangon": "Yangon",
+    "cityBangkok": "Bangkok",
+    "visitNote": "Visits are by appointment. Parents are welcome.",
+    "getDirections": "Get directions",
+    "mapYangon": "Map of Saturday Education Yangon office",
+    "mapBangkok": "Map of Saturday Education Bangkok office"
   }
 }

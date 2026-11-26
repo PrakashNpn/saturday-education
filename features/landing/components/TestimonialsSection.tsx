@@ -21,11 +21,12 @@ const EASE = [0, 0, 0.2, 1] as const
  * three locales.
  */
 const REVIEWS = [
-  { key: '1', photo: 'ye-naing' },
-  { key: '2', photo: 'thi-han' },
-  { key: '3', photo: 'akar-kyaw' },
-  { key: '4', photo: 'may-thazin' },
-  { key: '5', photo: 'htin-aung-kyaw' }
+  { key: '1', photo: 'khant-lin-phyo' },
+  { key: '2', photo: 'yan-lin' },
+  { key: '3', photo: 'marc-annette' },
+  { key: '4', photo: 'htin-aung-kyaw' },
+  { key: '5', photo: null },
+  { key: '6', photo: null },
 ] as const satisfies readonly { key: string; photo: string | null }[]
 
 /** First letter of the first two words, which is enough for these names. */
